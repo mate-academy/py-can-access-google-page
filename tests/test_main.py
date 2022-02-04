@@ -32,4 +32,3 @@ def test_url_false_connection_true(internet_connection, valid_url):
     internet_connection.return_value = False
     valid_url.return_value = True
     assert can_access_google_page("https://www.google.com.ua/") == "Not accessible"
-
