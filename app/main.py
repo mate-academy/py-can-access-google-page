@@ -1,15 +1,10 @@
-import time
 import datetime
+import requests
 
 
 def valid_google_url(url):
-    valid_urls = [
-        "https://www.google.com"
-        "google.com",
-        "google.com.ua",
-    ]
-    time.sleep(5)
-    return True if url in valid_urls else False
+    response = requests.get(url)
+    return True if response.status_code == 200 else False
 
 
 def has_internet_connection():
@@ -18,7 +13,7 @@ def has_internet_connection():
 
 
 def can_access_google_page(url):
-    if valid_google_url(url) and has_internet_connection():
+    if has_internet_connection() and valid_google_url(url):
         return "Accessible"
     else:
         return "Not accessible"
