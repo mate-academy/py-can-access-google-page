@@ -16,3 +16,5 @@ only in this period of time in this town.
 
 You have to check only `can_access_google_page` functionality. Mock 
 `valid_google_url` and `has_internet_connection` functions.
+
+You have to install `requests` via pip.
