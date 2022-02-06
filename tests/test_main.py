@@ -2,7 +2,7 @@ from unittest import mock
 import pytest
 
 
-from app.main import can_access_google_page, valid_google_url, has_internet_connection
+from app.main import can_access_google_page
 
 
 @pytest.fixture()
@@ -57,4 +57,3 @@ def test_can_access_google_page(
     mocked_valid_google_url.return_value = is_valid_url_status
 
     assert can_access_google_page('www.google.com') == awaited_result
-
