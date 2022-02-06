@@ -1,11 +1,13 @@
 from unittest import mock
+
 from app.main import can_access_google_page
 
 
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_has_connection_and_valid_url(mocked_internet_connection, mocked_valid_url):
-    mocked_internet_connection.return_value = True
+def test_has_connection_and_valid_url(mocked_internet_connection_connection,
+                                      mocked_valid_url):
+    mocked_internet_connection_connection.return_value = True
     mocked_valid_url.return_value = True
 
     assert can_access_google_page("http://google.com") == "Accessible"
@@ -13,7 +15,8 @@ def test_has_connection_and_valid_url(mocked_internet_connection, mocked_valid_u
 
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_no_connection_and_invalid_url(mocked_internet_connection, mocked_valid_url):
+def test_no_connection_and_invalid_url(mocked_internet_connection,
+                                       mocked_valid_url):
     mocked_internet_connection.return_value = False
     mocked_valid_url.return_value = False
 
@@ -22,7 +25,8 @@ def test_no_connection_and_invalid_url(mocked_internet_connection, mocked_valid_
 
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_no_connection_and_valid_url(mocked_internet_connection, mocked_valid_url):
+def test_no_connection_and_valid_url(mocked_internet_connection,
+                                     mocked_valid_url):
     mocked_internet_connection.return_value = False
     mocked_valid_url.return_value = True
 
@@ -31,7 +35,8 @@ def test_no_connection_and_valid_url(mocked_internet_connection, mocked_valid_ur
 
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_has_connection_and_invalid_url(mocked_internet_connection, mocked_valid_url):
+def test_has_connection_and_invalid_url(mocked_internet_connection,
+                                        mocked_valid_url):
     mocked_internet_connection.return_value = True
     mocked_valid_url.return_value = False
 
