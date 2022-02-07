@@ -29,7 +29,7 @@ def test_valid_url_but_no_connection(mocked_int_connection, mocked_valid_url):
 
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_invalid_url_and_no_connection(mocked_int_connection, mocked_valid_url):
-    mocked_int_connection.return_value = False
+def test_invalid_url_and_no_connection(mocked_int_connect, mocked_valid_url):
+    mocked_int_connect.return_value = False
     mocked_valid_url.return_value = False
     assert can_access_google_page("http://wrongeurl.com") == "Not accessible"
