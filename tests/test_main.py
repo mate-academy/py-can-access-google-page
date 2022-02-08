@@ -34,3 +34,10 @@ def test_no_connection_with_invalid_url(mocked_valid_google_url, mocked_internet
     mocked_internet_connection.return_value = False
 
     assert can_access_google_page("https://qwerty2323.com") == "Not accessible"
+
+
+def test_connection_with_valid_url(mocked_valid_google_url, mocked_internet_connection):
+    mocked_valid_google_url.return_value = True
+    mocked_internet_connection.return_value = True
+
+    assert can_access_google_page("http://google.com") == "Accessible"
