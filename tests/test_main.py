@@ -37,15 +37,3 @@ def test_if_connection_is_off_and_url_is_correct(
     mocked_internet_connection.return_value = False
 
     assert can_access_google_page("https://google.com") == "Not accessible"
-
-
-@mock.patch("app.main.valid_google_url")
-@mock.patch("app.main.has_internet_connection")
-def test_accessible_time_window(
-        mocked_valid_google_url,
-        mocked_internet_connection
-):
-    mocked_valid_google_url.return_value = True
-    mocked_internet_connection.return_value = False
-
-    assert can_access_google_page("https://google.com") == "Not accessible"
