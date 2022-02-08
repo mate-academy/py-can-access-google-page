@@ -4,7 +4,7 @@ from app.main import can_access_google_page, valid_google_url, has_internet_conn
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_url_true_connection_true(internet_connection, valid_url):
+def test_valid_url_connection_exists(internet_connection, valid_url):
     internet_connection.return_value = True
     valid_url.return_value = True
     assert can_access_google_page("https://www.google.com.ua/") == "Accessible"
@@ -12,7 +12,7 @@ def test_url_true_connection_true(internet_connection, valid_url):
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_url_false_connection_false(internet_connection, valid_url):
+def test_invalid_url_no_connection(internet_connection, valid_url):
     internet_connection.return_value = False
     valid_url.return_value = False
     assert can_access_google_page("https://www.google.com.ua/") == "Not accessible"
@@ -20,7 +20,7 @@ def test_url_false_connection_false(internet_connection, valid_url):
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_url_true_connection_false(internet_connection, valid_url):
+def test_invalid_url_connection_exists(internet_connection, valid_url):
     internet_connection.return_value = True
     valid_url.return_value = False
     assert can_access_google_page("https://www.google.com.ua/") == "Not accessible"
@@ -28,7 +28,7 @@ def test_url_true_connection_false(internet_connection, valid_url):
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_url_false_connection_true(internet_connection, valid_url):
+def test_valid_url_no_connection(internet_connection, valid_url):
     internet_connection.return_value = False
     valid_url.return_value = True
     assert can_access_google_page("https://www.google.com.ua/") == "Not accessible"
