@@ -2,7 +2,7 @@
 
 - Read [the guideline](https://github.com/mate-academy/py-task-guideline/blob/main/README.md) before start
 
-Write a test for `can_access_google_page` function. This function takes
+Inside `app/test_main.py`, write a test for `can_access_google_page` function. This function takes
 `url` of the site, returns `"Accessible"` if `url` is valid to 
 access the Google home page and 
 it has internet connection, else it returns `"Not accessible"`.
@@ -18,3 +18,7 @@ You have to check only `can_access_google_page` functionality. Mock
 `valid_google_url` and `has_internet_connection` functions.
 
 You have to install `requests` via pip.
+
+Run `pytest app/` to check if function pass your tests. 
+
+Run `pytest tests/` to check if your tests cover all boundary conditions and pass task tests.
