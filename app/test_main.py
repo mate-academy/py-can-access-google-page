@@ -11,7 +11,6 @@ class TestMain:
         with mock.patch('app.main.valid_google_url') as mocked_google_url:
             yield mocked_google_url
 
-
     @pytest.fixture
     def mock_has_internet_connection(self):
         with mock.patch('app.main.has_internet_connection') as mocked_internet:
