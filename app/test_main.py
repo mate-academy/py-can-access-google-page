@@ -24,7 +24,7 @@ def test_with_url_and_internet_connection(
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_with_internet_connection_with_invalid_url(
+def test_with_internet_connection_and_invalid_url(
         mocked_valid_google_url, mocked_has_internet_connection
 ):
     mocked_valid_google_url.return_value = True
