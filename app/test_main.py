@@ -25,4 +25,5 @@ def test_access_of_google_page(
 ):
     mocked_internet_connection.return_value = internet_connection
     mocked_valid_url.return_value = valid_url
+
     assert can_access_google_page("mate.ua") == result
