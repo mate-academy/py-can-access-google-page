@@ -34,8 +34,9 @@ def test_not_accessible_no_connection(mocked_valid_google_url,
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_not_accessible_invalid_url_and_no_connection(mocked_valid_google_url,
-                                                      mocked_has_internet_connection):
+def test_not_accessible_invalid_url_and_no_connection(
+        mocked_valid_google_url,
+        mocked_has_internet_connection):
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_value = False
 
