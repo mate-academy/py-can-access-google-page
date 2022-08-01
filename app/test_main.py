@@ -36,4 +36,3 @@ def test_can_access_google_pege(mocked_valid_url,
     mocked_valid_url.return_value = url_response
     mocked_internet_connection.return_value = has_connection
     assert main.can_access_google_page("") == result
-
