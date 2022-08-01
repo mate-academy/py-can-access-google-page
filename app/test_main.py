@@ -19,13 +19,13 @@ def mocked_internet_connection():
 @pytest.mark.parametrize("url_response,has_connection,result",
                          [
                              pytest.param(True, True, "Accessible",
-                                          id="Test with access and connection"),
+                                          id="Test with access & connection"),
                              pytest.param(True, False, "Not accessible",
-                                          id="Test without internet connection"),
+                                          id="Test without connection"),
                              pytest.param(False, True, "Not accessible",
                                           id="Test without access"),
                              pytest.param(False, False, "Not accessible",
-                                          id="Test without access and connection")
+                                          id="Without access and connection")
                          ]
                          )
 def test_can_access_google_pege(mocked_valid_url,
