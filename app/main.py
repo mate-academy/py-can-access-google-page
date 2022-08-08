@@ -2,6 +2,7 @@ import datetime
 import requests
 
 
+# update progress
 def valid_google_url(url):
     response = requests.get(url)
     return True if response.status_code == 200 else False
