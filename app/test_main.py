@@ -12,8 +12,8 @@ def mocked_valid_url():
 
 @pytest.fixture()
 def mocked_internet_connection():
-    with mock.patch("app.main.has_internet_connection") as connection:
-        yield connection
+    with mock.patch("app.main.has_internet_connection") as connect:
+        yield connect
 
 
 @pytest.mark.parametrize("url_response,has_connection,result",
