@@ -6,7 +6,7 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "link, valid_url, internet_connection, expected",
+    "link, valid_url, internet_connection, expected",  #
     [
         pytest.param(
             "https://translate.google.com/?hl=ru",
