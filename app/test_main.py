@@ -35,4 +35,5 @@ class TestCanAccessGooglePage:
     ):
         mocked_valid_google_url.return_value = valid_url
         mocked_has_internet_connection.return_value = has_connection
+
         assert can_access_google_page(valid_url) == result
