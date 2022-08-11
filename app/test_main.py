@@ -16,10 +16,10 @@ class TestCanAccessGoogle(unittest.TestCase):
         assert valid_google_url(self) is True
 
     @patch("app.main.requests")
-    def test_valid_google_url_False(self, mock_request):
+    def test_valid_google_url_False(self, mok_request):
         mock_response = MagicMock()
         mock_response.status_code = 403
-        mock_request.get.return_value = mock_response
+        mok_request.get.return_value = mock_response
         assert valid_google_url(self) is False
 
     @patch("app.main.datetime")
