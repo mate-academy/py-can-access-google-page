@@ -1,4 +1,4 @@
-from app.main import *
+from app.main import valid_google_url, has_internet_connection, can_access_google_page
 from unittest import mock
 
 
