@@ -36,7 +36,8 @@ def test_access_wrong_url(mock_google_url, mock_internet_connection):
     assert access == "Not accessible"
 
 
-def test_access_no_connection_no_url(mock_google_url, mock_internet_connection):
+def test_access_no_connection_no_url(
+        mock_google_url, mock_internet_connection):
     mock_google_url.return_value = False
     mock_internet_connection.return_value = False
     access = can_access_google_page("https://www.google.com/")
