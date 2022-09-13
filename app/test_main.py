@@ -44,3 +44,13 @@ def test_not_accessible_if_url_is_not_valid_but_connection_is_worked(
     mocked_connection.return_value = True
 
     assert can_access_google_page(mocked_url) == "Not accessible"
+
+
+def test_not_accessible_if_url_is_not_valid_and_connection_is_not_worked(
+        mocked_url,
+        mocked_connection
+):
+    mocked_url.return_value = False
+    mocked_connection.return_value = False
+
+    assert can_access_google_page(mocked_url) == "Not accessible"
