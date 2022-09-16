@@ -26,7 +26,8 @@ def test_should_return_accessible(mock_valid_url, mock_connection):
 def test_should_return_not_accessible(mock_valid_url, mock_connection):
     mock_valid_url.return_value = False
     mock_connection.return_value = True
-    assert can_access_google_page("https://www.youtube.com/") == "Not accessible"
+    assert can_access_google_page("https://www.youtube.com/") ==\
+           "Not accessible"
 
 
 def test_valid_google_url_and_connection_called(mock_valid_url,
