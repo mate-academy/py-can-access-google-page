@@ -22,9 +22,23 @@ def test_accessible(mock_valid_url, mock_connection):
     assert can_access_google_page("https://mate.academy/") == "Accessible"
 
 
-def test_not_accessible(mock_valid_url, mock_connection):
+def test_not_accessible_url(mock_valid_url, mock_connection):
     mock_valid_url.return_value = False
     mock_connection.return_value = True
+    assert can_access_google_page("https://mate.academy/") ==\
+           "Not accessible"
+
+
+def test_not_accessible_connection(mock_valid_url, mock_connection):
+    mock_valid_url.return_value = True
+    mock_connection.return_value = False
+    assert can_access_google_page("https://mate.academy/") ==\
+           "Not accessible"
+
+
+def test_not_accessible(mock_valid_url, mock_connection):
+    mock_valid_url.return_value = False
+    mock_connection.return_value = False
     assert can_access_google_page("https://mate.academy/") ==\
            "Not accessible"
 
