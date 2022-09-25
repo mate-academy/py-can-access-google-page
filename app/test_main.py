@@ -10,10 +10,34 @@ from app.main import can_access_google_page
 @pytest.mark.parametrize(
     "url_validity_value,internet_connection_value,expected_output",
     [
-        pytest.param(True, True, "Accessible"),
-        pytest.param(False, True, "Not accessible"),
-        pytest.param(True, False, "Not accessible"),
-        pytest.param(False, False, "Not accessible"),
+        pytest.param(
+            True,
+            True,
+            "Accessible",
+            id="should return 'Accessible' when both valid_google_url() "
+               "and has_internet_connection() return `True`",
+        ),
+        pytest.param(
+            False,
+            True,
+            "Not accessible",
+            id="should return 'Not accessible' when "
+               "valid_google_url() returns `False`",
+        ),
+        pytest.param(
+            True,
+            False,
+            "Not accessible",
+            id="should return 'Not accessible' when "
+               "has_internet_connection() returns `False`",
+        ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="should return 'Not accessible' when both valid_google_url() "
+               "and has_internet_connection() return `False`",
+        ),
     ],
 )
 def test_can_access_google_page(
