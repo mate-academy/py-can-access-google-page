@@ -44,7 +44,7 @@ def test_return_access_denied_if_time_and_url_wrong(
         mocked_valid_google_url,
         mocked_has_internet_connect
 ):
-    mocked_valid_google_url.return_value = True
+    mocked_valid_google_url.return_value = False
     mocked_has_internet_connect.return_value = False
     assert can_access_google_page("https://www.google.com/") ==\
            "Not accessible"
