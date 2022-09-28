@@ -20,22 +20,26 @@ def mocked_has_connection():
 def test_when_all_works(mocked_valid_url, mocked_has_connection):
     mocked_valid_url.return_value = True
     mocked_has_connection.return_value = True
-    assert can_access_google_page("www.google.com") == "Accessible"
+    assert can_access_google_page("www.google.com") == "Accessible",\
+        "Page is accessible only with internet connection and valid url."
 
 
 def test_no_valid_url(mocked_valid_url, mocked_has_connection):
     mocked_valid_url.return_value = False
     mocked_has_connection.return_value = True
-    assert can_access_google_page("www.google.com") == "Not accessible"
+    assert can_access_google_page("www.google.com") == "Not accessible",\
+        "Page is not accessible when url is not valid."
 
 
 def test_no_internet_connection(mocked_valid_url, mocked_has_connection):
     mocked_valid_url.return_value = True
     mocked_has_connection.return_value = False
-    assert can_access_google_page("www.google.com") == "Not accessible"
+    assert can_access_google_page("www.google.com") == "Not accessible",\
+        "Page is not accessible if internet connection is down."
 
 
 def test_when_all_is_broken(mocked_valid_url, mocked_has_connection):
     mocked_valid_url.return_value = False
     mocked_has_connection.return_value = False
-    assert can_access_google_page("www.google.com") == "Not accessible"
+    assert can_access_google_page("www.google.com") == "Not accessible",\
+        "Page is not accessible when all goes wrong."
