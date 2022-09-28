@@ -17,37 +17,29 @@ def mock_connection():
         yield mocked_connection
 
 
-def test_return_true_when_url_exists_and_datetime(
-        mock_url,
-        mock_connection):
-
+def test_true_when_everything_ok(mock_url, mock_connection):
     mock_url.return_value = True
     mock_connection.return_value = True
-    assert can_access_google_page("https://github.com/") == "Accessible"
+    assert can_access_google_page("https://github.com/") == "Accessible", \
+        "Can be accessible only with stable internet and valid ulr"
 
 
-def test_return_false_when_not_datetime_and_url_exists(
-        mock_url,
-        mock_connection):
-
+def test_false_with_no_internet(mock_url, mock_connection):
     mock_url.return_value = True
     mock_connection.return_value = False
-    assert can_access_google_page("https://github.com/") == "Not accessible"
+    assert can_access_google_page("https://github.com/") == "Not accessible", \
+        "Can not be accessible with no internet connection"
 
 
-def test_return_false_when_url_not_exist_and_datetime(
-        mock_url,
-        mock_connection):
-
+def test_false_with_invalid_url(mock_url, mock_connection):
     mock_url.return_value = False
     mock_connection.return_value = True
-    assert can_access_google_page("https://github.com/") == "Not accessible"
+    assert can_access_google_page("https://github.com/") == "Not accessible", \
+        "Can not be accessible with invalid url"
 
 
-def test_return_false_when_not_datetime_and_not_url(
-        mock_url,
-        mock_connection):
-
+def test_false_when_everything_broken(mock_url, mock_connection):
     mock_url.return_value = False
     mock_connection.return_value = False
-    assert can_access_google_page("https://github.com/") == "Not accessible"
+    assert can_access_google_page("https://github.com/") == "Not accessible", \
+        "Not accessible with no internet and invalid url"
