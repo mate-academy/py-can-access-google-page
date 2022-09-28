@@ -19,25 +19,29 @@ def test_all_is_good(test_mocked_url,
                      test_mocked_connection):
     test_mocked_url.return_value = True
     test_mocked_connection.return_value = True
-    assert can_access_google_page("www.google.com/") == "Accessible"
+    assert can_access_google_page("www.google.com/") == "Accessible", \
+        "You can get access only with internet connection and correct url"
 
 
 def test_all_is_wrong(test_mocked_url,
                       test_mocked_connection):
     test_mocked_url.return_value = False
     test_mocked_connection.return_value = False
-    assert can_access_google_page("www.google.com/") == "Not accessible"
+    assert can_access_google_page("www.google.com/") == "Not accessible", \
+        "You can`t get access without internet connection and with broke url"
 
 
 def test_without_connection(test_mocked_url,
                             test_mocked_connection):
     test_mocked_url.return_value = True
     test_mocked_connection.return_value = False
-    assert can_access_google_page("www.google.com/") == "Not accessible"
+    assert can_access_google_page("www.google.com/") == "Not accessible", \
+        "You can`t get access without internet connection"
 
 
 def test_with_broke_url(test_mocked_url,
                         test_mocked_connection):
     test_mocked_url.return_value = False
     test_mocked_connection.return_value = True
-    assert can_access_google_page("www.google.com/") == "Not accessible"
+    assert can_access_google_page("www.google.com/") == "Not accessible",\
+        "You can`t get access with broke url"
