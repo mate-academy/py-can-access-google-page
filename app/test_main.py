@@ -25,13 +25,6 @@ def test_function_correct_work(mocked_valid_url,
         "internet connection and google url return True"
 
 
-def test_function_valid_google_url_is_correct(mocked_has_internet_connection):
-    mocked_has_internet_connection.return_value = True
-
-    assert can_access_google_page("http://www.google.com/") == "Accessible", \
-        "Function must return 'Accessible' if url is correct"
-
-
 def test_if_only_internet_connection_true(mocked_valid_url,
                                           mocked_has_internet_connection):
     mocked_valid_url.return_value = False
