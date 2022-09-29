@@ -15,28 +15,45 @@ def mocked_has_internet_connection():
         yield mock_has_internet
 
 
+def test_function_correct_work(mocked_valid_url,
+                               mocked_has_internet_connection):
+    mocked_has_internet_connection.return_value = True
+    mocked_valid_url.return_value = True
+
+    assert can_access_google_page("") == "Accessible", \
+        "Function must return 'Accessible' when " \
+        "internet connection and google url return True"
+
+
 def test_function_valid_google_url_is_correct(mocked_has_internet_connection):
     mocked_has_internet_connection.return_value = True
 
-    assert can_access_google_page("http://www.google.com/") == "Accessible"
-
-
-def test_should_return_accessible(mocked_valid_url,
-                                  mocked_has_internet_connection):
-    mocked_valid_url.return_value = True
-    mocked_has_internet_connection.return_value = True
-    assert can_access_google_page("") == "Accessible"
+    assert can_access_google_page("http://www.google.com/") == "Accessible", \
+        "Function must return 'Accessible' if url is correct"
 
 
 def test_if_only_internet_connection_true(mocked_valid_url,
                                           mocked_has_internet_connection):
     mocked_valid_url.return_value = False
     mocked_has_internet_connection.return_value = True
-    assert can_access_google_page("") == "Not accessible"
+    assert can_access_google_page("") == "Not accessible", \
+        "Function must return 'Not accessible' " \
+        "if internet connection return False"
 
 
 def test_if_only_valid_url_true(mocked_valid_url,
                                 mocked_has_internet_connection):
     mocked_valid_url.return_value = True
     mocked_has_internet_connection.return_value = False
-    assert can_access_google_page("") == "Not accessible"
+    assert can_access_google_page("") == "Not accessible", \
+        "Function must return 'Not accessible' " \
+        "if google url return False"
+
+
+def test_if_all_function_return_false(mocked_valid_url,
+                                      mocked_has_internet_connection):
+    mocked_valid_url.return_value = False
+    mocked_has_internet_connection.return_value = False
+    assert can_access_google_page("") == "Not accessible", \
+        "Function must return 'Not accessible' if google url " \
+        "and internet connection return False"
