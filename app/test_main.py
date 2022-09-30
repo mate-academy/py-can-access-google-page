@@ -22,7 +22,7 @@ def test_if_all_false(
     mock_valid_google_url.return_value = False
     mock_has_internet_connection.return_value = False
     assert can_access_google_page("www.google.com/") == "Not accessible", \
-        "Invalid url. Page is not accesiable."
+        "Invalid url. Page is not accessible."
 
 
 def test_cannot_access_if_no_internet_connection(
@@ -31,8 +31,9 @@ def test_cannot_access_if_no_internet_connection(
 ):
     mock_valid_google_url.return_value = True
     mock_has_internet_connection.return_value = False
-    assert can_access_google_page("www.google.com/") == "Not accessible",\
+    assert can_access_google_page("www.google.com/") == "Not accessible", (
         "Page is not accessible without internet connection."
+    )
 
 
 def test_if_all_true(
@@ -41,15 +42,18 @@ def test_if_all_true(
 ):
     mock_valid_google_url.return_value = True
     mock_has_internet_connection.return_value = True
-    assert can_access_google_page("www.google.com/") == "Accessible",\
+    assert can_access_google_page("www.google.com/") == "Accessible", (
         "Page is accessible."
+    )
 
 
-def test_cannot_acces_if_only_internet_connection(
+def test_cannot_access_if_only_internet_connection(
         mock_valid_google_url,
         mock_has_internet_connection
 ):
     mock_valid_google_url.return_value = False
     mock_has_internet_connection.return_value = True
-    assert can_access_google_page("www.google.com/") == "Not accessible",\
-        "Page is not accessible. Invalid url and internet connection is down."
+    assert can_access_google_page("www.google.com/") == "Not accessible", (
+        "Page is not accessible. "
+        "Invalid url and internet connection is down."
+    )
