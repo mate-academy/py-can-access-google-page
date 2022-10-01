@@ -9,9 +9,10 @@ def test_can_access_page(mocked_valid_url, mocked_internet) -> None:
     mocked_valid_url.return_value = True
     mocked_internet.return_value = True
 
-    assert can_access_google_page("some url") == "Accessible", \
-        "Should return 'Accessible' if url is valid and internet" \
-        "connection available"
+    assert can_access_google_page("some url") == "Accessible", (
+        "Should return 'Accessible' if url is valid and "
+        "internet connection available"
+    )
 
 
 @mock.patch("app.main.valid_google_url")
@@ -20,8 +21,9 @@ def test_invalid_url(mocked_valid_url, mocked_internet) -> None:
     mocked_valid_url.return_value = False
     mocked_internet.return_value = True
 
-    assert can_access_google_page("some url") == "Not accessible", \
+    assert can_access_google_page("some url") == "Not accessible", (
         "Should return 'Not accessible' if url is invalid!"
+    )
 
 
 @mock.patch("app.main.valid_google_url")
@@ -30,9 +32,9 @@ def test_no_connection(mocked_valid_url, mocked_internet) -> None:
     mocked_valid_url.return_value = True
     mocked_internet.return_value = False
 
-    assert can_access_google_page("some url") == "Not accessible", \
-        "Should return 'Not accessible' if internet connection is " \
-        "missing"
+    assert can_access_google_page("some url") == "Not accessible", (
+        "Should return 'Not accessible' if internet connection is missing"
+    )
 
 
 @mock.patch("app.main.valid_google_url")
@@ -44,6 +46,7 @@ def test_no_connection_and_url_is_invalid(
     mocked_valid_url.return_value = False
     mocked_internet.return_value = False
 
-    assert can_access_google_page("some url") == "Not accessible", \
-        "Should return 'Not accessible' if internet connection is " \
-        "missing and url is invalid"
+    assert can_access_google_page("some url") == "Not accessible", (
+        "Should return 'Not accessible' if internet "
+        "connection is missing and url is invalid"
+    )
