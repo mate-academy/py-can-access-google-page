@@ -9,7 +9,7 @@ from app.main import can_access_google_page
     [
         pytest.param(
             "https://wikipedia.org/wiki/", True, False, "Not accessible",
-            id="cannot connection to url"
+            id="cannot connect to url"
         ),
         pytest.param(
             "https://wikipedia.org/wiki/", False, True, "Not accessible",
@@ -21,7 +21,7 @@ from app.main import can_access_google_page
         ),
         pytest.param(
             "https://wikipedia.org/wiki/", False, False, "Not accessible",
-            id="cannot connection to url and url isn't valid"
+            id="cannot connect to url and url isn't valid"
         )
     ]
 )
