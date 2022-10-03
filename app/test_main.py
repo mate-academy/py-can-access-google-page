@@ -50,7 +50,7 @@ def test_return_not_accessible_if_connection_fail(
         mocked_has_internet_connection
 ):
     mocked_has_internet_connection.return_value = False
-    assert can_access_google_page(url) == "Not Accessible"
+    assert can_access_google_page(url) == "Not accessible"
 
 
 def test_return_not_accessible_if_validation_is_fail(
@@ -58,7 +58,7 @@ def test_return_not_accessible_if_validation_is_fail(
         mocked_has_internet_connection
 ):
     mocked_valid_google_url.return_value = False
-    assert can_access_google_page(url) == "Not Accessible"
+    assert can_access_google_page(url) == "Not accessible"
 
 
 def test_return_not_accessible_if_validation_and_accessible_is_fail(
@@ -67,4 +67,4 @@ def test_return_not_accessible_if_validation_and_accessible_is_fail(
 ):
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_value = False
-    assert can_access_google_page(url) == "Not Accessible"
+    assert can_access_google_page(url) == "Not accessible"
