@@ -12,6 +12,10 @@ from app.main import can_access_google_page
             id="cannot connection to url"
         ),
         pytest.param(
+            "https://wikipedia.org/wiki/", False, True, "Not accessible",
+            id="url isn't valid"
+        ),
+        pytest.param(
             "https://wikipedia.org/wiki/", True, True, "Accessible",
             id="url valid and connection success"
         ),
