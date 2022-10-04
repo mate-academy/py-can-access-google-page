@@ -20,13 +20,13 @@ class TestAccessGoogle:
         "valid_google_url,internet_connection,result",
         [
             pytest.param(True, True, "Accessible",
-                         id="1"),
+                         id="all is True"),
             pytest.param(False, True, "Not accessible",
-                         id="2"),
+                         id="valid_url is False"),
             pytest.param(True, False, "Not accessible",
-                         id="3"),
+                         id="connection is False"),
             pytest.param(False, False, "Not accessible",
-                         id="4")
+                         id="all is False")
         ]
     )
     def test_access_google_page(
