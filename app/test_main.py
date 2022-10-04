@@ -21,8 +21,9 @@ def test_if_all_false(
 ):
     mock_valid_google_url.return_value = False
     mock_has_internet_connection.return_value = False
-    assert can_access_google_page("www.google.com/") == "Not accessible", \
+    assert can_access_google_page("www.google.com/") == "Not accessible", (
         "Invalid url. Page is not accessible."
+    )
 
 
 def test_cannot_access_if_no_internet_connection(
