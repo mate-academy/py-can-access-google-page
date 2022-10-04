@@ -44,7 +44,7 @@ def test_if_all_true(
     mock_valid_google_url.return_value = True
     mock_has_internet_connection.return_value = True
     assert can_access_google_page("www.google.com/") == "Accessible", (
-        "Page is accessible."
+        "Page is Accessible."
     )
 
 
