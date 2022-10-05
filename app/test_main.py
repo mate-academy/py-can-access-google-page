@@ -1,1 +1,38 @@
-# write your code here
+from app.main import can_access_google_page
+
+from unittest import mock
+
+
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_valid_url_and_connection_exists(mock_valid_url, mock_connection):
+    mock_valid_url.return_value = True
+    mock_connection.return_value = True
+    assert can_access_google_page("www.google.com/") == "Accessible"
+
+
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_not_valid_url_and_connection_exists(mock_valid_url, mock_connection):
+    mock_valid_url.return_value = False
+    mock_connection.return_value = True
+    assert can_access_google_page("www.google.com/") == "Not accessible"
+
+
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_valid_url_and_not_connection_exists(mock_valid_url, mock_connection):
+    mock_valid_url.return_value = True
+    mock_connection.return_value = False
+    assert can_access_google_page("www.google.com/") == "Not accessible"
+
+
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_not_valid_url_and_not_connection_exists(
+    mock_valid_url,
+    mock_connection
+):
+    mock_valid_url.return_value = False
+    mock_connection.return_value = False
+    assert can_access_google_page("www.google.com/") == "Not accessible"
