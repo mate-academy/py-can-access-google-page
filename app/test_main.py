@@ -5,13 +5,13 @@ from app.main import can_access_google_page
 
 
 @pytest.fixture()
-def mocked_google_url():
+def mocked_google_url() -> None:
     with mock.patch("app.main.valid_google_url") as mock_url:
         yield mock_url
 
 
 @pytest.fixture()
-def mocked_internet_connection():
+def mocked_internet_connection() -> None:
     with mock.patch("app.main.has_internet_connection") as mock_connection:
         yield mock_connection
 
