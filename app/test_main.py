@@ -4,13 +4,13 @@ from unittest import mock
 
 
 @pytest.fixture()
-def mock_valid_google_url():
+def mock_valid_google_url() -> None:
     with mock.patch("app.main.valid_google_url") as mock_url:
         yield mock_url
 
 
 @pytest.fixture()
-def mock_internet_connection():
+def mock_internet_connection() -> None:
     with mock.patch("app.main.has_internet_connection") as mock_connection:
         yield mock_connection
 
@@ -31,12 +31,12 @@ class TestAccessGoogle:
     )
     def test_access_google_page(
             self,
-            valid_google_url,
-            internet_connection,
-            result,
-            mock_internet_connection,
-            mock_valid_google_url
-    ):
+            valid_google_url: bool,
+            internet_connection: bool,
+            result: bool,
+            mock_internet_connection: object,
+            mock_valid_google_url: object
+    ) -> None:
         mock_valid_google_url.return_value = valid_google_url
         mock_internet_connection.return_value = internet_connection
         assert can_access_google_page("") == result
