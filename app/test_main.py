@@ -12,8 +12,8 @@ def mocked_url():
 
 def test_should_check_url(mocked_url):
     mocked_url.return_value = True
-    can_access_google_page("https://www.google.com/")
-    mocked_url.assert_called_once_with("https://www.google.com/")
+    can_access_google_page("www.google.com")
+    mocked_url.assert_called_once_with("www.google.com")
 
 
 @pytest.fixture()
@@ -24,29 +24,29 @@ def mocked_connection():
 
 def test_should_check_connection(mocked_connection):
     mocked_connection.return_value = True
-    can_access_google_page("https://www.google.com/")
+    can_access_google_page("www.google.com")
     mocked_connection.assert_called_once()
 
 
 def test_no_internet_connection(mocked_connection, mocked_url):
     mocked_connection.return_value = False
     mocked_url.return_value = True
-    assert can_access_google_page("https://www.google.com/") == "Not accessible"
+    assert can_access_google_page("www.google.com") == "Not accessible"
 
 
 def test_no_valid_url(mocked_connection, mocked_url):
     mocked_connection.return_value = True
     mocked_url.return_value = False
-    assert can_access_google_page("https://www.google.com/") == "Not accessible"
+    assert can_access_google_page("www.google.com") == "Not accessible"
 
 
 def test_no_internet_connection_no_valid_url(mocked_connection, mocked_url):
     mocked_connection.return_value = False
     mocked_url.return_value = False
-    assert can_access_google_page("https://www.google.com/") == "Not accessible"
+    assert can_access_google_page("www.google.com") == "Not accessible"
 
 
 def test_internet_connection_and_valid_url(mocked_connection, mocked_url):
     mocked_connection.return_value = True
     mocked_url.return_value = True
-    assert can_access_google_page("https://www.google.com/") == "Accessible"
+    assert can_access_google_page("www.google.com") == "Accessible"
