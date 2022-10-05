@@ -5,15 +5,15 @@ from app.main import can_access_google_page
 
 
 @pytest.fixture()
-def mocked_url():
+def mocked_url() -> Callable:
     with mock.patch("app.main.valid_google_url") as mocked_function_url:
         yield mocked_function_url
 
 
 @pytest.fixture()
-def mocked_connection():
-    with mock.patch("app.main.has_internet_connection") as mocked_function_connection:
-        yield mocked_function_connection
+def mocked_connection() -> Callable:
+    with mock.patch("app.main.has_internet_connection") as mocked_connection:
+        yield mocked_connection
 
 
 def test_no_internet_connection(
