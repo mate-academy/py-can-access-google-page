@@ -38,3 +38,15 @@ def test_no_valid_url(mocked_connection, mocked_url):
     mocked_connection.return_value = True
     mocked_url.return_value = False
     assert can_access_google_page("https://www.google.com/") == "Not accessible"
+
+
+def test_no_internet_connection_no_valid_url(mocked_connection, mocked_url):
+    mocked_connection.return_value = False
+    mocked_url.return_value = False
+    assert can_access_google_page("https://www.google.com/") == "Not accessible"
+
+
+def test_internet_connection_and_valid_url(mocked_connection, mocked_url):
+    mocked_connection.return_value = True
+    mocked_url.return_value = True
+    assert can_access_google_page("https://www.google.com/") == "Accessible"
