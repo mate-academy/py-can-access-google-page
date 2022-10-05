@@ -12,7 +12,7 @@ def has_internet_connection() -> bool:
     return True if current_time.hour in range(6, 23) else False
 
 
-def can_access_google_page(url) -> str:
+def can_access_google_page(url: str) -> str:
     if has_internet_connection() and valid_google_url(url):
         return "Accessible"
     else:
