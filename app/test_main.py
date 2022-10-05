@@ -17,8 +17,8 @@ def mocked_has_internet_connection() -> mock:
 
 
 def test_should_return_accessible_when_time_and_url_are_good(
-        mocked_valid_google_url,
-        mocked_has_internet_connection
+        mocked_valid_google_url: mock,
+        mocked_has_internet_connection: mock
 ) -> None:
     mocked_has_internet_connection.return_value = True
     mocked_valid_google_url.return_value = True
@@ -26,8 +26,8 @@ def test_should_return_accessible_when_time_and_url_are_good(
 
 
 def test_should_return_not_accessible_when_time_and_url_are_bad(
-        mocked_valid_google_url,
-        mocked_has_internet_connection
+        mocked_valid_google_url: mock,
+        mocked_has_internet_connection: mock
 ) -> None:
     mocked_has_internet_connection.return_value = False
     mocked_valid_google_url.return_value = False
@@ -35,8 +35,8 @@ def test_should_return_not_accessible_when_time_and_url_are_bad(
 
 
 def test_should_return_not_accessible_when_time_good_and_url_bad(
-        mocked_valid_google_url,
-        mocked_has_internet_connection
+        mocked_valid_google_url: mock,
+        mocked_has_internet_connection: mock
 ) -> None:
     mocked_has_internet_connection.return_value = False
     mocked_valid_google_url.return_value = True
@@ -44,8 +44,8 @@ def test_should_return_not_accessible_when_time_good_and_url_bad(
 
 
 def test_should_return_not_accessible_when_time_bad_and_url_good(
-        mocked_valid_google_url,
-        mocked_has_internet_connection
+        mocked_valid_google_url: mock,
+        mocked_has_internet_connection: mock
 ) -> None:
     mocked_has_internet_connection.return_value = True
     mocked_valid_google_url.return_value = False
