@@ -19,10 +19,18 @@ def mocked_internet_connection():
 def test_google_page_true(mocked_google_url, mocked_internet_connection):
     mocked_google_url.return_value = True
     mocked_internet_connection.return_value = True
-    assert can_access_google_page(100) == "Accessible"
+    assert can_access_google_page("www.mataacademy.com") == "Accessible"
 
 
-def test_google_page_false(mocked_google_url, mocked_internet_connection):
+def test_google_page_false_google_url(mocked_google_url,
+                                      mocked_internet_connection):
     mocked_google_url.return_value = False
     mocked_internet_connection.return_value = True
-    assert can_access_google_page(400) == "Not accessible"
+    assert can_access_google_page("www.404.com123") == "Not accessible"
+
+
+def test_google_page_false_internet_connection(mocked_google_url,
+                                               mocked_internet_connection):
+    mocked_google_url.return_value = True
+    mocked_internet_connection.return_value = False
+    assert can_access_google_page("www.mataacademy.com") == "Not accessible"
