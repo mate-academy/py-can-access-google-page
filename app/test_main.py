@@ -1,7 +1,10 @@
-import pytest
-from unittest import mock
-from app.main import can_access_google_page
 from typing import Callable
+
+from unittest import mock
+
+import pytest
+
+from app.main import can_access_google_page
 
 
 @mock.patch("app.main.valid_google_url")
@@ -24,7 +27,7 @@ from typing import Callable
         pytest.param(
             True, False, "Not accessible",
             id="Should return Not accessible if at least one False"
-        ),
+        )
     ]
 )
 def test_can_access_google_page(
