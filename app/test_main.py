@@ -26,7 +26,7 @@ def test_url_and_connection_is_worked(
     assert can_access_google_page("google_url") == "Accessible"
 
 
-def test_url_is_do_not_worked(
+def test_url_is_not_worked(
     mocked_valid_google_url: None,
     mocked_has_internet_connection: None
 ) -> None:
