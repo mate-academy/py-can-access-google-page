@@ -20,8 +20,7 @@ def mocked_connection() -> Callable:
 
 
 def test_when_all_true(mocked_url: Callable,
-                       mocked_connection: Callable
-                       ) -> None:
+                       mocked_connection: Callable) -> None:
     mocked_url.return_value = True
     mocked_connection.return_value = True
     assert can_access_google_page("www.google.com") == "Accessible", (
@@ -30,8 +29,7 @@ def test_when_all_true(mocked_url: Callable,
 
 
 def test_internet_connection_is_false(mocked_url: Callable,
-                                      mocked_connection: Callable
-                                      ) -> None:
+                                      mocked_connection: Callable) -> None:
     mocked_url.return_value = True
     mocked_connection.return_value = False
     assert can_access_google_page("www.google.com") == "Not accessible", (
@@ -40,8 +38,7 @@ def test_internet_connection_is_false(mocked_url: Callable,
 
 
 def test_mocked_url_is_false(mocked_url: Callable,
-                             mocked_connection: Callable
-                             ) -> None:
+                             mocked_connection: Callable) -> None:
     mocked_url.return_value = False
     mocked_connection.return_value = True
     assert can_access_google_page("www.google.com") == "Not accessible", (
@@ -50,8 +47,7 @@ def test_mocked_url_is_false(mocked_url: Callable,
 
 
 def test_both_functions_are_false(mocked_url: Callable,
-                                  mocked_connection: Callable
-                                  ) -> None:
+                                  mocked_connection: Callable) -> None:
     mocked_url.return_value = False
     mocked_connection.return_value = False
     assert can_access_google_page("www.google.com") == "Not accessible", (
