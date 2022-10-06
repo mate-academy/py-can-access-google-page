@@ -1,8 +1,8 @@
+from typing import Callable
 from unittest import mock
 
 from app.main import can_access_google_page
 
-from typing import Callable
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
