@@ -23,7 +23,7 @@ def test_url_and_connection_is_worked(
 ) -> None:
     mocked_valid_google_url.return_value = True
     mocked_has_internet_connection.return_valur = True
-    assert can_access_google_page("https://www.google.com/") == "Accessible"
+    assert can_access_google_page("google_url") == "Accessible"
 
 
 def test_url_is_do_not_worked(
@@ -32,7 +32,7 @@ def test_url_is_do_not_worked(
 ) -> None:
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_valur = True
-    assert can_access_google_page("https://www.google.com/") == "Not accessible"
+    assert can_access_google_page("google_url") == "Not accessible"
 
 
 def test_connection_is_not_worked(
@@ -41,7 +41,7 @@ def test_connection_is_not_worked(
 ) -> None:
     mocked_valid_google_url.return_value = True
     mocked_has_internet_connection.return_value = False
-    assert can_access_google_page("https://www.google.com/") == "Not accessible"
+    assert can_access_google_page("google_url") == "Not accessible"
 
 
 def test_connection_and_url_is_not_worked(
@@ -50,4 +50,4 @@ def test_connection_and_url_is_not_worked(
 ) -> None:
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_valur = False
-    assert can_access_google_page("https://www.google.com/") == "Not accessible"
+    assert can_access_google_page("google_url") == "Not accessible"
