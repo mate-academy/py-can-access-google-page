@@ -17,33 +17,29 @@ def mocked_internet_connection() -> None:
         yield mock_connection
 
 
-def test_url_and_connection_work(
-        mocked_valid_url: None,
-        mocked_internet_connection: None) -> None:
+def test_url_and_connection_work(mocked_valid_url: None,
+                                 mocked_internet_connection: None) -> None:
     mocked_valid_url.return_value = True
     mocked_internet_connection.return_value = True
     assert can_access_google_page("www.google.com/") == "Accessible"
 
 
-def test_url_does_not_work(
-        mocked_valid_url: None,
-        mocked_internet_connection: None) -> None:
+def test_url_does_not_work(mocked_valid_url: None,
+                           mocked_internet_connection: None) -> None:
     mocked_valid_url.return_value = False
     mocked_internet_connection.return_value = True
     assert can_access_google_page("www.google.com/") == "Not accessible"
 
 
-def test_connection_does_not_work(
-        mocked_valid_url: None,
-        mocked_internet_connection: None) -> None:
+def test_connection_does_not_work(mocked_valid_url: None,
+                                  mocked_internet_connection: None) -> None:
     mocked_valid_url.return_value = True
     mocked_internet_connection.return_value = False
     assert can_access_google_page("www.google.com/") == "Not accessible"
 
 
-def test_nothing_works(
-        mocked_valid_url: None,
-        mocked_internet_connection: None) -> None:
+def test_nothing_works(mocked_valid_url: None,
+                       mocked_internet_connection: None) -> None:
     mocked_valid_url.return_value = False
     mocked_internet_connection.return_value = False
     assert can_access_google_page("www.google.com/") == "Not accessible"
