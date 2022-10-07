@@ -18,15 +18,15 @@ from app.main import can_access_google_page
         ),
         pytest.param(
             False, False, "Not accessible",
-            id="Should return Not accessible if at least one False"
+            id="Should return Not accessible if all is False"
         ),
         pytest.param(
             False, True, "Not accessible",
-            id="Should return Not accessible if at least one False"
+            id="Should return Not accessible if has_internet_connection False"
         ),
         pytest.param(
             True, False, "Not accessible",
-            id="Should return Not accessible if at least one False"
+            id="Should return Not accessible if valid_google_url is False"
         )
     ]
 )
