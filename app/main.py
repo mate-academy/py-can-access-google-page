@@ -1,6 +1,4 @@
 import datetime
-from decimal import Decimal
-
 import requests
 
 
@@ -19,18 +17,3 @@ def can_access_google_page(url: str) -> str:
         return "Accessible"
     else:
         return "Not accessible"
-
-
-def odd_ones_out(numbers: list) -> list:
-    d = {}
-
-    for number in numbers:
-        d[number] = d.get(number, 0) + 1
-
-
-    for number in numbers[:]:
-        print(number)
-        if d[number] % 2:
-            numbers.remove(number)
-
-    return numbers
