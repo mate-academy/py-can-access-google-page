@@ -13,7 +13,6 @@ class TestCanAccessGooglePage(TestCase):
                          mocked_url: bool,
                          mocked_internet: bool
                          ) -> None:
-
         mocked_internet.return_value = False
         mocked_url.return_value = True
         assert can_access_google_page(self.url) == "Not accessible"
@@ -22,7 +21,6 @@ class TestCanAccessGooglePage(TestCase):
                            mocked_url: bool,
                            mocked_internet: bool
                            ) -> None:
-
         mocked_internet.return_value = True
         mocked_url.return_value = False
         assert can_access_google_page(self.url) == "Not accessible"
@@ -31,7 +29,6 @@ class TestCanAccessGooglePage(TestCase):
                                        mocked_url: bool,
                                        mocked_internet: bool
                                        ) -> None:
-
         mocked_internet.return_value = False
         mocked_url.return_value = False
         assert can_access_google_page(self.url) == "Not accessible"
@@ -40,7 +37,6 @@ class TestCanAccessGooglePage(TestCase):
                                 mocked_url: bool,
                                 mocked_internet: bool
                                 ) -> None:
-
         mocked_internet.return_value = True
         mocked_url.return_value = True
         assert can_access_google_page(self.url) == "Accessible"
