@@ -41,5 +41,5 @@ def test_connection_work_and_google_valid(mock_internet_connection: None,
 def test_google_and_internet_doesnt_work(mock_internet_connection: None,
                                          mock_valid_google_url: None) -> None:
     mock_valid_google_url.return_value = False
-    mock_internet_connection.return_value = True
+    mock_internet_connection.return_value = False
     assert can_access_google_page("www.google.com/") == "Not accessible"
