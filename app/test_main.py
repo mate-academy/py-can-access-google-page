@@ -51,4 +51,3 @@ def test_url_is_invalid_and_connection_is_lost(
     assert can_access_google_page(
         "https://mail.google.com/"
     ) == "Not accessible"
-
