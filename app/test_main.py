@@ -5,20 +5,6 @@ import pytest
 from app.main import can_access_google_page
 
 
-@pytest.fixture()
-def mocked_valid_url() -> None:
-    with mock.patch("app.main.valid_google_url") \
-            as mock_url:
-        yield mock_url
-
-
-@pytest.fixture()
-def mocked_connection() -> None:
-    with mock.patch("app.main.has_internet_connection") \
-            as mock_connection:
-        yield mock_connection
-
-
 @pytest.mark.parametrize(
     "valid_url, has_connection, expected",
     [
@@ -28,6 +14,8 @@ def mocked_connection() -> None:
         pytest.param(False, False, "Not accessible")
     ]
 )
+@mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
 def test_can_access_google_page(mocked_valid_url: mock.MagicMock,
                                 mocked_connection: mock.MagicMock,
                                 valid_url: bool,
