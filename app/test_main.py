@@ -11,16 +11,17 @@ from app.main import can_access_google_page
     "url_status, has_connection_status, expected_message",
     [
         pytest.param(True, True, "Accessible",
-                     id="Url and connection is True"),
+                     id="Return Accessible if all is True"),
 
         pytest.param(True, False, "Not accessible",
-                     id="Url is True and connection is False"),
+                     id="Return Not accessible if all is False"),
 
         pytest.param(False, True, "Not accessible",
-                     id="Url is False and connection is True"),
+                     id="Return Not accessible if url_status is False"),
 
         pytest.param(False, False, "Not accessible",
-                     id="Url and connection is False")
+                     id="Return Not accessible if "
+                        "has_connection_status is False")
     ]
 )
 def test_can_access_google_page(
