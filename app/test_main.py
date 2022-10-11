@@ -38,4 +38,6 @@ class TestCanAccessGooglePage(TestCase):
                                 mocked_internet: bool) -> None:
         mocked_internet.return_value = True
         mocked_url.return_value = True
-        assert can_access_google_page(self.url) == "Accessible"
+        assert can_access_google_page(self.url) == "Accessible", \
+            "You have internet connection and url is valid " \
+            "you should be able access google page"
