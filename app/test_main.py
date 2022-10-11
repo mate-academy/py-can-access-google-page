@@ -21,25 +21,33 @@ def test_everything_works(mocked_internet_connection: None,
                           mocked_valid_google_url: None) -> None:
     mocked_internet_connection.return_value = True
     mocked_valid_google_url.return_value = True
-    assert can_access_google_page("https://www.google.com") == "Accessible"
+    assert can_access_google_page(
+        "https://www.google.com"
+    ) == "Accessible", "Internet connection and url are available"
 
 
 def test_no_connection(mocked_internet_connection: None,
                        mocked_valid_google_url: None) -> None:
     mocked_internet_connection.return_value = False
     mocked_valid_google_url.return_value = True
-    assert can_access_google_page("https://www.google.com") == "Not accessible"
+    assert can_access_google_page(
+        "https://www.google.com"
+    ) == "Not accessible", "Internet connection is not available"
 
 
 def test_invalid_url(mocked_internet_connection: None,
                      mocked_valid_google_url: None) -> None:
     mocked_internet_connection.return_value = True
     mocked_valid_google_url.return_value = False
-    assert can_access_google_page("https://www.google.com") == "Not accessible"
+    assert can_access_google_page(
+        "https://www.google.com"
+    ) == "Not accessible", "URL is not available"
 
 
 def test_everything_is_not_working(mocked_internet_connection: None,
                                    mocked_valid_google_url: None) -> None:
     mocked_internet_connection.return_value = False
     mocked_valid_google_url.return_value = False
-    assert can_access_google_page("https://www.google.com") == "Not accessible"
+    assert can_access_google_page(
+        "https://www.google.com"
+    ) == "Not accessible", "Internet connection and URL are not available"
