@@ -20,7 +20,9 @@ def test_access_url(
 ) -> None:
     mock_google_url.return_value = True
     mock_internet_connection.return_value = True
-    assert can_access_google_page("https://mail.google.com/") == "Accessible"
+    assert can_access_google_page(
+        "https://mail.google.com/"
+    ) == "Accessible", "Accessible! URL - Ok; Internet connection - Ok"
 
 
 def test_has_no_internet_connection(
@@ -30,7 +32,7 @@ def test_has_no_internet_connection(
     mock_internet_connection.return_value = False
     assert can_access_google_page(
         "https://mail.google.com/"
-    ) == "Not accessible"
+    ) == "Not accessible", "Not accessible: internet connection is lost"
 
 
 def test_url_is_invalid(
@@ -40,7 +42,7 @@ def test_url_is_invalid(
     mock_internet_connection.return_value = True
     assert can_access_google_page(
         "https://mail.google.com/"
-    ) == "Not accessible"
+    ) == "Not accessible", "Not accessible: URL is invalid"
 
 
 def test_url_is_invalid_and_connection_is_lost(
@@ -50,4 +52,5 @@ def test_url_is_invalid_and_connection_is_lost(
     mock_internet_connection.return_value = False
     assert can_access_google_page(
         "https://mail.google.com/"
-    ) == "Not accessible"
+    ) == "Not accessible",\
+        "Not accessible: URL is invalid; internet connection is lost"
