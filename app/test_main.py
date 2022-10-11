@@ -14,21 +14,24 @@ class TestCanAccessGooglePage(TestCase):
                          mocked_internet: bool) -> None:
         mocked_internet.return_value = False
         mocked_url.return_value = True
-        assert can_access_google_page(self.url) == "Not accessible"
+        assert can_access_google_page(self.url) == "Not accessible", \
+            "You don't have internet"
 
     def test_not_valid_url(self,
                            mocked_url: bool,
                            mocked_internet: bool) -> None:
         mocked_internet.return_value = True
         mocked_url.return_value = False
-        assert can_access_google_page(self.url) == "Not accessible"
+        assert can_access_google_page(self.url) == "Not accessible", \
+            "Invalid url"
 
     def test_no_internet_not_valid_url(self,
                                        mocked_url: bool,
                                        mocked_internet: bool) -> None:
         mocked_internet.return_value = False
         mocked_url.return_value = False
-        assert can_access_google_page(self.url) == "Not accessible"
+        assert can_access_google_page(self.url) == "Not accessible", \
+            "You don't have internet, invalid url"
 
     def test_internet_valid_url(self,
                                 mocked_url: bool,
