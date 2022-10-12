@@ -28,18 +28,24 @@ def test_without_right_url(mock_google_url: bool,
                            mock_internet_connection: bool) -> None:
     mock_google_url.return_value = False
     mock_internet_connection.return_value = True
-    assert can_access_google_page("https://www.google.com/") == "Not accessible"
+    assert can_access_google_page(
+        "https://www.google.com/") == "Not accessible"
 
 
 def test_without_connection(mock_google_url: bool,
                             mock_internet_connection: bool) -> None:
     mock_google_url.return_value = True
-    mock_internet_connection.return_value = False
-    assert can_access_google_page("https://www.google.com/") == "Not accessible"
+    mock_internet_connection.return_value\
+        = False
+    assert can_access_google_page(
+        "https://www.google.com/") == "Not accessible"
 
 
 def test_without_connection_and_right_url(
         mock_google_url: bool, mock_internet_connection: bool) -> None:
-    mock_google_url.return_value = False
-    mock_internet_connection.return_value = False
-    assert can_access_google_page("https://www.google.com/") == "Not accessible"
+    mock_google_url.return_value\
+        = False
+    mock_internet_connection.return_value\
+        = False
+    assert can_access_google_page(
+        "https://www.google.com/") == "Not accessible"
