@@ -25,8 +25,8 @@ def test_valid_url_and_connection_exist(
     mocked_internet_connection.return_value = True
 
     assert can_access_google_page("www.google.com/") == "Accessible", (
-        "Accessible: url is valid to access the Google home page and"
-        "it has internet connection"
+        "Should be accessible when URL is valid and"
+        "there is internet connection."
     )
 
 
@@ -38,8 +38,7 @@ def test_invalid_url_and_connection_exist(
     mocked_internet_connection.return_value = True
 
     assert can_access_google_page("www.google.com/") == "Not accessible", (
-        "There is no internet connection."
-        "Internet connection exists only between 6:00:00 and 22:59:59"
+        "Should return 'Not accessible' when URL isn't valid."
     )
 
 
@@ -51,7 +50,7 @@ def test_valid_url_and_connection_expire(
     mocked_internet_connection.return_value = False
 
     assert can_access_google_page("www.google.com/") == "Not accessible", (
-        "Current url isn't valid to access the Google home page."
+        "Should return 'Not accessible' when there is no internet connection."
     )
 
 
@@ -63,6 +62,6 @@ def test_invalid_url_and_connection_expire(
     mocked_internet_connection.return_value = False
 
     assert can_access_google_page("www.google.com/") == "Not accessible", (
-        "Current url isn't valid to access the Google home page."
-        "There is no internet connection"
+        "Should return 'Not accessible' when URL isn't valid."
+        "and there is no internet connection."
     )
