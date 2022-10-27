@@ -7,11 +7,15 @@ def test_function_return_correct_type_of_data() -> None:
 
 
 @mock.patch("app.main.has_internet_connection")
-def test_valid_url_and_connection_exists(mocked_internet: mock) -> None:
+def test_connection_exists(mocked_internet: mock) -> None:
     mocked_internet.return_value = True
     assert can_access_google_page("https://www.google.com") == "Accessible"
     mocked_internet.return_value = False
     assert can_access_google_page("https://www.google.com") == "Not accessible"
+
+
+@mock.patch("app.main.has_internet_connection")
+def test_valid_url(mocked_internet: mock) -> None:
     mocked_internet.return_value = True
     with mock.patch("app.main.valid_google_url") as mock_url:
         mock_url.return_value = True
