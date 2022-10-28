@@ -4,8 +4,8 @@ from app.main import can_access_google_page
 
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_can_access_google_page_when_true_false(mock_connection: callable,
-                                                mock_valid: callable) -> None:
+def test_can_access_google_page_when_true_false(mock_connection: mock,
+                                                mock_valid: mock) -> None:
     mock_connection.return_value = True
     mock_valid.return_value = False
     url = "ccs.com"
@@ -14,8 +14,8 @@ def test_can_access_google_page_when_true_false(mock_connection: callable,
 
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_can_access_google_page_when_false_true(mock_connection: callable,
-                                                mock_valid: callable) -> None:
+def test_can_access_google_page_when_false_true(mock_connection: mock,
+                                                mock_valid: mock) -> None:
     mock_connection.return_value = False
     mock_valid.return_value = True
     url = "mate_academy.com"
@@ -24,8 +24,8 @@ def test_can_access_google_page_when_false_true(mock_connection: callable,
 
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_can_access_google_page_when_all_true(mock_connection: callable,
-                                              mock_valid: callable) -> None:
+def test_can_access_google_page_when_all_true(mock_connection: mock,
+                                              mock_valid: mock) -> None:
     mock_connection.return_value = True
     mock_valid.return_value = True
     url = "python.com"
@@ -34,8 +34,8 @@ def test_can_access_google_page_when_all_true(mock_connection: callable,
 
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_can_access_google_page_all_false(mock_connection: callable,
-                                          mock_valid: callable) -> None:
+def test_can_access_google_page_all_false(mock_connection: mock,
+                                          mock_valid: mock) -> None:
     mock_connection.return_value = False
     mock_valid.return_value = False
     url = "github.com"
