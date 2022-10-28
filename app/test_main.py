@@ -32,7 +32,6 @@ def test_can_access_google_page_when_all_true(mock_connection: callable,
     assert can_access_google_page(url) == "Accessible"
 
 
-
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
 def test_can_access_google_page_all_false(mock_connection: callable,
@@ -41,4 +40,3 @@ def test_can_access_google_page_all_false(mock_connection: callable,
     mock_valid.return_value = False
     url = "github.com"
     assert can_access_google_page(url) == "Not accessible"
-
