@@ -1,7 +1,6 @@
-from app.main import can_access_google_page
-from typing import Callable
 import pytest
 from unittest import mock
+from app.main import can_access_google_page
 
 
 @pytest.fixture()
@@ -19,8 +18,8 @@ def mock_internet_connection() -> None:
 
 
 def test_true_if_valid_url_and_has_connection(
-        mock_valid_google_url: Callable,
-        mock_internet_connection: Callable) -> None:
+        mock_valid_google_url: mock,
+        mock_internet_connection: mock) -> None:
     mock_valid_google_url.return_value = True
     mock_internet_connection.return_value = True
 
@@ -30,8 +29,8 @@ def test_true_if_valid_url_and_has_connection(
 
 
 def test_test_cannot_access_if_only_valid_url(
-        mock_valid_google_url: Callable,
-        mock_internet_connection: Callable) -> None:
+        mock_valid_google_url: mock,
+        mock_internet_connection: mock) -> None:
 
     mock_valid_google_url.return_value = True
     mock_internet_connection.return_value = False
@@ -42,8 +41,8 @@ def test_test_cannot_access_if_only_valid_url(
 
 
 def test_cannot_access_if_only_connection(
-        mock_valid_google_url: Callable,
-        mock_internet_connection: Callable) -> None:
+        mock_valid_google_url: mock,
+        mock_internet_connection: mock) -> None:
 
     mock_valid_google_url.return_value = False
     mock_internet_connection.return_value = True
@@ -54,8 +53,8 @@ def test_cannot_access_if_only_connection(
 
 
 def test_cannot_access_not_valid_url_and_no_connection(
-        mock_valid_google_url: Callable,
-        mock_internet_connection: Callable) -> None:
+        mock_valid_google_url: mock,
+        mock_internet_connection: mock) -> None:
 
     mock_valid_google_url.return_value = False
     mock_internet_connection.return_value = False
