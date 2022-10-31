@@ -40,4 +40,5 @@ def test_can_access_google_pege(mocked_valid_google_url,
                                 result):
     mocked_valid_google_url.return_value = url_value
     mocked_has_internet_connection.return_value = connection_value
-    assert can_access_google_page("") == resultefe
+    assert can_access_google_page("") == result
+b,
