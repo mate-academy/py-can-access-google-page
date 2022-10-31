@@ -28,7 +28,7 @@ def mocked_has_internet_connection():
                              pytest.param(False, True, "Not accessible",
                                           id="Test when Url is False "
                                              "and Connection is True"),
-                             pytest.param(False, False, "Not accessible",
+                             pytest.param(False, False, "Not accessible",7
                                           id="Test when Url and "
                                              "Connection is False")
                          ]
