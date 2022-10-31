@@ -19,7 +19,7 @@ def mocked_has_internet_connection():
 
 @pytest.mark.parametrize("url_value,connection_value,result",
                          [
-                             pytest.param(True, True, "Accessible!",
+                             pytest.param(True, True, "Accessible",
                                           id="Test when Url "
                                              "and Connection is True"),
                              pytest.param(True, False, "Not accessible",
