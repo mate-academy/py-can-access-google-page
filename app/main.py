@@ -16,4 +16,4 @@ def can_access_google_page(url):
     if has_internet_connection() and valid_google_url(url):
         return "Accessible"
     else:
-        return "Not accessible"
+        return "Not accessible"4
