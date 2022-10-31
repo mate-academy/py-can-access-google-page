@@ -19,7 +19,7 @@ def mocked_has_internet_connection():
 
 @pytest.mark.parametrize("url_value,connection_value,result",
                          [
-                             pytest.param(True, True, "Accessible1",
+                             pytest.param(True, True, "Accessible",
                                           id="Test when Url "
                                              "and Connection is True"),
                              pytest.param(True, False, "Not accessible",
@@ -40,4 +40,4 @@ def test_can_access_google_pege(mocked_valid_google_url,
                                 result):
     mocked_valid_google_url.return_value = url_value
     mocked_has_internet_connection.return_value = connection_value
-    assert can_access_google_page("") == result
+    assert can_access_google_page("") == resultefe
