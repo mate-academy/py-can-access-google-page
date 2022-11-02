@@ -40,8 +40,8 @@ def mocked_has_internet_connection():
                 id="Test when Url and "
                 "Connection is False"
             )
-        ]
-    )
+    ]
+)
 def test_can_access_google_pege(mocked_valid_google_url,
                                 mocked_has_internet_connection,
                                 url_value,
