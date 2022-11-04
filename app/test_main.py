@@ -46,8 +46,8 @@ def mocked_valid_url() -> None:
         )
     ]
 )
-def test_access_google_page(mocked_valid_url: bool,
-                            mocked_internet_connection: bool,
+def test_access_google_page(mocked_valid_url: mock,
+                            mocked_internet_connection: mock,
                             valid_url: bool,
                             net_connection: bool,
                             expected: str) -> None:
