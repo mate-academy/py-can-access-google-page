@@ -45,4 +45,4 @@ def test_access_google_page_with_not_valid_url_and_valid_time(
 
     mocked_url.return_value = False
     mocked_internet_connection.return_value = True
-    assert can_access_google_page(mocked_url) == "Not accessible"
+    assert can_access_google_page("google.com") == "Not accessible"
