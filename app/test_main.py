@@ -1,6 +1,6 @@
+from __future__ import annotations
+
 from unittest import mock
-
-
 from app.main import can_access_google_page
 
 
@@ -9,7 +9,7 @@ from app.main import can_access_google_page
 def test_access_google_page_with_valid_url_and_time(
         mocked_url: bool,
         mocked_internet_connection: bool
-) -> None:
+      ) -> None:  # noqa: E126
 
     mocked_url.return_value = True
     mocked_internet_connection.return_value = True
@@ -21,7 +21,7 @@ def test_access_google_page_with_valid_url_and_time(
 def test_access_google_page_with_not_valid_url_and_time(
         mocked_url: bool,
         mocked_internet_connection: bool
-) -> None:
+       ) -> None:  # noqa: E126
 
     mocked_url.return_value = False
     mocked_internet_connection.return_value = False
@@ -33,7 +33,7 @@ def test_access_google_page_with_not_valid_url_and_time(
 def test_access_google_page_with_valid_url_and_not_valid_time(
         mocked_url: bool,
         mocked_internet_connection: bool
-) -> None:
+       ) -> None:  # noqa: E126
 
     mocked_url.return_value = True
     mocked_internet_connection.return_value = False
@@ -45,7 +45,7 @@ def test_access_google_page_with_valid_url_and_not_valid_time(
 def test_access_google_page_with_not_valid_url_and_valid_time(
         mocked_url: bool,
         mocked_internet_connection: bool
-) -> None:
+       ) -> None:  # noqa: E126
 
     mocked_url.return_value = False
     mocked_internet_connection.return_value = True
