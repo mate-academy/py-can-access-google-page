@@ -51,7 +51,7 @@ def test_accessible_when_internet_and_url_are_not_ok(
         mock_internet_connection: mock,
         mock_valid_url: mock
 ) -> None:
-    mock_internet_connection.return_value = True
-    mock_valid_url.return_value = True
+    mock_internet_connection.return_value = False
+    mock_valid_url.return_value = False
     assert can_access_google_page(
-        "https://www.wikipedia.org/") == "Accessible"
+        "https://www.wikipedia.org/") == "Not accessible"
