@@ -40,3 +40,25 @@ def test_url_invalid_only_connection(
     assert can_access_google_page(
         "https://www.google1.com/"
     ) == "Not accessible"
+
+
+def test_url_invalid_and_no_connection(
+        mocked_valid_google_url: Callable,
+        mocked_has_internet_connection: Callable
+) -> None:
+    mocked_valid_google_url.return_value = False
+    mocked_has_internet_connection.return_value = False
+    assert can_access_google_page(
+        "https://www.google1.com/"
+    ) == "Not accessible"
+
+
+def test_url_valid_and_has_connection(
+        mocked_valid_google_url: Callable,
+        mocked_has_internet_connection: Callable
+) -> None:
+    mocked_valid_google_url.return_value = True
+    mocked_has_internet_connection.return_value = True
+    assert can_access_google_page(
+        "https://www.google.com/"
+    ) == "Accessible"
