@@ -1,6 +1,6 @@
 import pytest
 from unittest import mock
-from app.main import has_internet_connection, can_access_google_page
+from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
