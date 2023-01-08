@@ -7,10 +7,26 @@ from app.main import can_access_google_page
 @pytest.mark.parametrize(
     "valid_url,internet_connection,expected",
     [
-        (True, True, "Accessible"),
-        (False, True, "Not accessible"),
-        (True, False, "Not accessible"),
-        (False, False, "Not accessible"),
+        pytest.param(
+            True,
+            True,
+            "Accessible",
+            id="URL is valid, has internet connection"),
+        pytest.param(
+            False,
+            True,
+            "Not accessible",
+            id="URL not valid, has internet connection"),
+        pytest.param(
+            True,
+            False,
+            "Not accessible",
+            id="URL is valid, no internet connection"),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="URL not valid, no internet connection"),
     ]
 )
 def test_can_access_google_page_if_internet_connection_and_valid_url(
