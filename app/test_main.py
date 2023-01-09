@@ -19,12 +19,12 @@ class TestCanAccessGooglePage:
     @mock.patch("app.main.has_internet_connection")
     def test_check_can_access(
             self,
-            mocked_url_connection,
-            mocked_connection,
-            is_valid_url,
-            has_internet_connection,
-            access_google
-    ):
+            mocked_url_connection: callable,
+            mocked_connection: callable,
+            is_valid_url: bool,
+            has_internet_connection: bool,
+            access_google: str
+    ) -> None:
         mocked_url_connection.return_value = is_valid_url
         mocked_connection.return_value = has_internet_connection
         assert can_access_google_page(
