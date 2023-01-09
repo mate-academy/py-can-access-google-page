@@ -36,3 +36,13 @@ def test_can_access_google_page_if_url_true(
     mocked_valid_google_url.return_value = True
     mocked_has_internet_connection.return_value = False
     assert can_access_google_page(test_url) == "Accessible"
+
+
+def test_can_access_google_page_if_url_true_and_connection_true(
+        mocked_valid_google_url: object,
+        mocked_has_internet_connection: object
+) -> None:
+    test_url = "https://test_url"
+    mocked_valid_google_url.return_value = True
+    mocked_has_internet_connection.return_value = True
+    assert can_access_google_page(test_url) == "Accessible"
