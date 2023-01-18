@@ -11,22 +11,26 @@ from app.main import can_access_google_page
             True,
             True,
             "Accessible",
-            id="URL is valid, has internet connection"),
+            id="URL is valid, has internet connection"
+        ),
         pytest.param(
             False,
             True,
             "Not accessible",
-            id="URL not valid, has internet connection"),
+            id="URL not valid, has internet connection"
+        ),
         pytest.param(
             True,
             False,
             "Not accessible",
-            id="URL is valid, no internet connection"),
+            id="URL is valid, no internet connection"
+        ),
         pytest.param(
             False,
             False,
             "Not accessible",
-            id="URL not valid, no internet connection"),
+            id="URL not valid, no internet connection"
+        ),
     ]
 )
 def test_can_access_google_page_if_internet_connection_and_valid_url(
