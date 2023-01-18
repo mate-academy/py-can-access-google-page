@@ -8,7 +8,8 @@ import pytest
     [
         ("url", True, True, "Accessible"),
         ("url", True, False, "Not accessible"),
-        ("url", False, True, "Not accessible")
+        ("url", False, True, "Not accessible"),
+        ("url", False, False, "Not accessible")
     ]
 )
 def test_can_access_google_page(
