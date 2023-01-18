@@ -1,7 +1,6 @@
 from __future__ import annotations
 from unittest import mock
 import pytest
-import requests
 
 from app.main import can_access_google_page
 
@@ -18,35 +17,31 @@ def mock_internet_connection() -> None:
         yield mock_internet
 
 
-def test_morning_internet(
+def test_internet_work_and_url_ok(
         mock_valid_google_url: callable,
         mock_internet_connection: callable
 ) -> None:
+
     mock_valid_google_url.return_value = True
     mock_internet_connection.return_value = True
-    assert can_access_google_page("Accessible") == "Accessible"
+    assert can_access_google_page("google") == "Accessible"
 
 
-def test_night_internet(
+def test_internet_not_work_url_ok(
         mock_valid_google_url: callable,
         mock_internet_connection: callable
 ) -> None:
 
-    response = requests.get("https://www.google.com/")
-    response_result = True if response.status_code == 200 else False
-    mock_valid_google_url.return_value = response_result
+    mock_valid_google_url.return_value = True
     mock_internet_connection.return_value = False
-    assert can_access_google_page("Not accessible") == "Not accessible"
+    assert can_access_google_page("google") == "Not accessible"
 
 
-def test_valid_google_url_badly(
+def test_internet_work_and_url_not_valid_values(
         mock_valid_google_url: callable,
         mock_internet_connection: callable
 ) -> None:
 
-    response = requests.get("https://www.google.com/gf")
-    response_result = True if response.status_code == 200 else False
-    mock_valid_google_url.return_value = response_result
+    mock_valid_google_url.return_value = False
     mock_internet_connection.return_value = True
-    assert can_access_google_page("https://www.google.com/gf") == \
-           "Not accessible"
+    assert can_access_google_page("google") == "Not accessible"
