@@ -17,45 +17,46 @@ def mock_internet_connection() -> None:
         yield mock_internet
 
 
+@pytest.fixture()
+def google_url() -> str:
+    return "https://www.google.com.ua"
+
+
 def test_internet_work_and_url_ok(
         mock_valid_google_url: callable,
-        mock_internet_connection: callable
+        mock_internet_connection: callable,
+        google_url: str
 ) -> None:
-
     mock_valid_google_url.return_value = True
     mock_internet_connection.return_value = True
-    assert can_access_google_page("https://www.google.com/") ==\
-           "Accessible"
+    assert can_access_google_page(google_url) == "Accessible"
 
 
 def test_internet_not_work_url_ok(
         mock_valid_google_url: callable,
-        mock_internet_connection: callable
+        mock_internet_connection: callable,
+        google_url: str
 ) -> None:
-
     mock_valid_google_url.return_value = True
     mock_internet_connection.return_value = False
-    assert can_access_google_page("https://www.google.com/") ==\
-           "Not accessible"
+    assert can_access_google_page(google_url) == "Not accessible"
 
 
 def test_internet_work_and_url_not_valid_values(
         mock_valid_google_url: callable,
-        mock_internet_connection: callable
+        mock_internet_connection: callable,
+        google_url: str
 ) -> None:
-
     mock_valid_google_url.return_value = False
     mock_internet_connection.return_value = True
-    assert can_access_google_page("https://www.google.com/") ==\
-           "Not accessible"
+    assert can_access_google_page(google_url) == "Not accessible"
 
 
 def test_internet_not_work_and_url_not_valid_values(
         mock_valid_google_url: callable,
-        mock_internet_connection: callable
+        mock_internet_connection: callable,
+        google_url: str
 ) -> None:
-
     mock_valid_google_url.return_value = False
     mock_internet_connection.return_value = False
-    assert can_access_google_page("https://www.google.com/") ==\
-           "Not accessible"
+    assert can_access_google_page(google_url) == "Not accessible"
