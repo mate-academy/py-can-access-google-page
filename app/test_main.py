@@ -39,4 +39,4 @@ def test_can_access_to_page(
         with mock.patch("app.main.has_internet_connection") as mock_connection:
             mock_url.return_value = current_url
             mock_connection.return_value = current_time
-            assert can_access_google_page("google") == exception_message
+            assert can_access_google_page("google.com") == exception_message
