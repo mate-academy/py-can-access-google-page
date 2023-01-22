@@ -33,7 +33,7 @@ from app.main import can_access_google_page
         ),
     ]
 )
-def test_can_access_google_page_if_internet_connection_and_valid_url(
+def test_can_access_google_page(
         valid_url: bool,
         internet_connection: bool,
         expected: str) -> None:
