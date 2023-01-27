@@ -27,7 +27,8 @@ def has_internet_connection() -> None:
     [
         (True, True, "Accessible"),
         (True, False, "Not accessible"),
-        (False, True, "Not accessible")
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible")
     ]
 )
 def test_can_access_google_page(
