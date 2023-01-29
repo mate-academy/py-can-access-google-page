@@ -49,8 +49,8 @@ def test_can_access_google_page(
         url_status: bool,
         connection_status: bool,
         access: str,
-        mocked_valid_google_url: bool,
-        mocked_has_internet_connection: bool
+        mocked_valid_google_url: pytest.fixture(),
+        mocked_has_internet_connection: pytest.fixture()
 ) -> None:
     mocked_valid_google_url.return_value = url_status
     mocked_has_internet_connection.return_value = connection_status
