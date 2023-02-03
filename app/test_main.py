@@ -18,10 +18,11 @@ def mock_has_internet_connection() -> None:
 
 
 def test_should_return_accessible_if_all_checks_are_valid(
+        mock_valid_google_url: mock.MagicMock,
         mock_has_internet_connection: mock.MagicMock,
 ) -> None:
     mock_has_internet_connection.return_value = True
-    assert can_access_google_page("https://www.google.com/") == "Accessible"
+    assert can_access_google_page("") == "Accessible"
 
 
 def test_you_cannot_access_page_if_only_connection_is_true(
@@ -30,7 +31,7 @@ def test_you_cannot_access_page_if_only_connection_is_true(
 ) -> None:
     mock_valid_google_url.return_value = False
     mock_has_internet_connection.return_value = True
-    assert (can_access_google_page("https://www.google.com/")
+    assert (can_access_google_page("")
             == "Not accessible")
 
 
@@ -40,5 +41,5 @@ def test_you_cannot_access_page_if_only_valid_url_is_true(
 ) -> None:
     mock_valid_google_url.return_value = True
     mock_has_internet_connection.return_value = False
-    assert (can_access_google_page("https://www.google.com/")
+    assert (can_access_google_page("")
             == "Not accessible")
