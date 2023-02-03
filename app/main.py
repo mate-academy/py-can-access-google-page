@@ -17,3 +17,9 @@ def can_access_google_page(url: str) -> str:
         return "Accessible"
     else:
         return "Not accessible"
+
+
+# response = requests.get("https://www.google.com/")
+# print(response.status_code)
+#
+# print(datetime.time(hour=23))
