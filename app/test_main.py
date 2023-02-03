@@ -21,6 +21,7 @@ def test_should_return_accessible_if_all_checks_are_valid(
         mock_valid_google_url: mock.MagicMock,
         mock_has_internet_connection: mock.MagicMock,
 ) -> None:
+    mock_valid_google_url.return_value = True
     mock_has_internet_connection.return_value = True
     assert can_access_google_page("") == "Accessible"
 
