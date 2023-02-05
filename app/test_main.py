@@ -18,7 +18,6 @@ def mocked_has_internet_connection() -> None:
     with mock.patch("app.main.has_internet_connection") as mocked_connection:
         yield mocked_connection
 
-
 def test_should_get_google_page(
         mocked_has_internet_connection: bool,
         mocked_valid_google_url: bool
@@ -43,6 +42,15 @@ def test_should_not_get_google_page_if_no_page(
         mocked_valid_google_url: bool
 ) -> None:
     mocked_has_internet_connection.return_value = True
+    mocked_valid_google_url.return_value = False
+    assert can_access_google_page("https://www.google.com/")\
+           == "Not accessible"
+
+def test_should_not_get_google_page_if_no_page_no_connection(
+        mocked_has_internet_connection: bool,
+        mocked_valid_google_url: bool
+) -> None:
+    mocked_has_internet_connection.return_value = False
     mocked_valid_google_url.return_value = False
     assert can_access_google_page("https://www.google.com/")\
            == "Not accessible"
