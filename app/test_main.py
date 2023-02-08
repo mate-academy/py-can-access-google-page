@@ -4,20 +4,20 @@ import pytest
 
 
 @pytest.mark.parametrize(
-    "func_1_result,func_2_result,total_result",
+    "connection_status,url_status,total_result",
     [
-        (True, True, "Accessible"),
-        (True, False, "Not accessible"),
-        (False, True, "Not accessible")
+        pytest.param(True, True, "Accessible", id="connection and url True"),
+        pytest.param(True, False, "Not accessible", id="missing connection"),
+        pytest.param(False, True, "Not accessible", id="missing valid url")
     ]
 )
 def test_test_main_when_internet_connection_and_valid_url(
-        func_1_result: bool,
-        func_2_result: bool,
+        connection_status: bool,
+        url_status: bool,
         total_result: str
 ) -> None:
-    with (mock.patch("app.main.has_internet_connection") as ic,
+    with (mock.patch("app.main.has_internet_connection") as connection,
           mock.patch("app.main.valid_google_url") as url):
-        ic.return_value = func_1_result
-        url.return_value = func_2_result
+        connection.return_value = connection_status
+        url.return_value = url_status
         assert can_access_google_page("http://www.google.com") == total_result
