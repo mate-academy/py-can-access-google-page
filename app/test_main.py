@@ -28,8 +28,7 @@ def test_valid_url_and_connection_exists(
     mocked_has_internet_connection.return_value = True
     assert (
         can_access_google_page("https://www.google.com/") == "Accessible"
-    ), "You can access page " \
-       "if 'connection' and 'valid url' is True."
+    ), "You can access page if 'connection' and 'valid url' is True."
 
 
 def test_valid_url_but_without_connection(
@@ -42,8 +41,10 @@ def test_valid_url_but_without_connection(
         can_access_google_page(
             "https://www.google.com/"
         ) == "Not accessible"
-    ), "You cannot access the page " \
-       "if 'connection' is False and 'valid url' is True."
+    ), (
+        "You cannot access the page "
+        "if 'connection' is False and 'valid url' is True."
+    )
 
 
 def test_invalid_url_and_without_connection(
@@ -56,8 +57,10 @@ def test_invalid_url_and_without_connection(
         can_access_google_page(
             "https:///www.google.com/"
         ) == "Not accessible"
-    ), "You cannot access the page " \
-       "if both 'connection' and 'valid url' are False."
+    ), (
+        "You cannot access the page "
+        "if both 'connection' and 'valid url' are False."
+    )
 
 
 def test_invalid_url_but_connection_exists(
@@ -70,5 +73,7 @@ def test_invalid_url_but_connection_exists(
         can_access_google_page(
             "https:///www.google.com/"
         ) == "Not accessible"
-    ), "You cannot access the page " \
-       "if 'connection' is True and 'valid url' is False."
+    ), (
+        "You cannot access the page "
+        "if 'connection' is True and 'valid url' is False."
+    )
