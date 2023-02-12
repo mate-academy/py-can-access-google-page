@@ -19,8 +19,8 @@ def mocked_has_internet_connection() -> None:
 
 
 def test_incorrect_url(
-        mocked_valid_google_url,
-        mocked_has_internet_connection
+        mocked_valid_google_url: Callable,
+        mocked_has_internet_connection: Callable
 ) -> None:
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_value = True
@@ -29,8 +29,8 @@ def test_incorrect_url(
 
 
 def test_no_internet_connection(
-        mocked_valid_google_url,
-        mocked_has_internet_connection
+        mocked_valid_google_url: Callable,
+        mocked_has_internet_connection: Callable
 ) -> None:
     mocked_valid_google_url.return_value = True
     mocked_has_internet_connection.return_value = False
@@ -39,8 +39,8 @@ def test_no_internet_connection(
 
 
 def test_incorrect_url_and_no_internet_connection(
-        mocked_valid_google_url,
-        mocked_has_internet_connection
+        mocked_valid_google_url: Callable,
+        mocked_has_internet_connection: Callable
 ) -> None:
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_value = False
@@ -49,8 +49,8 @@ def test_incorrect_url_and_no_internet_connection(
 
 
 def test_correct_url_and_has_internet_connection(
-        mocked_valid_google_url,
-        mocked_has_internet_connection
+        mocked_valid_google_url: Callable,
+        mocked_has_internet_connection: Callable
 ) -> None:
     mocked_valid_google_url.return_value = True
     mocked_has_internet_connection.return_value = True
