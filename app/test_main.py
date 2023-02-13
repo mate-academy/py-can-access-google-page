@@ -39,4 +39,3 @@ class TestAccessGooglePage:
             mocked_connection.return_value = connection_return_value
 
             assert can_access_google_page("google.com") == "Not accessible"
-#
