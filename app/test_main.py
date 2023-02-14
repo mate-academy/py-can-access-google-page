@@ -22,37 +22,61 @@ def mock_internet_connection() -> None:
         yield mock_test_connection
 
 
+@pytest.mark.parametrize(
+    "url, answer",
+    [("www.googl.com", "Not accessible")]
+)
 def test_dont_have_internet_connection(
         mock_google_url: Callable,
-        mock_internet_connection: Callable
+        mock_internet_connection: Callable,
+        url: str,
+        answer: str
 ) -> None:
     mock_google_url.return_value = True
     mock_internet_connection.return_value = False
-    assert can_access_google_page("www.googl.com") == "Not accessible"
+    assert can_access_google_page(url) == answer
 
 
+@pytest.mark.parametrize(
+    "url, answer",
+    [("www.googl.com", "Not accessible")]
+)
 def test_not_valid_googl_url(
         mock_google_url: Callable,
-        mock_internet_connection: Callable
+        mock_internet_connection: Callable,
+        url: str,
+        answer: str
 ) -> None:
     mock_google_url.return_value = False
     mock_internet_connection.return_value = True
-    assert can_access_google_page("www.googl.com") == "Not accessible"
+    assert can_access_google_page(url) == answer
 
 
+@pytest.mark.parametrize(
+    "url, answer",
+    [("www.googl.com", "Not accessible")]
+)
 def test_dont_have_valid_googl_url_and_dont_have_internet_connection(
         mock_google_url: Callable,
-        mock_internet_connection: Callable
+        mock_internet_connection: Callable,
+        url: str,
+        answer: str
 ) -> None:
     mock_google_url.return_value = False
     mock_internet_connection.return_value = False
-    assert can_access_google_page("www.googl.com") == "Not accessible"
+    assert can_access_google_page(url) == answer
 
 
+@pytest.mark.parametrize(
+    "url, answer",
+    [("www.googl.com", "Accessible")]
+)
 def test_valid_googl_url_and_have_internet_connection(
         mock_google_url: Callable,
-        mock_internet_connection: Callable
+        mock_internet_connection: Callable,
+        url: str,
+        answer: str
 ) -> None:
     mock_google_url.return_value = True
     mock_internet_connection.return_value = True
-    assert can_access_google_page("www.googl.com") == "Accessible"
+    assert can_access_google_page(url) == answer
