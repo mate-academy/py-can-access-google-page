@@ -23,60 +23,22 @@ def mock_internet_connection() -> None:
 
 
 @pytest.mark.parametrize(
-    "url, answer",
-    [("www.googl.com", "Not accessible")]
+    "url, answer, mock_google_url_value, mock_internet_connection_value",
+    [
+        ("www.googl.com", "Not accessible", True, False),
+        ("www.googl.com", "Not accessible", False, True),
+        ("www.googl.com", "Not accessible", False, False),
+        ("www.googl.com", "Accessible", True, True),
+    ]
 )
-def test_dont_have_internet_connection(
+def test_can_access_google_page(
         mock_google_url: Callable,
         mock_internet_connection: Callable,
         url: str,
-        answer: str
+        answer: str,
+        mock_google_url_value: bool,
+        mock_internet_connection_value: bool
 ) -> None:
-    mock_google_url.return_value = True
-    mock_internet_connection.return_value = False
-    assert can_access_google_page(url) == answer
-
-
-@pytest.mark.parametrize(
-    "url, answer",
-    [("www.googl.com", "Not accessible")]
-)
-def test_not_valid_googl_url(
-        mock_google_url: Callable,
-        mock_internet_connection: Callable,
-        url: str,
-        answer: str
-) -> None:
-    mock_google_url.return_value = False
-    mock_internet_connection.return_value = True
-    assert can_access_google_page(url) == answer
-
-
-@pytest.mark.parametrize(
-    "url, answer",
-    [("www.googl.com", "Not accessible")]
-)
-def test_dont_have_valid_googl_url_and_dont_have_internet_connection(
-        mock_google_url: Callable,
-        mock_internet_connection: Callable,
-        url: str,
-        answer: str
-) -> None:
-    mock_google_url.return_value = False
-    mock_internet_connection.return_value = False
-    assert can_access_google_page(url) == answer
-
-
-@pytest.mark.parametrize(
-    "url, answer",
-    [("www.googl.com", "Accessible")]
-)
-def test_valid_googl_url_and_have_internet_connection(
-        mock_google_url: Callable,
-        mock_internet_connection: Callable,
-        url: str,
-        answer: str
-) -> None:
-    mock_google_url.return_value = True
-    mock_internet_connection.return_value = True
+    mock_google_url.return_value = mock_google_url_value
+    mock_internet_connection.return_value = mock_internet_connection_value
     assert can_access_google_page(url) == answer
