@@ -1,43 +1,29 @@
-from unittest import mock
+import pytest
 from app.main import can_access_google_page
+from unittest import mock
 from typing import Callable
 
 
-@mock.patch("app.main.valid_google_url", return_value=True)
-@mock.patch("app.main.has_internet_connection", return_value=True)
-def test_can_access(
-        valid_url: Callable,
-        has_connection: Callable
-) -> None:
-
-    assert can_access_google_page("https://www.google.com/") == "Accessible"
-
-
-@mock.patch("app.main.valid_google_url", return_value=False)
-@mock.patch("app.main.has_internet_connection", return_value=True)
-def test_can_not_access_invalid_url(
-        valid_url: Callable,
-        has_connection: Callable
-) -> None:
-
-    assert can_access_google_page("https://www.go73736to") == "Not accessible"
-
-
-@mock.patch("app.main.valid_google_url", return_value=True)
-@mock.patch("app.main.has_internet_connection", return_value=False)
-def test_can_not_access_no_connection(
-        valid_url: Callable,
-        has_connection: Callable
-) -> None:
-
-    assert can_access_google_page("https://www.google.com") == "Not accessible"
-
-
-@mock.patch("app.main.valid_google_url", return_value=False)
-@mock.patch("app.main.has_internet_connection", return_value=False)
-def test_can_not_access(
-        valid_url: Callable,
-        has_connection: Callable
-) -> None:
-
-    assert can_access_google_page("https://www.goohgfhfhf") == "Not accessible"
+class TestCanAccessPage:
+    @pytest.mark.parametrize(
+        "connection,valid,access",
+        [
+            (True, True, "Accessible"),
+            (True, False, "Not accessible"),
+            (False, True, "Not accessible"),
+            (False, False, "Not accessible")
+        ]
+    )
+    @mock.patch("app.main.valid_google_url")
+    @mock.patch("app.main.has_internet_connection")
+    def test_valid_googl_url_and_has_internet_connection(
+        self,
+        mock_check_valid: Callable,
+        mock_check_connection: Callable,
+        connection: bool,
+        valid: bool,
+        access: str
+    ) -> None:
+        mock_check_valid.return_value = valid
+        mock_check_connection.return_value = connection
+        assert can_access_google_page("www.googl.com") == access
