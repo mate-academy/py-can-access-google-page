@@ -6,7 +6,7 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "allowed_url, allowed_time, result",
+    "allowed_url, internet_connection, result",
     [
 
         (True, True, "Accessible"),
@@ -21,10 +21,10 @@ from app.main import can_access_google_page
 def test_can_access_google_page(
         mock_valid_url: mock.MagicMock,
         mock_internet_connection: mock.MagicMock,
-        allowed_time: bool,
+        internet_connection: bool,
         allowed_url: bool,
         result: str
 ) -> None:
     mock_valid_url.return_value = allowed_url
-    mock_internet_connection.return_value = allowed_time
+    mock_internet_connection.return_value = internet_connection
     assert can_access_google_page("www.google.com") == result
