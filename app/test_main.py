@@ -12,6 +12,13 @@ import pytest
         ("https://www.google.com.ua", False, True, "Not accessible"),
         ("https://www.google.com.ua", True, False, "Not accessible"),
         ("https://www.google.com.ua", False, False, "Not accessible")
+    ],
+    ids=[
+        "if valid url and has internet connection, it should return 'Accessible'",
+        "if the URL is invalid url and has internet connection, it should return 'Not accessible'",
+        "if the URL valid but no internet connection, it should return 'Not accessible'",
+        "if the URL is invalid and no internet connection, it should return 'Not accessible'"
+
     ]
 )
 @mock.patch("app.main.has_internet_connection")
