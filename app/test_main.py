@@ -14,10 +14,14 @@ import pytest
         ("https://www.google.com.ua", False, False, "Not accessible")
     ],
     ids=[
-        "if valid url and has internet connection, it should return 'Accessible'",
-        "if the URL is invalid url and has internet connection, it should return 'Not accessible'",
-        "if the URL valid but no internet connection, it should return 'Not accessible'",
-        "if the URL is invalid and no internet connection, it should return 'Not accessible'"
+        "if valid url and has internet connection,"
+        " it should return 'Accessible'",
+        "if the URL is invalid url and has internet connection,"
+        " it should return 'Not accessible'",
+        "if the URL valid but no internet connection,"
+        " it should return 'Not accessible'",
+        "if the URL is invalid and no internet connection,"
+        " it should return 'Not accessible'"
 
     ]
 )
