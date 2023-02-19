@@ -12,9 +12,10 @@ from typing import Callable
 ])
 def access_fixture(request: tuple) -> tuple:
     valid_mock, internet_mock, expected_result = request.param
-    with patch("app.main.valid_google_url", return_value=valid_mock), \
-            patch("app.main.has_internet_connection",
-                  return_value=internet_mock):
+    with (
+        patch("app.main.valid_google_url", return_value=valid_mock),
+        patch("app.main.has_internet_connection", return_value=internet_mock)
+    ):
         yield valid_mock, internet_mock, expected_result
 
 
