@@ -11,17 +11,20 @@ import app.main
             True,
             True,
             "Accessible",
-            id="should get access with correct url and time"),
+            id="should get access with correct url and time"
+        ),
         pytest.param(
             False,
             True,
             "Not accessible",
-            id="should not get access with broken url"),
+            id="should not get access with broken url"
+        ),
         pytest.param(
             True,
             False,
             "Not accessible",
-            id="should not get access without internet connection "),
+            id="should not get access without internet connection "
+        ),
     ]
 )
 @patch("app.main.has_internet_connection")
