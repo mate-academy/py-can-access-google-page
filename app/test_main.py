@@ -1,5 +1,7 @@
-from unittest import mock
 import pytest
+
+from unittest import mock
+
 from .main import can_access_google_page
 
 
@@ -10,6 +12,12 @@ from .main import can_access_google_page
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
         (True, True, "Accessible")
+    ],
+    ids=[
+        "When invalid url and connection False should return 'Not accessible'",
+        "When valid url, but connection False should return 'Not accessible'",
+        "When invalid url, but connection True should return 'Not accessible'",
+        "When url and connection are True should return 'Accessible'",
     ]
 )
 @mock.patch("app.main.valid_google_url")
