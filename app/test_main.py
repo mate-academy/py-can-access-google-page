@@ -18,6 +18,10 @@ from app.main import can_access_google_page
         pytest.param(
             True, True, "Accessible",
             id="if valid url and internet connection are both True"
+        ),
+        pytest.param(
+            False, False, "Not accessible",
+            id="if valid url and internet connection are both False"
         )
     ]
 )
