@@ -1,6 +1,5 @@
 import pytest
-from unittest import mock
-from unittest.mock import MagicMock
+from unittest.mock import patch, MagicMock
 
 import app.main
 
@@ -8,13 +7,25 @@ import app.main
 @pytest.mark.parametrize(
     "internet_connection_flag,response_status,expected_result",
     [
-        (True, True, "Accessible"),
-        (False, True, "Not accessible"),
-        (True, False, "Not accessible"),
+        pytest.param(
+            True,
+            True,
+            "Accessible",
+            id="should get access with correct url and time"),
+        pytest.param(
+            False,
+            True,
+            "Not accessible",
+            id="should not get access with broken url"),
+        pytest.param(
+            True,
+            False,
+            "Not accessible",
+            id="should not get access without internet connection "),
     ]
 )
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
 def test_can_access_google_page(
         mocked_has_internet_connection: MagicMock,
         mocked_valid_google_url: MagicMock,
