@@ -21,31 +21,26 @@ from app.main import can_access_google_page
         )
     ]
 )
-def test_for_some(
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_for_correct_result_can_access_page(
+        mocked_valid_url: mock,
+        mocked_internet_connection: mock,
         valid_url: bool,
         internet_connection: bool,
         can_access: bool
 ) -> None:
-    with mock.patch("app.main.valid_google_url") as mocked_valid_url:
-        with mock.patch(
-                "app.main.has_internet_connection"
-        ) as mocked_internet_connection:
-            mocked_valid_url.return_value = valid_url
-            mocked_internet_connection.return_value = internet_connection
-            assert can_access_google_page("www.mate.com.ua") == can_access
+    mocked_valid_url.return_value = valid_url
+    mocked_internet_connection.return_value = internet_connection
+    assert can_access_google_page("www.mate.com.ua") == can_access
 
 
-def test_valid_url_was_called() -> None:
-    with mock.patch("app.main.valid_google_url") as mocked_valid_url:
-        can_access_google_page("www.com")
-        mocked_valid_url.assert_called_once()
-
-
-def test_internet_connection_and_valid_url_was_called() -> None:
-    with mock.patch("app.main.valid_google_url") as mocked_valid_url:
-        with mock.patch(
-                "app.main.has_internet_connection"
-        ) as mocked_internet_connection:
-            can_access_google_page("www.ua")
-            mocked_internet_connection.assert_called_once()
-            mocked_valid_url.assert_called_once()
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_internet_connection_and_valid_url_was_called(
+        mocked_valid_url: mock,
+        mocked_internet_connection: mock
+) -> None:
+    can_access_google_page("www.ua")
+    mocked_internet_connection.assert_called_once()
+    mocked_valid_url.assert_called_once()
