@@ -1,8 +1,8 @@
+import pytest
+
 from typing import Callable
 from unittest import mock
 from app.main import can_access_google_page
-
-import pytest
 
 
 @pytest.mark.parametrize(
