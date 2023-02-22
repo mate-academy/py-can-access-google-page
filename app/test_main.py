@@ -23,8 +23,14 @@ import app.main
             False,
             True,
             "Not accessible",
-            id="should not get access without internet connection "
+            id="should not get access without internet connection"
         ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="should not get access when url is broken and connection failed"
+        )
     ]
 )
 @patch("app.main.has_internet_connection")
