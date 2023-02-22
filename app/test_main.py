@@ -1,5 +1,6 @@
-import pytest
 from unittest import mock
+
+import pytest
 
 from app.main import can_access_google_page
 
@@ -20,8 +21,8 @@ def mocked_has_connection() -> None:
 
 def test_valid_connection_and_url_exist(
         mocked_valid_google_url: mock,
-        mocked_has_connection: mock) -> None:
-
+        mocked_has_connection: mock
+) -> None:
     mocked_valid_google_url.return_value = True
     mocked_has_connection.return_value = True
 
@@ -30,8 +31,8 @@ def test_valid_connection_and_url_exist(
 
 def test_invalid_connection_and_valid_url_exist(
         mocked_valid_google_url: mock,
-        mocked_has_connection: mock) -> None:
-
+        mocked_has_connection: mock
+) -> None:
     mocked_valid_google_url.return_value = True
     mocked_has_connection.return_value = False
 
@@ -40,8 +41,8 @@ def test_invalid_connection_and_valid_url_exist(
 
 def test_valid_connection_and_invalid_url_exist(
         mocked_valid_google_url: mock,
-        mocked_has_connection: mock) -> None:
-
+        mocked_has_connection: mock
+) -> None:
     mocked_valid_google_url.return_value = False
     mocked_has_connection.return_value = True
 
@@ -50,8 +51,8 @@ def test_valid_connection_and_invalid_url_exist(
 
 def test_invalid_connection_and_invalid_url_exist(
         mocked_valid_google_url: mock,
-        mocked_has_connection: mock) -> None:
-
+        mocked_has_connection: mock
+) -> None:
     mocked_valid_google_url.return_value = False
     mocked_has_connection.return_value = False
 
