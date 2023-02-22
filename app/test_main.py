@@ -30,7 +30,6 @@ import pytest
 def test_valid_url_and_connection_exists(
         mock_valid_google_url: Callable,
         mock_has_internet_connection: Callable,
-        url: str,
         valid_url: bool,
         connection: bool,
         result: str
