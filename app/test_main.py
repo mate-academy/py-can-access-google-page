@@ -35,8 +35,8 @@ def test_invalid_connection_and_valid_url_exist(mocked_valid_google_url: any,
     assert can_access_google_page(url) == "Not accessible"
 
 
-def test_valid_connection_and_invalid_url_exist(mocked_valid_google_url: any,
-                                                mocked_has_connection: any
+def test_valid_connection_and_invalid_url_exist(mocked_valid_google_url: mock,
+                                                mocked_has_connection: mock
                                                 ) -> None:
     mocked_valid_google_url.return_value = False
     mocked_has_connection.return_value = True
