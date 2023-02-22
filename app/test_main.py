@@ -14,14 +14,14 @@ import app.main
             id="should get access with correct url and time"
         ),
         pytest.param(
-            False,
             True,
+            False,
             "Not accessible",
             id="should not get access with broken url"
         ),
         pytest.param(
-            True,
             False,
+            True,
             "Not accessible",
             id="should not get access without internet connection "
         ),
@@ -30,8 +30,8 @@ import app.main
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
 def test_can_access_google_page(
-        mocked_has_internet_connection: MagicMock,
         mocked_valid_google_url: MagicMock,
+        mocked_has_internet_connection: MagicMock,
         internet_connection_flag: bool,
         response_status: bool,
         expected_result: str
