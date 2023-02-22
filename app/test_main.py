@@ -1,6 +1,6 @@
 from unittest import mock
-
 import pytest
+from typing import Callable
 
 from app.main import can_access_google_page
 
@@ -18,8 +18,8 @@ def mocked_internet_connection() -> None:
 
 
 def test_should_access_google_page(
-        mocked_url_validation: object,
-        mocked_internet_connection: object
+        mocked_url_validation: Callable,
+        mocked_internet_connection: Callable
 ) -> None:
     mocked_url_validation.return_value = True
     mocked_internet_connection.return_value = True
@@ -27,14 +27,27 @@ def test_should_access_google_page(
 
 
 def test_should_not_access_if_url_invalid(
-        mocked_url_validation: object
+        mocked_url_validation: Callable,
+        mocked_internet_connection: Callable
 ) -> None:
     mocked_url_validation.return_value = False
+    mocked_internet_connection.return_value = True
     assert can_access_google_page("maate.academy") == "Not accessible"
 
 
 def test_should_not_access_if_no_connection(
-        mocked_internet_connection: object
+        mocked_url_validation: Callable,
+        mocked_internet_connection: Callable
 ) -> None:
+    mocked_url_validation.return_value = True
     mocked_internet_connection.return_value = False
     assert can_access_google_page("facebook.com") == "Not accessible"
+
+
+def test_should_not_access_if_no_connection_and_invalid_url(
+        mocked_url_validation: Callable,
+        mocked_internet_connection: Callable
+) -> None:
+    mocked_url_validation.return_value = False
+    mocked_internet_connection.return_value = False
+    assert can_access_google_page("google.com") == "Not accessible"
