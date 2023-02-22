@@ -6,11 +6,12 @@ from .main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "url,status,internet,result",
+    "status,internet,result",
     [
-        ("google.com", True, False, "Not accessible"),
-        ("gooogle.com", False, True, "Not accessible"),
-        ("google.com", True, True, "Accessible")
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
+        (True, True, "Accessible")
     ]
 )
 @mock.patch("app.main.valid_google_url")
@@ -18,11 +19,11 @@ from .main import can_access_google_page
 def test_access_google_page(
         mocked_internet: mock,
         mocked_google_url: mock,
-        url: str,
         status: bool,
         internet: bool,
         result: str
 ) -> None:
+    url = "google.com"
     mocked_google_url.return_value = status
     mocked_internet.return_value = internet
 
