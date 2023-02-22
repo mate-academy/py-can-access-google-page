@@ -1,8 +1,9 @@
 import pytest
 from unittest import mock
 
-
 from app.main import can_access_google_page
+
+URL = "http//:www.google.com/"
 
 
 @pytest.fixture()
@@ -17,37 +18,41 @@ def mocked_has_connection() -> None:
         yield mocked_func
 
 
-def test_valid_connection_and_url_exist(mocked_valid_google_url: any,
-                                        mocked_has_connection: any
-                                        ) -> None:
+def test_valid_connection_and_url_exist(
+        mocked_valid_google_url: mock,
+        mocked_has_connection: mock) -> None:
+
     mocked_valid_google_url.return_value = True
     mocked_has_connection.return_value = True
-    url = "http//:www.google.com/"
-    assert can_access_google_page(url) == "Accessible"
+
+    assert can_access_google_page(URL) == "Accessible"
 
 
-def test_invalid_connection_and_valid_url_exist(mocked_valid_google_url: any,
-                                                mocked_has_connection: any
-                                                ) -> None:
+def test_invalid_connection_and_valid_url_exist(
+        mocked_valid_google_url: mock,
+        mocked_has_connection: mock) -> None:
+
     mocked_valid_google_url.return_value = True
     mocked_has_connection.return_value = False
-    url = "http//:www.google.com/"
-    assert can_access_google_page(url) == "Not accessible"
+
+    assert can_access_google_page(URL) == "Not accessible"
 
 
-def test_valid_connection_and_invalid_url_exist(mocked_valid_google_url: mock,
-                                                mocked_has_connection: mock
-                                                ) -> None:
+def test_valid_connection_and_invalid_url_exist(
+        mocked_valid_google_url: mock,
+        mocked_has_connection: mock) -> None:
+
     mocked_valid_google_url.return_value = False
     mocked_has_connection.return_value = True
-    url = "http//:www.google.com/"
-    assert can_access_google_page(url) == "Not accessible"
+
+    assert can_access_google_page(URL) == "Not accessible"
 
 
-def test_invalid_connection_and_invalid_url_exist(mocked_valid_google_url: any,
-                                                  mocked_has_connection: any
-                                                  ) -> None:
+def test_invalid_connection_and_invalid_url_exist(
+        mocked_valid_google_url: mock,
+        mocked_has_connection: mock) -> None:
+
     mocked_valid_google_url.return_value = False
     mocked_has_connection.return_value = False
-    url = "http//:www.google.com/"
-    assert can_access_google_page(url) == "Not accessible"
+
+    assert can_access_google_page(URL) == "Not accessible"
