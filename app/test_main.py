@@ -6,12 +6,12 @@ import pytest
 
 
 @pytest.mark.parametrize(
-    "url,valid_url,connection,result",
+    "valid_url,connection,result",
     [
-        ("https://www.google.com.ua", True, True, "Accessible"),
-        ("https://www.google.com.ua", False, True, "Not accessible"),
-        ("https://www.google.com.ua", True, False, "Not accessible"),
-        ("https://www.google.com.ua", False, False, "Not accessible")
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible")
     ],
     ids=[
         "if valid url and has internet connection,"
@@ -37,4 +37,4 @@ def test_valid_url_and_connection_exists(
 ) -> None:
     mock_valid_google_url.return_value = valid_url
     mock_has_internet_connection.return_value = connection
-    assert can_access_google_page(url) == result
+    assert can_access_google_page("https://www.google.com.ua") == result
