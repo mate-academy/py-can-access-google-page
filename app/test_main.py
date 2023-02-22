@@ -23,7 +23,7 @@ from app.main import can_access_google_page
 )
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_ok_connection_ok_url(
+def test_different_connection_and_url_status(
     mock_connection: mock,
     mock_url: mock,
     connection_status: bool,
