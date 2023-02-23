@@ -1,4 +1,4 @@
-from unittest.mock import  patch
+from unittest.mock import patch
 from app.main import can_access_google_page
 
 url = "https://www.notavalidurl.com"
