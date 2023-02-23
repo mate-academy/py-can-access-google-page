@@ -5,6 +5,9 @@ from typing import Callable
 from app.main import can_access_google_page
 
 
+URL = "youtube.com"
+
+
 @pytest.fixture()
 def mocked_url_validation() -> None:
     with mock.patch("app.main.valid_google_url") as mock_check_url:
@@ -23,7 +26,7 @@ def test_should_access_google_page(
 ) -> None:
     mocked_url_validation.return_value = True
     mocked_internet_connection.return_value = True
-    assert can_access_google_page("youtube.com") == "Accessible"
+    assert can_access_google_page(URL) == "Accessible"
 
 
 def test_should_not_access_if_url_invalid(
@@ -32,7 +35,7 @@ def test_should_not_access_if_url_invalid(
 ) -> None:
     mocked_url_validation.return_value = False
     mocked_internet_connection.return_value = True
-    assert can_access_google_page("maate.academy") == "Not accessible"
+    assert can_access_google_page(URL) == "Not accessible"
 
 
 def test_should_not_access_if_no_connection(
@@ -41,7 +44,7 @@ def test_should_not_access_if_no_connection(
 ) -> None:
     mocked_url_validation.return_value = True
     mocked_internet_connection.return_value = False
-    assert can_access_google_page("facebook.com") == "Not accessible"
+    assert can_access_google_page(URL) == "Not accessible"
 
 
 def test_should_not_access_if_no_connection_and_invalid_url(
@@ -50,4 +53,4 @@ def test_should_not_access_if_no_connection_and_invalid_url(
 ) -> None:
     mocked_url_validation.return_value = False
     mocked_internet_connection.return_value = False
-    assert can_access_google_page("google.com") == "Not accessible"
+    assert can_access_google_page(URL) == "Not accessible"
