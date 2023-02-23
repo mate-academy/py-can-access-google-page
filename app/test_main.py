@@ -3,16 +3,16 @@ import pytest
 from typing import Callable
 from unittest import mock
 
-link = "https://mail.google.com/"
+LINK = "https://mail.google.com/"
 
 
 @pytest.mark.parametrize(
-    "url,has_internet, has_valid, res_message",
+    "has_internet, has_valid, res_message",
     [
-        (link, True, True, "Accessible"),
-        (link, False, True, "Not accessible"),
-        (link, True, False, "Not accessible"),
-        (link, False, False, "Not accessible")
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible")
     ],
     ids=[
         "if all conditions -> True <- must return 'Accessible'",
@@ -26,11 +26,10 @@ link = "https://mail.google.com/"
 def test_can_access_google_page(
     mock_has_internet_connection: Callable,
     mock_valid_google_url: Callable,
-    url: str,
     has_internet: bool,
     has_valid: bool,
     res_message: str
 ) -> None:
     mock_has_internet_connection.return_value = has_internet
     mock_valid_google_url.return_value = has_valid
-    assert can_access_google_page(url) == res_message
+    assert can_access_google_page(LINK) == res_message
