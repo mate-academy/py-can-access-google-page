@@ -6,12 +6,12 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "url,status,internet,result",
+    "status,internet,result",
     [
-        ("google.com", True, False, "Not accessible"),
-        ("google.com", True, True, "Accessible"),
-        ("bing.com", False, False, "Not accessible"),
-        ("bing.com", False, True, "Not accessible")
+        (True, False, "Not accessible"),
+        (True, True, "Accessible"),
+        (False, False, "Not accessible"),
+        (False, True, "Not accessible")
     ],
     ids=[
         "test_valid_url_night_time",
@@ -25,7 +25,6 @@ from app.main import can_access_google_page
 def test_access_google_page(
         mocked_has_internet_connection: mock,
         mocked_valid_google_url: mock,
-        url: str,
         status: bool,
         internet: bool,
         result: str
@@ -33,4 +32,4 @@ def test_access_google_page(
     mocked_valid_google_url.return_value = status
     mocked_has_internet_connection.return_value = internet
 
-    assert can_access_google_page(url) == result
+    assert can_access_google_page("not matter") == result
