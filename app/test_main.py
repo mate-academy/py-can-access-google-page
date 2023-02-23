@@ -1,18 +1,17 @@
-from typing import Generator
 from unittest import mock
 import pytest as pytest
 from app.main import can_access_google_page
 
 
 @pytest.fixture()
-def mocked_has_internet_connection() -> Generator:
+def mocked_has_internet_connection() -> mock.Mock:
     with mock.patch("app.main.has_internet_connection") \
             as mock_has_internet_connection:
         yield mock_has_internet_connection
 
 
 @pytest.fixture()
-def mocked_valid_google_url() -> Generator:
+def mocked_valid_google_url() -> mock.Mock:
     with mock.patch("app.main.valid_google_url") as mock_valid_google_url:
         yield mock_valid_google_url
 
