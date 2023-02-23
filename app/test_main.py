@@ -7,8 +7,11 @@ from app.main import can_access_google_page
 
 @pytest.fixture
 def mocked_functions() -> None:
-    with patch("app.main.valid_google_url") as mocked_google, \
-            patch("app.main.has_internet_connection") as mocked_internet:
+    with patch(
+            "app.main.valid_google_url"
+    ) as mocked_google, patch(
+        "app.main.has_internet_connection"
+    ) as mocked_internet:
         yield mocked_google, mocked_internet
 
 
