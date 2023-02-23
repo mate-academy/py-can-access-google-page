@@ -1,54 +1,48 @@
-import unittest
 from unittest import mock
+from typing import Any
 
 import app.main
 
+google_url = "https://www.google.com"
+invalid_url = "https://www.invalidurl.com"
 
-class TestCanAccessGooglePage(unittest.TestCase):
-    @mock.patch("app.main.has_internet_connection")
-    @mock.patch("app.main.valid_google_url")
-    def test_accessible(
-            self,
-            mock_valid_url: bool,
-            mock_has_internet: bool
-    ) -> None:
-        mock_valid_url.return_value = True
-        mock_has_internet.return_value = True
-        result = app.main.can_access_google_page("https://www.google.com")
-        self.assertEqual(result, "Accessible")
 
-    @mock.patch("app.main.has_internet_connection")
-    @mock.patch("app.main.valid_google_url")
-    def test_not_accessible_due_to_invalid_url(
-            self,
-            mock_valid_url: bool,
-            mock_has_internet: bool
-    ) -> None:
-        mock_valid_url.return_value = False
-        mock_has_internet.return_value = True
-        result = app.main.can_access_google_page("https://www.invalidurl.com")
-        self.assertEqual(result, "Not accessible")
+@mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
+def test_accessible(mock_valid_url: Any, mock_has_internet: Any) -> None:
+    mock_valid_url.return_value = True
+    mock_has_internet.return_value = True
+    assert app.main.can_access_google_page(google_url) == "Accessible"
 
-    @mock.patch("app.main.has_internet_connection")
-    @mock.patch("app.main.valid_google_url")
-    def test_not_accessible_due_to_no_internet_connection(
-            self,
-            mock_valid_url: bool,
-            mock_has_internet: bool
-    ) -> None:
-        mock_valid_url.return_value = True
-        mock_has_internet.return_value = False
-        result = app.main.can_access_google_page("https://www.google.com")
-        self.assertEqual(result, "Not accessible")
 
-    @mock.patch("app.main.has_internet_connection")
-    @mock.patch("app.main.valid_google_url")
-    def test_not_accessible_due_to_invalid_url_and_no_internet_connection(
-            self,
-            mock_valid_url: bool,
-            mock_has_internet: bool
-    ) -> None:
-        mock_valid_url.return_value = False
-        mock_has_internet.return_value = False
-        result = app.main.can_access_google_page("https://www.invalidurl.com")
-        self.assertEqual(result, "Not accessible")
+@mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
+def test_not_accessible_due_to_invalid_url(
+        mock_valid_url: Any,
+        mock_has_internet: Any
+) -> None:
+    mock_valid_url.return_value = False
+    mock_has_internet.return_value = True
+    assert app.main.can_access_google_page(invalid_url) == "Not accessible"
+
+
+@mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
+def test_not_accessible_due_to_no_internet_connection(
+        mock_valid_url: Any,
+        mock_has_internet: Any
+) -> None:
+    mock_valid_url.return_value = True
+    mock_has_internet.return_value = False
+    assert app.main.can_access_google_page(google_url) == "Not accessible"
+
+
+@mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
+def test_not_accessible_due_to_invalid_url_and_no_internet_connection(
+        mock_valid_url: Any,
+        mock_has_internet: Any
+) -> None:
+    mock_valid_url.return_value = False
+    mock_has_internet.return_value = False
+    assert app.main.can_access_google_page(invalid_url) == "Not accessible"
