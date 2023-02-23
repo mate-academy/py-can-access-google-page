@@ -10,26 +10,10 @@ from app.main import can_access_google_page
 @pytest.mark.parametrize(
     "mock_internet, mock_valid, expected",
     [
-        (
-            True,
-            True,
-            "Accessible",
-        ),
-        (
-            False,
-            True,
-            "Not accessible",
-        ),
-        (
-            True,
-            False,
-            "Not accessible",
-        ),
-        (
-            False,
-            False,
-            "Not accessible",
-        ),
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible"),
     ],
     ids=[
         "internet and valid url",
