@@ -34,7 +34,8 @@ def test_access_page(
         mock_has_internet_connection: mock.Mock,
         valid_url: bool,
         connection: bool,
-        status: str) -> None:
+        status: str
+) -> None:
 
     mock_valid_google_url.return_value = valid_url
     mock_has_internet_connection.return_value = connection
