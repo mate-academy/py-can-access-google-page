@@ -5,29 +5,27 @@ import pytest
 from app.main import can_access_google_page
 
 
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
 @pytest.mark.parametrize(
-    "url, mock_internet, mock_valid, expected",
+    "mock_internet, mock_valid, expected",
     [
         (
-            "https://www.google.com",
             True,
             True,
             "Accessible",
         ),
         (
-            "https://www.google.com",
             False,
             True,
             "Not accessible",
         ),
         (
-            "https://www.google.com",
             True,
             False,
             "Not accessible",
         ),
         (
-            "https://www.google.com",
             False,
             False,
             "Not accessible",
@@ -40,11 +38,14 @@ from app.main import can_access_google_page
         "no internet and invalid url",
     ]
 )
-def test_can_access_google_page(url: str,
-                                mock_internet: bool,
-                                mock_valid: bool,
-                                expected: str) -> None:
-    with mock.patch("app.main.valid_google_url", return_value=mock_valid):
-        with mock.patch("app.main.has_internet_connection",
-                        return_value=mock_internet):
-            assert can_access_google_page(url) == expected
+def test_can_access_google_page(
+        mock_valid_google_url: mock.Mock,
+        mock_has_internet_connection: mock.Mock,
+        mock_internet: bool,
+        mock_valid: bool,
+        expected: str,
+) -> None:
+    mock_has_internet_connection.return_value = mock_internet
+    mock_valid_google_url.return_value = mock_valid
+    url = "https://www.google.com"
+    assert can_access_google_page(url) == expected
