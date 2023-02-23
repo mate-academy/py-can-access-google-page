@@ -22,13 +22,11 @@ from app.main import can_access_google_page
         "no internet and invalid url",
     ]
 )
-def test_can_access_google_page(
-                                mock_has_internet_connection: mock.Mock,
+def test_can_access_google_page(mock_has_internet_connection: mock.Mock,
                                 mock_valid_google_url: mock.Mock,
                                 mock_internet: bool,
                                 mock_valid: bool,
-                                expected: str
-) -> None:
+                                expected: str) -> None:
     mock_has_internet_connection.return_value = mock_internet
     mock_valid_google_url.return_value = mock_valid
     assert can_access_google_page("https://www.google.com") == expected
