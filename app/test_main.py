@@ -33,4 +33,3 @@ def test_can_access_google_page(
     mocked_internet_connection.return_value = is_connected
     mocked_valid_url.return_value = is_valid
     assert can_access_google_page("https://example.com/") == expected
-
