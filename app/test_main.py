@@ -2,7 +2,7 @@ import pytest
 
 from unittest import mock
 
-from .main import can_access_google_page
+from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
@@ -12,6 +12,12 @@ from .main import can_access_google_page
         (False, True, "Not accessible"),
         (False, False, "Not accessible"),
         (True, True, "Accessible")
+    ],
+    ids=[
+        "You have unstable internet connection",
+        "You have invalid URL",
+        "You have invalid url and unstable internet connection",
+        "You have an access",
     ]
 )
 @mock.patch("app.main.valid_google_url")
