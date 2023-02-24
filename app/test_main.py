@@ -8,20 +8,15 @@ def url() -> str:
     return "https://www.google.com"
 
 
-@pytest.mark.parametrize("internet_connection,"
-                         "valid_url,"
-                         "expected_output",
-                         [
-                             pytest.param(True, True, "Accessible",
-                                          id="internet_available_success"),
-                             pytest.param(False, True, "Not accessible",
-                                          id="internet_unavailable_success"),
-                             pytest.param(True, False, "Not accessible",
-                                          id="internet_available_fail"),
-                             pytest.param(False, False, "Not accessible",
-                                          id="internet_unavailable_fail")
-                         ]
-                         )
+@pytest.mark.parametrize(
+    "internet_connection," "valid_url," "expected_output",
+    [
+        pytest.param(True, True, "Accessible", id="available_success"),
+        pytest.param(False, True, "Not accessible", id="unavailable_success"),
+        pytest.param(True, False, "Not accessible", id="available_fail"),
+        pytest.param(False, False, "Not accessible", id="unavailable_fail")
+    ]
+)
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(mock_has_internet_connection: mock,
