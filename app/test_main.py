@@ -38,7 +38,7 @@ def test_not_valid_url(
 def test_no_connection(
         mock_url: mock,
         mock_connection: mock
-)-> None:
+) -> None:
     mock_url.return_value = True
     mock_connection.return_value = False
     assert can_access_google_page("https://www.google.com") == "Not accessible"
