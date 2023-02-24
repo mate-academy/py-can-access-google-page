@@ -20,8 +20,7 @@ def mocked_has_internet_connection() -> mock:
 
 
 def test_access_google_page_true(
-    mocked_valid_google_url: Callable,
-    mocked_has_internet_connection: Callable
+    mocked_valid_google_url: Callable, mocked_has_internet_connection: Callable
 ) -> None:
     mocked_valid_google_url.return_value = True
     mocked_has_internet_connection.return_value = True
@@ -29,27 +28,30 @@ def test_access_google_page_true(
 
 
 def test_access_google_page_connection_fail(
-    mocked_valid_google_url: Callable,
-    mocked_has_internet_connection: Callable
+    mocked_valid_google_url: Callable, mocked_has_internet_connection: Callable
 ) -> None:
     mocked_valid_google_url.return_value = True
     mocked_has_internet_connection.return_value = False
-    assert can_access_google_page("www.google.com") == "Not accessible"
+    assert (
+        can_access_google_page("www.google.com") == "Not accessible"
+    ), "Bad connection"
 
 
 def test_access_google_page_url_fail(
-    mocked_valid_google_url: Callable,
-    mocked_has_internet_connection: Callable
+    mocked_valid_google_url: Callable, mocked_has_internet_connection: Callable
 ) -> None:
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_value = True
-    assert can_access_google_page("www.google.com") == "Not accessible"
+    assert (
+        can_access_google_page("www.google.com") == "Not accessible"
+    ), "Wrong url"
 
 
 def test_access_google_page_wrong_url(
-    mocked_valid_google_url: Callable,
-    mocked_has_internet_connection: Callable
+    mocked_valid_google_url: Callable, mocked_has_internet_connection: Callable
 ) -> None:
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_value = False
-    assert can_access_google_page("www.rambler.com") == "Not accessible"
+    assert (
+        can_access_google_page("www.rambler.com") == "Not accessible"
+    ), "Check your connection and url"
