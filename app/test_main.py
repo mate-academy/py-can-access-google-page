@@ -1,34 +1,29 @@
+import pytest
 from typing import Callable
+
 from app.main import can_access_google_page
 
 
-def test_true_url_true_time(monkeypatch: Callable) -> None:
+@pytest.mark.parametrize(
+    "url,connection, result",
+    [
+        pytest.param(True, True, "Accessible",
+                     id="True url, True connection"),
+        pytest.param(False, False, "Not accessible",
+                     id="False url, False connection"),
+        pytest.param(True, False, "Not accessible",
+                     id="True url, False connection"),
+        pytest.param(False, True, "Not accessible",
+                     id="False url, True connection")
+
+    ]
+)
+def test_access(monkeypatch: Callable,
+                url: bool,
+                connection: bool,
+                result: str) -> None:
     monkeypatch.setattr("app.main.valid_google_url",
-                        lambda *args: True)
+                        lambda *args: url)
     monkeypatch.setattr("app.main.has_internet_connection",
-                        lambda *args: True)
-    assert can_access_google_page("x") == "Accessible"
-
-
-def test_false_url_false_time(monkeypatch: Callable) -> None:
-    monkeypatch.setattr("app.main.valid_google_url",
-                        lambda *args: False)
-    monkeypatch.setattr("app.main.has_internet_connection",
-                        lambda *args: False)
-    assert can_access_google_page("x") == "Not accessible"
-
-
-def test_true_url_false_time(monkeypatch: Callable) -> None:
-    monkeypatch.setattr("app.main.valid_google_url",
-                        lambda *args: True)
-    monkeypatch.setattr("app.main.has_internet_connection",
-                        lambda *args: False)
-    assert can_access_google_page("x") == "Not accessible"
-
-
-def test_false_url_true_time(monkeypatch: Callable) -> None:
-    monkeypatch.setattr("app.main.valid_google_url",
-                        lambda *args: False)
-    monkeypatch.setattr("app.main.has_internet_connection",
-                        lambda *args: True)
-    assert can_access_google_page("x") == "Not accessible"
+                        lambda *args: connection)
+    assert can_access_google_page("x") == result, "unexpected result"
