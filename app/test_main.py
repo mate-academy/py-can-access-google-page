@@ -20,7 +20,8 @@ def url() -> str:
                                           id="internet_available_fail"),
                              pytest.param(False, False, "Not accessible",
                                           id="internet_unavailable_fail")
-                         ])
+                         ]
+                         )
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(mock_has_internet_connection: mock,
