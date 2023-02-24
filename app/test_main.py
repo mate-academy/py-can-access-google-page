@@ -20,7 +20,7 @@ URL = "Google url"
         "False + False -> must be Not accessible",
     ],
 )
-def test_sell_all_cryptocurrency(
+def test_can_access_google_page(
     monkeypatch: MonkeyPatch, valid_url: bool, connected: bool, can_access: str
 ) -> None:
     monkeypatch.setattr(
