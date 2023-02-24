@@ -18,36 +18,36 @@ def mocked_site() -> mock.Mock:
 
 
 def test_valid_url_and_connection(
-        mock_url: mock,
-        mock_connection: mock
+        mocked_validation_url: mock,
+        mocked_site: mock
 ) -> None:
-    mock_url.return_value = True
-    mock_connection.return_value = True
+    mocked_validation_url.return_value = True
+    mocked_site.return_value = True
     assert can_access_google_page("https://www.google.com") == "Accessible"
 
 
 def test_not_valid_url(
-        mock_url: mock,
-        mock_connection: mock
+        mocked_validation_url: mock,
+        mocked_site: mock
 ) -> None:
-    mock_url.return_value = False
-    mock_connection.return_value = True
+    mocked_validation_url.return_value = False
+    mocked_site.return_value = True
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
 
 def test_no_connection(
-        mock_url: mock,
-        mock_connection: mock
+        mocked_validation_url: mock,
+        mocked_site: mock
 ) -> None:
-    mock_url.return_value = True
-    mock_connection.return_value = False
+    mocked_validation_url.return_value = True
+    mocked_site.return_value = False
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
 
 def test_not_valid_connection_and_url(
-        mock_url: mock,
-        mock_connection: mock
+        mocked_validation_url: mock,
+        mocked_site: mock
 ) -> None:
-    mock_url.return_value = False
-    mock_connection.return_value = False
+    mocked_validation_url.return_value = False
+    mocked_site.return_value = False
     assert can_access_google_page("https://www.google.com") == "Not accessible"
