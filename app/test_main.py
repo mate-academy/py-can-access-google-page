@@ -1,10 +1,9 @@
+from typing import Callable
+from unittest import mock
+
 import pytest
 
 from app.main import can_access_google_page
-
-from unittest import mock
-
-from typing import Callable
 
 
 @pytest.fixture()
@@ -34,7 +33,7 @@ def test_access_google_page_connection_fail(
     mocked_has_internet_connection.return_value = False
     assert (
         can_access_google_page("www.google.com") == "Not accessible"
-    ), "Bad connection"
+    ), "You can connect in range from 6:00 up to 23:00"
 
 
 def test_access_google_page_url_fail(
@@ -44,7 +43,7 @@ def test_access_google_page_url_fail(
     mocked_has_internet_connection.return_value = True
     assert (
         can_access_google_page("www.google.com") == "Not accessible"
-    ), "Wrong url"
+    ), "The page you are requesting does not respond"
 
 
 def test_access_google_page_wrong_url(
@@ -53,5 +52,5 @@ def test_access_google_page_wrong_url(
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_value = False
     assert (
-        can_access_google_page("www.rambler.com") == "Not accessible"
-    ), "Check your connection and url"
+        can_access_google_page("www.google.com") == "Not accessible"
+    ), "It's not a good time, and the page isn't responding"
