@@ -52,5 +52,5 @@ def test_access_google_page_wrong_url(
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_value = False
     assert (
-        can_access_google_page("www.google.com") == "Not accessible"
+        can_access_google_page("www.rambler.com") == "Not accessible"
     ), "It's not a good time, and the page isn't responding"
