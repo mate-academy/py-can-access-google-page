@@ -1,36 +1,34 @@
-import pytest
 from unittest import mock
+import pytest
+
 from app.main import can_access_google_page
 
 
 class TestUrl:
+
     @pytest.mark.parametrize(
-        "url, valid_url, has_internet, expected_result",
+        "valid_url, has_internet, expected_result",
         [
-            ("https://google.com",
-             True,
+            (True,
              True,
              "Accessible"),
-            ("https://google.com",
-             False,
-             False,
-             "Not accessible"),
-            ("https://google.com",
-             True,
+            (False,
              False,
              "Not accessible"),
-            ("https://google.com",
+            (True,
              False,
+             "Not accessible"),
+            (False,
              True,
              "Not accessible")
         ])
     def test_can_access_google_page(
             self,
-            url: str,
             valid_url: str,
             has_internet: bool,
             expected_result: bool
     ) -> None:
+        url = "https://google.com"
         with mock.patch(
                 "app.main.valid_google_url", return_value=valid_url
         ), mock.patch(
