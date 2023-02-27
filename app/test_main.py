@@ -1,6 +1,6 @@
-import pytest
-
 from unittest import mock
+
+import pytest
 
 from app.main import can_access_google_page
 
@@ -10,12 +10,14 @@ from app.main import can_access_google_page
     [
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
-        (False, False, "Not accessible")
+        (False, False, "Not accessible"),
+        (True, True, "Accessible")
     ],
     ids=[
-        "test should not access page if only 'connection' is True",
-        "test should not access page if only 'valid url' is True",
-        "test should not access page if 'connection' and 'valid_url' are False"
+        "test shouldn't access page if only 'connection' is True",
+        "test shouldn't access page if only 'valid url' is True",
+        "test shouldn't access page if 'connection' and 'valid_url' are False",
+        "test should access the page if 'connection' and 'valid_url' are True"
     ]
 )
 @mock.patch("app.main.has_internet_connection")
