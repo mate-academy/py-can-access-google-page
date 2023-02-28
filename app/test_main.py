@@ -21,8 +21,10 @@ def test_if_both_true(
 ) -> None:
     mock_valid_url.return_value = True
     mock_has_internet.return_value = True
-    assert (can_access_google_page("https://www.google.com/")
-            == "Accessible")
+    assert (
+        can_access_google_page("https://www.google.com/")
+        == "Accessible"
+    ), "You can access page, both 'valid url' and 'connection' is True."
 
 
 def test_if_both_false(
@@ -31,8 +33,10 @@ def test_if_both_false(
 ) -> None:
     mock_valid_url.return_value = False
     mock_has_internet.return_value = False
-    assert (can_access_google_page("https://www.google.com/")
-            == "Not accessible")
+    assert (
+        can_access_google_page("https://www.google.com/")
+        == "Not accessible"
+    ), "You cannot access page if both 'valid url' and 'connection' is False."
 
 
 def test_if_valid_true(
@@ -41,8 +45,10 @@ def test_if_valid_true(
 ) -> None:
     mock_valid_url.return_value = True
     mock_has_internet.return_value = False
-    assert (can_access_google_page("https://www.google.com/")
-            == "Not accessible")
+    assert (
+        can_access_google_page("https://www.google.com/")
+        == "Not accessible"
+    ), "You cannot access page if only 'valid url' is True."
 
 
 def test_if_connection_true(
@@ -51,5 +57,7 @@ def test_if_connection_true(
 ) -> None:
     mock_valid_url.return_value = False
     mock_has_internet.return_value = True
-    assert (can_access_google_page("https://www.google.com/")
-            == "Not accessible")
+    assert (
+        can_access_google_page("https://www.google.com/")
+        == "Not accessible"
+    ), "You cannot access page if only 'connection' is True."
