@@ -1,5 +1,6 @@
-import pytest
 from unittest import mock
+
+import pytest
 
 from app.main import can_access_google_page
 
@@ -7,12 +8,14 @@ use_case_data = [
     (True, True, "Accessible"),
     (True, False, "Not accessible"),
     (False, True, "Not accessible"),
+    (False, False, "Not accessible")
 ]
 
 ids = [
     "get access when 'connection' and 'url' are valid",
     "denied access when current time not in range 6:00 - 22:00",
-    "denied access when invalid 'url' was passed"
+    "denied access when invalid 'url' was passed",
+    "denied access when invalid 'url' was passed and connection denied"
 ]
 
 
