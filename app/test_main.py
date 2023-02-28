@@ -8,7 +8,7 @@ from app.main import can_access_google_page
 @pytest.fixture()
 def mocked_validations() -> mock.Mock:
     with mock.patch("app.main.valid_google_url") as mock_url, \
-         mock.patch("app.main.h_internet_connection") as mock_connection:
+         mock.patch("app.main.has_internet_connection") as mock_connection:
         yield mock_url, mock_connection
 
 
@@ -20,7 +20,7 @@ def test_valid_url_and_connection(
     assert can_access_google_page("https://www.google.com") == "Accessible"
 
 
-def test_bad_connection_or_url_or_both(
+def test_bad_connection(
         mocked_validations: mock
 ) -> None:
     mocked_validations[0].return_value = False
