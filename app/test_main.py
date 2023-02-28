@@ -12,6 +12,12 @@ from .main import can_access_google_page
         (False, True, "Not accessible"),
         (False, False, "Not accessible"),
         (True, True, "Accessible")
+    ],
+    ids=[
+        "test is not accessible, url is valid but disconnected",
+        "test is not accessible, url is connected but invalid",
+        "test is not accessible, url is invalid and disconnected",
+        "test is accessible, url is valid and connected"
     ]
 )
 @mock.patch("app.main.valid_google_url")
