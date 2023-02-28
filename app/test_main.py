@@ -30,4 +30,6 @@ def test_can_access_google_page(
 ) -> None:
     mock_validate_google_url.return_value = validate_google_url
     mock_has_internet_connection.return_value = has_internet_connection
-    assert can_access_google_page("https://www.google.com/") == expected_result
+    result = can_access_google_page("https://www.google.com/")
+    assert result == expected_result, (f"Assertion Error: "
+                                       f"{result} != {expected_result}")
