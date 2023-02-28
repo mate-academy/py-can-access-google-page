@@ -23,7 +23,9 @@ def test_access_google_page_true(
 ) -> None:
     mocked_valid_google_url.return_value = True
     mocked_has_internet_connection.return_value = True
-    assert can_access_google_page("www.google.com") == "Accessible"
+    assert (
+        can_access_google_page("www.google.com") == "Accessible"
+    ), "Access is permitted. Time and url correspond to the condition"
 
 
 def test_access_google_page_connection_fail(
