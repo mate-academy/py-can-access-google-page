@@ -5,22 +5,6 @@ import pytest
 from app.main import can_access_google_page
 
 
-# @pytest.fixture
-# @mock.patch("app.main.valid_google_url")
-# def mocked_url(
-#         mocked_google_url,
-# ) -> None:
-#     return mocked_google_url
-
-
-# @pytest.fixture
-# @mock.patch("app.main.has_internet_connection")
-# def mocked_internet_connection(
-#         mocked_internet_connection,
-# ) -> None:
-#     return mocked_internet_connection
-#
-
 @pytest.mark.parametrize(
     "check_google_url,check_has_internet_connection,expected_result",
     [pytest.param(
