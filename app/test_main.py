@@ -1,7 +1,7 @@
 import pytest
+
 from unittest import mock
 from unittest.mock import patch
-
 from app.main import can_access_google_page
 
 
@@ -14,10 +14,10 @@ from app.main import can_access_google_page
         (False, True, "Not accessible")
     ],
     ids=[
-        "test_valid_url_night_time",
-        "test_valid_url_day_time",
-        "test_non_valid_url_night_time",
-        "test_non_valid_url_day_time"
+        "test_access_google_page_fail_correct_url_night_time",
+        "test_access_google_page_success_correct_url_day_time",
+        "test_access_google_page_fail_wrong_url_night_time",
+        "test_access_google_page_fail_wrong_url_day_time"
     ]
 )
 @patch("app.main.valid_google_url")
