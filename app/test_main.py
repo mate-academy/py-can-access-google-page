@@ -6,6 +6,7 @@ from app.main import can_access_google_page
 
 URL_GOOGLE = "https://www.google.com"
 
+
 @pytest.fixture()
 def mocked_validations() -> mock.Mock:
     with (
