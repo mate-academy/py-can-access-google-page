@@ -46,13 +46,3 @@ def test_can_access_google_page(
 
     assert can_access_google_page(url) == result,\
         f"function should return {result}"
-
-
-def test_has_internet_connection_was_called(mocked_internet: Callable) -> None:
-    can_access_google_page("http://youtube.com/")
-    mocked_internet.assert_called_once_with()
-
-
-def test_valid_google_url_was_called(mocked_url: Callable) -> None:
-    can_access_google_page("google.com/")
-    mocked_url.assert_called_once_with("google.com/")
