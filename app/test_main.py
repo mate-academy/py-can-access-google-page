@@ -54,5 +54,5 @@ def test_has_internet_connection_was_called(mocked_internet: Callable) -> None:
 
 
 def test_valid_google_url_was_called(mocked_url: Callable) -> None:
-    can_access_google_page("http://google.com/")
-    mocked_url.assert_called_once_with("http://google.com/")
+    can_access_google_page("google.com/")
+    mocked_url.assert_called_once_with("google.com/")
