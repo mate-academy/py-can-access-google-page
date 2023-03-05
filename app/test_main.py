@@ -1,7 +1,8 @@
-from app.main import can_access_google_page
-import pytest
 from unittest import mock
 
+import pytest
+
+from app.main import can_access_google_page
 
 url = "https://www.google.com"
 
