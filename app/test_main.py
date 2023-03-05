@@ -1,5 +1,6 @@
-from app.main import can_access_google_page
 from unittest import mock
+
+from app.main import can_access_google_page
 
 
 @mock.patch("app.main.valid_google_url")
