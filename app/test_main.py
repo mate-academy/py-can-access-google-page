@@ -1,6 +1,7 @@
+from unittest import mock
+
 import pytest
 
-from unittest import mock
 from app.main import can_access_google_page
 
 
@@ -11,6 +12,12 @@ from app.main import can_access_google_page
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
         (False, False, "Not accessible"),
+    ],
+    ids=[
+        "valid_url_and_connection",
+        "valid_url_invalid_connection",
+        "invalid_url_valid_connection",
+        "invalid_url_and_connection"
     ]
 )
 def test_can_access_to_page(
