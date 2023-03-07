@@ -12,7 +12,14 @@ from app.main import can_access_google_page
         (False, True, "Not accessible"),
         (True, True, "Accessible"),
     ],
+    ids=[
+        "'Not accessible' if invalid url and doesn't have connection",
+        "'Not accessible' if valid url and doesn't have connection",
+        "'Not accessible' if invalid url and have connection",
+        "'Accessible' if valid url and connection",
+    ],
 )
+
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
@@ -24,9 +31,4 @@ def test_can_access_google_page(
 ) -> None:
     mock_valid_url.return_value = valid_url
     mock_connection.return_value = connection
-    assert (
-        can_access_google_page("https://www.google.com") == expected_result
-    ), (
-        f"Test should return {expected_result} when "
-        f"valid url is {valid_url} and connection is {connection}"
-    )
+    assert can_access_google_page("https://www.google.com") == expected_result
