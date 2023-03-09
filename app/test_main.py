@@ -3,7 +3,7 @@ import pytest
 from typing import Callable
 from unittest import mock
 
-link = "https://mail.google.com/"
+Google = "https://google.com/"
 
 
 @pytest.mark.parametrize(
@@ -15,10 +15,10 @@ link = "https://mail.google.com/"
         (False, False, "Not accessible")
     ],
     ids=[
-        "if has internet and url is valid should return 'Accessible'",
-        "if has no internet connection should return 'Not accessible'",
-        "if url is not valid should return 'Not accessible'",
-        "if none of the conditions work should return 'Not accessible'"
+        "if both are True return 'Accessible'",
+        "if has no internet connection return 'Not accessible'",
+        "if url is not valid  return 'Not accessible'",
+        "if both are False return 'Not accessible'"
     ]
 )
 @mock.patch("app.main.has_internet_connection")
@@ -32,4 +32,4 @@ def test_can_access_google_page(
 ) -> None:
     mock_has_internet_connection.return_value = has_internet
     mock_valid_google_url.return_value = has_valid
-    assert can_access_google_page(link) == message
+    assert can_access_google_page(Google) == message
