@@ -1,4 +1,5 @@
 from typing import Any
+from unittest import mock
 
 import pytest
 
@@ -10,16 +11,20 @@ from app.main import can_access_google_page
     [
         (True, True, "Accessible"),
         (False, True, "Not accessible"),
-        (True, False, "Not accessible")
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible")
     ]
 )
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-        monkeypatch: Any,
+        mocked_url: Any,
+        mocked_internet: Any,
         check_url: bool,
         connection: bool,
-        access_to_google: str
+        access_to_google: str,
 ) -> None:
-    monkeypatch.setattr("app.main.valid_google_url", lambda x: check_url)
-    monkeypatch.setattr("app.main.has_internet_connection", lambda: connection)
+    mocked_url.return_value = check_url
+    mocked_internet.return_value = connection
 
     assert can_access_google_page("google.com") == access_to_google
