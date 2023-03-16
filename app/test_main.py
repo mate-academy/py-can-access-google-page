@@ -1,49 +1,33 @@
 from unittest import mock
+
+import pytest
+
 from app.main import can_access_google_page
 
 
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
-def test_not_accessible_with_no_connection_no_valid_url(
-        mocked_url: mock,
-        mocked_connection: mock
-) -> None:
-    mocked_url.return_value = False
-    mocked_connection.return_value = False
-
-    assert can_access_google_page("https://www.udemy.com/") == "Not accessible"
-
-
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
-def test_not_accessible_with_no_connection(
-        mocked_url: mock,
-        mocked_connection: mock
-) -> None:
-    mocked_url.return_value = True
-    mocked_connection.return_value = False
-
-    assert can_access_google_page("https://www.udemy.com/") == "Not accessible"
+@pytest.mark.parametrize(
+    "url,connection,expected_result",
+    [
+        pytest.param(False, False, "Not accessible"),
+        pytest.param(False, True, "Not accessible"),
+        pytest.param(True, False, "Not accessible"),
+        pytest.param(True, True, "Accessible")
+    ],
+    ids=[
+        "not accessible without connection and valid url",
+        "not accessible without valid url",
+        "not accessible without connection",
+        "accessible with url and connection"
+    ]
 
 
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
-def test_not_accessible_with_no_valid_url(
-        mocked_url: mock,
-        mocked_connection: mock
-) -> None:
-    mocked_url.return_value = False
-    mocked_connection.return_value = True
+)
+def test_(url: bool, connection: bool, expected_result: str) -> None:
+    with mock.patch("app.main.has_internet_connection") as mocked_connection:
+        with mock.patch("app.main.valid_google_url") as mocked_url:
+            mocked_url.return_value = url
+            mocked_connection.return_value = connection
 
-    assert can_access_google_page(
-        "https://fiwww.udemy.com/"
-    ) == "Not accessible"
-
-
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
-def test_accessible(mocked_url: mock, mocked_connection: mock) -> None:
-    mocked_url.return_value = True
-    mocked_connection.return_value = True
-
-    assert can_access_google_page("https://www.udemy.com/") == "Accessible"
+            assert can_access_google_page(
+                "https://www.udemy.com/"
+            ) == expected_result
