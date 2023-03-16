@@ -15,7 +15,7 @@ from app.main import can_access_google_page
     ],
     ids=[
         "Valid to access the Google home page and it has internet connection",
-        "Check UKL",
+        "Check URL",
         "Check internet connection",
         "Check URL and internet connection"
     ]
