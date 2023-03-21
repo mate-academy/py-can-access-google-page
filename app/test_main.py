@@ -27,8 +27,8 @@ def mocked_has_internet_connection() -> None:
     ]
 )
 def test_can_access_google_page(
-        mocked_valid_google_url: callable,
-        mocked_has_internet_connection: callable,
+        mocked_valid_google_url: object,
+        mocked_has_internet_connection: object,
         valid_url: bool,
         connection: bool,
         result: str
