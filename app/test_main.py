@@ -38,3 +38,11 @@ def test_access_when_url_is_valid_and_connection_is_good(
     mocked_valid_google_url.return_value = True
     has_internet_connection.return_value = True
     assert can_access_google_page("test_url") == "Accessible"
+
+
+def test_not_access_when_url_invalid_and_connection_is_bad(
+        mocked_valid_google_url: Callable,
+        has_internet_connection: Callable) -> None:
+    mocked_valid_google_url.return_value = False
+    has_internet_connection.return_value = False
+    assert can_access_google_page("test_url") == "Not accessible"
