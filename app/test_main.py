@@ -1,30 +1,23 @@
 from unittest import mock
+import pytest
 from app.main import can_access_google_page
 
 
+@pytest.mark.parametrize("connection, access, can_access",
+                         [
+                             (True, True, "Accessible"),
+                             (True, False, "Not accessible"),
+                             (False, True, "Not accessible")
+                         ]
+                         )
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_accessible(mocked_connection: mock, mocked_access: mock) -> None:
-    mocked_connection.return_value = True
-    mocked_access.return_value = True
-    assert can_access_google_page("google.com") == "Accessible"
-
-
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
-def test_not_accessible_through_access(mocked_connection: mock,
-                                       mocked_access: mock
-                                       ) -> None:
-    mocked_connection.return_value = True
-    mocked_access.return_value = False
-    assert can_access_google_page("google.com") == "Not accessible"
-
-
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
-def test_not_accessible_through_connection(mocked_connection: mock,
-                                           mocked_access: mock
-                                           ) -> None:
-    mocked_connection.return_value = False
-    mocked_access.return_value = True
-    assert can_access_google_page("google.com") == "Not accessible"
+def test_access(mocked_connection: mock,
+                mocked_access: mock,
+                connection: bool,
+                access: bool,
+                can_access: str
+                ) -> None:
+    mocked_connection.return_value = connection
+    mocked_access.return_value = access
+    assert can_access_google_page("google.com") == can_access
