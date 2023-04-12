@@ -17,51 +17,23 @@ def mocked_internet_connection() -> None:
         yield mocked_connection
 
 
-def test_valid_url_and_connection_exist(
+@pytest.mark.parametrize(
+    "valid_url, internet_connection, expected_result",
+    [
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible"),
+    ]
+)
+def test_can_access_google_page(
         mocked_valid_url: Callable,
-        mocked_internet_connection: Callable
+        mocked_internet_connection: Callable,
+        valid_url: bool,
+        internet_connection: bool,
+        expected_result: str
 ) -> None:
-    mocked_valid_url.return_value = True
-    mocked_internet_connection.return_value = True
+    mocked_valid_url.return_value = valid_url
+    mocked_internet_connection.return_value = internet_connection
 
-    assert can_access_google_page("www.google.com/") == "Accessible", (
-        "Should be accessible when URL is valid and"
-        "there is the Internet connection."
-    )
-
-
-def test_invalid_url_and_connection_exist(
-        mocked_valid_url: Callable,
-        mocked_internet_connection: Callable
-) -> None:
-    mocked_valid_url.return_value = False
-    mocked_internet_connection.return_value = True
-
-    assert can_access_google_page("www.google.com/") == "Not accessible", (
-        "Should return 'Not accessible' when URL isn't valid."
-    )
-
-
-def test_valid_url_and_connection_expire(
-        mocked_valid_url: Callable,
-        mocked_internet_connection: Callable
-) -> None:
-    mocked_valid_url.return_value = True
-    mocked_internet_connection.return_value = False
-
-    assert can_access_google_page("www.google.com/") == "Not accessible", (
-        "Should return 'Not accessible' when there is no internet connection."
-    )
-
-
-def test_invalid_url_and_connection_expire(
-        mocked_valid_url: Callable,
-        mocked_internet_connection: Callable
-) -> None:
-    mocked_valid_url.return_value = False
-    mocked_internet_connection.return_value = False
-
-    assert can_access_google_page("www.google.com/") == "Not accessible", (
-        "Should return 'Not accessible' when URL isn't valid."
-        "and there is no the Internet connection."
-    )
+    assert can_access_google_page("www.google.com/") == expected_result
