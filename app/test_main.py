@@ -11,7 +11,6 @@ import app.main
         ("https://www.google.com/", True, False, "Not accessible"),
     ]
 )
-
 def test_can_access_google_page(
         monkeypatch: pytest.MonkeyPatch,
         url: str,
@@ -37,4 +36,3 @@ def test_can_access_google_page(
     assert (
         app.main.can_access_google_page(url) == output
     ), f"function should return {output} if url is {url}"
-
