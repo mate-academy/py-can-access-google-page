@@ -5,7 +5,7 @@ from unittest import mock
 from app.main import can_access_google_page
 
 
-class TestGetHumanAge:
+class TestCanAccessGooglePage:
     @pytest.mark.parametrize(
         "has_internet_connection_result,valid_google_url_result",
         [
