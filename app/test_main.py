@@ -27,4 +27,4 @@ def test_can_access_google_page(
               "app.main.has_internet_connection") as has_internet_connection):
         has_internet_connection.return_value = connection_validation
         valid_google_url.return_value = url_validation
-        assert can_access_google_page("") == result
+        assert can_access_google_page("https://google.com/") == result
