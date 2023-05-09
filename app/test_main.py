@@ -27,7 +27,6 @@ class TestResultsOfMainFunction:
                     can_access_google_page("https://www.google.com.ua")
                     == expected_result
                 )
-
                 if connection.return_value:
                     valid_google_url.assert_called_once_with(
                         "https://www.google.com.ua"
