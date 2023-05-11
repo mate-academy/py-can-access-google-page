@@ -1,3 +1,4 @@
+from collections.abc import Generator
 from typing import Callable
 from unittest import mock
 import pytest
@@ -5,13 +6,13 @@ from app.main import can_access_google_page
 
 
 @pytest.fixture()
-def mock_valid_google_url() -> None:
+def mock_valid_google_url() -> Generator[bool]:
     with mock.patch("app.main.valid_google_url") as valid_url:
         yield valid_url
 
 
 @pytest.fixture()
-def mock_has_internet_connection() -> None:
+def mock_has_internet_connection() -> Generator[bool]:
     with mock.patch("app.main.has_internet_connection") as internet_connection:
         yield internet_connection
 
