@@ -25,6 +25,12 @@ from app.main import can_access_google_page
             "Accessible",
             id="Access is possible"
         ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="No access without connection and url_response"
+        ),
     ]
 )
 def test_can_access_google_page(monkeypatch: Any,
