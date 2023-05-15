@@ -1,6 +1,7 @@
 import pytest
 
 from app.main import can_access_google_page
+from typing import Callable
 from unittest import mock
 
 
@@ -46,7 +47,9 @@ class TestCorrectlyWork:
         self,
         connection: bool,
         valid_url: bool,
-        answer: str
+        answer: str,
+        mocked_has_internet_connection: Callable,
+        mocked_valid_google_url: Callable
     ) -> None:
         mocked_has_internet_connection.return_value = connection
         mocked_valid_google_url.return_value = valid_url
