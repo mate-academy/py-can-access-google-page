@@ -23,3 +23,11 @@ def test_cannot_access_if_only_has_internet_connection() -> None:
                         return_value=True):
             result = can_access_google_page("https://www.google.com")
             assert result == "Not accessible"
+
+
+def test_cannot_access_in_two_ways():
+    with mock.patch("app.main.valid_google_url", return_value=False):
+        with mock.patch("app.main.has_internet_connection",
+                        return_value=False):
+            result = can_access_google_page("https://www.google.com")
+            assert result == "Not accessible"
