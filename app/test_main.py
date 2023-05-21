@@ -9,6 +9,7 @@ from app.main import can_access_google_page
     [
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
         (True, True, "Accessible")
     ]
 )
