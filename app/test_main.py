@@ -29,4 +29,4 @@ class TestCanAccessPage:
         mock_check_valid.return_value = valid
         mock_check_connection.return_value = connection
         assert can_access_google_page("www.googl.com") == access
-# write your code here
+
