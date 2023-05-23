@@ -29,6 +29,13 @@ from app.main import can_access_google_page
             id="Not accessible if the URL is invalid, but there is an internet"
                "connection."
         ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="Not accessible if the URL is invalid and there is no internet"
+               "connection."
+        ),
     ]
 )
 @mock.patch("app.main.valid_google_url")
