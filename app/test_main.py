@@ -16,38 +16,24 @@ def mocked_internet_connection() -> None:
         yield mocked_connection
 
 
-def test_valid_url_and_connection(
-        mocked_url_validator: Callable,
-        mocked_internet_connection: Callable
-) -> None:
-    mocked_internet_connection.return_value = True
-    mocked_url_validator.return_value = True
-
-    assert can_access_google_page("") == "Accessible"
-
-
-def test_non_valid_url_no_connection(
-        mocked_url_validator: Callable,
-        mocked_internet_connection: Callable
-) -> None:
-    mocked_internet_connection.return_value = False
-    mocked_url_validator.return_value = False
-    assert can_access_google_page("") == "Not accessible"
-
-
-def test_non_valid_url_connection_exist(
-        mocked_url_validator: Callable,
-        mocked_internet_connection: Callable
-) -> None:
-    mocked_internet_connection.return_value = True
-    mocked_url_validator.return_value = False
-    assert can_access_google_page("") == "Not accessible"
-
-
-def test_valid_url_no_connection(
-        mocked_url_validator: Callable,
-        mocked_internet_connection: Callable
-) -> None:
-    mocked_internet_connection.return_value = False
-    mocked_url_validator.return_value = True
-    assert can_access_google_page("") == "Not accessible"
+@pytest.mark.parametrize(
+    "internet_connection, url_validator, result",
+    [
+        pytest.param(True, True, "Accessible",
+                     id="test valid url and connection"),
+        pytest.param(False, False, "Not accessible",
+                     id="test non valid url no connection"),
+        pytest.param(True, False, "Not accessible",
+                     id="test non valid url connection exist"),
+        pytest.param(False, True, "Not accessible",
+                     id="test valid url no connection")
+    ]
+)
+def test_return_correct_value(mocked_url_validator: Callable,
+                              mocked_internet_connection: Callable,
+                              url_validator: bool,
+                              internet_connection: bool,
+                              result: str) -> None:
+    mocked_internet_connection.return_value = internet_connection
+    mocked_url_validator.return_value = url_validator
+    assert can_access_google_page("") == result
