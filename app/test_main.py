@@ -1,9 +1,9 @@
-from app.main import can_access_google_page
-import pytest
-from unittest import mock
-from typing import Callable
-from requests.exceptions import (MissingSchema, InvalidSchema,
-                                 ConnectionError)
+# from app.main import can_access_google_page
+# import pytest
+# from unittest import mock
+# from typing import Callable
+# from requests.exceptions import (MissingSchema, InvalidSchema,
+#                                  ConnectionError)
 
 
 def test_url_type_valid_missingschema() -> None:
