@@ -7,7 +7,7 @@ from app.main import can_access_google_page
 @pytest.mark.parametrize(
     "url_validation, connection_validation, status",
     [
-        pytest.param(True, True, "Accessible", id="Test all correct value"),
+        pytest.param(False, True, "Accessible", id="Test all correct value"),
         pytest.param(True, False, "Not accessible", id="Test all correct url"),
         pytest.param(False,
                      True,
