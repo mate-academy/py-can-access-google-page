@@ -20,25 +20,27 @@ def mocked_has_internet_connection() -> None:
         yield has_connection
 
 
-def test_wrong_connection(
+@pytest.mark.parametrize(
+    "has_connection, is_valid_url, expected_result",
+    [
+        pytest.param(True, True, "Accessible",
+                     id="Should return Accessible"),
+        pytest.param(False, True, "Not accessible",
+                     id="Wrong connection"),
+        pytest.param(True, False, "Not accessible",
+                     id="Invalid google url"),
+        pytest.param(False, False, "Not accessible",
+                     id="Invalid google url and wrong_connection"),
+
+    ]
+)
+def test_can_access_google_page(
         mocked_valid_google_url: Callable,
-        mocked_has_internet_connection: Callable) -> None:
-    mocked_has_internet_connection.return_value = False
-    mocked_valid_google_url.return_value = True
-    assert can_access_google_page("google.com") == "Not accessible"
-
-
-def test_invalid_google_url(
-        mocked_valid_google_url: Callable,
-        mocked_has_internet_connection: Callable) -> None:
-    mocked_has_internet_connection.return_value = True
-    mocked_valid_google_url.return_value = False
-    assert can_access_google_page("google.com") == "Not accessible"
-
-
-def test_accessible(
-        mocked_valid_google_url: Callable,
-        mocked_has_internet_connection: Callable) -> None:
-    mocked_has_internet_connection.return_value = True
-    mocked_valid_google_url.return_value = True
-    assert can_access_google_page("google.com") == "Accessible"
+        mocked_has_internet_connection: Callable,
+        has_connection: bool,
+        is_valid_url: bool,
+        expected_result: str
+) -> None:
+    mocked_has_internet_connection.return_value = has_connection
+    mocked_valid_google_url.return_value = is_valid_url
+    assert can_access_google_page("google.com") == expected_result
