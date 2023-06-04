@@ -1,6 +1,6 @@
 import pytest
 
-from unittest import mock
+from unittest.mock import patch
 
 from app.main import can_access_google_page
 
@@ -14,14 +14,14 @@ from app.main import can_access_google_page
         (True, True, "Accessible"),
     ],
 )
+@patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
 def test_can_access_google_page(
+        mock_valid_google_url: callable,
+        mock_has_internet_connection: callable,
         has_internet_connection_result: bool,
         valid_google_url_result: bool,
         result: str) -> None:
-    with mock.patch("app.main.has_internet_connection") as inet_connection:
-        with mock.patch("app.main.valid_google_url") as valid_google_url:
-            valid_google_url.return_value = valid_google_url_result
-            inet_connection.return_value = has_internet_connection_result
-            assert (
-                can_access_google_page("https://www.google.com") == result
-            )
+    mock_valid_google_url.return_value = valid_google_url_result
+    mock_has_internet_connection.return_value = has_internet_connection_result
+    assert can_access_google_page("https://www.google.com") == result
