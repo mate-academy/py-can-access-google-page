@@ -14,25 +14,25 @@ from app.main import can_access_google_page
             True,
             True,
             "Accessible",
-            id="Should return \"Accessible\" if all True"
+            id='Should return \"Accessible\" if all True'
         ),
         pytest.param(
             True,
             False,
             "Not accessible",
-            id="Should return \"Not accessible\" if one param is False"
+            id='Should return \"Not accessible\" if one param is False'
         ),
         pytest.param(
             False,
             True,
             "Not accessible",
-            id="Should return \"Not accessible\" if one param is False"
+            id='Should return \"Not accessible\" if one param is False'
         ),
         pytest.param(
             False,
             False,
             "Not accessible",
-            id="Should return \"Not accessible\" if one param is False"
+            id='Should return \"Not accessible\" if one param is False'
         )
     ]
 )
