@@ -4,60 +4,30 @@ import pytest
 
 
 class TestCanAccessGooglePage:
-
-    @pytest.fixture
-    def mocked_valid_google_url(self) -> None:
-        with (
-            mock.patch("app.main.valid_google_url")
-            as mocked_valid
-        ):
-            yield mocked_valid
-
-    @pytest.fixture
-    def mocked_has_internet_connection(self) -> None:
-        with (
-            mock.patch("app.main.has_internet_connection")
-            as mocked_connection
-        ):
-            yield mocked_connection
-
+    @pytest.mark.parametrize(
+        "is_valid,is_connection,expected_result",
+        [
+            (True, True, "Accessible"),
+            (True, False, "Not accessible"),
+            (False, True, "Not accessible"),
+            (False, False, "Not accessible"),
+        ]
+    )
+    @mock.patch("app.main.has_internet_connection")
+    @mock.patch("app.main.valid_google_url")
     def test_valid_url_and_connection_exists(
             self,
-            mocked_valid_google_url: mock.MagicMock,
-            mocked_has_internet_connection: mock.MagicMock
+            mocked_valid_google_url: mock.patch,
+            mocked_has_internet_connection: mock.patch,
+            is_valid: bool,
+            is_connection: bool,
+            expected_result: str,
     ) -> None:
-        mocked_valid_google_url.return_value = True
-        mocked_has_internet_connection.return_value = True
+        mocked_valid_google_url.return_value = is_valid
+        mocked_has_internet_connection.return_value = is_connection
 
-        result = can_access_google_page(
-            "https://mate.academy/learn?course=all_courses"
+        assert (
+            can_access_google_page(
+                "https://mate.academy/learn?course=all_courses"
+            ) == expected_result
         )
-
-        assert result == "Accessible"
-
-        mocked_valid_google_url.return_value = False
-        mocked_has_internet_connection.return_value = True
-
-        result = can_access_google_page(
-            "https://mate.academy/learn?course=all_courses"
-        )
-
-        assert result == "Not accessible"
-
-        mocked_valid_google_url.return_value = True
-        mocked_has_internet_connection.return_value = False
-
-        result = can_access_google_page(
-            "https://mate.academy/learn?course=all_courses"
-        )
-
-        assert result == "Not accessible"
-
-        mocked_valid_google_url.return_value = False
-        mocked_has_internet_connection.return_value = False
-
-        result = can_access_google_page(
-            "https://mate.academy/learn?course=all_courses"
-        )
-
-        assert result == "Not accessible"
