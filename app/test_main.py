@@ -30,6 +30,13 @@ class TestCanAccessGooglePage:
                 "Not accessible",
                 "https://mate.academy/en/courses/python",
                 id="Not accessible without internet connection"
+            ),
+            pytest.param(
+                False,
+                False,
+                "Not accessible",
+                "https://invalid.academy/en/courses/1)",
+                id="Not accessible without connection and invalid url"
             )
         ]
     )
