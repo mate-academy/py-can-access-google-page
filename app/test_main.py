@@ -16,14 +16,14 @@ from typing import Callable
         (False, False, "Not accessible")
     ],
     ids=[
-        "You can access with connection nd valid url",
+        "You can access with connection and valid url",
         "You can't access without connection",
         "You can't access with invalid url",
         "You can't access without connection with invalid url"
     ]
 )
-@mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
 def test_can_access_google_page(
         mocked_connection: Callable,
         mocked_valid_url: Callable,
