@@ -10,7 +10,7 @@ from app.main import can_access_google_page
     ("https://www.google.com", True, False, "Not accessible"),
     ("https://www.google.com", False, True, "Not accessible")
 ])
-def test_url_is_accessible(monkeypatch: MonkeyPatch,
+def test_valid_url_and_connection_exists(monkeypatch: MonkeyPatch,
                            url: str,
                            expected: str,
                            valid: bool,
