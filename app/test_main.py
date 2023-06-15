@@ -7,20 +7,24 @@ from unittest import mock
 from app.main import can_access_google_page
 
 
+VALID_URL = "https://www.youtube.com/"
+INVALID_URL = "https:/ww.you1t1u1be.com/"
+
+
 @pytest.mark.parametrize(
-    "internet_connection, valid_url, url, expected",
+    "has_internet_connection, is_valid_url, url, expected",
     [
         pytest.param(
-            True, True, "https://www.youtube.com/", "Accessible"
+            True, True, VALID_URL, "Accessible"
         ),
         pytest.param(
-            False, True, "https://www.youtube.com/", "Not accessible"
+            False, True, VALID_URL, "Not accessible"
         ),
         pytest.param(
-            True, False, "https:/ww.you1t1u1be.com/", "Not accessible"
+            True, False, INVALID_URL, "Not accessible"
         ),
         pytest.param(
-            False, False, "https:/ww.you1t1u1be.com/", "Not accessible"
+            False, False, INVALID_URL, "Not accessible"
         ),
     ],
     ids=[
@@ -39,11 +43,11 @@ from app.main import can_access_google_page
 def test_can_access_google_page(
     mocked_connection: mock.Mock,
     mocked_valid: mock.Mock,
-    internet_connection: bool,
-    valid_url: bool,
+    has_internet_connection: bool,
+    is_valid_url: bool,
     url: str,
     expected: str,
 ) -> None:
-    mocked_connection.return_value = internet_connection
-    mocked_valid.return_value = valid_url
+    mocked_connection.return_value = has_internet_connection
+    mocked_valid.return_value = is_valid_url
     assert can_access_google_page(url) == expected
