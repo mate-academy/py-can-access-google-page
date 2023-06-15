@@ -5,25 +5,29 @@ from pytest import mark
 from pytest import fixture
 from pytest import param
 
-
 from app.main import can_access_google_page
 
 
 @fixture()
-def income_url() -> str:
+def income_correct_url() -> str:
     return "https://www.google.com/"
 
 
+@fixture()
+def income_incorrect_url() -> str:
+    return "https://www.chatgpt.com/"
+
+
 @mark.parametrize(
-    "has_connection, valid_url, exp_result",
+    "has_connection, valid_url, income_url, exp_result",
     [
-        param(True, True, "Accessible",
+        param(True, True, income_correct_url, "Accessible",
               id="All correct"),
-        param(False, False, "Not accessible",
-              id="No connection and invalid url"),
-        param(False, True, "Not accessible",
+        param(False, False, income_incorrect_url, "Not accessible",
+              id="No connection or/and invalid url"),
+        param(False, True, income_correct_url, "Not accessible",
               id="No internet connection"),
-        param(True, False, "Not accessible",
+        param(True, False, income_incorrect_url, "Not accessible",
               id="Invalid url")
     ]
 )
@@ -36,7 +40,6 @@ def test_can_access_google_page(mocked_valid_google_url: Any,
                                 income_url: str,
                                 exp_result: str
                                 ) -> None:
-
     mocked_has_internet_connection.return_value = has_connection
     mocked_valid_google_url.return_value = valid_url
     assert can_access_google_page(income_url) == exp_result
