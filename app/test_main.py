@@ -20,5 +20,5 @@ def test_valid_url_and_connection_exists(monkeypatch: MonkeyPatch,
     with monkeypatch.context() as mocked:
         mocked.setattr("app.main.valid_google_url", lambda *args: valid)
         mocked.setattr("app.main.has_internet_connection",
-                       lambda *args: connection)
+                       lambda: connection)
         assert can_access_google_page("https://www.google.com") == expected
