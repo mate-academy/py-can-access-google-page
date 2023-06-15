@@ -35,3 +35,23 @@ def test_can_access_google_page_not_accessible(
     test_mocked_has_internet_connection.return_value = True
     assert (can_access_google_page(test_mocked_valid_google_url)
             == "Not accessible")
+
+
+def test_can_access_google_page_only_true(
+        test_mocked_valid_google_url: str,
+        test_mocked_has_internet_connection: str
+) -> None:
+    test_mocked_valid_google_url.return_value = True
+    test_mocked_has_internet_connection.return_value = True
+    assert (can_access_google_page(test_mocked_valid_google_url)
+            == "Accessible")
+
+
+def test_can_access_google_page_only_false(
+        test_mocked_valid_google_url: str,
+        test_mocked_has_internet_connection: str
+) -> None:
+    test_mocked_valid_google_url.return_value = False
+    test_mocked_has_internet_connection.return_value = False
+    assert (can_access_google_page(test_mocked_valid_google_url)
+            == "Not accessible")
