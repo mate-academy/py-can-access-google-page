@@ -12,7 +12,8 @@ from typing import Callable
     [
         (True, True, "Accessible"),
         (False, True, "Not accessible"),
-        (True, False, "Not accessible")
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible")
     ]
 )
 @mock.patch("app.main.valid_google_url")
