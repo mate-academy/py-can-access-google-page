@@ -11,6 +11,12 @@ from app.main import can_access_google_page
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
         (False, False, "Not accessible"),
+    ],
+    ids=[
+        "test_valid_and_connection_true",
+        "test_valid_false",
+        "test_connection_false",
+        "test_valid_and_connection_false"
     ]
 )
 def test_can_access_google_page(
