@@ -14,6 +14,12 @@ from typing import Callable
         (False, True, "Not accessible"),
         (True, False, "Not accessible"),
         (False, False, "Not accessible")
+    ],
+    ids=[
+        "You can access with connection nd valid url",
+        "You can't access without connection",
+        "You can't access with invalid url",
+        "You can't access without connection with invalid url"
     ]
 )
 @mock.patch("app.main.valid_google_url")
