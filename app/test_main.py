@@ -29,6 +29,14 @@ from typing import Any
             "Not accessible",
             id="not accessible when has no internet connection"
         ),
+        pytest.param(
+            False,
+            False,
+            "https://mate.academy/",
+            "Not accessible",
+            id="not accessible when URL is invalid and no internet connection"
+        ),
+
     ]
 )
 @mock.patch("app.main.valid_google_url")
