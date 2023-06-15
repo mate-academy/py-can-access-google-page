@@ -43,5 +43,4 @@ def test_accesses_pages_correctly(mocked_valid_url: mock.Mock,
                                   expected_status: str) -> None:
     mocked_valid_url.return_value = is_valid
     mocked_has_internet_connection.return_value = internet_connection
-    access_status = can_access_google_page(url)
-    assert access_status == expected_status
+    assert can_access_google_page(url) == expected_status
