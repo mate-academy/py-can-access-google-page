@@ -22,8 +22,8 @@ from typing import Callable
         "You can't access without connection with invalid url"
     ]
 )
-@mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
 def test_can_access_google_page(
         mocked_connection: Callable,
         mocked_valid_url: Callable,
