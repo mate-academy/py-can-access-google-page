@@ -1,41 +1,36 @@
-import pytest
-from unittest import mock
+from pytest import MonkeyPatch, mark
+
+
 from app.main import can_access_google_page
 
 
-@pytest.mark.parametrize(
-    "url,result",
+@mark.parametrize(
+    "url,url_validation,internet,result",
     [
-        ("Not google url", "Not accessible"),
-        ("Some google url", "Accessible"),
-        ("Not google url", "Not accessible"),
-        ("Some google url", "Accessible")
+        ("Not google url", False, True, "Not accessible"),
+        ("Some google url", True, True, "Accessible"),
+        ("Not google url", False, True, "Not accessible"),
+        ("Some google url", True, True, "Accessible"),
+        ("Not google url", False, False, "Not accessible"),
+        ("Some google url", True, False, "Not accessible"),
+    ],
+    ids=[
+        "Should return false when not google url",
+        "Should return true when google url",
+        "Should return false when not google url",
+        "Should return true when google url",
+        "Should return false when not google url, no internet",
+        "Should return false when google url, no internet"
     ]
 )
-def test_should_return_accessible_when_conditions_true(url: str,
-                                                       result: str) -> None:
-    with (mock.patch("app.main.valid_google_url",
-                     lambda *args: True
-                     if url == "Some google url"
-                     else False),
-            mock.patch("app.main.has_internet_connection", lambda: True)):
-        assert can_access_google_page(url) == result
+def test_can_access_google_page(url: str,
+                                url_validation: bool,
+                                internet: bool,
+                                result: str,
+                                monkeypatch: MonkeyPatch) -> None:
 
-
-@pytest.mark.parametrize(
-    "url,result",
-    [
-        ("Not google url", "Not accessible"),
-        ("Some google url", "Not accessible"),
-        ("Not google url", "Not accessible"),
-        ("Some google url", "Not accessible")
-    ]
-)
-def test_should_return_not_accessible_when_no_internet(url: str,
-                                                       result: str) -> None:
-    with (mock.patch("app.main.valid_google_url",
-                     lambda *args: True
-                     if url == "Some google url"
-                     else False),
-            mock.patch("app.main.has_internet_connection", lambda: False)):
-        assert can_access_google_page(url) == result
+    monkeypatch.setattr("app.main.valid_google_url",
+                        lambda *args: url_validation)
+    monkeypatch.setattr("app.main.has_internet_connection",
+                        lambda: internet)
+    assert can_access_google_page(url) == result
