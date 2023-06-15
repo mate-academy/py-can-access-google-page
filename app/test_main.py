@@ -11,10 +11,10 @@ from app.main import can_access_google_page
     ("https://www.google.com", False, True, "Not accessible")
 ])
 def test_valid_url_and_connection_exists(monkeypatch: MonkeyPatch,
-                           url: str,
-                           expected: str,
-                           valid: bool,
-                           connection: bool) -> None:
+                                         url: str,
+                                         expected: str,
+                                         valid: bool,
+                                         connection: bool) -> None:
     with monkeypatch.context() as m:
         m.setattr("app.main.valid_google_url", lambda *args: valid)
         m.setattr("app.main.has_internet_connection", lambda *args: connection)
