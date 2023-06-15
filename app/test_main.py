@@ -42,7 +42,7 @@ class TestCanAccessGooglePage:
     )
     @mock.patch("app.main.has_internet_connection")
     @mock.patch("app.main.valid_google_url")
-    def test_accessible_when_user_with_internet_and__url_is_valid(
+    def test_can_access_google_page(
             self,
             has_internet_connection: Callable,
             valid_google_url: Callable,
