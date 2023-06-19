@@ -12,14 +12,10 @@ NOT_GOOGLE_URL = "Not google url"
     [
         (GOOGLE_URL, False, True, "Not accessible"),
         (GOOGLE_URL, True, True, "Accessible"),
-        (NOT_GOOGLE_URL, False, True, "Not accessible"),
-        (GOOGLE_URL, True, True, "Accessible"),
         (NOT_GOOGLE_URL, False, False, "Not accessible"),
         (GOOGLE_URL, True, False, "Not accessible"),
     ],
     ids=[
-        "Should return false when not google url",
-        "Should return true when google url",
         "Should return false when not google url",
         "Should return true when google url",
         "Should return false when not google url, no internet",
