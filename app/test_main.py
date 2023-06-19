@@ -5,6 +5,8 @@ from app.main import can_access_google_page
 
 GOOGLE_URL = "Some google url"
 NOT_GOOGLE_URL = "Not google url"
+
+
 @mark.parametrize(
     "url, url_validation,internet,result",
     [
