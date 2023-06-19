@@ -6,34 +6,37 @@ import pytest
 from app.main import can_access_google_page
 
 
+TEST_URL = "https://github.com/Kirontiko/"
+
+
 @pytest.mark.parametrize(
     "mock_has_connection, mock_is_valid_url, url, expected",
     [
         pytest.param(
             True,
             True,
-            "https://github.com/Kirontiko/",
+            TEST_URL,
             "Accessible",
             id="accessible when has connection and url is valid"
         ),
         pytest.param(
             False,
             True,
-            "https://github.com/Kirontiko/",
+            TEST_URL,
             "Not accessible",
             id="not accessible when has no connection"
         ),
         pytest.param(
             True,
             False,
-            "https://gitmug.com/3140,Kirontiko/",
+            TEST_URL,
             "Not accessible",
             id="not accessible when url is not valid"
         ),
         pytest.param(
             False,
             False,
-            "https://gitmug.com/314-K,l;.irontiko/",
+            TEST_URL,
             "Not accessible",
             id="not accessible when url is not valid and no connection"
         )
