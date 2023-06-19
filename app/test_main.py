@@ -5,17 +5,13 @@ from pytest import MonkeyPatch
 from app.main import can_access_google_page
 
 
-URL = "https://www.google.com"
-
-
-@pytest.mark.parametrize("url,valid,connection,expected", [
-    (URL, True, True, "Accessible"),
-    (URL, True, False, "Not accessible"),
-    (URL, False, True, "Not accessible"),
-    (URL, False, False, "Not accessible")
+@pytest.mark.parametrize("valid,connection,expected", [
+    (True, True, "Accessible"),
+    (True, False, "Not accessible"),
+    (False, True, "Not accessible"),
+    (False, False, "Not accessible")
 ])
 def test_valid_url_and_connection_exists(monkeypatch: MonkeyPatch,
-                                         url: str,
                                          expected: str,
                                          valid: bool,
                                          connection: bool) -> None:
