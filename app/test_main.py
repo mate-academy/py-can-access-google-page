@@ -12,6 +12,12 @@ class TestCanAccessGooglePage:
             (False, True, "Not accessible"),
             (False, False, "Not accessible")
         ],
+        ids=[
+            "Valid URL, Has Internet",
+            "Valid URL, No Internet",
+            "Invalid URL, Has Internet",
+            "Invalid URL, No Internet"
+        ]
     )
     @mock.patch("app.main.valid_google_url")
     @mock.patch("app.main.has_internet_connection")
