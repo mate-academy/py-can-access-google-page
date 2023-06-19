@@ -3,6 +3,7 @@ import pytest
 from app.main import can_access_google_page
 from _pytest.monkeypatch import MonkeyPatch
 
+
 @pytest.mark.parametrize(
     "valid_url_return,has_internet_return,expected_result",
     [
