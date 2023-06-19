@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Type
 from unittest.mock import patch
 from app.main import can_access_google_page
 from pytest import fixture
@@ -11,7 +11,7 @@ def manager_fixture() -> Any:
         yield valid_url, has_connection
 
 
-def test_can_access_google_page(manager_fixture) -> None:
+def test_can_access_google_page(manager_fixture: Type[fixture]) -> None:
     valid_url, has_connection = manager_fixture
     valid_url.return_value = True
     has_connection.return_value = True
@@ -19,7 +19,7 @@ def test_can_access_google_page(manager_fixture) -> None:
     assert action == "Accessible"
 
 
-def test_can_not_access_google_page_if_only_connection(manager_fixture) -> None:
+def test_no_access_if_only_connection(manager_fixture: Type[fixture]) -> None:
     valid_url, has_connection = manager_fixture
     valid_url.return_value = False
     has_connection.return_value = True
@@ -27,7 +27,7 @@ def test_can_not_access_google_page_if_only_connection(manager_fixture) -> None:
     assert action == "Not accessible"
 
 
-def test_can_not_access_google_page_if_only_valid_url(manager_fixture) -> None:
+def test_no_access_if_only_url(manager_fixture: Type[fixture]) -> None:
     valid_url, has_connection = manager_fixture
     valid_url.return_value = True
     has_connection.return_value = False
