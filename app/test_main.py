@@ -5,34 +5,36 @@ from app.main import can_access_google_page
 from typing import Any
 
 
+valid_url = "https://www.google.com/"
+invalid_url = "https://invalid_url"
 @pytest.mark.parametrize(
     "has_internet_connection, has_valid_google_url, url, expected",
     [
         pytest.param(
             True,
             True,
-            "https://www.google.com/",
+            valid_url,
             "Accessible",
             id="accessible when URL is valid and has internet connection"
         ),
         pytest.param(
             True,
             False,
-            "https://invalid_url",
+            invalid_url,
             "Not accessible",
             id="not accessible when URL is invalid and has internet connection"
         ),
         pytest.param(
             False,
             True,
-            "https://mate.academy/",
+            valid_url,
             "Not accessible",
             id="not accessible when has no internet connection"
         ),
         pytest.param(
             False,
             False,
-            "https://mate.academy/",
+            valid_url,
             "Not accessible",
             id="not accessible when URL is invalid and no internet connection"
         ),
