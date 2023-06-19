@@ -3,16 +3,17 @@ from pytest import MonkeyPatch, mark
 
 from app.main import can_access_google_page
 
-
+GOOGLE_URL = "Some google url"
+NOT_GOOGLE_URL = "Not google url"
 @mark.parametrize(
-    "url,url_validation,internet,result",
+    "url, url_validation,internet,result",
     [
-        ("Not google url", False, True, "Not accessible"),
-        ("Some google url", True, True, "Accessible"),
-        ("Not google url", False, True, "Not accessible"),
-        ("Some google url", True, True, "Accessible"),
-        ("Not google url", False, False, "Not accessible"),
-        ("Some google url", True, False, "Not accessible"),
+        (GOOGLE_URL, False, True, "Not accessible"),
+        (GOOGLE_URL, True, True, "Accessible"),
+        (NOT_GOOGLE_URL, False, True, "Not accessible"),
+        (GOOGLE_URL, True, True, "Accessible"),
+        (NOT_GOOGLE_URL, False, False, "Not accessible"),
+        (GOOGLE_URL, True, False, "Not accessible"),
     ],
     ids=[
         "Should return false when not google url",
