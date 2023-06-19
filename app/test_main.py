@@ -7,6 +7,9 @@ from app.main import can_access_google_page
 
 
 class TestCanAccessGooglePage:
+    VALID_URL = "https://mate.academy/en/courses/python"
+    INVALID_URL = "https://invalid.academy/en/courses/1)"
+
     @pytest.mark.parametrize(
         "connection_mock,url_mock,expected_result,url",
         [
@@ -14,28 +17,28 @@ class TestCanAccessGooglePage:
                 True,
                 True,
                 "Accessible",
-                "https://mate.academy/en/courses/python",
+                VALID_URL,
                 id="accessible when user with connection and url is valid"
             ),
             pytest.param(
                 True,
                 False,
                 "Not accessible",
-                "https://invalid.academy/en/courses/1)",
+                INVALID_URL,
                 id="Not accessible when url invalid"
             ),
             pytest.param(
                 False,
                 True,
                 "Not accessible",
-                "https://mate.academy/en/courses/python",
+                VALID_URL,
                 id="Not accessible without internet connection"
             ),
             pytest.param(
                 False,
                 False,
                 "Not accessible",
-                "https://invalid.academy/en/courses/1)",
+                INVALID_URL,
                 id="Not accessible without connection and invalid url"
             )
         ]
