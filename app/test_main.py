@@ -7,6 +7,8 @@ from typing import Any
 
 valid_url = "https://www.google.com/"
 invalid_url = "https://invalid_url"
+
+
 @pytest.mark.parametrize(
     "has_internet_connection, has_valid_google_url, url, expected",
     [
