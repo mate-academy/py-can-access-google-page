@@ -7,15 +7,20 @@ from app.main import can_access_google_page
 
 
 class TestCanAccessGooglePage:
-    TEST_URL = "https://mate.academy/courses/python"
-
     @pytest.mark.parametrize(
         "mocked_connection, mocked_url, result, url",
         [
-            (True, True, "Accessible", TEST_URL),
-            (True, False, "Not accessible", TEST_URL),
-            (False, True, "Not accessible", TEST_URL),
-            (False, False, "Not accessible", TEST_URL),
+            (True, True, "Accessible",
+             "https://mate.academy/courses/python"),
+
+            (True, False, "Not accessible",
+             "https://mate.academy/courses/python"),
+
+            (False, True, "Not accessible",
+             "https://mate.academy/courses/python"),
+
+            (False, False, "Not accessible",
+             "https://mate.academy/courses/python"),
         ],
         ids=[
             "Page is accessible - stable connection and url is valid",
