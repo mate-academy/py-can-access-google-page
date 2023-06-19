@@ -24,7 +24,13 @@ from app.main import can_access_google_page
             False,
             True,
             "Not accessible",
-            id="Connection denied because url is not valid"
+            id="Connection denied because url is invalid"
+        ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="Connection denied because no connection and url is invalid"
         ),
     ]
 )
