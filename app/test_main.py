@@ -28,6 +28,6 @@ def test_can_access_google_page(
         with mock.patch("app.main.valid_google_url") as mocked_valid:
             mocked_valid.return_value = valid_result
             mocked_connection.return_value = connection_result
-            url = "https://www.google.com.ua"
 
-            assert can_access_google_page(url) == expected_result
+            assert (can_access_google_page("https://www.google.com.ua")
+                    == expected_result)
