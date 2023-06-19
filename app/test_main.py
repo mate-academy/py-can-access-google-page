@@ -15,11 +15,11 @@ from app.main import can_access_google_page
                              "url True connect False Not accessible",
                              "url and connect False Not accessible"
                          ])
-def test_access_page(valid_url: bool,
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_access_page(url: bool, connect: bool, valid_url: bool,
                      internet_connection:
                      bool, answer: str) -> None:
-    with mock.patch("app.main.valid_google_url") as url, \
-            mock.patch("app.main.has_internet_connection") as connect:
-        url.return_value = valid_url
-        connect.return_value = internet_connection
-        assert can_access_google_page("https://www.freecodecamp.org") == answer
+    url.return_value = valid_url
+    connect.return_value = internet_connection
+    assert can_access_google_page("https://www.freecodecamp.org") == answer
