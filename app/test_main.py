@@ -8,19 +8,15 @@ from app.main import can_access_google_page
 
 class TestCanAccessGooglePage:
     @pytest.mark.parametrize(
-        "mocked_connection, mocked_url, result, url",
+        "mocked_connection, mocked_url, result",
         [
-            (True, True, "Accessible",
-             "https://mate.academy/courses/python"),
+            (True, True, "Accessible"),
 
-            (True, False, "Not accessible",
-             "https://mate.academy/courses/python"),
+            (True, False, "Not accessible"),
 
-            (False, True, "Not accessible",
-             "https://mate.academy/courses/python"),
+            (False, True, "Not accessible"),
 
-            (False, False, "Not accessible",
-             "https://mate.academy/courses/python"),
+            (False, False, "Not accessible")
         ],
         ids=[
             "Page is accessible - stable connection and url is valid",
@@ -37,10 +33,9 @@ class TestCanAccessGooglePage:
         valid_google_url: Callable,
         mocked_connection: bool,
         mocked_url: bool,
-        url: str,
         result: str
     ) -> None:
         valid_google_url.return_value = mocked_url
         has_internet_connection.return_value = mocked_connection
 
-        assert can_access_google_page(url) == result
+        assert can_access_google_page("https://mate.academy/courses/python") == result
