@@ -24,10 +24,10 @@ def test_can_access_google_page(
         valid_result: bool,
         expected_result: str
 ) -> None:
-    with mock.patch("app.main.has_internet_connection") as mocked_connection:
-        with mock.patch("app.main.valid_google_url") as mocked_valid:
-            mocked_valid.return_value = valid_result
-            mocked_connection.return_value = connection_result
+    with (mock.patch("app.main.has_internet_connection") as mocked_connection,
+          mock.patch("app.main.valid_google_url") as mocked_valid):
+        mocked_valid.return_value = valid_result
+        mocked_connection.return_value = connection_result
 
-            assert (can_access_google_page("https://www.google.com.ua")
-                    == expected_result)
+        assert (can_access_google_page("https://www.google.com.ua")
+                == expected_result)
