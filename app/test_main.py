@@ -1,5 +1,8 @@
 from typing import Any, Type
 from unittest.mock import patch
+
+import pytest
+
 from app.main import can_access_google_page
 from pytest import fixture
 
@@ -11,25 +14,23 @@ def manager_fixture() -> Any:
         yield valid_url, has_connection
 
 
-def test_can_access_google_page(manager_fixture: Type[fixture]) -> None:
+@pytest.mark.parametrize(
+    "url, connection, result",
+    [
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible")
+    ]
+)
+def test_can_access_google_page(
+        manager_fixture: Type[fixture],
+        url: bool,
+        connection: bool,
+        result: str
+) -> None:
     valid_url, has_connection = manager_fixture
-    valid_url.return_value = True
-    has_connection.return_value = True
+    valid_url.return_value = url
+    has_connection.return_value = connection
     action = can_access_google_page("https://www.google.com/")
-    assert action == "Accessible"
-
-
-def test_no_access_if_only_connection(manager_fixture: Type[fixture]) -> None:
-    valid_url, has_connection = manager_fixture
-    valid_url.return_value = False
-    has_connection.return_value = True
-    action = can_access_google_page("https://www.google.com/")
-    assert action == "Not accessible"
-
-
-def test_no_access_if_only_url(manager_fixture: Type[fixture]) -> None:
-    valid_url, has_connection = manager_fixture
-    valid_url.return_value = True
-    has_connection.return_value = False
-    action = can_access_google_page("https://www.google.com/")
-    assert action == "Not accessible"
+    assert action == result
