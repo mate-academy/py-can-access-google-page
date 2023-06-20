@@ -1,17 +1,9 @@
-from typing import Any, Type
+from typing import Callable
 from unittest.mock import patch
 
 import pytest
 
 from app.main import can_access_google_page
-from pytest import fixture
-
-
-@fixture
-def manager_fixture() -> Any:
-    with (patch("app.main.valid_google_url") as valid_url,
-          patch("app.main.has_internet_connection") as has_connection):
-        yield valid_url, has_connection
 
 
 @pytest.mark.parametrize(
@@ -21,16 +13,28 @@ def manager_fixture() -> Any:
         (False, True, "Not accessible"),
         (True, False, "Not accessible"),
         (False, False, "Not accessible")
+    ],
+    ids=[
+        ("`can_access_google_page` should return "
+         "`Accessible` when has connection & url is valid"),
+        ("`can_access_google_page` should return "
+         "`Not accessible` when has connection but url is not valid"),
+        ("`can_access_google_page` should return "
+         "`Not accessible` when has no connection but url is valid"),
+        ("`can_access_google_page` should return "
+         "`Not accessible` when no connection & url is not valid")
     ]
 )
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-        manager_fixture: Type[fixture],
+        mocked_url: Callable,
+        mocked_connection: Callable,
         url: bool,
         connection: bool,
         result: str
 ) -> None:
-    valid_url, has_connection = manager_fixture
-    valid_url.return_value = url
-    has_connection.return_value = connection
+    mocked_url.return_value = url
+    mocked_connection.return_value = connection
     action = can_access_google_page("https://www.google.com/")
     assert action == result
