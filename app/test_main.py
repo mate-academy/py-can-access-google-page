@@ -1,6 +1,20 @@
 from unittest import mock
+import pytest
 
 from app.main import can_access_google_page
+
+
+@pytest.mark.parametrize(
+    "site, respond",
+    [
+        ("https://www.google.com/", "Accessible"),
+        ("https://www.youtube.com", "Accessible"),
+        ("https://www.google.com/imghp?hl=ru&ogbl", "Accessible"),
+    ]
+)
+def test_return_value(site, respond):
+    assert can_access_google_page(site) == respond
+
 
 
 def test_of_calling_has_internet_connection() -> None:
