@@ -12,9 +12,8 @@ from app.main import can_access_google_page
         ("https://www.google.com/imghp?hl=ru&ogbl", "Accessible"),
     ]
 )
-def test_return_value(site, respond):
+def test_return_value(site: str, respond: str) -> None:
     assert can_access_google_page(site) == respond
-
 
 
 def test_of_calling_has_internet_connection() -> None:
