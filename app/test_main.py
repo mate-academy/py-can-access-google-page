@@ -17,7 +17,7 @@ class TestAccessPage:
             "Valid URL, No Internet",
             "Invalid URL, Has Internet",
             "Invalid URL, No Internet",
-            "Valid URL, Has Internet",
+            "Valid URL, Has Internet"
         ]
     )
     @mock.patch("app.main.valid_google_url")
