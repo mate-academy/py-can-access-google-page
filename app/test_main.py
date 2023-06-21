@@ -35,7 +35,6 @@ class TestCanAccessGooglePage:
             mock_valid_google_url_result: bool,
             can_access_google_page_result: str
     ) -> None:
-        print(type(mock_valid_google_url))
         mock_valid_google_url.return_value = (
             mock_has_internet_connection_result
         )
