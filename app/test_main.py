@@ -14,20 +14,16 @@ from app.main import can_access_google_page
             True,
             True,
             "Accessible",
-            (
-                    "Function should return "
-                    "`Accessible` if all function passed."
-            )
+            "Function should return "
+            "`Accessible` if all function passed."
         ),
         (
             "google.com",
             False,
             True,
             "Not accessible",
-            (
-                    "Function should return "
-                    "`Not accessible` if url doesn't valid."
-            )
+            "Function should return "
+            "`Not accessible` if url doesn't valid."
         ),
         (
             "https://www.google.com",
