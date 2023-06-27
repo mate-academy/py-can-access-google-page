@@ -1,7 +1,6 @@
 import pytest
 from unittest import mock
 
-import app.main
 from app.main import can_access_google_page
 
 
