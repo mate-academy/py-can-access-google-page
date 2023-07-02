@@ -15,11 +15,13 @@ from app.main import can_access_google_page
 )
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page(mock_valid_google_url: mock,
-                                mock_has_internet_connection: mock,
-                                valid_url: bool,
-                                has_connection: bool,
-                                expect_value: str) -> None:
+def test_can_access_google_page(
+        mock_valid_google_url: mock,
+        mock_has_internet_connection: mock,
+        valid_url: bool,
+        has_connection: bool,
+        expect_value: str
+) -> None:
     sites = ["https://www.google.com",
              "https://mate.academy/",
              "https://www.youtube.com/"]
