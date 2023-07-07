@@ -4,21 +4,17 @@ from unittest import mock
 from .main import can_access_google_page
 
 
-@mock.patch("main.valid_google_url")
-def test_valid_google_has_called(mocked_valid_url: Callable) -> None:
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_should_return_accessible(
+        mocked_int_connect: Callable,
+        mocked_valid_url: Callable
+) -> None:
+    mocked_int_connect.return_value = True
+    mocked_valid_url.return_value = True
+    can_access_google_page("https://www.google.com")
 
-    can_access_google_page("https://www.google.com/")
-
-    mocked_valid_url.assert_called_once
-
-
-@mock.patch("main.has_internet_connection")
-def test_has_internet_connection(mocked_valid_inet: Callable) -> None:
-
-    can_access_google_page("https://www.google.com/")
-
-    mocked_valid_inet.assert_called_once
-
-
-def test_can_access_page() -> None:
-    assert can_access_google_page("https://www.google.com/")
+    mocked_int_connect.assert_called_once()
+    mocked_valid_url.assert_called_once_with(
+        "https://www.google.com"
+    )
