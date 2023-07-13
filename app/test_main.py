@@ -1,4 +1,3 @@
-import datetime
 import pytest
 from unittest import mock
 from requests.exceptions import (
@@ -30,7 +29,7 @@ def test_has_internet_connection_works_in_can_access_google_page(
 
 @mock.patch("app.main.has_internet_connection")
 @pytest.mark.parametrize(
-    'initial_url,initial_hour,expected_result',
+    "initial_url,initial_hour,expected_result",
     [
         pytest.param(
             "http://google.com",
@@ -67,7 +66,7 @@ def test_can_access_google_page(
 
 
 @pytest.mark.parametrize(
-    'initial_element,expected_error',
+    "initial_element,expected_error",
     [
         pytest.param(
             "http://google",
@@ -95,6 +94,6 @@ def test_can_access_google_page(
 def test_should_return_error_correctly(
         initial_element: any,
         expected_error: EOFError
-):
+) -> None:
     with pytest.raises(expected_error):
         raise can_access_google_page(initial_element)
