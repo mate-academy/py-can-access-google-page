@@ -6,11 +6,11 @@ from requests.exceptions import (
     InvalidURL
 )
 
-from app.main import can_access_google_page
+from app.main import can_access_google_page, valid_google_url
 
 
 @mock.patch("app.main.valid_google_url")
-def test_valid_google_url_works_in_can_access_google_page(
+def test_should_return_valid_url(
         mocked_valid_url: any
 ) -> None:
     can_access_google_page("http://google.com")
@@ -19,7 +19,7 @@ def test_valid_google_url_works_in_can_access_google_page(
 
 
 @mock.patch("app.main.has_internet_connection")
-def test_has_internet_connection_works_in_can_access_google_page(
+def test_should_return_internet_connection(
         mock_internet_connection: any
 ) -> None:
     can_access_google_page("http://google.com")
@@ -27,6 +27,7 @@ def test_has_internet_connection_works_in_can_access_google_page(
     mock_internet_connection.assert_called_once()
 
 
+@mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 @pytest.mark.parametrize(
     "initial_url,initial_hour,expected_result",
@@ -51,18 +52,16 @@ def test_has_internet_connection_works_in_can_access_google_page(
     ]
 )
 def test_can_access_google_page(
-        mocked_time: any,
+        mocked_url: mock.MagicMock,
+        mocked_time: mock.MagicMock,
         initial_url: str,
-        initial_hour: int,
+        initial_hour: bool,
         expected_result: bool
 ) -> None:
     mocked_time.return_value = initial_hour
+    mocked_url.return_value = initial_url
 
-    if mocked_time and initial_url:
-        assert can_access_google_page(initial_url) == expected_result
-        return
-
-    assert can_access_google_page(initial_url) == expected_result
+    assert can_access_google_page(mocked_url) == expected_result
 
 
 @pytest.mark.parametrize(
@@ -91,9 +90,9 @@ def test_can_access_google_page(
 
     ]
 )
-def test_should_return_error_correctly(
+def test_should_return_error_when_ulr_invalid(
         initial_element: any,
-        expected_error: EOFError
+        expected_error: any,
 ) -> None:
     with pytest.raises(expected_error):
-        raise can_access_google_page(initial_element)
+        raise valid_google_url(initial_element)
