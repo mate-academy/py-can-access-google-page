@@ -4,28 +4,26 @@ import pytest
 from app.main import can_access_google_page
 
 
-def test_valid_url_and_connection_exists() -> None:
-    with mock.patch("app.main.has_internet_connection") as mocked_connection, \
-         mock.patch("app.main.valid_google_url") as mocked_url:
-
-        can_access_google_page("https://google.com.ua")
-        mocked_url.assert_called_once_with(
-            "https://google.com.ua"
-        )
-        mocked_connection.assert_called_once()
-
-        @pytest.mark.parametrize(
-            "mocked_connection, mocked_url, outcome",
-            [
-                (True, True, "Accessible"),
-                (False, True, "Not accessible"),
-                (True, False, "Not accessible"),
-                (False, False, "Not accessible")
-            ]
-        )
-        def test_if_one_can_access_google_page(
-                mocked_connection: bool,
-                mocked_url: bool,
-                outcome: str
-        ) -> None:
-            assert can_access_google_page("https://google.com.ua") == outcome
+@pytest.mark.parametrize(
+    "internet_connection, is_valid_url, outcome",
+    [
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible")
+    ]
+)
+def test_if_one_can_access_google_page(
+        internet_connection: bool,
+        is_valid_url: bool,
+        outcome: str
+) -> None:
+    with mock.patch(
+            "app.main.has_internet_connection"
+    ) as mock_has_internet_connection,\
+        mock.patch(
+            "app.main.valid_google_url"
+    ) as mock_valid_url:
+        mock_has_internet_connection.return_value = internet_connection
+        mock_valid_url.return_value = is_valid_url
+        assert can_access_google_page("") == outcome
