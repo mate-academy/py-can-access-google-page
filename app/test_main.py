@@ -44,9 +44,9 @@ def test_output_with_different_values_of_url_internet(
             mocked_url_validator.return_value = valid_url
             assert (
                 can_access_google_page("") == result
-            ), f"Function should return {result} when " \
-               f"`has_internet_connection()` is {internet} and " \
-               f"`valid_google_url()` is {valid_url}"
+            ), (f"Function should return {result} when "
+                f"`has_internet_connection()` is {internet} and "
+                f"`valid_google_url()` is {valid_url}")
 
 
 @pytest.mark.parametrize(
