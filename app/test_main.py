@@ -27,8 +27,8 @@ from app.main import can_access_google_page
     ]
 )
 def test_can_access_google_page(
-        is_connected: mock,
-        is_valid_url: mock,
+        is_connected: bool,
+        is_valid_url: bool,
         expected_result: str
 ) -> None:
     with (
