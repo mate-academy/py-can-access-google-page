@@ -12,10 +12,13 @@ from app import main
         (False, False, "Not accessible"),
     ]
 )
-
-def test_can_access_google_page(internet_connection, is_valid_url, outcome):
-    with mock.patch("app.main.has_internet_connection", return_value=internet_connection), \
-         mock.patch("app.main.valid_google_url", return_value=is_valid_url):
+def test_can_access_google_page(
+        internet_connection: bool, is_valid_url: bool, outcome: str
+) -> bool:
+    with mock.patch("app.main.has_internet_connection",
+                    return_value=internet_connection), \
+         mock.patch("app.main.valid_google_url",
+                    return_value=is_valid_url):
         result = main.can_access_google_page("https://www.google.com/")
 
         assert result == outcome
