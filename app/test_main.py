@@ -15,10 +15,12 @@ from app import main
 def test_can_access_google_page(
         internet_connection: bool, is_valid_url: bool, outcome: str
 ) -> bool:
-    with mock.patch("app.main.has_internet_connection",
-                    return_value=internet_connection), \
-         mock.patch("app.main.valid_google_url",
-                    return_value=is_valid_url):
+    with (
+        mock.patch("app.main.has_internet_connection",
+                   return_value=internet_connection),
+        mock.patch("app.main.valid_google_url",
+                   return_value=is_valid_url)
+    ):
         result = main.can_access_google_page("https://www.google.com/")
 
         assert result == outcome
