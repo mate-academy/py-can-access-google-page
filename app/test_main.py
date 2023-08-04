@@ -1,25 +1,25 @@
+from unittest import mock
 from app.main import can_access_google_page
 import pytest
-from types import ModuleType
 
 
-@pytest.mark.parametrize("url, internet_connection, expected", [
-    ("https://www.google.com", True, "Accessible"),
-    ("https://www.google.com", False, "Not accessible"),
-    ("your.waifu", True, "Not accessible"),
+@pytest.mark.parametrize("internet_connection, url, expected", [
+    (True, True, "Accessible"),
+    (False, False, "Not accessible"),
+    (True, False, "Not accessible"),
+    (False, True, "Not accessible"),
 ])
 def test_can_access_google_page(
-        url: str, internet_connection: bool,
-        expected: str,
-        monkeypatch: ModuleType
+        internet_connection: bool,
+        url: bool,
+        expected: str
 ) -> None:
-    monkeypatch.setattr(
-        "app.main.has_internet_connection",
-        lambda: internet_connection
-    )
-    monkeypatch.setattr(
-        "app.main.valid_google_url",
-        lambda url_: url_ == "https://www.google.com"
-    )
-    result = can_access_google_page(url)
-    assert result == expected
+    with (
+        mock.patch("app.main.has_internet_connection") as valid_connection,
+        mock.patch("app.main.valid_google_url") as valid_url
+    ):
+        valid_connection.return_value = internet_connection
+        valid_url.return_value = url
+        assert can_access_google_page(
+            "https://www.google.com/"
+        ) == expected
