@@ -27,10 +27,9 @@ from app.main import can_access_google_page
         )
     ]
 )
-
 def test_internet_connection_and_url_validity(url_validity: bool,
-                                               internet_connection: bool,
-                                               expected_result: str) -> None:
+                                              internet_connection: bool,
+                                              expected_result: str) -> None:
     with (
         mock.patch("app.main.has_internet_connection")
         as mock_has_internet_connection,
