@@ -19,7 +19,11 @@ def test_can_access_google_page_with_invalid_url(
     assert main.can_access_google_page(url) == "Not accessible"
 
 
-def test_can_access_google_page_with_unreachable_url() -> None:
+def test_can_access_google_page_with_unreachable_url(
+        monkeypatch: MonkeyPatch
+) -> None:
+    monkeypatch.setattr(main, "has_internet_connection", lambda: False)
+
     url = "https://www.google.com/nonexistentpage"
     assert main.can_access_google_page(url) == "Not accessible"
 
