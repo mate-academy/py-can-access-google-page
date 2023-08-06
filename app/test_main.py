@@ -1,37 +1,22 @@
+import pytest
 from _pytest.monkeypatch import MonkeyPatch
-
 from app import main
 
 
-def test_can_access_google_page_with_valid_url_and_internet_connection(
-
-) -> None:
-    url = "https://www.google.com"
-    assert main.can_access_google_page(url) == "Accessible"
-
-
-def test_can_access_google_page_with_invalid_url(
+@pytest.mark.parametrize("url, expected_result", [
+    ("https://www.google.com", "Accessible"),
+    ("https://www.this-url-does-not-exist.com", "Not accessible"),
+    ("https://www.google.com/nonexistentpage", "Not accessible")
+])
+def test_can_access_google_page(
+        url: str,
+        expected_result: str,
         monkeypatch: MonkeyPatch
 ) -> None:
-    monkeypatch.setattr(main, "valid_google_url", lambda url: False)
+    monkeypatch.setattr(main, "has_internet_connection",
+                        lambda: False if "nonexistentpage" in url else True)
 
-    url = "https://www.this-url-does-not-exist.com"
-    assert main.can_access_google_page(url) == "Not accessible"
+    monkeypatch.setattr(main, "valid_google_url",
+                        lambda u: True if "google" in u else False)
 
-
-def test_can_access_google_page_with_unreachable_url(
-        monkeypatch: MonkeyPatch
-) -> None:
-    monkeypatch.setattr(main, "has_internet_connection", lambda: False)
-
-    url = "https://www.google.com/nonexistentpage"
-    assert main.can_access_google_page(url) == "Not accessible"
-
-
-def test_can_access_google_page_without_internet_connection(
-        monkeypatch: MonkeyPatch
-) -> None:
-    monkeypatch.setattr(main, "has_internet_connection", lambda: False)
-
-    url = "https://www.google.com"
-    assert main.can_access_google_page(url) == "Not accessible"
+    assert main.can_access_google_page(url) == expected_result
