@@ -1,31 +1,48 @@
+from unittest import mock
+import app.main
 from app.main import (
     can_access_google_page,
-    valid_google_url,
-    has_internet_connection
 )
 
 
+def test_return_function_value() -> None:
+    assert can_access_google_page("http://google.com") == "Accessible"
+
+
+def test_has_internet_connection_was_called() -> None:
+    app.main.has_internet_connection = mock.MagicMock()
+    can_access_google_page("http://google.com")
+    app.main.has_internet_connection.assert_called_once()
+
+
+def test_valid_google_url_was_called() -> None:
+    app.main.valid_google_url = mock.MagicMock()
+    can_access_google_page("http://google.com")
+    app.main.valid_google_url.assert_called_once_with("http://google.com")
+
+
 def test_cannot_access_if_connection_or_valid_url_is_true() -> None:
-    url = "http://google.com"
-    result_connection = has_internet_connection()
-    result_valid = valid_google_url(url)
-    if result_connection and result_valid:
-        assert can_access_google_page(url) == "Accessible"
-    else:
-        assert can_access_google_page(url) == "Not accessible"
+    with mock.patch("app.main.has_internet_connection") as mocked_connection:
+        with mock.patch("app.main.valid_google_url") as mocked_valid_url:
+            mocked_connection.return_value = False
+            mocked_valid_url.return_value = False
+            assert (can_access_google_page("http://google.com")
+                    == "Not accessible")
 
 
 def test_cannot_access_if_only_connection() -> None:
-    url = "http://google.com"
-    result_connection = has_internet_connection()
-    result_valid = valid_google_url(url)
-    if result_connection and not result_valid:
-        assert can_access_google_page(url) == "Not accessible"
+    with mock.patch("app.main.has_internet_connection") as mocked_connection:
+        with mock.patch("app.main.valid_google_url") as mocked_valid_url:
+            mocked_connection.return_value = True
+            mocked_valid_url.return_value = False
+            result = can_access_google_page("http://google.com")
+    assert result == "Not accessible"
 
 
 def test_cannot_access_if_only_valid_url() -> None:
-    url = "http://google.com"
-    result_connection = has_internet_connection()
-    result_valid = valid_google_url(url)
-    if not result_connection and result_valid:
-        assert can_access_google_page(url) == "Not accessible"
+    with mock.patch("app.main.has_internet_connection") as mocked_connection:
+        with mock.patch("app.main.valid_google_url") as mocked_valid_url:
+            mocked_connection.return_value = False
+            mocked_valid_url.return_value = True
+            result = can_access_google_page("http://google.com")
+    assert result == "Not accessible"
