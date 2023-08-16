@@ -2,40 +2,38 @@ import pytest
 from unittest import mock
 from app.main import can_access_google_page
 
+URL = "https://www.flashscore.com/"
+
 
 @pytest.fixture()
-def mocked_connection() -> None:
+def mock_internet() -> mock:
     with mock.patch(
-        "app.main.has_internet_connection", return_value=False
-    ):
-        yield
+        "app.main.has_internet_connection"
+    ) as mocked_internet:
+        yield mocked_internet
 
 
-def test_function_should_return_correct_response() -> None:
-    assert (
-        can_access_google_page("https://www.flashscore.com/")
-        == "Accessible"
-    )
+@pytest.fixture()
+def mock_url() -> mock:
+    with mock.patch("app.main.valid_google_url") as mocked_url:
+        yield mocked_url
 
 
-def test_function_should_return_always_false(
-    mocked_connection: mock.MagicMock,
+@pytest.mark.parametrize(
+    "internet_status,url_status,expected_result",
+    [
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+    ],
+)
+def test_can_access_google_page(
+    mock_internet: mock,
+    mock_url: mock,
+    internet_status: bool,
+    url_status: bool,
+    expected_result: str,
 ) -> None:
-    assert (
-        can_access_google_page("https://www.flashscore.com/")
-        == "Not accessible"
-    )
-
-
-@mock.patch("app.main.valid_google_url")
-def test_valid_google_url(mock_url_validator: mock.MagicMock) -> None:
-    can_access_google_page("https://www.flashscore.com/")
-    mock_url_validator.assert_called_once()
-
-
-@mock.patch("app.main.has_internet_connection")
-def test_internet_connection(
-    mocked_connection: mock.MagicMock,
-) -> None:
-    can_access_google_page("https://www.flashscore.com/")
-    mocked_connection.assert_called_once()
+    mock_internet.return_value = internet_status
+    mock_url.return_value = url_status
+    assert can_access_google_page(URL) == expected_result
