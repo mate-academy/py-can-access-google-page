@@ -14,9 +14,11 @@ def test_valid_internet_connection(
         google_value: bool,
         expected_result: str) -> None:
 
-    with mock.patch("app.main.has_internet_connection") as mock_internet:
-        with mock.patch("app.main.valid_google_url") as mock_google:
-            mock_internet.return_value = internet_value
-            mock_google.return_value = google_value
-            result = can_access_google_page("https://google.com")
-            assert result == expected_result
+    with (
+        mock.patch("app.main.has_internet_connection") as mock_internet,
+        mock.patch("app.main.valid_google_url") as mock_google
+    ):
+        mock_internet.return_value = internet_value
+        mock_google.return_value = google_value
+        result = can_access_google_page("https://google.com")
+        assert result == expected_result
