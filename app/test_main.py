@@ -16,7 +16,10 @@ from app.main import can_access_google_page
                      id="No connection but valid url"),
         pytest.param(True, False,
                      "Not accessible",
-                     id="Has connection invalid url")
+                     id="Has connection invalid url"),
+        pytest.param(False, False,
+                     "Not accessible",
+                     id="No connection and not accessible")
     )
 )
 def test_can_access_google_page(internet_connected: bool,
