@@ -25,9 +25,10 @@ from app.main import can_access_google_page
 def test_can_access_google_page(internet_connected: bool,
                                 valid_google_url: bool,
                                 can_access: str) -> None:
-    with mock.patch("app.main.has_internet_connection") as connection:
-        with mock.patch("app.main.valid_google_url") as url_validator:
-            connection.return_value = internet_connected
-            url_validator.return_value = valid_google_url
+    with (mock.patch("app.main.has_internet_connection") as connection,
+          mock.patch("app.main.valid_google_url") as url_validator):
 
-            assert can_access_google_page("any.com") == can_access
+        connection.return_value = internet_connected
+        url_validator.return_value = valid_google_url
+
+        assert can_access_google_page("any.com") == can_access
