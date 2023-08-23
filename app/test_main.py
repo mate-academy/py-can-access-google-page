@@ -1,5 +1,6 @@
 import pytest
 import app.main as main
+from typing import Callable
 
 
 @pytest.mark.parametrize(
@@ -36,8 +37,12 @@ import app.main as main
     ],
 )
 def test_can_access_google_page(
-    monkeypatch, url, expected, mock_valid, mock_internet
-):
+    monkeypatch: pytest.MonkeyPatch,
+    url: str,
+    expected: str,
+    mock_valid: Callable[[str], bool],
+    mock_internet: Callable[[], bool],
+) -> None:
     monkeypatch.setattr(main, "has_internet_connection", mock_internet)
     monkeypatch.setattr(main, "valid_google_url", mock_valid)
 
