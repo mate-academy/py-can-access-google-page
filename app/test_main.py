@@ -21,6 +21,6 @@ def test_can_access_google_page(
             mock_valid_google_url.return_value,
             mock_has_internet_connection.return_value,
             expected_result
-         ) in test_data:
+    ) in test_data:
 
         assert can_access_google_page(test_url) == expected_result
