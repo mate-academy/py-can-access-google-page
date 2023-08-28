@@ -25,6 +25,12 @@ from app.main import can_access_google_page
             False,
             "Not accessible",
             id="No internet connection and page is not accessible",
+        ),
+        pytest.param(
+            True,
+            False,
+            "Not accessible",
+            id="Page is not accessible",
         )
     ]
 )
@@ -33,9 +39,9 @@ def test_should_return_correct_data(
         is_valid_url: bool,
         expected_result: str
 ) -> None:
+    testing_url = "https://www.youtube.com/"
     with (mock.patch("app.main.has_internet_connection") as mocked_time,
           mock.patch("app.main.valid_google_url") as mocked_url_check):
         mocked_url_check.return_value = is_valid_url
         mocked_time.return_value = has_connection
-        assert can_access_google_page("https://www.youtube.com/") ==\
-               expected_result
+        assert can_access_google_page(testing_url) == expected_result
