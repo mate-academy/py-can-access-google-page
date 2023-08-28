@@ -1,1 +1,39 @@
-# write your code here
+from unittest import mock
+
+import pytest
+
+from app.main import can_access_google_page
+
+
+@pytest.mark.parametrize(
+    "has_connection,valid_url,expected_result",
+    [
+        pytest.param(
+            True,
+            True,
+            "Accessible",
+            id="Page is accessible"
+        ),
+        pytest.param(
+            False,
+            True,
+            "Not accessible",
+            id="No internet connection"
+        ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="No internet connection and page is not accessible",
+        )
+    ]
+)
+def test_should_return_correct_data(
+        has_connection: bool,
+        valid_url: bool,
+        expected_result: str
+) -> None:
+    with (mock.patch("app.main.has_internet_connection") as mocked_time,
+          mock.patch("app.main.valid_google_url") as mocked_url):
+        mocked_time.return_value = has_connection
+        assert can_access_google_page(mocked_url) == expected_result
