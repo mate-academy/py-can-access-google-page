@@ -8,10 +8,7 @@ from app.main import can_access_google_page
         pytest.param(
             [True, True],
             "Accessible",
-            id=(
-                "Should return 'Accessible' if "
-                "url and connection functions return True"
-            ),
+            id="Should return 'Accessible' if both funcs return True",
         ),
         pytest.param(
             [False, True],
@@ -22,6 +19,11 @@ from app.main import can_access_google_page
             [True, False],
             "Not accessible",
             id="Should return 'Not accessible' if no connection",
+        ),
+        pytest.param(
+            [False, False],
+            "Not accessible",
+            id="Should return 'Not accessible' if both funcs return False",
         ),
     ],
 )
