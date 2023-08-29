@@ -18,7 +18,37 @@ def mock_internet_connection() -> None:
         yield mocked_connection
 
 
-def test_with_correct_date(
+@pytest.mark.parametrize(
+    "is_valid_url, has_internet_connection_value, expected",
+    [
+        pytest.param(
+            True,
+            True,
+            "Accessible",
+            id="should return 'Accessible' if both value True"
+        ),
+        pytest.param(
+            True,
+            False,
+            "Not accessible",
+            id="should return 'Not accessible' "
+               "if has_internet_connection False"
+        ),
+        pytest.param(
+            False,
+            True,
+            "Not accessible",
+            id="should return 'Not accessible' if is_valid_url False"
+        ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="should return 'Not accessible' if both value False"
+        )
+    ]
+)
+def test_with_correct_data(
         mock_internet_connection: Callable,
         mock_valid_url: Callable
 ) -> None:
@@ -48,7 +78,7 @@ def test_without_internet_connection(
     assert result == "Not accessible"
 
 
-def test_without_internet_with_wrong_url(
+def test_without_internet_and_with_wrong_url(
         mock_internet_connection: Callable,
         mock_valid_url: Callable
 ) -> None:
