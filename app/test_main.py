@@ -3,13 +3,16 @@ import pytest
 from app.main import can_access_google_page
 
 
-@pytest.mark.parametrize("connection_status, valid_url, expected",
-                         [
-                             (True, True, "Accessible"),
-                             (False, False, "Not accessible"),
-                             (True, False, "Not accessible"),
-                             (False, True, "Not accessible"),
-                         ])
+@pytest.mark.parametrize(
+    "connection_status, valid_url, expected",
+    [
+        (True, True, "Accessible"),
+        (False, False, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+    ]
+)
+
 def test_can_access_google_page(
         connection_status: bool,
         valid_url: bool,
