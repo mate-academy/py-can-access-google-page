@@ -22,14 +22,14 @@ def valid_google_url_mocked() -> Generator[MagicMock, Any, Any]:
         yield valid_url_mock
 
 
-def test_with_valid_url_and_internet(
+def test_with_valid_url_and_internet_access(
     valid_google_url_mocked: MagicMock,
     has_internet_connection_mocked: MagicMock,
 ) -> None:
     assert can_access_google_page("https://example.com") == "Accessible"
 
 
-def test_with_invalid_url_and_internet(
+def test_with_invalid_url_and_internet_access(
     valid_google_url_mocked: MagicMock,
     has_internet_connection_mocked: MagicMock,
 ) -> None:
@@ -37,7 +37,7 @@ def test_with_invalid_url_and_internet(
     assert can_access_google_page("https://example.com") == "Not accessible"
 
 
-def test_with_valid_url_and_no_internet(
+def test_with_valid_url_and_without_internet_access(
     valid_google_url_mocked: MagicMock,
     has_internet_connection_mocked: MagicMock,
 ) -> None:
