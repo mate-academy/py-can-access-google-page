@@ -12,7 +12,6 @@ from app.main import can_access_google_page
         (False, True, "Not accessible"),
     ]
 )
-
 def test_can_access_google_page(
         connection_status: bool,
         valid_url: bool,
