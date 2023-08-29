@@ -45,6 +45,15 @@ def test_if_invalid_address_and_valid_internet_connection(
     assert can_access_google_page("url_address") == "Not accessible"
 
 
+def test_if_invalid_address_and_invalid_internet_connection(
+        mocked_internet_connection: Mock,
+        mocked_valid_url: Mock
+) -> None:
+    mocked_internet_connection.return_value = False
+    mocked_valid_url.return_value = False
+    assert can_access_google_page("url_address") == "Not accessible"
+
+
 def test_if_valid_google_url_is_called(
         mocked_internet_connection: Mock,
         mocked_valid_url: Mock
