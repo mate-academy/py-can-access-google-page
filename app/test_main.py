@@ -20,6 +20,12 @@ from app.main import can_access_google_page
             "Not accessible",
             id="Access denied due to unsatisfactory status code",
         ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="Access denied due to non-compliance"
+        )
     ],
 )
 def test_can_access_google_page(
