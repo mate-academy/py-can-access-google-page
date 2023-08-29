@@ -53,4 +53,3 @@ def test_can_access_google_page(
     )
 
     assert can_access_google_page("") == expected_result
-
