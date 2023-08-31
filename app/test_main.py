@@ -21,6 +21,7 @@ from app.main import can_access_google_page
             id="if code is 200 and don't have access to internet",
         ),
         pytest.param(404, True, "Not accessible", id="if wrong status code"),
+        pytest.param(404, False, "Not accessible", id="if wrong status code"),
     ),
 )
 def test_can_access_google_page(
