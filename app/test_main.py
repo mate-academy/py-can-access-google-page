@@ -1,59 +1,42 @@
-import unittest
-from unittest.mock import patch
+import pytest
+from unittest import mock
 from app.main import can_access_google_page
 
 
-class TestCanAccessGooglePage(unittest.TestCase):
-    @patch("app.main.valid_google_url", return_value=True)
-    @patch("app.main.has_internet_connection", return_value=True)
-    def test_can_access_google_page_accessible(
+class TestCanAccessGooglePage:
+    @pytest.mark.parametrize(
+        "valid_url, valid_internet_conn, expected",
+        [
+            pytest.param(
+                True,
+                True,
+                "Accessible",
+                id="URL verification was successful"
+            ),
+            pytest.param(
+                True,
+                False,
+                "Not accessible",
+                id="not internet connection"
+            ),
+            pytest.param(
+                False,
+                True,
+                "Not accessible",
+                id="url isn't valid"
+            )
+        ]
+    )
+    def test_access_google_page(
             self,
-            mock_internet_connection: unittest.mock.Mock,
-            mock_valid_url: unittest.mock.Mock,
+            valid_url: bool,
+            valid_internet_conn: bool,
+            expected: bool,
     ) -> None:
-
-        mock_internet_connection.return_value = True
-        mock_valid_url.return_value = True
-        url = "http://www.example.com"
-
-        result = can_access_google_page(url)
-
-        self.assertEqual(result, "Accessible")
-
-
-class TestCanAccessInternet(unittest.TestCase):
-
-    @patch("app.main.valid_google_url", return_value=False)
-    @patch("app.main.has_internet_connection", return_value=True)
-    def test_access_google_page_not_valid_url(
-            self,
-            mock_internet_connection: unittest.mock.Mock,
-            mock_valid_url: unittest.mock.Mock,
-    ) -> None:
-
-        mock_internet_connection.return_value = False
-        mock_valid_url.return_value = True
-        url = "http://www.example.com"
-
-        result = can_access_google_page(url)
-
-        self.assertEqual(result, "Not accessible")
-
-
-class TestCanAccessValidURL(unittest.TestCase):
-
-    @patch("app.main.valid_google_url", return_value=True)
-    @patch("app.main.has_internet_connection", return_value=False)
-    def test_access_google_page_not_internet_connection(
-            self,
-            mock_internet_connection: unittest.mock.Mock,
-            mock_valid_url: unittest.mock.Mock,
-    ) -> None:
-
-        mock_internet_connection.return_value = True
-        mock_valid_url.return_value = False
-        url = "http://www.example.com"
-
-        result = can_access_google_page(url)
-
-        self.assertEqual(result, "Not accessible")
+        with (mock.patch("app.main.valid_google_url") as mocked_url,
+              mock.patch("app.main.has_internet_connection")
+              as mocked_connection):
+            mocked_url.return_value = valid_url
+            mocked_connection.return_value = valid_internet_conn
+            assert can_access_google_page("https://www.google.com/") \
+                   == expected
