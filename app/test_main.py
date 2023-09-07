@@ -45,5 +45,5 @@ def test_access_google_page(
         mock.patch("app.main.has_internet_connection",
                    return_value=internet_connection)
     ):
-        url = "http://google.com"
-        assert can_access_google_page(url) == access_to_google_page
+        assert (can_access_google_page("http://google.com")
+               == access_to_google_page)
