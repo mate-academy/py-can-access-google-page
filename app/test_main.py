@@ -30,8 +30,8 @@ from app.main import can_access_google_page
     ]
 )
 def test_can_access_google_page(
-        mocked_has_internet_connection: mock.MagicMock,
         mocked_valid_google_url: mock.MagicMock,
+        mocked_has_internet_connection: mock.MagicMock,
         connection: bool,
         url: bool,
         result: str
