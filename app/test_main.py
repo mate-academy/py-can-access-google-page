@@ -1,4 +1,5 @@
 from unittest import mock
+from unittest.mock import Mock
 from typing import Any
 import pytest
 
@@ -17,23 +18,23 @@ def mocked_connection() -> Any:
         yield mocked_connection
 
 
-def test_internet_connection(mocked_url,
-                             mocked_connection) -> None:
+def test_internet_connection(mocked_url: Mock,
+                             mocked_connection: Mock) -> None:
     can_access_google_page("")
     mocked_connection.assert_called_once()
 
 
 def test_is_validator_work(
-        mocked_url,
-        mocked_connection
+        mocked_url: Mock,
+        mocked_connection: Mock
 ) -> None:
     can_access_google_page("")
     mocked_url.assert_called_once_with("")
 
 
 def test_can_access_google_page_when_checks_are_good(
-        mocked_url,
-        mocked_connection
+        mocked_url: Mock,
+        mocked_connection: Mock
 ) -> None:
     mocked_url.return_value = True
     mocked_connection.return_value = True
@@ -41,8 +42,8 @@ def test_can_access_google_page_when_checks_are_good(
 
 
 def test_can_access_google_page_when_url_is_bed(
-    mocked_url,
-    mocked_connection
+    mocked_url: Mock,
+    mocked_connection: Mock
 ) -> None:
     mocked_url.return_value = False
     mocked_connection.return_value = True
@@ -50,8 +51,8 @@ def test_can_access_google_page_when_url_is_bed(
 
 
 def test_can_access_google_page_when_no_connection(
-    mocked_url,
-    mocked_connection
+    mocked_url: Mock,
+    mocked_connection: Mock
 ) -> None:
     mocked_url.return_value = True
     mocked_connection.return_value = False
