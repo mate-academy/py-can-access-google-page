@@ -15,19 +15,19 @@ def mocked_has_internet_connection() -> mock.MagicMock:
         yield internet_connection
 
 
-def test_cannot_access_if_only_connection(
-        mocked_has_internet_connection: mock.MagicMock,
-        mocked_valid_google_url: mock.MagicMock) \
-        -> AssertionError:
-    mocked_has_internet_connection.return_value = True
-    mocked_valid_google_url.return_value = False
-    assert can_access_google_page("a") == "Not accessible"
-
-
-def test_cannot_access_if_only_valid_url(
+@pytest.mark.parametrize(
+    "valid_url,has_internet_connection,result",
+    [
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+    ]
+)
+def test_cannot_access_if_only_one_true(
         mocked_valid_google_url: mock.MagicMock,
-        mocked_has_internet_connection: mock.MagicMock)\
-        -> AssertionError:
-    mocked_has_internet_connection.return_value = False
-    mocked_valid_google_url.return_value = True
-    assert can_access_google_page("a") == "Not accessible"
+        mocked_has_internet_connection: mock.MagicMock,
+        valid_url: bool,
+        has_internet_connection: bool,
+        result: str) -> AssertionError:
+    mocked_has_internet_connection.return_value = has_internet_connection
+    mocked_valid_google_url.return_value = valid_url
+    assert can_access_google_page("a") == result
