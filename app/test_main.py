@@ -16,7 +16,7 @@ def test_can_access_google_page_valid_url_and_internet(mock_functions):
     assert result == "Accessible"
 
 
-def test_can_access_google_page_valid_url_no_internet(mock_functions):
+def test_car_access_google_page_valid_url_no_internet(mock_functions):
     url = "https://www.google.com"
     result = can_access_google_page(url)
     assert result == "Accessible"
