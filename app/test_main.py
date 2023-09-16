@@ -20,6 +20,8 @@ def mocked_has_internet_connection() -> mock.MagicMock:
     [
         (False, True, "Not accessible"),
         (True, False, "Not accessible"),
+        (True, True, "Accessible"),
+        (False, False, "Not accessible")
     ]
 )
 def test_cannot_access_if_only_one_true(
