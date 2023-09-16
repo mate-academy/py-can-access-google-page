@@ -1,6 +1,7 @@
+from typing import Any
 from unittest import mock
 from unittest.mock import Mock
-from typing import Any
+
 import pytest
 
 from app.main import can_access_google_page
@@ -24,36 +25,36 @@ def test_internet_connection(mocked_url: Mock,
     mocked_connection.assert_called_once()
 
 
-def test_is_validator_work(
+@pytest.mark.parametrize(
+    "connection, url, result",
+    [
+        pytest.param(
+            True,
+            True,
+            "Accessible",
+            id="Must return \'Accessible\' when all checks are True"
+        ),
+        pytest.param(
+            False,
+            True,
+            "Not accessible",
+            id="Must return \'Not accessible\' when no connection"
+        ),
+        pytest.param(
+            True,
+            False,
+            "Not accessible",
+            id="Must return \'Not accessible\' when url is incorrect"
+        )
+    ]
+)
+def test_can_access_google_page(
         mocked_url: Mock,
-        mocked_connection: Mock
+        mocked_connection: Mock,
+        connection: bool,
+        url: bool,
+        result: str
 ) -> None:
-    can_access_google_page("")
-    mocked_url.assert_called_once_with("")
-
-
-def test_can_access_google_page_when_checks_are_good(
-        mocked_url: Mock,
-        mocked_connection: Mock
-) -> None:
-    mocked_url.return_value = True
-    mocked_connection.return_value = True
-    assert can_access_google_page("") == "Accessible"
-
-
-def test_can_access_google_page_when_url_is_bed(
-    mocked_url: Mock,
-    mocked_connection: Mock
-) -> None:
-    mocked_url.return_value = False
-    mocked_connection.return_value = True
-    assert can_access_google_page("") == "Not accessible"
-
-
-def test_can_access_google_page_when_no_connection(
-    mocked_url: Mock,
-    mocked_connection: Mock
-) -> None:
-    mocked_url.return_value = True
-    mocked_connection.return_value = False
-    assert can_access_google_page("") == "Not accessible"
+    mocked_url.return_value = url
+    mocked_connection.return_value = connection
+    assert can_access_google_page("") == result
