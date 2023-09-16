@@ -1,11 +1,8 @@
-import mocker as mocker
-
 from app.main import can_access_google_page
+from typing import Any
 
 
-def test_can_access_google_page_accessible(
-        mocker: mocker.MockFixture
-) -> None:
+def test_can_access_google_page_accessible(mocker: Any) -> None:
     url = "https://www.google.com"
 
     mocker.patch("main.valid_google_url", return_value=True)
@@ -17,7 +14,7 @@ def test_can_access_google_page_accessible(
 
 
 def test_can_access_google_page_not_accessible_due_to_url(
-        mocker: mocker.MockFixture
+        mocker: Any
 ) -> None:
     url = "https://www.smth-incorrect.com"
 
