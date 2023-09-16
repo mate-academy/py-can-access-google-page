@@ -45,6 +45,12 @@ def test_internet_connection(mocked_url: Mock,
             False,
             "Not accessible",
             id="Must return \'Not accessible\' when url is incorrect"
+        ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="Must return \'Not accessible\' when all checks are failed"
         )
     ]
 )
