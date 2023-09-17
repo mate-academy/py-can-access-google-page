@@ -32,4 +32,4 @@ def test_cannot_access_if_only_one_true(
         result: str) -> AssertionError:
     mocked_has_internet_connection.return_value = has_internet_connection
     mocked_valid_google_url.return_value = valid_url
-    assert can_access_google_page("a") == result
+    assert can_access_google_page("https//:test-link.com/") == result
