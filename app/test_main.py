@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch
-from app.main import can_access_google_page
 from typing import Callable
+from app.main import can_access_google_page
 
 
 @pytest.fixture
