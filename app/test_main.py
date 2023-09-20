@@ -4,18 +4,6 @@ from typing import Callable
 from app.main import can_access_google_page
 
 
-@pytest.fixture
-def valid_google_url_mock() -> None:
-    with patch("app.main.valid_google_url") as mock:
-        yield mock
-
-
-@pytest.fixture
-def has_internet_connection_mock() -> None:
-    with patch("app.main.has_internet_connection") as mock:
-        yield mock
-
-
 @pytest.mark.parametrize(
     "valid_url, has_internet, url, expected_result",
     [
@@ -31,6 +19,8 @@ def has_internet_connection_mock() -> None:
         "Not Accessible with Invalid URL",
     ],
 )
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
 def test_can_access_google_page(
     valid_google_url_mock: Callable,
     has_internet_connection_mock: Callable,
