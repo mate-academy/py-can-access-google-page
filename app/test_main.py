@@ -6,7 +6,8 @@ import pytest
 @pytest.mark.parametrize("url, internet_connection, expected", [
     (True, False, "Not accessible"),
     (False, True, "Not accessible"),
-    (True, True, "Accessible")
+    (True, True, "Accessible"),
+    (False, False, "Not accessible")
 ])
 def test_can_access_google_page(
         url: str,
