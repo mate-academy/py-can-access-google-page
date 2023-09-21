@@ -10,8 +10,8 @@ import pytest
     (False, False, "Not accessible")
 ])
 def test_can_access_google_page(
-        url: str,
-        internet_connection: None,
+        url: bool,
+        internet_connection: bool,
         expected: str
 ) -> None:
     with (mock.patch("app.main.valid_google_url") as mocked_valid_google_url,
