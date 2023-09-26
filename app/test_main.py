@@ -1,6 +1,7 @@
+import pytest
+
 from unittest import mock
 from app.main import can_access_google_page
-import pytest
 
 
 def test_valid_url_and_connection_exists() -> None:
@@ -31,7 +32,8 @@ def test_valid_url_and_connection_exists() -> None:
 def test_different_cases_for_accesing_google_page(
         return_value_connection: bool,
         return_value_valid_google_url: bool,
-        expected: str) -> None:
+        expected: str
+) -> None:
     with (
         mock.patch("app.main.has_internet_connection") as mocked_connection,
         mock.patch("app.main.valid_google_url") as mocked_valid_google_url
