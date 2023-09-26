@@ -14,22 +14,20 @@ class TestGoogleFunctions(unittest.TestCase):
         patch.stopall()
 
     def test_can_access_google_page(self) -> None:
-        self.mock_valid_google_url.return_value = True
-        self.mock_has_internet_connection.return_value = True
-        result = can_access_google_page("https://www.google.com")
-        self.assertEqual(result, "Accessible")
-        self.mock_valid_google_url.return_value = False
-        self.mock_has_internet_connection.return_value = True
-        result = can_access_google_page("https://www.google.com")
-        self.assertEqual(result, "Not accessible")
-        self.mock_valid_google_url.return_value = True
-        self.mock_has_internet_connection.return_value = False
-        result = can_access_google_page("https://www.google.com")
-        self.assertEqual(result, "Not accessible")
-        self.mock_valid_google_url.return_value = False
-        self.mock_has_internet_connection.return_value = False
-        result = can_access_google_page("https://www.google.com")
-        self.assertEqual(result, "Not accessible")
+        scenarios = [
+            (True, True, "Accessible"),
+            (False, True, "Not accessible"),
+            (True, False, "Not accessible"),
+            (False, False, "Not accessible"),
+        ]
+
+        for valid_url, internet_connection, expected_result in scenarios:
+            self.mock_valid_google_url.return_value = (
+                valid_url)
+            self.mock_has_internet_connection.return_value = (
+                internet_connection)
+            result = can_access_google_page("https://www.google.com")
+            self.assertEqual(result, expected_result)
 
 
 if __name__ == "__main__":
