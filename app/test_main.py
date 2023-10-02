@@ -2,12 +2,14 @@ from unittest import mock
 
 from app.main import can_access_google_page
 
+from typing import Callable
+
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page_all_true(
-        mocked_connection,
-        mocked_url
+        mocked_connection: Callable,
+        mocked_url: Callable
 ) -> None:
     mocked_connection.return_value = True
     mocked_url.return_value = True
@@ -19,8 +21,8 @@ def test_can_access_google_page_all_true(
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page_connection_false(
-        mocked_connection,
-        mocked_url
+        mocked_connection: Callable,
+        mocked_url: Callable
 ) -> None:
     mocked_connection.return_value = False
     mocked_url.return_value = True
@@ -32,8 +34,8 @@ def test_can_access_google_page_connection_false(
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page_url_false(
-        mocked_connection,
-        mocked_url
+        mocked_connection: Callable,
+        mocked_url: Callable
 ) -> None:
     mocked_connection.return_value = True
     mocked_url.return_value = False
@@ -45,8 +47,8 @@ def test_can_access_google_page_url_false(
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page_all_false(
-        mocked_connection,
-        mocked_url
+        mocked_connection: Callable,
+        mocked_url: Callable
 ) -> None:
     mocked_connection.return_value = False
     mocked_url.return_value = False
