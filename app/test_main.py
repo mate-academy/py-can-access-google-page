@@ -4,6 +4,8 @@ from unittest import mock
 
 from app.main import can_access_google_page
 
+from typing import Callable
+
 
 @pytest.mark.parametrize("connection_result, url_result, expected_result", [
     (True, True, "Accessible"),
@@ -14,7 +16,11 @@ from app.main import can_access_google_page
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-    mocked_connection, mocked_url, connection_result, url_result, expected_result
+    mocked_connection: Callable,
+        mocked_url: Callable,
+        connection_result: bool,
+        url_result: bool,
+        expected_result: str
 ) -> None:
     mocked_connection.return_value = connection_result
     mocked_url.return_value = url_result
