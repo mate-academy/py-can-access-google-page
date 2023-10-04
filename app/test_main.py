@@ -23,6 +23,12 @@ from app.main import can_access_google_page
             False,
             "Not accessible",
             id="No access without internet"
+        ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="No access without url validation, internet"
         )
     ]
 )
