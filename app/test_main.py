@@ -17,8 +17,8 @@ from app.main import can_access_google_page
     ],
 )
 def test_can_access_google_page(
-        mock_has_internet_connection: Mock,
         mock_valid_google_url: Mock,
+        mock_has_internet_connection: Mock,
         valid_url: bool,
         has_internet: bool,
         expected_result: str
