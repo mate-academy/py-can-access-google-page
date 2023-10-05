@@ -32,7 +32,8 @@ def test_can_access_google_page(
         mock_valid_google_url: Mock,
         mock_has_internet_connection: Mock
 ) -> None:
-    mock_valid_google_url.return_value = not valid_url.endswith("invalidurl.com")
+    mock_valid_google_url.return_value \
+        = not valid_url.endswith("invalidurl.com")
     mock_has_internet_connection.return_value = has_internet
 
     assert can_access_google_page(valid_url) == expected_result
