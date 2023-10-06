@@ -1,8 +1,5 @@
 from unittest import mock
-
 import pytest
-import unittest
-
 from app.main import can_access_google_page
 
 
@@ -23,7 +20,7 @@ def test_can_access_google_page(
         valid_google_url: bool,
         has_internet_connection: bool,
         can_access_page: str
-):
+) -> None:
     mocked_valid_google_url.return_value = valid_google_url
     mocked_has_internet_connection.return_value = has_internet_connection
     assert can_access_google_page("https://www.google.com") == can_access_page
