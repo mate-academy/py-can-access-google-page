@@ -1,6 +1,6 @@
 import datetime
 import requests
-
+from typing import Callable
 
 def valid_google_url(url: str) -> bool:
     response = requests.get(url)
