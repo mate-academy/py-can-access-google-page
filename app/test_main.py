@@ -1,6 +1,6 @@
+import pytest
 from unittest import mock
 from app.main import can_access_google_page
-import pytest
 
 
 @pytest.mark.parametrize(
@@ -24,5 +24,4 @@ def test_can_access_google_page(
 
     mock_valid_google_url.return_value = valid_google_url
     mock_has_internet_connection.return_value = has_internet_connection
-    result = can_access_google_page("https://google.com/")
-    assert result == expected
+    assert can_access_google_page("https://google.com/") == expected
