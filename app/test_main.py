@@ -1,15 +1,40 @@
 import pytest
+
 from unittest import mock
+
 from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
     "valid_google_url, has_internet_connection, expected",
     [
-        pytest.param(True, True, "Accessible", id="Accessible"),
-        pytest.param(False, False, "Not accessible", id="When all False"),
-        pytest.param(False, True, "Not accessible", id="valid google False"),
-        pytest.param(True, False, "Not accessible", id="connection False")
+        pytest.param(
+            True,
+            True,
+            "Accessible",
+            id="Valid URL with Internet Connection"
+        ),
+
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="Invalid url and invalid Internet Connection"
+        ),
+
+        pytest.param(
+            False,
+            True,
+            "Not accessible",
+            id="Invalid url and  valid Internet Connection"
+        ),
+
+        pytest.param(
+            True,
+            False,
+            "Not accessible",
+            id="Valid url and invalid Internet Connection"
+        )
     ]
 )
 @mock.patch("app.main.valid_google_url")
