@@ -6,10 +6,10 @@ import pytest
 @pytest.mark.parametrize(
     "valid_google_url, has_internet_connection, expected",
     [
-        (True, True, "Accessible"),
-        (False, False, "Not accessible"),
-        (False, True, "Not accessible"),
-        (True, False, "Not accessible")
+        pytest.param(True, True, "Accessible", id="Accessible"),
+        pytest.param(False, False, "Not accessible", id="When all False"),
+        pytest.param(False, True, "Not accessible", id="valid google False"),
+        pytest.param(True, False, "Not accessible", id="connection False")
     ]
 )
 @mock.patch("app.main.valid_google_url")
