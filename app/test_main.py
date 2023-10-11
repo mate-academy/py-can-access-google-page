@@ -1,28 +1,23 @@
-import datetime
-import pytest
 from unittest import mock
+
+import pytest
+
 from app.main import can_access_google_page
 
 
-@pytest.mark.parametrize("url, date, result", [
-    ("https://www.google.com/",
-     datetime.datetime(2023, 10, 10, 10, 0, 0),
-     "Accessible"),
-    ("http://www.wed123.com/",
-     datetime.datetime(2023, 10, 10, 10, 0, 0),
-     "Not accessible"),
-    ("https://www.google.com/",
-     datetime.datetime(2023, 10, 10, 3, 0, 0),
-     "Not accessible"),
-    ("http://www.wed123.com/",
-     datetime.datetime(2023, 10, 10, 3, 0, 0),
-     "Not accessible")
+@pytest.mark.parametrize("test_bool_url, test_bool_internet, result", [
+    (True, True, "Accessible"),
+    (False, True, "Not accessible"),
+    (True, False, "Not accessible"),
+    (False, False, "Not accessible")
 ])
 def test_can_access_google_page_false(
-        url: str,
-        date: datetime,
+        test_bool_url: bool,
+        test_bool_internet: bool,
         result: str
 ) -> None:
-    with mock.patch("app.main.datetime.datetime") as mocked_datetime:
-        mocked_datetime.now.return_value = date
-        assert can_access_google_page(url) == result
+    with (mock.patch("app.main.valid_google_url") as mocked_bool_url,
+          mock.patch("app.main.has_internet_connection") as mocked_bool_internet):
+        mocked_bool_url.return_value = test_bool_url
+        mocked_bool_internet.return_value = test_bool_internet
+        assert can_access_google_page(str(mocked_bool_url)) == result
