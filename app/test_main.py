@@ -12,7 +12,12 @@ from app.main import can_access_google_page
     ("https://www.yahoo.com", "Not accessible"),
     ("https://www.bing.com", "Not accessible"),
 ])
-def test_can_access_google_page(mock_internet_connection, mock_valid_google_url, url, expected_result):
+def test_can_access_google_page(
+        mock_internet_connection: callable,
+        mock_valid_google_url: callable,
+        url: str,
+        expected_result: str
+) -> None:
     mock_valid_google_url.return_value = True
     mock_internet_connection.return_value = True
     actual_result = can_access_google_page(url)
