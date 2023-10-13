@@ -1,5 +1,6 @@
-import pytest
 from unittest import mock
+
+import pytest
 
 from app.main import can_access_google_page
 
@@ -36,8 +37,8 @@ from app.main import can_access_google_page
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_check_access_google_page(
-    mocked_valid_google_url: callable,
-    mocked_internet_connection: callable,
+    mocked_valid_google_url: mock.MagicMock,
+    mocked_internet_connection: mock.MagicMock,
     validation_result: bool,
     internet_connection_result: bool,
     access_to_page: str
