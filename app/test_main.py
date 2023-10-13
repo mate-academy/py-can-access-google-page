@@ -18,8 +18,8 @@ from app.main import can_access_google_page
     ]
 )
 def test_how_the_function_works(
-        mocked_connection: bool,
         mocked_valid_url: bool,
+        mocked_connection: bool,
         internet_connection: bool,
         google_url: bool,
         result: str
