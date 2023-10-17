@@ -42,5 +42,5 @@ def test_can_access_google_page(
     mocked_valid_google_url.return_value = validation_google_url
     mocked_has_internet_connection.return_value =\
         checking_has_internet_connection
-    assert (can_access_google_page("https://www.google.com") ==
-            return_can_access_page)
+    assert (can_access_google_page("https://www.google.com")
+            == return_can_access_page)
