@@ -37,8 +37,8 @@ def test_has_internet_connection_was_called(
         "should return Not accessible when not valid page, not have connection"
     ]
 )
-@mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
 def test_able_access_to_page_with(
         mocked_valid_google_url: mock.MagicMock,
         mocked_has_internet_connection: mock.MagicMock,
