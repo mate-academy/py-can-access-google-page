@@ -13,7 +13,7 @@ from app.main import can_access_google_page
     ids=[
         "Can access page",
         "No internet connection",
-        "URL is not valid"
+        "URL is not valid",
         "Url is not valid, No internet connection"
     ]
 )
