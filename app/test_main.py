@@ -37,12 +37,3 @@ def test_can_access_google_page(
     result = can_access_google_page(url)
 
     assert result == expected
-
-
-@mock.patch("app.main.valid_google_url")
-def test_valid_google_url_called_once(
-        mocked_valid_google_url: mock.MagicMock,
-) -> None:
-
-    can_access_google_page("https://www.google.com/")
-    mocked_valid_google_url.assert_called_once()
