@@ -3,7 +3,7 @@ from unittest import mock
 
 import requests
 
-from app.main import can_access_google_page, valid_google_url, has_internet_connection
+from app.main import can_access_google_page, valid_google_url
 
 
 @pytest.mark.parametrize(
@@ -14,12 +14,15 @@ from app.main import can_access_google_page, valid_google_url, has_internet_conn
         ("https://www.invalidurl.com", 10, "Not accessible"),
     ]
 )
-@mock.patch('app.main.valid_google_url')
-@mock.patch('app.main.has_internet_connection')
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-        mocked_has_internet_connection, mocked_valid_google_url,
-        url, time, expected
-):
+        mocked_has_internet_connection: mock.Mock,
+        mocked_valid_google_url: mock.Mock,
+        url: str,
+        time: int,
+        expected: str
+) -> None:
 
     url_validation = True
     try:
@@ -34,4 +37,3 @@ def test_can_access_google_page(
     result = can_access_google_page(url)
 
     assert result == expected
-
