@@ -3,7 +3,7 @@ from unittest import mock
 
 import requests
 
-from app.main import can_access_google_page, valid_google_url, has_internet_connection
+from app.main import can_access_google_page, valid_google_url
 
 
 @pytest.mark.parametrize(
@@ -40,7 +40,7 @@ def test_can_access_google_page(
 
 
 @mock.patch("app.main.has_internet_connection")
-def test_valid_google_url_called_once(
+def test_has_internet_connection_called_once(
         mocked_has_internet_connection: mock.MagicMock,
 ) -> None:
 
