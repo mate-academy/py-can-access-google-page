@@ -1,11 +1,9 @@
-from unittest import mock
-
-
+from unittest.mock import patch
 from app.main import can_access_google_page
 
 
-@mock.patch("app.valid_google_url", return_value=True)
-@mock.patch("app.has_internet_connection", return_value=True)
+@patch("app.main.valid_google_url", return_value=True)
+@patch("app.main.has_internet_connection", return_value=True)
 def test_can_access_google_page(
         mock_has_internet_connection: bool,
         mock_valid_google_url: bool
