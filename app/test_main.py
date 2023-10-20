@@ -10,7 +10,8 @@ class TestCanAccessGooglePage(unittest.TestCase):
     def test_can_access_google_page(
             self,
             mock_has_internet: bool,
-            mock_valid_url: bool) -> None:
+            mock_valid_url: bool
+    ) -> None:
         result = can_access_google_page("https://www.google.com")
         self.assertEqual(result, "Accessible")
 
@@ -19,7 +20,8 @@ class TestCanAccessGooglePage(unittest.TestCase):
     def test_cant_access_with_invalid_url(
             self,
             mock_has_internet: bool,
-            mock_valid_url: bool) -> None:
+            mock_valid_url: bool
+    ) -> None:
         result = can_access_google_page("https://example.com")
         self.assertEqual(result, "Not accessible",
                          "Wrong url. Can not access the page")
@@ -29,10 +31,22 @@ class TestCanAccessGooglePage(unittest.TestCase):
     def test_cant_access_with_no_internet(
             self,
             mock_has_internet: bool,
-            mock_valid_url: bool) -> None:
+            mock_valid_url: bool
+    ) -> None:
         result = can_access_google_page("https://www.google.com")
         self.assertEqual(result, "Not accessible",
                          "No internet, check your connection")
+
+    @patch("app.main.valid_google_url", return_value=False)
+    @patch("app.main.has_internet_connection", return_value=False)
+    def test_cant_access_with_no_internet_and_invalid_url(
+            self,
+            mock_has_internet: bool,
+            mock_valid_url: bool
+    ) -> None:
+        result = can_access_google_page("https://example.com")
+        self.assertEqual(result, "Not accessible",
+                         "No internet and wrong url")
 
 
 if __name__ == "__main__":
