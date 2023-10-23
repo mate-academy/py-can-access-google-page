@@ -3,45 +3,25 @@ from unittest.mock import patch
 from app.main import can_access_google_page
 
 
-@patch("app.main.valid_google_url", return_value=True)
-@patch("app.main.has_internet_connection", return_value=True)
-def test_can_access_google_page_accessible(mock_internet: bool,
-                                           mock_url: bool) -> None:
-    url = "https://www.google.com"
+@pytest.mark.parametrize(
+    "url, valid_url, internet_connection, expected_result",
+    [
+        ("https://www.google.com", True, True, "Accessible"),
+        ("https://www.google.com", True, False, "Not accessible"),
+        ("https://invalid-url.com", False, True, "Not accessible"),
+        ("https://invalid-url.com", False, False, "Not accessible"),
+    ],
+)
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
+def test_can_access_google_page(mock_has_internet: bool,
+                                mock_valid_url: bool,
+                                url: bool,
+                                valid_url: bool,
+                                internet_connection: bool,
+                                expected_result: str) -> None:
+    mock_valid_url.return_value = valid_url
+    mock_has_internet.return_value = internet_connection
+
     result = can_access_google_page(url)
-    assert result == "Accessible"
-
-
-@patch("app.main.valid_google_url", return_value=True)
-@patch("app.main.has_internet_connection", return_value=False)
-def test_can_access_google_page_no_internet(mock_internet: bool,
-                                            mock_url: bool) -> None:
-    url = "https://www.google.com"
-    result = can_access_google_page(url)
-    assert result == "Not accessible"
-
-
-@patch("app.main.valid_google_url", return_value=False)
-@patch("app.main.has_internet_connection", return_value=True)
-def test_can_access_google_page_invalid_url(
-    mock_internet: bool,
-    mock_url: bool,
-) -> None:
-    url = "https://invalid-url.com"
-    result = can_access_google_page(url)
-    assert result == "Not accessible"
-
-
-@patch("app.main.valid_google_url", return_value=False)
-@patch("app.main.has_internet_connection", return_value=False)
-def test_can_access_google_page_no_internet_and_invalid_url(
-        mock_internet: bool,
-        mock_url: bool) -> None:
-    url = "https://invalid-url.com"
-    result = can_access_google_page(url)
-    assert result == "Not accessible"
-
-
-# Run the tests
-if __name__ == "__main__":
-    pytest.main()
+    assert result == expected_result
