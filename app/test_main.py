@@ -35,5 +35,4 @@ def test_can_access_google_page(
 ) -> None:
     mock_valid_google_url.return_value = response
     mock_internet_connection.return_value = current_time
-    url = "https://www.google.com"
-    assert can_access_google_page(url=url) == expected_result
+    assert can_access_google_page("https://www.google.com") == expected_result
