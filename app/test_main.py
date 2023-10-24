@@ -1,6 +1,6 @@
 import pytest
-from app.main import can_access_google_page
 from unittest.mock import patch
+from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
