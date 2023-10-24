@@ -15,5 +15,6 @@ from unittest.mock import patch
 def test_can_access_google_page(mocked_connection: bool,
                                 mocked_url: bool, result: str) -> None:
     with patch("app.main.has_internet_connection",
-               return_value=mocked_connection), patch("app.main.valid_google_url", return_value=mocked_url):
+               return_value=mocked_connection), \
+            patch("app.main.valid_google_url", return_value=mocked_url):
         assert can_access_google_page("https://www.google.com") == result
