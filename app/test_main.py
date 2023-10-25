@@ -16,11 +16,13 @@ from app.main import can_access_google_page
         (False, False, "Not accessible")
     ]
 )
-def test_can_acces_google_page(mock_url: mock,
-                               mock_connection: mock,
-                               url: bool,
-                               status: bool,
-                               expected_str: str) -> None:
+def test_can_access_google_page(
+        mock_url: mock,
+        mock_connection: mock,
+        url: bool,
+        status: bool,
+        expected_str: str
+) -> None:
     mock_url.return_value = url
     mock_connection.return_value = status
     assert can_access_google_page("https://www.google.com") == expected_str
