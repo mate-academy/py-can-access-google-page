@@ -18,8 +18,9 @@ def test_valid_url_and_internet_connection(
         connection: bool,
         get_access: str
 ) -> None:
-    with mock.patch("app.main.valid_google_url") as mock_url, \
-            mock.patch("app.main.has_internet_connection") as mock_connection:
+    with (mock.patch("app.main.valid_google_url") as mock_url,
+          mock.patch("app.main.has_internet_connection") as mock_connection):
+
         mock_url.return_value = valid_url
         mock_connection.return_value = connection
         assert can_access_google_page("https://www.google.com") == get_access
