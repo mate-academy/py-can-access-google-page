@@ -17,3 +17,5 @@ def can_access_google_page(url: str) -> str:
         return "Accessible"
     else:
         return "Not accessible"
+
+# print(can_access_google_page("http://seasonvar.ru/serial-11941-Tajny_Broukenvuda.html"))
