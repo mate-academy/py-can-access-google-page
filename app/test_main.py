@@ -26,7 +26,8 @@ def test_accessible(mock_internet: mock, mock_valid: mock) -> None:
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_internet_not_accessible(mock_internet: mock, mock_valid: mock) -> None:
+def test_internet_not_accessible(mock_internet: mock,
+                                 mock_valid: mock) -> None:
     page = "http://seasonvar.ru/serial-11941-Tajny_Broukenvuda.html"
 
     mock_internet.return_value = False
@@ -37,7 +38,8 @@ def test_internet_not_accessible(mock_internet: mock, mock_valid: mock) -> None:
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_google_url_not_accessible(mock_internet: mock, mock_valid: mock) -> None:
+def test_google_url_not_accessible(mock_internet: mock,
+                                   mock_valid: mock) -> None:
     page = "http://seasonvar.ru/serial-11941-Tajny_Broukenvuda.html"
 
     mock_internet.return_value = True
