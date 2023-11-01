@@ -1,29 +1,23 @@
-from typing import Any
-from unittest import TestCase, mock
+import pytest
+from unittest import mock
 from app.main import can_access_google_page
 
 
-class TestCanAccessGooglePage(TestCase):
-    @mock.patch("app.main.valid_google_url")
-    @mock.patch("app.main.has_internet_connection")
-    def test_can_access_google_page(
-            self,
-            mock_has_internet_connection: Any,
-            mock_valid_google_url: Any
-    ) -> None:
-        test_cases = [
-            {"connection": True, "url": True, "expected": "Accessible"},
-            {"connection": False, "url": True, "expected": "Not accessible"},
-            {"connection": True, "url": False, "expected": "Not accessible"},
-            {"connection": False, "url": False, "expected": "Not accessible"},
-        ]
+@pytest.mark.parametrize(
+    "valid_url, connection, expected",
+    [
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible"),
+    ]
+)
+def test_can_access_google_page(valid_url, connection, expected) -> None:
+    with (
+        mock.patch("app.main.valid_google_url") as mock_valid_google_url,
+        mock.patch("app.main.has_internet_connection") as mock_has_connection
+    ):
+        mock_valid_google_url.return_value = valid_url
+        mock_has_connection.return_value = connection
 
-        for test_case in test_cases:
-            mock_valid_google_url.return_value = test_case.get("url")
-            mock_has_internet_connection.return_value = (
-                test_case.get("connection")
-            )
-            self.assertEqual(
-                can_access_google_page("url"),
-                test_case.get("expected")
-            )
+        assert can_access_google_page("url") == expected
