@@ -35,12 +35,12 @@ from app.main import can_access_google_page
     ],
 )
 def test_can_access_google_page(
-        valid_url: bool,
+        valid_url: str,
         internet_connection: bool,
-        access: bool
+        access: str
 ) -> None:
-    with (mock.patch("app.main.valid_google_url") as mocked_url,
-          mock.patch("app.main.has_internet_connection") as mocked_connection):
-        mocked_url.return_value = valid_url
-        mocked_connection.return_value = internet_connection
+    with (mock.patch("app.main.valid_google_url",
+                     return_value=valid_url),
+          mock.patch("app.main.has_internet_connection",
+                     return_value=internet_connection)):
         assert can_access_google_page("https://www.google.com/") == access
