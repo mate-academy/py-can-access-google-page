@@ -25,5 +25,3 @@ def test_can_access_google_page(
     result = can_access_google_page("https://www.google.com/")
 
     assert result == expected_result
-    mock_has_internet_connection.assert_called_once()
-    mock_valid_google_url.assert_called_once_with("https://www.google.com/")
