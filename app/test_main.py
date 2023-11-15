@@ -26,6 +26,6 @@ def test_can_access_page(
     mock_valid_url.return_value = url
     mock_has_internet.return_value = internet_connection
 
-    result = can_access_google_page("https://www.google.com/")
+    status = can_access_google_page("https://www.google.com/")
 
-    assert result == access_status
+    assert status == access_status
