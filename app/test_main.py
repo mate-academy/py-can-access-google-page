@@ -13,8 +13,8 @@ from app.main import can_access_google_page
         (False, False, "Not accessible")
     ]
 )
-@monk.patch("app.main.valid_google_url")
-@monk.patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
 def test_can_access_google_page(
         mock_has_internet: bool,
         mock_valid_url: bool,
