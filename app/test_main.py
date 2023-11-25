@@ -10,12 +10,12 @@ test_data = [
     ("www.google.com", False, False, "Not accessible"),
 ]
 test_ids = [
-    """Should return "Accessible" if URL is valid and internet connection """
-    """is present""",
-    """Should return "Not accessible" if URL is invalid""",
-    """Should return "Not accessible" if internet connection is absent""",
-    """Should return "Not accessible" if URL is invalid and internet """
-    """connection is absent""",
+    'Should return "Accessible" if URL is valid and internet connection '
+    "is present",
+    'Should return "Not accessible" if URL is invalid',
+    'Should return "Not accessible" if internet connection is absent',
+    'Should return "Not accessible" if URL is invalid and internet '
+    "connection is absent",
 ]
 
 
