@@ -28,7 +28,7 @@ from app.main import can_access_google_page
     ]
 )
 def test_can_access_google_page(
-        url: str,
+        url: bool,
         connection: bool,
         expected: str
 ) -> None:
@@ -40,7 +40,7 @@ def test_can_access_google_page(
     ):
         mocked_url.return_value = url
         mocked_has_internet_connection.return_value = connection
-        result = can_access_google_page(url)
+        result = can_access_google_page("www.google.com")
         assert result == expected, (
             f"Expected result {expected}, "
             f"but got{result}"
