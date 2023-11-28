@@ -15,38 +15,22 @@ def mock_has_internet_connection() -> "patch":
         yield mock
 
 
-def test_can_access_google_page_accessible(
+@pytest.mark.parametrize("url, valid_url, has_internet, expected_result", [
+    ("http://www.google.com", True, True, "Accessible"),
+    ("http://invalidurl", False, True, "Not accessible"),
+    ("http://www.google.com", True, False, "Not accessible"),
+])
+def test_can_access_google_page(
         mock_valid_google_url: "patch",
-        mock_has_internet_connection: "patch"
+        mock_has_internet_connection: "patch",
+        url: str,
+        valid_url: bool,
+        has_internet: bool,
+        expected_result: str
 ) -> None:
-    mock_valid_google_url.return_value = True
-    mock_has_internet_connection.return_value = True
+    mock_valid_google_url.return_value = valid_url
+    mock_has_internet_connection.return_value = has_internet
 
-    url = "http://www.google.com"
     result = can_access_google_page(url)
 
-    assert result == "Accessible"
-
-
-def test_can_access_google_page_not_accessible_invalid_url(
-        mock_valid_google_url: "patch",
-        mock_has_internet_connection: "patch"
-) -> None:
-
-    mock_valid_google_url.return_value = False
-    url = "http://invalidurl"
-    result = can_access_google_page(url)
-
-    assert result == "Not accessible"
-
-
-def test_can_access_google_page_not_accessible_no_internet_connection(
-        mock_valid_google_url: "patch",
-        mock_has_internet_connection: "patch"
-) -> None:
-    mock_valid_google_url.return_value = True
-    mock_has_internet_connection.return_value = False
-    url = "http://www.google.com"
-    result = can_access_google_page(url)
-
-    assert result == "Not accessible"
+    assert result == expected_result
