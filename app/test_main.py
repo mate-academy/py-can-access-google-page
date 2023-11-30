@@ -8,7 +8,8 @@ from app.main import can_access_google_page
     [
         ("https://www.google.com", True, True, "Accessible"),
         ("https://www.asfdgfhgkss.com", False, True, "Not accessible"),
-        ("https://www.google.com", True, False, "Not accessible")
+        ("https://www.google.com", True, False, "Not accessible"),
+        ("https://www.asfdgfhgkss.com", False, False, "Not accessible")
     ]
 )
 @patch("app.main.valid_google_url")
