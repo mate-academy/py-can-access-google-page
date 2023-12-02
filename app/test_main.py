@@ -1,26 +1,15 @@
-import pytest
 from unittest import mock
 from typing import Callable
+
+import pytest
+
 from app.main import can_access_google_page
 
 
 class TestCanAccessGooglePage:
     tested_url = "https://www.google.com"
 
-    @staticmethod
-    @pytest.fixture
-    def mocked_has_internet_connection() -> None:
-        with (mock.patch("app.main.has_internet_connection")
-              as mocked_internet_connection):
-            yield mocked_internet_connection
-
-    @staticmethod
-    @pytest.fixture
-    def mocked_valid_google_url() -> None:
-        with mock.patch(
-                "app.main.valid_google_url") as mocked_google_url:
-            yield mocked_google_url
-
+    @mock.patch("app.main.has_internet_connection")
     def test_has_internet_connection_called(
             self,
             mocked_has_internet_connection: Callable
@@ -28,6 +17,7 @@ class TestCanAccessGooglePage:
         can_access_google_page(self.tested_url)
         mocked_has_internet_connection.assert_called_once()
 
+    @mock.patch("app.main.valid_google_url")
     def test_valid_google_url_called_with(
             self,
             mocked_valid_google_url: Callable
@@ -48,13 +38,15 @@ class TestCanAccessGooglePage:
                          id="test not accessible with no conditions met")
         ]
     )
+    @mock.patch("app.main.has_internet_connection")
+    @mock.patch("app.main.valid_google_url")
     def test_can_access(
             self,
+            mocked_has_internet_connection: Callable,
+            mocked_valid_google_url: Callable,
             valid_url: bool,
             internet_connection: bool,
             result: str,
-            mocked_valid_google_url: Callable,
-            mocked_has_internet_connection: Callable
     ) -> None:
         mocked_valid_google_url.return_value = valid_url
         mocked_has_internet_connection.return_value = internet_connection
