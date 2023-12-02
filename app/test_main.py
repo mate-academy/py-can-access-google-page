@@ -43,7 +43,9 @@ class TestCanAccessGooglePage:
             pytest.param(False, True, "Not accessible",
                          id="test not accessible with url is not valid"),
             pytest.param(True, False, "Not accessible",
-                         id="test not accessible with no connection")
+                         id="test not accessible with no connection"),
+            pytest.param(False, False, "Not accessible",
+                         id="test not accessible with no conditions met")
         ]
     )
     def test_can_access(
