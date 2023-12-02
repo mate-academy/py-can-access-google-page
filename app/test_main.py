@@ -7,7 +7,7 @@ from app.main import can_access_google_page
 class TestCanAccessGooglePage(unittest.TestCase):
     @patch("app.main.valid_google_url", return_value=True)
     @patch("app.main.has_internet_connection", return_value=True)
-    def test_can_access_google_page_accessible(
+    def test_when_all_right(
             self,
             _: Mock,
             __: Mock
@@ -17,7 +17,7 @@ class TestCanAccessGooglePage(unittest.TestCase):
 
     @patch("app.main.valid_google_url", return_value=False)
     @patch("app.main.has_internet_connection", return_value=True)
-    def test_can_access_google_page_not_accessible_invalid_url(
+    def test_when_invalid_url(
             self,
             _: Mock,
             __: Mock
@@ -27,7 +27,7 @@ class TestCanAccessGooglePage(unittest.TestCase):
 
     @patch("app.main.valid_google_url", return_value=True)
     @patch("app.main.has_internet_connection", return_value=False)
-    def test_can_access_google_page_not_accessible_no_internet(
+    def test_when_no_internet(
             self,
             _: Mock,
             __: Mock
