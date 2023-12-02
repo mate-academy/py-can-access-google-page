@@ -10,6 +10,7 @@ from app.main import can_access_google_page
         pytest.param(True, True, "Accessible", id="test_accessible"),
         pytest.param(False, True, "Not accessible", id="test_invalid_url"),
         pytest.param(True, False, "Not accessible", id="test_no_internet"),
+        pytest.param(False, False, "Not accessible", id="test_all_invalid"),
     ],
 )
 def test_can_access_google_page(
