@@ -13,7 +13,7 @@ def test_can_access_google_page_right_time(
     mocked_internet.return_value = True
     mocked_validator.return_value = True
 
-    assert(
+    assert (
         can_access_google_page(url) == "Accessible"
     )
 
@@ -28,7 +28,7 @@ def test_can_not_access_google_page_wrong_time(
     mocked_internet.return_value = True
     mocked_validator.return_value = False
 
-    assert(
+    assert (
         can_access_google_page(url) == "Not accessible"
     )
 
@@ -43,6 +43,6 @@ def test_can_not_access_google_page_wrong_cite(
     mocked_internet.return_value = False
     mocked_validator.return_value = True
 
-    assert(
+    assert (
         can_access_google_page(url) == "Not accessible"
     )
