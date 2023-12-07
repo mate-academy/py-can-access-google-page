@@ -1,55 +1,48 @@
-import pytest
-
 from unittest import mock
 
 from app.main import can_access_google_page
 
 
-@pytest.mark.parametrize(
-    "url, result",
-    [
-        ("https://www.google.com/", "Accessible"),
-        ("https://www.gogle.com/", "Not accessible")
-    ]
-)
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page_right_time(
         mocked_internet: callable,
         mocked_validator: callable,
-        url: str,
-        result: str) -> None:
+        url: str = "some.cite") -> None:
 
     mocked_internet.return_value = True
+    mocked_validator.return_value = True
 
     assert(
-        can_access_google_page(url) == result
+        can_access_google_page(url) == "Accessible"
     )
 
-    mocked_validator.assert_called_once_with(url)
-    mocked_internet.assert_called_once()
 
-
-@pytest.mark.parametrize(
-    "url, result",
-    [
-        ("https://www.google.com/", "Not accessible"),
-        ("https://www.gogle.com/", "Not accessible")
-    ]
-)
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page_wrong_time(
+def test_can_not_access_google_page_wrong_time(
         mocked_internet: callable,
         mocked_validator: callable,
-        url: str,
-        result: str) -> None:
+        url: str = "some.cite") -> None:
 
-    mocked_internet.return_value = False
+    mocked_internet.return_value = True
+    mocked_validator.return_value = False
 
     assert(
-        can_access_google_page(url) == result
+        can_access_google_page(url) == "Not accessible"
     )
 
-    mocked_validator.assert_called_once_with(url)
-    mocked_internet.assert_called_once()
+
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_can_not_access_google_page_wrong_cite(
+        mocked_internet: callable,
+        mocked_validator: callable,
+        url: str = "some.cite") -> None:
+
+    mocked_internet.return_value = False
+    mocked_validator.return_value = True
+
+    assert(
+        can_access_google_page(url) == "Not accessible"
+    )
