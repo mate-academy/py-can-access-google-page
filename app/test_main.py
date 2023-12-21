@@ -5,14 +5,6 @@ import pytest
 from app.main import can_access_google_page
 
 
-def test_valid_google_url() -> None:
-    pass
-
-
-def test_has_internet_connection() -> None:
-    pass
-
-
 @pytest.mark.parametrize(
     "valid_url, internet_connection, expected_result",
     [
