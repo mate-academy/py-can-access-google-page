@@ -7,14 +7,30 @@ from app.main import can_access_google_page
 @pytest.mark.parametrize(
     "has_internet, valid_url, expected_result",
     [
-        pytest.param(False, True, "Not accessible",
-                     id="URL valid but no connection"),
-        pytest.param(True, False,
-                     "Not accessible", id="URL invalid but connection exists"),
-        pytest.param(False, False,
-                     "Not accessible", id="URL invalid and no connection"),
-        pytest.param(True, True,
-                     "Accessible", id="URL valid and connection exists")
+        pytest.param(
+            False,
+            True,
+            "Not accessible",
+            id="URL valid but no connection"
+        ),
+        pytest.param(
+            True,
+            False,
+            "Not accessible",
+            id="URL invalid but connection exists"
+        ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="URL invalid and no connection"
+        ),
+        pytest.param(
+            True,
+            True,
+            "Accessible",
+            id="URL valid and connection exists"
+        )
     ]
 )
 @patch("app.main.has_internet_connection")
