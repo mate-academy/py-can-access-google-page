@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 from typing import Callable
 
 from app.main import can_access_google_page
@@ -17,8 +17,8 @@ from app.main import can_access_google_page
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
 def test_can_access_google_page(
-        mock_valid_google_url: Callable,
-        mock_has_internet_connection: Callable,
+        mock_valid_google_url: Mock,
+        mock_has_internet_connection: Mock,
         internet_connection: bool,
         valid_url: bool,
         expected_result: str,
