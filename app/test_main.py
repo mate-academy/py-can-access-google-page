@@ -27,9 +27,4 @@ def test_can_access_google_page(
     mock_has_internet_connection.return_value = internet_connection
     mock_valid_google_url.return_value = valid_url
 
-    result = can_access_google_page(url)
-    assert result == expected_result
-
-
-if __name__ == "__main__":
-    pytest.main()
+    assert can_access_google_page(url) == expected_result
