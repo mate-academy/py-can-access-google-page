@@ -1,6 +1,5 @@
 import pytest
 from unittest.mock import patch, Mock
-from typing import Callable
 
 from app.main import can_access_google_page
 
