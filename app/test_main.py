@@ -57,3 +57,18 @@ class TestCanAccessGooglePage(unittest.TestCase):
 
         mock_valid_google_url.assert_called_once_with("https://www.google.com")
         mock_has_internet_connection.assert_called_once()
+
+    @patch("app.main.valid_google_url")
+    @patch("app.main.has_internet_connection")
+    def test_can_access_google_page_not_accessible_no_internet(
+            self,
+            mock_has_internet_connection: any,
+            mock_valid_google_url: any
+    ) -> None:
+
+        mock_valid_google_url.return_value = False
+        mock_has_internet_connection.return_value = False
+
+        result = can_access_google_page("https://invalid-url.com")
+
+        self.assertEqual(result, "Not accessible")
