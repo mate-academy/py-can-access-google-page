@@ -9,11 +9,22 @@ def test_can_access_google_page(
         mocked_url: Callable,
         mocked_internet_connection: Callable
 ) -> None:
-    mocked_url.return_value(True)
-    mocked_internet_connection.return_value(True)
-
+    mocked_url.return_value = True
+    mocked_internet_connection.return_value = True
     result = can_access_google_page("https://www.google.com")
     assert result == "Accessible"
 
-    mocked_url.assert_called()
-    mocked_internet_connection.assert_called()
+    mocked_url.return_value = False
+    mocked_internet_connection.return_value = True
+    result = can_access_google_page("https://www.some-page.com")
+    assert result == "Not accessible"
+
+    mocked_url.return_value = True
+    mocked_internet_connection.return_value = False
+    result = can_access_google_page("https://www.google.com")
+    assert result == "Not accessible"
+
+    mocked_url.return_value = False
+    mocked_internet_connection.return_value = False
+    result = can_access_google_page("https://www.some-page.com")
+    assert result == "Not accessible"
