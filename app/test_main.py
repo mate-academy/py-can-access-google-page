@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Callable
 from unittest import mock
 from app.main import can_access_google_page
 
@@ -6,8 +6,8 @@ from app.main import can_access_google_page
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-        mocked_url: Any,
-        mocked_internet_connection: Any
+        mocked_url: Callable,
+        mocked_internet_connection: Callable
 ) -> None:
     mocked_url.return_value(True)
     mocked_internet_connection.return_value(True)
