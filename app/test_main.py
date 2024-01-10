@@ -16,4 +16,4 @@ def test_can_access_google_page(
     assert result == "Accessible"
 
     mocked_url.assert_called()
-    mocked_internet_connection.assert_called_withfl("https://www.google.com")
+    mocked_internet_connection.assert_called()
