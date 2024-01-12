@@ -3,8 +3,8 @@ from app.main import can_access_google_page
 from typing import Callable
 
 
-@patch('app.main.valid_google_url')
-@patch('app.main.has_internet_connection')
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
 def test_can_access_google_page(mock_has_internet_connection: Callable,
                                 mock_valid_google_url: Callable) -> None:
     mock_has_internet_connection.return_value = True
