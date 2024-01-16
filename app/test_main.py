@@ -19,28 +19,27 @@ def mock_has_internet_connection() -> Mock:
         yield mock_connection
 
 
-def test_invalid_url_but_has_internet_connection(
-        mock_valid_google_url: Mock,
-        mock_has_internet_connection: Mock
+@pytest.mark.parametrize(
+    "url, is_url_valid, has_connection, response",
+    [
+        ("https://mate.academy/", False, True, "Not accessible"),
+        ("https://mate.academy/", True, False, "Not accessible"),
+        ("https://mate.academy/", True, True, "Accessible")
+    ],
+    ids=[
+        "invalid_url_but_has_internet_connection",
+        "no_internet_connection_but_valid_url",
+        "can_access_google_page"
+    ]
+)
+def test_main_cases_for_can_access_google_page(
+    url: str,
+    is_url_valid: bool,
+    has_connection: bool,
+    response: str,
+    mock_valid_google_url: Mock,
+    mock_has_internet_connection: Mock
 ) -> None:
-    mock_valid_google_url.return_value = False
-    mock_has_internet_connection.return_value = True
-    assert can_access_google_page("https://mate.academy/") == "Not accessible"
-
-
-def test_no_internet_connection_but_valid_url(
-        mock_valid_google_url: Mock,
-        mock_has_internet_connection: Mock
-) -> None:
-    mock_valid_google_url.return_value = True
-    mock_has_internet_connection.return_value = False
-    assert can_access_google_page("https://mate.academy/") == "Not accessible"
-
-
-def test_can_access_google_page(
-        mock_valid_google_url: Mock,
-        mock_has_internet_connection: Mock
-) -> None:
-    mock_valid_google_url.return_value = True
-    mock_has_internet_connection.return_value = True
-    assert can_access_google_page("https://mate.academy/") == "Accessible"
+    mock_valid_google_url.return_value = is_url_valid
+    mock_has_internet_connection.return_value = has_connection
+    assert can_access_google_page(url) == response
