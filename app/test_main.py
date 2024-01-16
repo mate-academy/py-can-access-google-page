@@ -12,4 +12,4 @@ def test_can_access_google_page(mock_connection: callable,
     can_access_google_page(url)
 
     mock_validator.assert_called_once_with(url)
-    mock_connection.assert_any_call()
+    mock_connection.assert_called_once()
