@@ -24,12 +24,14 @@ def mock_has_internet_connection() -> Mock:
     [
         ("https://mate.academy/", False, True, "Not accessible"),
         ("https://mate.academy/", True, False, "Not accessible"),
-        ("https://mate.academy/", True, True, "Accessible")
+        ("https://mate.academy/", True, True, "Accessible"),
+        ("https://mate.academy/", False, False, "Not accessible")
     ],
     ids=[
         "invalid_url_but_has_internet_connection",
         "no_internet_connection_but_valid_url",
-        "can_access_google_page"
+        "can_access_google_page",
+        "no_internet_connection_and_invalid_url"
     ]
 )
 def test_main_cases_for_can_access_google_page(
