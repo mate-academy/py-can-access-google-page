@@ -26,6 +26,6 @@ def test_correct_google_access_message(
         has_internet: bool,
         expected_output: str
 ) -> None:
-    mocked_internet.return_value = has_internet
     mocked_url.return_value = valid_url
+    mocked_internet.return_value = has_internet
     assert can_access_google_page(url) == expected_output
