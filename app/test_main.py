@@ -1,7 +1,7 @@
 import pytest
-from typing import Callable
 from app.main import can_access_google_page
 from unittest import mock
+
 
 @pytest.mark.parametrize(
     "url,valid_url,has_internet,expected_output",
