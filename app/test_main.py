@@ -9,11 +9,13 @@ from unittest import mock
         ("www.google.com", True, True, "Accessible"),
         ("www.gоogle.com", False, True, "Not accessible"),
         ("www.google.com", True, False, "Not accessible"),
+        ("www.gologle.com", False, False, "Not accessible")
     ],
     ids=[
         "Test for 'Accessible' with correct values",
         "Test for 'Not accessible' with a cyrillic typo in url",
         "Test for 'Not accessible' with no connection",
+        "Test for 'Not accessible' with wrong link and no connection"
     ]
 )
 @mock.patch("app.main.valid_google_url")
