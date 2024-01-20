@@ -19,13 +19,14 @@ from app.main import can_access_google_page
     )
 )
 def test_access_google_page(
-        url,
-        url_is_valid,
-        internet_is_connected,
-        expected_output
-):
+        url: str,
+        url_is_valid: bool,
+        internet_is_connected: bool,
+        expected_output: str
+) -> None:
     with (mock.patch("app.main.valid_google_url") as mock_valid_url,
-          mock.patch("app.main.has_internet_connection") as mock_interned_connection):
+            mock.patch("app.main.has_internet_connection")
+            as mock_interned_connection):
         mock_valid_url.return_value = url_is_valid
         mock_interned_connection.return_value = internet_is_connected
         assert can_access_google_page(url) == expected_output
