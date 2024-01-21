@@ -18,7 +18,7 @@ from app.main import can_access_google_page
             False, True, "Not accessible", id="Check your connection"
         ),
         pytest.param(
-            True, True, "Accessible", id="Check your URL and connection"
+            True, True, "Accessible", id="Your URL and connection are fine"
         )
     ]
 )
