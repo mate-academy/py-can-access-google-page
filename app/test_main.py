@@ -9,7 +9,24 @@ def test_can_access_google_page(mock_has_internet: None,
                                 ) -> None:
     mock_valid_google_url.return_value = True
     mock_has_internet.return_value = True
-    assert can_access_google_page("http://example.com")
-
-    mock_valid_google_url.assert_called_once_with("http://example.com")
+    assert can_access_google_page("http://example.com") == "Accessible"
+    mock_valid_google_url.assert_called_with("http://example.com")
     mock_has_internet.assert_called_once()
+
+    mock_valid_google_url.return_value = False
+    mock_has_internet.return_value = False
+    assert can_access_google_page("http://example.com") == "Not accessible"
+    mock_valid_google_url.assert_called_with("http://example.com")
+    mock_has_internet.assert_called()
+
+    mock_valid_google_url.return_value = False
+    mock_has_internet.return_value = True
+    assert can_access_google_page("http://example.com") == "Not accessible"
+    mock_valid_google_url.assert_called_with("http://example.com")
+    mock_has_internet.assert_called()
+
+    mock_valid_google_url.return_value = True
+    mock_has_internet.return_value = False
+    assert can_access_google_page("http://example.com") == "Not accessible"
+    mock_valid_google_url.assert_called_with("http://example.com")
+    mock_has_internet.assert_called()
