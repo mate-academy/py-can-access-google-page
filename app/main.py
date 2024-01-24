@@ -13,8 +13,6 @@ def has_internet_connection() -> bool:
 
 
 def can_access_google_page(url: str) -> str:
-    print(has_internet_connection())
-    print(valid_google_url(url))
     if has_internet_connection() and valid_google_url(url):
         return "Accessible"
     else:
