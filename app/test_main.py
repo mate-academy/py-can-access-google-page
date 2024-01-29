@@ -14,7 +14,13 @@ URL = "https://www.google.com.ua/?hl=uk"
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
         (False, False, "Not accessible"),
-    ]
+    ],
+    ids=[
+        "Valid URL and Internet Connection available",
+        "Valid URL but no Internet Connection",
+        "Invalid URL and Internet Connection available",
+        "Ivalid URL and Internet Connection",
+    ],
 )
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
