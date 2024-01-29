@@ -24,6 +24,12 @@ def mocked_has_internet_connection() -> None:
         (False, True, "Not accessible"),
         (True, False, "Not accessible"),
         (False, False, "Not accessible"),
+    ],
+    ids=[
+        "'Accessible' when url is valid and connection exist",
+        "'Not accessible' when url isn't valid and connection exist",
+        "'Not accessible' when url is valid and connection doesn't exist",
+        "'Not accessible' when url isn't valid and connection doesn't exist",
     ]
 )
 def test_can_access_google_page(
