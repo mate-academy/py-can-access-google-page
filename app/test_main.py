@@ -31,7 +31,7 @@ def mocked_has_internet() -> mock:
         "if valid url and connection exists should return 'Accessible'"
     ]
 )
-def test_valid_url_and_connection_not_exists(
+def test_return_correct_message(
         url: bool, connection: bool, result: str,
         mocked_has_valid_url: mock, mocked_has_internet: mock
 ) -> None:
