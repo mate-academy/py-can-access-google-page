@@ -8,10 +8,14 @@ from unittest import mock
     [
         (False, True, "Not accessible"),
         (True, False, "Not accessible"),
+        (True, True, "Accessible"),
+        (False, False, "Not accessible")
     ],
     ids=[
         "url has to be valid",
-        "should have internet connection"
+        "should have internet connection",
+        "All correct",
+        "url and internet connection has to be valid"
     ]
 )
 def test_valid_url_and_connection_exists(
