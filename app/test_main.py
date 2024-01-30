@@ -1,5 +1,7 @@
-import pytest
 from unittest import mock
+
+import pytest
+
 from app.main import can_access_google_page
 
 
@@ -24,16 +26,21 @@ def mocked_has_internet() -> mock:
     [
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
-        (True, True, "Accessible")
+        (True, True, "Accessible"),
+        (False, False, "Not accessible")
     ], ids=[
         "if connection not exists should return 'Not accessible'",
         "if in valid url and connection exists should return 'Not accessible'",
-        "if valid url and connection exists should return 'Accessible'"
+        "if valid url/connection exists should return 'Accessible'",
+        "if in valid url/connection not exists should return 'Not accessible'"
     ]
 )
 def test_return_correct_message(
-        url: bool, connection: bool, result: str,
-        mocked_has_valid_url: mock, mocked_has_internet: mock
+    url: bool,
+    connection: bool,
+    result: str,
+    mocked_has_valid_url: mock,
+    mocked_has_internet: mock
 ) -> None:
     mocked_has_valid_url.return_value = url
     mocked_has_internet.return_value = connection
