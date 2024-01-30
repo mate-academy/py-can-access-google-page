@@ -1,5 +1,6 @@
-from app.main import can_access_google_page
 import pytest
+
+from app.main import can_access_google_page
 from unittest import mock
 
 
@@ -24,8 +25,7 @@ def test_valid_url_and_connection_exists(
         expected_result: str
 ) -> None:
     with (mock.patch("app.main.valid_google_url", return_value=check_url),
-          mock.patch(
-              "app.main.has_internet_connection",
-              return_value=connection)):
+          mock.patch("app.main.has_internet_connection",
+                     return_value=connection)):
         result = can_access_google_page("https://www.google.com")
         assert result == expected_result
