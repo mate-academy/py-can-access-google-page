@@ -1,5 +1,6 @@
-import pytest
 from unittest import mock
+
+import pytest
 
 from app.main import can_access_google_page
 
@@ -7,7 +8,8 @@ from app.main import can_access_google_page
 @pytest.mark.parametrize(
     "valid_url, connection, expect, ids",
     [
-        (True, True, "Accessible", "we can get access"),
+        (True, True, "Accessible",
+         "we can get access with url and connection valid"),
         (True, False, "Not accessible",
          "we can't get access without connection"),
         (False, True, "Not accessible",
