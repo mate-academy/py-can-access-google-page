@@ -19,8 +19,8 @@ from app.main import can_access_google_page
     ]
 )
 def test_can_access_google_page(
-        google_url: str,
-        internet_connection: str,
+        google_url: bool,
+        internet_connection: bool,
         test_result: str
 ) -> None:
     with (mock.patch("app.main.valid_google_url")
