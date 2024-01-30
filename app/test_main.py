@@ -1,6 +1,6 @@
-from app.main import (can_access_google_page)
-from unittest import mock
 import pytest
+from unittest import mock
+from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
@@ -8,7 +8,7 @@ import pytest
     [
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
-        (False, True, "Not accessible")
+        (True, True, "Accessible")
     ],
     ids=[
         "without valid url func. should return 'Not accessible'",
