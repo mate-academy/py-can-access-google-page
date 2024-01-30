@@ -23,8 +23,10 @@ def test_can_access_google_page(
         internet_connection: str,
         test_result: str
 ) -> None:
-    with (mock.patch("app.main.valid_google_url") as mocked_url_check,
-          mock.patch("app.main.has_internet_connection") as mocked_internet_check):
+    with (mock.patch("app.main.valid_google_url")
+          as mocked_url_check,
+          mock.patch("app.main.has_internet_connection")
+          as mocked_internet_check):
         mocked_url_check.return_value = google_url
         mocked_internet_check.return_value = internet_connection
         assert can_access_google_page("https://www.google.com") == test_result
