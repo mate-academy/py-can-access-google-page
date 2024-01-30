@@ -1,23 +1,26 @@
 import pytest
+
 from unittest import mock
 
 from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "url, internet_connection, expected",
-    [(True, True, "Accessible"),
-     (True, False, "Not accessible"),
-     (False, True, "Not accessible"),
-     (False, False, "Not accessible")]
+    "url, connection, expected, test_id",
+    [(True, True, "Accessible", "if all conditions are acceptable"),
+     (True, False, "Not accessible", "if only url is acceptable"),
+     (False, True, "Not accessible",
+      "if only internet_connection is acceptable"),
+     (False, False, "Not accessible", "if both are unacceptable")]
 )
 def test_can_access_google_page(
         url: str,
-        internet_connection: bool,
-        expected: str
+        connection: bool,
+        expected: str,
+        test_id: str
 ) -> None:
-    with mock.patch("app.main.valid_google_url",
-                    return_value=url):
-        with mock.patch("app.main.has_internet_connection",
-                        return_value=internet_connection):
-            assert can_access_google_page(url) == expected
+    with mock.patch.multiple(
+            "app.main",
+            valid_google_url=mock.MagicMock(return_value=url),
+            has_internet_connection=mock.MagicMock(return_value=connection)):
+        assert can_access_google_page(url) == expected
