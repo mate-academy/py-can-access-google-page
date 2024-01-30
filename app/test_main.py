@@ -12,7 +12,9 @@ from unittest import mock
     ]
 )
 @mock.patch("app.main.has_internet_connection")
-def test_access_to_google_page(check_connection, url, connection, result) -> None:
+def test_access_to_google_page(check_connection: mock, url: str,
+                               connection: bool,
+                               result: str) -> None:
     check_connection.return_value = connection
     assert (
         can_access_google_page(url) == result
