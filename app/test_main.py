@@ -19,6 +19,12 @@ from app.main import can_access_google_page
         (
             False, False, "Not accessible"
         )
+    ],
+    ids=[
+        "Certain URL, with Internet: Accessible",
+        "Certain URL, without Internet: Not accessible",
+        "Invalid URL, with Internet: Not accessible",
+        "Invalid URL, without Internet: Not accessible"
     ]
 )
 def test_can_access_google_page(
