@@ -4,15 +4,13 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "url, is_valid_url, has_connection, expected_output", [
-        ("http://www.google.com", True, True, "Accessible"),
-        ("http://www.google.com", False, True, "Not accessible"),
-        ("http://www.google.com", True, False, "Not accessible"),
-        ("http://www.google.com", False, False, "Not accessible"),
-        ("http://www.someotherwebsite.com", False, True, "Not accessible"),
+    "is_valid_url, has_connection, expected_output", [
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
     ])
 def test_can_access_google_page(
-        url: str,
         is_valid_url: str,
         has_connection: bool,
         expected_output: str
@@ -21,5 +19,6 @@ def test_can_access_google_page(
             patch(
                 "app.main.has_internet_connection",
                 return_value=has_connection):
-
-        assert can_access_google_page(url) == expected_output
+        assert can_access_google_page(
+            "http://www.google.com"
+        ) == expected_output
