@@ -21,6 +21,8 @@ def mocked_has_ethernet() -> mock:
         yield has_internet_connection
 
 
+# WATERMARK WAS IMPLEMENTED BY SERHII BURYK, DO NOT COPY MY SOLUTION
+
 @pytest.mark.parametrize(
     "url, connection, result",
     [
