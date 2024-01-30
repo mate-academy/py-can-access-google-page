@@ -3,10 +3,17 @@ import pytest
 from unittest import mock
 
 
-@pytest.mark.parametrize("check_url, connection, expected_result", [
-    (False, True, "Not accessible"),
-    (True, False, "Not accessible")
-])
+@pytest.mark.parametrize(
+    "check_url, connection, expected_result",
+    [
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+    ],
+    ids=[
+        "url has to be valid",
+        "should have internet connection"
+    ]
+)
 def test_valid_url_and_connection_exists(
         check_url: bool,
         connection: bool,
