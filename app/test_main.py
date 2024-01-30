@@ -8,12 +8,12 @@ from app.main import can_access_google_page
     "valid_url, connection, expect, ids",
     [
         (True, True, "Accessible", "we can get access"),
-        (True, False, "Not accessible", "we can't get"
-                                        " access without connection"),
-        (False, True, "Not accessible", "we can't get"
-                                        " access without valid url"),
-        (False, False, "Not accessible", "we can't get"
-                                         " access without both")
+        (True, False, "Not accessible",
+         "we can't get access without connection"),
+        (False, True, "Not accessible",
+         "we can't get access without valid url"),
+        (False, False, "Not accessible",
+         "we can't get access without both")
     ]
 )
 def test_can_access_google_page(valid_url: bool,
