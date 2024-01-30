@@ -13,8 +13,8 @@ from app.main import can_access_google_page
     ids=[
         "When you don`t have internet connection - site is not accessible",
         "When page is offline - site is not accessible",
-        "When you have internet connection and page is online "
-        "- you have access to site"
+        "When you have internet connection and "
+        "page is online - you have access to site"
     ]
 )
 def test_can_access_to_google_page(
