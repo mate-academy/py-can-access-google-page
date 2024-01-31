@@ -1,5 +1,5 @@
-import pytest
 from unittest import mock
+import pytest
 from app.main import can_access_google_page
 
 
@@ -8,11 +8,14 @@ from app.main import can_access_google_page
     [
         (False, True, "Not accessible"),
         (True, False, "Not accessible"),
+        (False, False, "Not accessible"),
         (True, True, "Accessible")
     ],
     ids=[
         "When you don`t have internet connection - site is not accessible",
         "When page is offline - site is not accessible",
+        "When you don`t have internet connection"
+        "and page is offline - site is not accessible",
         "When you have internet connection and "
         "page is online - you have access to site"
     ]
