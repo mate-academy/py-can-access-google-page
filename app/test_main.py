@@ -1,5 +1,4 @@
 import pytest
-
 from unittest import mock
 
 from app.main import can_access_google_page
@@ -21,20 +20,20 @@ def mocked_has_ethernet() -> mock:
         yield has_internet_connection
 
 
-# WATERMARK WAS IMPLEMENTED BY SERHII BURYK, DO NOT COPY MY SOLUTION
-
 @pytest.mark.parametrize(
     "url, connection, result",
     [
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
-        (True, True, "Accessible")
+        (True, True, "Accessible"),
+        (False, False, "Not accessible")
     ], ids=[
         "In case of no connection is expected 'Not accessible'",
         "If the URL is incorrect and"
         "the connection already exists is expected 'Not accessible'",
         "In case of valid URL and"
-        "connection already exists is expected 'Accessible'"
+        "connection already exists is expected 'Accessible'",
+        "In case of no connection and invalid URL is expected 'Not accessible'"
     ]
 )
 def test_valid_url_and_connection_not_exists(
