@@ -1,22 +1,29 @@
-import pytest
 from unittest import mock
+
+import pytest
+
 from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "url, connection, expected, test_id",
+    "url, connection, expected",
     [
-        (True, True, "Accessible", "if all conditions are acceptable"),
-        (True, False, "Not accessible", "if only url is acceptable"),
-        (False, True, "Not accessible", "if only connection is acceptable"),
-        (False, False, "Not accessible", "if both are unacceptable")
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible")
+    ],
+    ids=[
+        "if all conditions are acceptable",
+        "if only url is acceptable",
+        "if only connection is acceptable",
+        "if both are unacceptable"
     ]
 )
 def test_can_access_google_page(
         url: str,
         connection: bool,
-        expected: str,
-        test_id: str
+        expected: str
 ) -> None:
     with mock.patch.multiple(
             "app.main",
