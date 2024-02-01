@@ -1,7 +1,7 @@
 import pytest
+from unittest import mock
 
 from app.main import can_access_google_page
-from unittest import mock
 
 
 @pytest.mark.parametrize(
@@ -13,10 +13,10 @@ from unittest import mock
         (False, False, "Not accessible")
     ],
     ids=[
-        "url has to be valid",
-        "should have internet connection",
+        "url of site has to be valid",
+        "you should have internet connection",
         "All correct",
-        "url and internet connection has to be valid"
+        "you should have internet connection and url has to be valid"
     ]
 )
 def test_valid_url_and_connection_exists(
@@ -24,8 +24,9 @@ def test_valid_url_and_connection_exists(
         connection: bool,
         expected_result: str
 ) -> None:
-    with (mock.patch("app.main.valid_google_url", return_value=check_url),
-          mock.patch("app.main.has_internet_connection",
-                     return_value=connection)):
+    with (
+        mock.patch("app.main.valid_google_url", return_value=check_url),
+        mock.patch("app.main.has_internet_connection", return_value=connection)
+    ):
         result = can_access_google_page("https://www.google.com")
         assert result == expected_result
