@@ -12,14 +12,15 @@ PATH = "app.main"
     "valid_url_result, current_time, expected_result",
     [
         param(True, True, "Accessible",
-              id="Should return Accessible if url is valid and allowable current time"),
+              id="Should return Accessible if url is valid and allowable "
+                 "current time"),
 
-        param( False, True, "Not accessible",
+        param(False, True, "Not accessible",
               id="Should return Not accessible if got invalid url"),
 
         param(True, False, "Not accessible",
               id="Should return Not accessible if time is not allowable"),
-        param( False, False, "Not accessible",
+        param(False, False, "Not accessible",
               id="Should return Not accessible if time is not allowable "
                  "and if url is invalid")
 
@@ -31,7 +32,7 @@ def test_can_access_google_page(
         expected_result: str
 ) -> None:
     with mock.patch(f"{PATH}.valid_google_url") as mock_valid_google_url:
-        with mock.patch(f"{PATH}.has_internet_connection") as mock_time_connection:
+        with mock.patch(f"{PATH}.has_internet_connection") as mock_time_con:
             mock_valid_google_url.return_value = valid_url_result
-            mock_time_connection.return_value = current_time
-            assert can_access_google_page("some_url_from_testcase") == expected_result
+            mock_time_con.return_value = current_time
+            assert can_access_google_page("some_url") == expected_result
