@@ -1,40 +1,52 @@
 from unittest import mock
-from typing import Callable
+
+import pytest
 
 from app.main import can_access_google_page
 
 
-@mock.patch("app.main.valid_google_url")
-@mock.patch("app.main.has_internet_connection")
-def test_valid_url_and_connection_exists(
-        mocked_valid_google_url: Callable,
-        mocked_has_internet_connection: Callable
+@pytest.mark.parametrize(
+    "url,valid_google_url,has_internet_connection,expected_result",
+    [
+        pytest.param(
+            "https://translate.google.com/?hl=uk",
+            True,
+            True,
+            "Accessible",
+            id="if valid url and connection exists"
+        ),
+        pytest.param(
+            "translate.google.com/?hl=uk",
+            False,
+            True,
+            "Not accessible",
+            id="cannot access if only connection"
+        ),
+        pytest.param(
+            "https://translate.google.com/?hl=uk",
+            True,
+            False,
+            "Not accessible",
+            id="cannot access if only valid url"
+        ),
+        pytest.param(
+            "https://translate.google.com/?hl=uk",
+            False,
+            False,
+            "Not accessible",
+            id="cannot access if invalid url and no connection"
+        ),
+    ]
+)
+def test_accessing_page_correctly(
+        url: str,
+        valid_google_url: bool,
+        has_internet_connection: bool,
+        expected_result: str
 ) -> None:
-    mocked_valid_google_url.return_value = True
-    mocked_has_internet_connection.return_value = True
-    assert (can_access_google_page("https://translate.google.com/?hl=uk")
-            == "Accessible")
-
-
-@mock.patch("app.main.valid_google_url")
-@mock.patch("app.main.has_internet_connection")
-def test_cannot_access_if_only_connection(
-        mocked_valid_google_url: Callable,
-        mocked_has_internet_connection: Callable
-) -> None:
-    mocked_valid_google_url.return_value = False
-    mocked_has_internet_connection.return_value = True
-    assert (can_access_google_page("translate.google.com/?hl=uk")
-            == "Not accessible")
-
-
-@mock.patch("app.main.valid_google_url")
-@mock.patch("app.main.has_internet_connection")
-def test_cannot_access_if_only_valid_url(
-        mocked_valid_google_url: Callable,
-        mocked_has_internet_connection: Callable
-) -> None:
-    mocked_valid_google_url.return_value = True
-    mocked_has_internet_connection.return_value = False
-    assert (can_access_google_page("https://translate.google.com/?hl=uk")
-            == "Not accessible")
+    with mock.patch("app.main.valid_google_url") as mocked_valid_google_url:
+        with mock.patch("app.main.has_internet_connection") as mocked_has_internet_connection:
+            mocked_valid_google_url.return_value = valid_google_url
+            mocked_has_internet_connection.return_value = has_internet_connection
+            assert (can_access_google_page(url)
+                    == expected_result)
