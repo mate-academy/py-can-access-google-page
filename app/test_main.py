@@ -26,3 +26,4 @@ def test_can_access_google_page(mock_has_internet_connection, mock_valid_google_
 
 if __name__ == "__main__":
     pytest.main()
+
