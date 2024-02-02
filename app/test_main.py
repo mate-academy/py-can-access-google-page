@@ -44,11 +44,13 @@ def test_accessing_page_correctly(
         internet_connection: bool,
         expected_result: str
 ) -> None:
-    with (mock.patch("app.main.valid_google_url")
-          as mocked_valid_google_url):
-        with (mock.patch("app.main.has_internet_connection")
-              as mocked_has_internet_connection):
-            mocked_valid_google_url.return_value = valid_google_url
-            mocked_has_internet_connection.return_value = internet_connection
-            assert (can_access_google_page(url)
-                    == expected_result)
+    with (
+        mock.patch("app.main.valid_google_url")
+        as mocked_valid_google_url,
+        mock.patch("app.main.has_internet_connection")
+        as mocked_has_internet_connection
+    ):
+        mocked_valid_google_url.return_value = valid_google_url
+        mocked_has_internet_connection.return_value = internet_connection
+        assert (can_access_google_page(url)
+                == expected_result)
