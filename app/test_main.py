@@ -9,8 +9,8 @@ from app.main import can_access_google_page
     ("https://www.google.com", False, True, "Not accessible"),
     ("https://www.google.com", True, False, "Not accessible"),
 ])
-@patch("your_module.valid_google_url")
-@patch("your_module.has_internet_connection")
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
 def test_can_access_google_page(mock_has_internet_connection, mock_valid_google_url, url, valid_url, internet_connection, expected_result): # Noqa E501
     mock_valid_google_url.return_value = valid_url
 
