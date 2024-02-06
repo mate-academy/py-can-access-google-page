@@ -12,9 +12,12 @@ def test_can_access_google_page(mock_has_internet_connection, mock_valid_google_
     assert can_access_google_page("https://www.google.com") == "Accessible"
 
     # Test the function with an invalid URL
+    mock_has_internet_connection.return_value = True
     mock_valid_google_url.return_value = False
     assert can_access_google_page("https://www.invalidurl.com") == "Not accessible"
 
     # Test the function without internet connection
     mock_has_internet_connection.return_value = False
+    mock_valid_google_url.return_value = True
     assert can_access_google_page("https://www.google.com") == "Not accessible"
+
