@@ -3,7 +3,6 @@ from unittest import mock
 from app.main import can_access_google_page
 
 
-
 @pytest.fixture
 def get_valid_google_url() -> mock.MagicMock:
     with mock.patch("app.main.valid_google_url") as mock_url:
