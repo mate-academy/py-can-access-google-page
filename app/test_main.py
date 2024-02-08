@@ -18,9 +18,7 @@ def test_cannot_access_if_only_valid_url(mocked_valid_url: mock,
                                          has_internet_connection: mock,
                                          url_result: bool,
                                          connection_result: bool,
-                                         result_of_checking: str):
+                                         result_of_checking: str) -> None:
     has_internet_connection.return_value = connection_result
     mocked_valid_url.return_value = url_result
     assert can_access_google_page(" ") == result_of_checking
-
-
