@@ -15,28 +15,25 @@ def get_connection() -> mock.MagicMock:
         yield mock_connection
 
 
-def test_can_access_google_page_true(
-        get_valid_google_url: object,
-        get_connection: object
-) -> None:
-    get_valid_google_url.return_value = True
-    get_connection.return_value = True
-    assert can_access_google_page("https://www.google.com") == "Accessible"
-
-
-def test_action_valid_url_false(
-        get_valid_google_url: object,
-        get_connection: object
-) -> None:
-    get_valid_google_url.return_value = False
-    get_connection.return_value = True
-    assert can_access_google_page("https://www.google.com") == "Not accessible"
-
-
-def test_action_connection_false(
-        get_valid_google_url: object,
-        get_connection: object
-) -> None:
-    get_valid_google_url.return_value = True
-    get_connection.return_value = False
-    assert can_access_google_page("https://www.google.com") == "Not accessible"
+@pytest.mark.parametrize(
+    "valid_url, connection_status, expected_result",
+    [
+        pytest.param(True, True,
+                     "Accessible",
+                     id="access google page True"),
+        pytest.param(True, False,
+                     "Not accessible",
+                     id="connection status False"),
+        pytest.param(False, True,
+                     "Not accessible",
+                     id="valid url False"),
+    ]
+)
+def test_1(get_valid_google_url: object,
+           get_connection: object,
+           valid_url: bool,
+           connection_status: bool,
+           expected_result: str) -> None:
+    get_valid_google_url.return_value = valid_url
+    get_connection.return_value = connection_status
+    assert can_access_google_page("https://www.google.com") == expected_result
