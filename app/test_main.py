@@ -1,6 +1,7 @@
-import pytest
 from unittest import mock
-from typing import Callable
+from unittest.mock import MagicMock
+
+import pytest
 
 from app.main import can_access_google_page
 
@@ -17,8 +18,8 @@ from app.main import can_access_google_page
     ]
 )
 def test_can_access_google_page(
-        mocked_url: Callable,
-        mock_connection: Callable,
+        mocked_url: MagicMock,
+        mock_connection: MagicMock,
         valid_url: bool,
         has_connection: bool,
         result: str
