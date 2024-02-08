@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 import datetime
 from app import main  # assuming the functions are in main.py
 
@@ -22,37 +22,41 @@ class TestMain(unittest.TestCase):
 
     def setUp(self) -> None:
         self.url = "https://www.google.com"
-        self.mock_requests_get_patcher = patch("app.main.requests.get")
-        self.mock_requests_get = self.mock_requests_get_patcher.start()
+        self.mock_valid_google_url_patcher = patch("app.main.valid_google_url")
+        self.mock_valid_google_url = (
+            self.mock_valid_google_url_patcher.start())
 
-        self.mock_datetime_now_patcher = patch("app.main.current_time")
-        self.mock_datetime_now = self.mock_datetime_now_patcher.start()
+        self.mock_has_internet_connection_patcher = (
+            patch("app.main.has_internet_connection"))
+        self.mock_has_internet_connection = (
+            self.mock_has_internet_connection_patcher.start())
 
     def tearDown(self) -> None:
-        self.mock_requests_get_patcher.stop()
-        self.mock_datetime_now_patcher.stop()
+        self.mock_valid_google_url_patcher.stop()
+        self.mock_has_internet_connection_patcher.stop()
 
     def test_can_access_google_page(self) -> None:
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        self.mock_requests_get.return_value = mock_response
+        # Mocking the valid_google_url function
+        self.mock_valid_google_url.return_value = True
 
-        # Mocking the current time to be within the internet connection window
-        mock_time = datetime.datetime(2022, 1, 1, 10, 0, 0)
-        self.mock_datetime_now.return_value = mock_time
+        # Mocking the has_internet_connection
+        # function to be within the internet connection window
+        self.mock_has_internet_connection.return_value = True
 
         # Test
         result = main.can_access_google_page(self.url)
         self.assertEqual(result, "Accessible")
 
-        # Changing the status_code to simulate an invalid url
-        mock_response.status_code = 404
+        # Changing the return value of
+        # valid_google_url to simulate an invalid url
+        self.mock_valid_google_url.return_value = False
         result = main.can_access_google_page(self.url)
         self.assertEqual(result, "Not accessible")
 
-        # Changing the time to simulate no internet connection
-        mock_time = datetime.datetime(2022, 1, 1, 23, 0, 0)
-        self.mock_datetime_now.return_value = mock_time
+        # Changing the return value of
+        # has_internet_connection to simulate no internet connection
+        self.mock_valid_google_url.return_value = True
+        self.mock_has_internet_connection.return_value = False
         result = main.can_access_google_page(self.url)
         self.assertEqual(result, "Not accessible")
 
