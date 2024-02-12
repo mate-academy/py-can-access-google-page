@@ -25,16 +25,16 @@ class TestGooglePageAccess:
             )
         ]
     )
+    @mock.patch("app.main.has_internet_connection")
+    @mock.patch("app.main.valid_google_url")
     def test_can_access_google_page(
             self,
+            mocked_internet_connection: mock.MagicMock,
+            mocked_url: mock.MagicMock,
             internet_connection: bool,
             valid_url: bool,
             expected_massage: str
     ) -> None:
-        with (mock.patch("app.main.has_internet_connection") as
-              mocked_internet_connection,
-              mock.patch("app.main.valid_google_url") as
-              mocked_valid_url):
-            mocked_internet_connection.return_value = internet_connection
-            mocked_valid_url.return_value = valid_url
-            assert can_access_google_page("google.com") == expected_massage
+        mocked_internet_connection.return_value = internet_connection
+        mocked_url.return_value = valid_url
+        assert can_access_google_page("google.com") == expected_massage
