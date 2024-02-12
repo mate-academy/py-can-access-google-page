@@ -8,10 +8,10 @@ from app.main import can_access_google_page
 @pytest.mark.parametrize(
     "valid_url, internet_connection, result",
     [
-        (True, True, "Accessible"),
-        (True, False, "Not accessible"),
-        (False, True, "Not accessible"),
-        (False, False, "Not accessible"),
+        (True, True, "Accessible if both parameters are equal True"),
+        (True, False, "Not accessible if second parameter is equal False"),
+        (False, True, "Not accessible if first parameter is equal False"),
+        (False, False, "Not accessible if both parameters are equal False"),
     ]
 )
 @mock.patch("app.main.valid_google_url")
