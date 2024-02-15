@@ -6,7 +6,7 @@ from app.main import can_access_google_page
 class TestAccessToGooglePage(TestCase):
     @mock.patch("app.main.valid_google_url")
     @mock.patch("app.main.has_internet_connection")
-    def test_return_result_can_access_google_page(
+    def test_return_result_can_access_to_google_page(
             self,
             valid_google_url: mock,
             has_internet_connection: mock
