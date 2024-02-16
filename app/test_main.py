@@ -1,37 +1,30 @@
-from unittest import mock
-from unittest import TestCase
+import pytest
+
+from unittest.mock import patch
+
 from app.main import can_access_google_page
 
 
-class TestAccessToGooglePage(TestCase):
-    @mock.patch("app.main.valid_google_url")
-    @mock.patch("app.main.has_internet_connection")
-    def test_return_result_can_access_to_google_page(
-            self,
-            valid_google_url: mock,
-            has_internet_connection: mock
-    ) -> None:
-        valid_google_url.return_value = True
-        has_internet_connection.return_value = True
-        self.assertEqual(can_access_google_page(""), "Accessible")
+@pytest.mark.parametrize(
+    "is_response_ok, is_internet_connection, expected_result",
+    [
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
+        (True, True, "Accessible"),
+    ]
+)
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
+def test_can_access_google_page(
+        mock_has_internet_connection: pytest.param,
+        mock_valid_google_url: pytest.param,
+        is_response_ok: bool,
+        is_internet_connection: bool,
+        expected_result: str
+) -> None:
+    mock_valid_google_url.return_value = is_response_ok
+    mock_has_internet_connection.return_value = is_internet_connection
 
-    @mock.patch("app.main.valid_google_url")
-    @mock.patch("app.main.has_internet_connection")
-    def test_return_result_when_not_valid_google_url(
-            self, mock_valid_google_url: mock,
-            mock_has_internet_connection: mock
-    ) -> None:
-        mock_valid_google_url.return_value = False
-        mock_has_internet_connection.return_value = True
-        self.assertEqual(can_access_google_page(""), "Not accessible")
-
-    @mock.patch("app.main.valid_google_url")
-    @mock.patch("app.main.has_internet_connection")
-    def test_return_result_when_not_has_internet_connection(
-            self,
-            mock_valid_google_url: mock,
-            mock_has_internet_connection: mock
-    ) -> None:
-        mock_valid_google_url.return_value = True
-        mock_has_internet_connection.return_value = False
-        self.assertEqual(can_access_google_page(""), "Not accessible")
+    result = can_access_google_page("https://google.com")
+    assert result == expected_result
