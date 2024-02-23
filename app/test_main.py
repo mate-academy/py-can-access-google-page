@@ -2,17 +2,17 @@ from unittest import mock
 
 import pytest
 
-from app.main import (can_access_google_page)
+from app.main import can_access_google_page
 
 
 @pytest.fixture()
-def mocked_internet() -> mock.MagicMock:
+def mocked_internet_connection() -> mock.MagicMock:
     with mock.patch("app.main.has_internet_connection") as mocked_connection:
         yield mocked_connection
 
 
 @pytest.fixture()
-def mocked_url() -> mock.MagicMock:
+def mocked_valid_google_url() -> mock.MagicMock:
     with mock.patch("app.main.valid_google_url") as mocked_valid_url:
         yield mocked_valid_url
 
@@ -32,11 +32,13 @@ def mocked_url() -> mock.MagicMock:
         "internet connection and url are False"
     ]
 )
-def test_can_access_google_page(mocked_internet: object,
-                                mocked_url: object,
-                                internet_status: bool,
-                                valid_url: bool,
-                                expected_result: str) -> None:
-    mocked_url.return_value = valid_url
-    mocked_internet.return_value = internet_status
+def test_can_access_google_page(
+        mocked_internet_connection: object,
+        mocked_valid_google_url: object,
+        internet_status: bool,
+        valid_url: bool,
+        expected_result: str
+) -> None:
+    mocked_valid_google_url.return_value = valid_url
+    mocked_internet_connection.return_value = internet_status
     assert can_access_google_page("https://www.google.com") == expected_result
