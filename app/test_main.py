@@ -1,6 +1,6 @@
 import pytest
-from pytest_mock import MockFixture
 from app.main import can_access_google_page
+from typing import Any
 
 
 @pytest.mark.parametrize(
@@ -12,7 +12,7 @@ from app.main import can_access_google_page
         (False, False, "Not accessible")
     ]
 )
-def test_can_access(mocker: MockFixture,
+def test_can_access(mocker: Any,
                     internet_connection: bool,
                     valid_url: bool,
                     expected_result: str) -> None:
