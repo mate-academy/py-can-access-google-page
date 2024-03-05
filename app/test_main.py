@@ -5,7 +5,6 @@ import pytest
 from app.main import can_access_google_page
 
 
-
 @pytest.mark.parametrize(
     "valid_google_url, has_internet_connection, expected", [
         (True, True, "Accessible"),
