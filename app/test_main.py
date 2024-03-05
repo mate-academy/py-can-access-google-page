@@ -1,8 +1,9 @@
-import pytest
-
 from unittest.mock import MagicMock, patch
 
+import pytest
+
 from app.main import can_access_google_page
+
 
 
 @pytest.mark.parametrize(
