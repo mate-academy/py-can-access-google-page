@@ -12,8 +12,14 @@ from app.main import can_access_google_page
         (False, False, "Not accessible")
     ]
 )
-def test_can_access_google(test_valid_link, test_has_internet_connection, expected_result):
-    with patch('app.main.valid_google_url', MagicMock(return_value=test_valid_link)):
-        with patch('app.main.has_internet_connection', MagicMock(return_value=test_has_internet_connection)):
+def test_can_access_google(
+        test_valid_link: bool,
+        test_has_internet_connection: bool,
+        expected_result: str
+) -> None:
+    with patch("app.main.valid_google_url",
+               MagicMock(return_value=test_valid_link)):
+        with patch("app.main.has_internet_connection",
+                   MagicMock(return_value=test_has_internet_connection)):
             result = can_access_google_page("https://www.google.com")
             assert result == expected_result
