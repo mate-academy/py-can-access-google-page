@@ -9,13 +9,13 @@ from app.main import can_access_google_page
     "url_result,connection_result,result_can_access_google_page",
     [
         pytest.param(True, True, "Accessible",
-                     id="valid url and current time, is accessible"),
+                     id="valid url and time, is accessible"),
         pytest.param(True, False, "Not accessible",
-                     id="valid url and not valid current time, is not accessible"),
+                     id="valid url and not valid time, not accessible"),
         pytest.param(False, True, "Not accessible",
-                     id="not valid url and valid current time, is not accessible"),
+                     id="not valid url and valid time, not accessible"),
         pytest.param(False, False, "Not accessible",
-                     id="not valid url and current time, is not accessible")
+                     id="not valid url and time, not accessible")
     ]
 )
 def test_can_access_google_page(
@@ -34,4 +34,4 @@ def test_can_access_google_page(
         "has_internet_connection",
         lambda: connection_result
     )
-    assert can_access_google_page("google.com") == result_can_access_google_page
+    assert can_access_google_page("google") == result_can_access_google_page
