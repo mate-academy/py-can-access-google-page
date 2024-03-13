@@ -1,3 +1,4 @@
+from typing import Any
 from unittest import mock
 import pytest
 
@@ -33,18 +34,16 @@ from app.main import can_access_google_page
         )
     ]
 )
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
 def test_valid_url_and_connection_exists(
+        mock_test_has_internet_connection: Any,
+        mock_test_valid_google_url: Any,
         valid_url_value: str,
         connection_value: str,
         expected_value: str
 ) -> None:
-    with (
-            mock.patch("app.main.valid_google_url")
-            as mock_test_valid_google_url,
-            mock.patch("app.main.has_internet_connection")
-            as mock_test_has_internet_connection
-    ):
-        mock_test_valid_google_url.return_value = valid_url_value
-        mock_test_has_internet_connection.return_value = connection_value
+    mock_test_valid_google_url.return_value = valid_url_value
+    mock_test_has_internet_connection.return_value = connection_value
 
-        assert can_access_google_page("http://google.com") == expected_value
+    assert can_access_google_page("http://google.com") == expected_value
