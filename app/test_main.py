@@ -1,52 +1,50 @@
-from typing import Any
 from unittest import mock
+import pytest
 
 from app.main import can_access_google_page
 
 
-@mock.patch("app.main.valid_google_url")
-@mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page_when_only_valid_google_url(
-        mock_test_has_internet_connection: Any,
-        mock_test_valid_google_url: Any
+@pytest.mark.parametrize(
+    "valid_url_value, connection_value, expected_value",
+    [
+        pytest.param(
+            True,
+            False,
+            "Not accessible",
+            id="can not access google page when only valid url"
+        ),
+        pytest.param(
+            False,
+            True,
+            "Not accessible",
+            id="can not access google page when only connection exist"
+        ),
+        pytest.param(
+            False,
+            False,
+            "Not accessible",
+            id="can not access google page when no connection and invalid url"
+        ),
+        pytest.param(
+            True,
+            True,
+            "Accessible",
+            id="can access google page when connection exists and valid url"
+        )
+    ]
+)
+def test_valid_url_and_connection_exists(
+        valid_url_value: str,
+        connection_value: str,
+        expected_value: str
 ) -> None:
-    mock_test_valid_google_url.return_value = True
-    mock_test_has_internet_connection.return_value = False
+    with (
+            mock.patch("app.main.valid_google_url")
+            as mock_test_valid_google_url,
+            mock.patch("app.main.has_internet_connection")
+            as mock_test_has_internet_connection
+    ):
+        mock_test_valid_google_url.return_value = valid_url_value
+        mock_test_has_internet_connection.return_value = connection_value
 
-    assert can_access_google_page("some_url") == "Not accessible"
-
-
-@mock.patch("app.main.valid_google_url")
-@mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page_when_only_connection_exist(
-        mock_test_has_internet_connection: Any,
-        mock_test_valid_google_url: Any
-) -> None:
-    mock_test_valid_google_url.return_value = False
-    mock_test_has_internet_connection.return_value = True
-
-    assert can_access_google_page("some_url") == "Not accessible"
-
-
-@mock.patch("app.main.valid_google_url")
-@mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page_when_no_connection_and_invalid_google_url(
-        mock_test_has_internet_connection: Any,
-        mock_test_valid_google_url: Any
-) -> None:
-    mock_test_valid_google_url.return_value = False
-    mock_test_has_internet_connection.return_value = False
-
-    assert can_access_google_page("some_url") == "Not accessible"
-
-
-@mock.patch("app.main.valid_google_url")
-@mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page_when_connection_exist_and_valid_google_url(
-        mock_test_has_internet_connection: Any,
-        mock_test_valid_google_url: Any
-) -> None:
-    mock_test_valid_google_url.return_value = True
-    mock_test_has_internet_connection.return_value = True
-
-    assert can_access_google_page("some_url") == "Accessible"
+        assert can_access_google_page("http://google.com") == expected_value
