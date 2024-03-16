@@ -17,7 +17,7 @@ from app.main import can_access_google_page
             "Accessible"
         ),
         pytest.param(
-            "https://google.com",
+            " ",
             True,
             False,
             "Not accessible"
