@@ -1,6 +1,5 @@
 import pytest
 from app.main import can_access_google_page
-from pytest_mock import MockerFixture
 
 
 @pytest.mark.parametrize("mock_has_internet_connection_return, "
@@ -12,7 +11,7 @@ from pytest_mock import MockerFixture
                              (False, True, "Not accessible"),
                              (False, False, "Not accessible"),
                          ])
-def test_can_access_google_page(mocker: MockerFixture,
+def test_can_access_google_page(mocker: callable,
                                 mock_has_internet_connection_return: bool,
                                 mock_valid_google_url_return: bool,
                                 expected_result: str) -> None:
