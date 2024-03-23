@@ -1,6 +1,8 @@
 import pytest
-from app.main import can_access_google_page
+
 from _pytest.monkeypatch import MonkeyPatch
+
+from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
