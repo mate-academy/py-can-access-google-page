@@ -8,7 +8,7 @@ from app.main import can_access_google_page
     ("https://www.google.com", "Accessible"),
     ("https://www.example.com", "Not accessible"),
     ("invalid_url", "Not accessible")
-],ids=[
+], ids=[
     "Access Google",
     "Access Example",
     "Invalid URL"
