@@ -23,9 +23,8 @@ def test_access_google_page(
             "app.main.valid_google_url",
             return_value=valid_url_value
         ),
-            mock.patch(
-                "app.main.has_internet_connection",
-                return_value=connection_value
-            )):
+        mock.patch(
+            "app.main.has_internet_connection",
+            return_value=connection_value)):
         url = "https://www.google.com"
         assert can_access_google_page(url) == expected_value
