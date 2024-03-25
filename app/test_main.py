@@ -15,28 +15,22 @@ def mock_has_internet_connection() -> Mock:
         yield connection
 
 
-def test_access_google_true(mock_valid_google: Mock,
-                            mock_has_internet_connection: Mock) -> None:
-    mock_valid_google.return_value = True
-    mock_has_internet_connection.return_value = True
+@pytest.mark.parametrize(
+    "valid_result, connect_result, expected_result",
+    [
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible")
+    ]
+)
+def test_access_google_page(mock_valid_google: Mock,
+                            mock_has_internet_connection: Mock,
+                            valid_result: bool, connect_result: bool,
+                            expected_result: str) -> None:
+    mock_valid_google.return_value = valid_result
+    mock_has_internet_connection.return_value = connect_result
 
-    assert can_access_google_page("url") == "Accessible"
-
-
-def test_access_google_false_true(mock_valid_google: Mock,
-                                  mock_has_internet_connection: Mock) -> None:
-    mock_valid_google.return_value = False
-    mock_has_internet_connection.return_value = True
-
-    assert can_access_google_page("url") == "Not accessible"
-
-
-def test_access_google_true_false(mock_valid_google: Mock,
-                                  mock_has_internet_connection: Mock) -> None:
-    mock_valid_google.return_value = False
-    mock_has_internet_connection.return_value = True
-
-    assert can_access_google_page("url") == "Not accessible"
+    assert can_access_google_page("url") == expected_result
 
 
 @pytest.mark.parametrize("url, expected_result", [
