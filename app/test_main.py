@@ -12,7 +12,7 @@ url = "https://google.com"
 @pytest.mark.parametrize(
     "valid_url, has_internet, can_access",
     [
-        (True, 7, "Accessible"),
+        (True, True, "Accessible"),
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
         (False, False, "Not accessible"),
