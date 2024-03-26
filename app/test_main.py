@@ -25,8 +25,7 @@ def test_can_access_google_page(
         mock_has_internet_connection: MonkeyPatch,
         valid_url: bool,
         has_internet: bool,
-        can_access: str
-        ) -> None:
+        can_access: str) -> None:
     mock_valid_google_url.return_value = valid_url
     mock_has_internet_connection.return_value = has_internet
     assert can_access_google_page(url) == can_access
