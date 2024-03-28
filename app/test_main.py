@@ -21,13 +21,14 @@ class TestCanAccessGooglePage:
             "Not valid url"
         ]
     )
-    def test_can_access_google_page(self,
-                                    mocked_valid_google_url: MagicMock,
-                                    mocked_has_internet_connection: MagicMock,
-                                    connection_status: bool,
-                                    url_validation: bool,
-                                    expected_result: str
-                                    ) -> None:
+    def test_can_access_google_page(
+            self,
+            mocked_valid_google_url: MagicMock,
+            mocked_has_internet_connection: MagicMock,
+            connection_status: bool,
+            url_validation: bool,
+            expected_result: str
+    ) -> None:
         mocked_valid_google_url.return_value = url_validation
         mocked_has_internet_connection.return_value = connection_status
         assert (can_access_google_page("https://www.google.com")
