@@ -24,6 +24,12 @@ def test_valid_google_url_was_called(mocked_func: MagicMock) -> None:
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
         (False, False, "Not accessible"),
+    ],
+    ids=[
+        "Should return Accessible",
+        "Should return Not accessible",
+        "Should return Not accessible",
+        "Should return Not accessible",
     ]
 )
 @patch("app.main.valid_google_url")
