@@ -17,3 +17,6 @@ def can_access_google_page(url: str) -> str:
         return "Accessible"
     else:
         return "Not accessible"
+
+
+print(valid_google_url('https://google.com'))
