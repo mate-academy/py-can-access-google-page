@@ -28,6 +28,7 @@ def test_can_access_google_page_access_granted(
 def test_can_access_google_page_no_internet_connection(
         mock_requests_get: MagicMock,
         mock_datetime_now: MagicMock) -> None:
+    mock_requests_get.return_value.status_code = 200
     mock_datetime_now.return_value.hour = 2
     result = can_access_google_page("https://google.com")
     assert result == "Not accessible"
