@@ -39,7 +39,9 @@ def test_should_return_expected_result(
         mock_valid_google_url: MagicMock,
         valid_url: bool,
         internet_connection: bool,
-        expected_result: str) -> None:
+        expected_result: str
+) -> None:
+
     mock_valid_google_url.return_value = valid_url
     mock_has_internet_connection.return_value = internet_connection
     assert can_access_google_page("https://www.google.com") == expected_result
