@@ -11,7 +11,7 @@ def url() -> str:
 
 @pytest.fixture
 def mock_internet_connection_true(monkeypatch: MonkeyPatch) -> None:
-    def mock_internet_connection() -> None:
+    def mock_internet_connection() -> bool:
         return True
     monkeypatch.setattr(
         "app.main.has_internet_connection",
@@ -21,7 +21,7 @@ def mock_internet_connection_true(monkeypatch: MonkeyPatch) -> None:
 
 @pytest.fixture
 def mock_internet_connection_false(monkeypatch: MonkeyPatch) -> None:
-    def mock_internet_connection() -> None:
+    def mock_internet_connection() -> bool:
         return False
     monkeypatch.setattr(
         "app.main.has_internet_connection",
@@ -31,7 +31,7 @@ def mock_internet_connection_false(monkeypatch: MonkeyPatch) -> None:
 
 @pytest.fixture
 def mock_valid_google_url_true(monkeypatch: MonkeyPatch, url: str) -> None:
-    def mock_valid_google_url(url: str) -> None:
+    def mock_valid_google_url(url: str) -> bool:
         return True
     monkeypatch.setattr("app.main.valid_google_url", mock_valid_google_url)
 
