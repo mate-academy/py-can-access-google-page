@@ -1,5 +1,7 @@
 import pytest
 from _pytest.monkeypatch import MonkeyPatch
+from typing import Callable
+from unittest.mock import MagicMock
 from app.main import can_access_google_page
 
 
@@ -10,66 +12,45 @@ def url() -> str:
 
 
 @pytest.fixture
-def mock_internet_connection_true(monkeypatch: MonkeyPatch) -> None:
-    def mock_internet_connection() -> bool:
-        return True
+def mock_internet_connection(monkeypatch: MonkeyPatch) -> Callable:
+    mock_internet_connection = MagicMock()
     monkeypatch.setattr(
         "app.main.has_internet_connection",
         mock_internet_connection
     )
+    return mock_internet_connection
 
 
 @pytest.fixture
-def mock_internet_connection_false(monkeypatch: MonkeyPatch) -> None:
-    def mock_internet_connection() -> bool:
-        return False
-    monkeypatch.setattr(
-        "app.main.has_internet_connection",
-        mock_internet_connection
-    )
-
-
-@pytest.fixture
-def mock_valid_google_url_true(monkeypatch: MonkeyPatch, url: str) -> None:
-    def mock_valid_google_url(url: str) -> bool:
-        return True
+def mock_valid_google_url(monkeypatch: MonkeyPatch) -> Callable:
+    mock_valid_google_url = MagicMock()
     monkeypatch.setattr("app.main.valid_google_url", mock_valid_google_url)
+    return mock_valid_google_url
 
 
-@pytest.fixture
-def mock_valid_google_url_false(monkeypatch: MonkeyPatch, url: str) -> None:
-    def mock_valid_google_url(url: str) -> bool:
-        return False
-    monkeypatch.setattr("app.main.valid_google_url", mock_valid_google_url)
-
-
-def test_cannot_access_google_page_if_only_connection(
+@pytest.mark.parametrize(
+    "connection_return,valid_url_return,expected_result",
+    [
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
+        (True, True, "Accessible")
+    ],
+    ids=[
+        "can't access only with connection",
+        "can't access only with valid url",
+        "can't access with no connection and valid url",
+        "can access with connection and valid url"
+    ]
+)
+def test_can_access_google_page(
     url: str,
-    mock_internet_connection_true: bool,
-    mock_valid_google_url_false: bool
+    mock_internet_connection: Callable,
+    mock_valid_google_url: Callable,
+    connection_return: bool,
+    valid_url_return: bool,
+    expected_result: str
 ) -> None:
-    assert can_access_google_page(url) == "Not accessible"
-
-
-def test_cannot_access_google_page_if_only_valid_url(
-    url: str,
-    mock_internet_connection_false: bool,
-    mock_valid_google_url_true: bool
-) -> None:
-    assert can_access_google_page(url) == "Not accessible"
-
-
-def test_cannot_access_google_page_if_no_connection_and_valid_url(
-    url: str,
-    mock_internet_connection_false: bool,
-    mock_valid_google_url_false: bool
-) -> None:
-    assert can_access_google_page(url) == "Not accessible"
-
-
-def test_can_access_google_page_when_connection_and_valid_url(
-    url: str,
-    mock_internet_connection_true: bool,
-    mock_valid_google_url_true: bool
-) -> None:
-    assert can_access_google_page(url) == "Accessible"
+    mock_internet_connection.return_value = connection_return
+    mock_valid_google_url.return_value = valid_url_return
+    assert can_access_google_page(url) == expected_result
