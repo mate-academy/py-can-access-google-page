@@ -1,7 +1,5 @@
 import pytest
-
 from unittest import mock
-
 from unittest.mock import MagicMock
 
 from app.main import can_access_google_page
@@ -14,7 +12,6 @@ from app.main import can_access_google_page
         (False, False, "Not accessible"),
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
-        (False, False, "Not accessible")
     ]
 )
 @mock.patch("app.main.valid_google_url")
@@ -28,5 +25,4 @@ def test_can_access_google_page(
 ) -> None:
     mocked_url.return_value = valid_google_url
     mocked_internet_connection.return_value = has_internet_connection
-    result = can_access_google_page("url")
-    assert result == expected
+    assert can_access_google_page("url") == expected
