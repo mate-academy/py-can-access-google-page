@@ -7,7 +7,8 @@ from app import main
     "url, valid_url, internet_connection, expected_result", [
         ("https://www.google.com", True, True, "Accessible"),
         ("https://www.invalidurl.com", False, True, "Not accessible"),
-        ("https://www.google.com", True, False, "Not accessible")
+        ("https://www.google.com", True, False, "Not accessible"),
+        ("https://www.google.com", False, False, "Not accessible")
     ])
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
