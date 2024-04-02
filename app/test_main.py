@@ -27,7 +27,7 @@ def mock_has_internet_connection() -> Generator[MagicMock, None, None]:
         (False, False, "Not accessible"),
     ]
 )
-def test_can_access_google_page(
+def test_cannot_access_if_connection_or_valid_url_is_true(
         mock_valid_google_url: MagicMock,
         mock_has_internet_connection: MagicMock,
         valid_url: bool,
@@ -38,4 +38,3 @@ def test_can_access_google_page(
     mock_has_internet_connection.return_value = has_connection
 
     assert can_access_google_page("https://www.google.com/") == expected_output
-
