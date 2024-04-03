@@ -30,12 +30,10 @@ def test_cannot_access_if_connection_or_valid_url_is_true(
     mock_valid_google_url.return_value = valid_url
     mock_has_internet_connection.return_value = has_connection
 
-    result = can_access_google_page("https://www.google.com/")
-
+    assert can_access_google_page("https://www.google.com/") == expected_output
     mock_valid_google_url.assert_called_once()
 
     if valid_url:
         mock_has_internet_connection.assert_called_once()
     else:
         mock_has_internet_connection.assert_not_called()
-    assert result == expected_output
