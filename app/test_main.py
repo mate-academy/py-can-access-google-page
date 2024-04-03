@@ -13,7 +13,6 @@ def get_link() -> str:
 @mock.patch("app.main.has_internet_connection")
 def test_has_internet_connection_call(mocked: mock.MagicMock,
                                       get_link: str) -> None:
-
     can_access_google_page(get_link)
     try:
         mocked.assert_called_once()
