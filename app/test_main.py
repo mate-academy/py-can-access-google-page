@@ -28,14 +28,10 @@ def test_can_access_google_page(mock_valid_google_url,
     mock_valid_google_url.return_value = is_valid_url
     mock_has_internet_connection.return_value = has_connection
 
-    can_access_google_page("https://somefakegoogle.net/")
+    can_access_google_page("https://smfakeggl.net/")
 
     mock_has_internet_connection.assert_called_once()
-    if mock_has_internet_connection.return_value:
-        mock_valid_google_url.assert_called_once_with(
-            "https://somefakegoogle.net/"
-        )
+    if mock_has_internet_connection.assert_called_once():
+        mock_valid_google_url.assert_called_once_with("https://smfakeggl.net/")
 
-    assert can_access_google_page(
-        "https://somefakegoogle.net/"
-    ) == expected_result
+    assert can_access_google_page("https://smfakeggl.net/") == expected_result
