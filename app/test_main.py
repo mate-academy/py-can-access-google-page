@@ -5,24 +5,22 @@ from app.main import can_access_google_page
 
 
 class TestCanAccessGooglePage(unittest.TestCase):
-    @mock.patch("requests.get")
-    @mock.patch("datetime.datetime")
+    @mock.patch("app.main.valid_google_url")
+    @mock.patch("app.main.has_internet_connection")
     def test_can_access_google_page(self,
-                                    mock_time: mock.MagicMock,
-                                    mock_get: mock.MagicMock) -> None:
-        # Response check from valid_google_url function
-        mock_response = mock.MagicMock()
-        mock_response.status_code = 200
-        mock_get.return_value = mock_response
+                                    mock_connection: mock.MagicMock,
+                                    mock_valid_url: mock.MagicMock) -> None:
+        # Mock of has_internet_connection() function
+        mock_result_connection = mock.MagicMock()
+        mock_connection.return_value = mock_result_connection
 
-        # Time check from has_internet_connection
-        mock_now = mock.MagicMock()
-        mock_now.hour = 21
-        mock_time.now.return_value = mock_now
+        # Mock of valid_google_url() function
+        mock_result_valid = mock.MagicMock()
+        mock_valid_url.return_value = mock_result_valid
 
         main_func_call = can_access_google_page("https://somefakegoogle.net")
 
-        mock_get.assert_called_once_with("https://somefakegoogle.net")
-        mock_time.now.assert_called_once()
+        mock_valid_url.assert_called_once_with("https://somefakegoogle.net")
+        mock_connection.assert_called_once()
 
         self.assertEqual(main_func_call, "Accessible")
