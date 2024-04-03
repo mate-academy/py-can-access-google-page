@@ -27,4 +27,3 @@ def test_can_access_google_page(
     mock_valid_google_url.return_value = valid_google_url_return
 
     assert can_access_google_page("url") == expected_result
-
