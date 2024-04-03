@@ -1,26 +1,41 @@
-import unittest
 from unittest import mock
+
+import pytest
 
 from app.main import can_access_google_page
 
 
-class TestCanAccessGooglePage(unittest.TestCase):
-    @mock.patch("app.main.valid_google_url")
-    @mock.patch("app.main.has_internet_connection")
-    def test_can_access_google_page(self,
-                                    mock_connection: mock.MagicMock,
-                                    mock_valid_url: mock.MagicMock) -> None:
-        # Mock of has_internet_connection() function
-        mock_result_connection = mock.MagicMock()
-        mock_connection.return_value = mock_result_connection
+@pytest.mark.parametrize(
+    "has_connection,is_valid_url,expected_result",
+    [
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible"),
+    ],
+    ids=["has_connection_valid_url",
+         "no_connection_valid_url",
+         "has_connection_invalid_url",
+         "no_connection_invalid_url"]
+)
+@mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
+def test_can_access_google_page(mock_valid_google_url,
+                                mock_has_internet_connection,
+                                has_connection,
+                                is_valid_url,
+                                expected_result) -> None:
+    mock_valid_google_url.return_value = is_valid_url
+    mock_has_internet_connection.return_value = has_connection
 
-        # Mock of valid_google_url() function
-        mock_result_valid = mock.MagicMock()
-        mock_valid_url.return_value = mock_result_valid
+    can_access_google_page("https://somefakegoogle.net/")
 
-        main_func_call = can_access_google_page("https://somefakegoogle.net")
+    mock_has_internet_connection.assert_called_once()
+    if mock_has_internet_connection.return_value:
+        mock_valid_google_url.assert_called_once_with(
+            "https://somefakegoogle.net/"
+        )
 
-        mock_valid_url.assert_called_once_with("https://somefakegoogle.net")
-        mock_connection.assert_called_once()
-
-        self.assertEqual(main_func_call, "Accessible")
+    assert can_access_google_page(
+        "https://somefakegoogle.net/"
+    ) == expected_result
