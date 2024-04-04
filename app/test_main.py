@@ -1,5 +1,6 @@
 import pytest
 
+from unittest import mock
 from app.main import can_access_google_page
 
 
@@ -12,22 +13,18 @@ from app.main import can_access_google_page
         (False, False, "Not accessible")
     ]
 )
+@mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
 def test_can_access_google_page(
-        monkeypatch: None,
+        mock_has_internet_connection: None,
+        mock_valid_google_url: None,
         has_internet_connection: bool,
         valid_google_url: bool,
         expected: str
 ) -> None:
 
-    def mock_has_internet_connection(*args) -> bool:
-        return has_internet_connection
-
-    def mock_valid_google_url(*args) -> bool:
-        return valid_google_url
-
-    monkeypatch.setattr("app.main.has_internet_connection",
-                        mock_has_internet_connection)
-    monkeypatch.setattr("app.main.valid_google_url", mock_valid_google_url)
+    mock_has_internet_connection.return_value = has_internet_connection
+    mock_valid_google_url.return_value = valid_google_url
 
     address = "https://www.google.com"
     assert can_access_google_page(address) == expected
