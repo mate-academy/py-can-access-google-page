@@ -43,4 +43,3 @@ def test_func_callable(
 
     mock_internet_connection.assert_called_once()
     mock_valid_url.assert_called_once_with(url)
-
