@@ -6,12 +6,18 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "valid_google_url_return, has_internet_connection_return, expected_result",
+    "has_internet_connection_return, valid_google_url_return, expected_result",
     [
         (True, True, "Accessible"),
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
         (False, False, "Not accessible")
+    ],
+    ids=[
+        "You can access if has connection and url is valid!",
+        "You can`t access if only has connection!",
+        "You can`t access if only url is valid!",
+        "You can`t access if don`t has connection and url isn`t valid!"
     ]
 )
 @mock.patch("app.main.has_internet_connection")
