@@ -1,7 +1,26 @@
 from unittest import mock
+
 import pytest
 
 from app.main import can_access_google_page
+
+
+@pytest.fixture
+def url() -> None:
+    return "https://www.google.com/"
+
+
+@pytest.fixture
+def mock_internet() -> mock.MagicMock:
+    with (mock.patch("app.main.has_internet_connection")
+          as mock_internet_connection):
+        yield mock_internet_connection
+
+
+@pytest.fixture
+def mock_url_valid() -> mock.MagicMock:
+    with mock.patch("app.main.valid_google_url") as mock_valid_url:
+        yield mock_valid_url
 
 
 @pytest.mark.parametrize(
@@ -17,29 +36,26 @@ from app.main import can_access_google_page
                      id="Fail, you have not intern and incorrect url")
     ]
 )
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
 def test_success_cases(
-        mock_valid_url: mock.MagicMock,
-        mock_internet_connection: mock.MagicMock,
+        mock_internet: mock.MagicMock,
+        mock_url_valid: mock.MagicMock,
+        url: str,
         has_internet: bool,
         has_valid_url: bool,
         expected: str
 ) -> None:
-    mock_valid_url.return_value = has_valid_url
-    mock_internet_connection.return_value = has_internet
+    mock_url_valid.return_value = has_valid_url
+    mock_internet.return_value = has_internet
 
-    assert can_access_google_page("https://www.google.com/") == expected
+    assert can_access_google_page(url) == expected
 
 
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
 def test_func_callable(
-        mock_valid_url: mock.MagicMock,
-        mock_internet_connection: mock.MagicMock
+        mock_internet: mock.MagicMock,
+        mock_url_valid: mock.MagicMock,
+        url: str
 ) -> None:
-    url = "https://www.google.com/"
     can_access_google_page(url)
 
-    mock_internet_connection.assert_called_once()
-    mock_valid_url.assert_called_once_with(url)
+    mock_internet.assert_called_once()
+    mock_url_valid.assert_called_once_with(url)
