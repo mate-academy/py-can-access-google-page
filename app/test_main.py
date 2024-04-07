@@ -1,9 +1,9 @@
-from typing import Any
+import pytest_mock
 
 from app.main import can_access_google_page
 
 
-def test_can_access_google_page(mocker: Any) -> None:
+def test_can_access_google_page(mocker: pytest_mock.MockFixture) -> None:
     mocker.patch("app.main.valid_google_url", return_value=True)
     mocker.patch("app.main.has_internet_connection", return_value=True)
 
