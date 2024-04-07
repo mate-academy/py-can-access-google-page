@@ -1,9 +1,8 @@
-import pytest_mock
-
+from unittest.mock import MagicMock
 from app.main import can_access_google_page
 
 
-def test_can_access_google_page(mocker: pytest_mock.MockFixture) -> None:
+def test_can_access_google_page(mocker: MagicMock) -> None:
     mocker.patch("app.main.valid_google_url", return_value=True)
     mocker.patch("app.main.has_internet_connection", return_value=True)
 
