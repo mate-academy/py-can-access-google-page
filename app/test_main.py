@@ -21,10 +21,10 @@ from app.main import can_access_google_page
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
 def test_can_access_google_page(
-    mock_valid_google_url,
-    mock_has_internet_connection,
-    internet_connection,
-    expected_result
+    mock_valid_google_url: MagicMock,
+    mock_has_internet_connection: MagicMock,
+    internet_connection: bool,
+    expected_result: str
 ):
     mock_has_internet_connection.return_value = internet_connection
     mock_valid_google_url.return_value = internet_connection
