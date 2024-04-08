@@ -1,7 +1,13 @@
+from unittest.mock import patch, MagicMock
+
 import pytest
-from unittest.mock import patch
 
 from app.main import can_access_google_page
+
+
+@pytest.fixture
+def url() -> str:
+    return "https://www.google.com"
 
 
 @pytest.mark.parametrize(
@@ -21,12 +27,27 @@ from app.main import can_access_google_page
 )
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_can_access_google_page(mocked_valid_google_url: bool,
-                                mocked_has_internet_connection: bool,
+def test_can_access_google_page(mocked_valid_google_url: MagicMock,
+                                mocked_has_internet_connection: MagicMock,
                                 is_valid_url: bool,
                                 is_internet_connection: bool,
-                                expected_result: str) -> None:
+                                expected_result: str,
+                                url: str) -> None:
     mocked_valid_google_url.return_value = is_valid_url
     mocked_has_internet_connection.return_value = is_internet_connection
 
-    assert can_access_google_page("https://www.google.com") == expected_result
+    assert can_access_google_page(url) == expected_result
+
+
+@patch("app.main.has_internet_connection")
+def test_has_internet_connection_called_ones(mocked_func: MagicMock,
+                                             url: str) -> None:
+    can_access_google_page(url)
+    mocked_func.assert_called_once()
+
+
+@patch("app.main.valid_google_url")
+def test_valid_google_url_was_called(mocked_func: MagicMock,
+                                     url: str) -> None:
+    can_access_google_page(url)
+    mocked_func.assert_called_once_with(url)
