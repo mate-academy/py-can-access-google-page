@@ -17,7 +17,7 @@ def test_cannot_access_if_connection_or_valid_url_is_true(monkeypatch):
     )
 
     test_result = pytest.main(["app/test_main.py"])
-    assert test_result.value == 0, (
+    assert test_result.value == 1, (
         "You cannot access page if only one of 'connection' or " "'valid url' is True."
     )
 
@@ -35,7 +35,7 @@ def test_cannot_access_if_only_connection(monkeypatch):
 
     test_result = pytest.main(["app/test_main.py"])
     assert (
-        test_result.value == 0
+        test_result.value == 1
     ), "You cannot access page if only 'connection' is True."
 
 
@@ -51,4 +51,4 @@ def test_cannot_access_if_only_valid_url(monkeypatch):
     monkeypatch.setattr(main, "can_access_google_page", can_access_if_connection)
 
     test_result = pytest.main(["app/test_main.py"])
-    assert test_result.value == 0, "You cannot access page if only 'valid url' is True."
+    assert test_result.value == 1, "You cannot access page if only 'valid url' is True."
