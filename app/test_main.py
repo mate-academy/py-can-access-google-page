@@ -32,11 +32,11 @@ def test_can_access_google_page(
     mock_valid_url.return_value = valid_url
     mock_has_internet_connection.return_value = internet_connection
 
-    can_access_google_page("https://anylink.com")
+    result = can_access_google_page("https://anylink.com")
 
     mock_has_internet_connection.assert_called_once()
 
     if mock_has_internet_connection.assert_called_once():
         mock_valid_url.assert_called_once_with("https://anylink.com")
 
-    assert can_access_google_page("https://anylink.com") == expected
+    assert result == expected
