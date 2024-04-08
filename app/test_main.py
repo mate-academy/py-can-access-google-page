@@ -1,19 +1,9 @@
-import pytest
 from unittest import mock
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
+
+import pytest
+
 from app.main import can_access_google_page
-
-
-@pytest.fixture
-def mock_has_internet_connection() -> MagicMock:
-    with mock.patch("app.main.has_internet_connection") as mock_conn:
-        yield mock_conn
-
-
-@pytest.fixture
-def mock_valid_google_url() -> MagicMock:
-    with mock.patch("app.main.valid_google_url") as mock_url:
-        yield mock_url
 
 
 @pytest.mark.parametrize(
@@ -31,6 +21,8 @@ def mock_valid_google_url() -> MagicMock:
         "Access denied without internet connection and valid URL",
     ]
 )
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
         mock_has_internet_connection: MagicMock,
         mock_valid_google_url: MagicMock,
