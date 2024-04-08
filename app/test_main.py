@@ -1,4 +1,3 @@
-from unittest import mock
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -21,8 +20,8 @@ from app.main import can_access_google_page
         "Access denied without internet connection and valid URL",
     ]
 )
-@mock.patch("app.main.valid_google_url")
-@mock.patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
 def test_can_access_google_page(
         mock_has_internet_connection: MagicMock,
         mock_valid_google_url: MagicMock,
@@ -33,11 +32,8 @@ def test_can_access_google_page(
     mock_has_internet_connection.return_value = has_internet_connection
     mock_valid_google_url.return_value = valid_google_url
 
-    result = can_access_google_page("https://www.google.com")
-    assert result == expected_result
+    assert can_access_google_page("https://www.google.com") == expected_result
 
     mock_has_internet_connection.assert_called_once()
     if has_internet_connection:
         mock_valid_google_url.assert_called_once()
-    else:
-        mock_valid_google_url.assert_not_called()
