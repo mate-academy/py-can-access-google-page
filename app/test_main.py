@@ -1,40 +1,51 @@
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest import mock
+from unittest.mock import MagicMock
 from app.main import can_access_google_page
-from freezegun import freeze_time
+
+
+@pytest.fixture
+def mock_has_internet_connection() -> MagicMock:
+    with mock.patch("app.main.has_internet_connection") as mock_conn:
+        yield mock_conn
 
 
 @pytest.fixture
 def mock_valid_google_url() -> MagicMock:
-    with patch("app.main.requests.get") as mock_get:
-        yield mock_get
+    with mock.patch("app.main.valid_google_url") as mock_url:
+        yield mock_url
 
 
-def test_accessibility_with_valid_connection(
-        mock_valid_google_url: MagicMock
+@pytest.mark.parametrize(
+    "has_internet_connection, valid_google_url, expected_result",
+    [
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
+    ],
+    ids=[
+        "Access granted with internet and valid URL",
+        "Access denied without valid URL",
+        "Access denied without internet connection",
+        "Access denied without internet connection and valid URL",
+    ]
+)
+def test_can_access_google_page(
+        mock_has_internet_connection: MagicMock,
+        mock_valid_google_url: MagicMock,
+        has_internet_connection: bool,
+        valid_google_url: bool,
+        expected_result: str
 ) -> None:
-    mock_valid_google_url.return_value.status_code = 200
+    mock_has_internet_connection.return_value = has_internet_connection
+    mock_valid_google_url.return_value = valid_google_url
 
-    with freeze_time("2024-04-04 10:00:00"):
-        result = can_access_google_page("https://www.google.com")
-        assert result == "Accessible"
+    result = can_access_google_page("https://www.google.com")
+    assert result == expected_result
 
-
-def test_cannot_access_if_only_valid_url(
-        mock_valid_google_url: MagicMock
-) -> None:
-    mock_valid_google_url.return_value.status_code = 404
-
-    with freeze_time("2024-04-04 10:00:00"):
-        result = can_access_google_page("https://www.invalidurl.com")
-        assert result == "Not accessible"
-
-
-def test_cannot_access_if_only_connection(
-        mock_valid_google_url: MagicMock
-) -> None:
-    mock_valid_google_url.return_value.status_code = 200
-
-    with freeze_time("2024-04-04 23:00:00"):
-        result = can_access_google_page("https://www.google.com")
-        assert result == "Not accessible"
+    mock_has_internet_connection.assert_called_once()
+    if has_internet_connection:
+        mock_valid_google_url.assert_called_once()
+    else:
+        mock_valid_google_url.assert_not_called()
