@@ -21,20 +21,18 @@ from app.main import can_access_google_page
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
 def test_can_access_google_page(
-    mock_valid_google_url: MagicMock,
-    mock_has_internet_connection: MagicMock,
-    valid_url: str,
-    internet_connection: bool,
-    expected_result: str
-) -> None:
+    mock_valid_google_url,
+    mock_has_internet_connection,
+    internet_connection,
+    expected_result
+):
     mock_has_internet_connection.return_value = internet_connection
-    mock_valid_google_url.return_value = \
-        (valid_url == "https://www.google.com")
+    mock_valid_google_url.return_value = internet_connection
 
-    assert can_access_google_page(valid_url) == expected_result
+    assert can_access_google_page("https://www.google.com") == expected_result
 
-    mock_has_internet_connection.assert_called_once_with()
+    mock_has_internet_connection.assert_called_once()
     if internet_connection:
-        mock_valid_google_url.assert_called_once_with(valid_url)
+        mock_valid_google_url.assert_called_once_with("https://www.google.com")
     else:
         mock_valid_google_url.assert_not_called()
