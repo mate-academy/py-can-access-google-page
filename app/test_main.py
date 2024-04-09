@@ -1,13 +1,13 @@
 import pytest
 
-from unittest.mock import patch, MagicMock
+from unittest import mock
+
+from unittest.mock import MagicMock
 
 from app.main import can_access_google_page
 
 
 class TestCanAccessGooglePage:
-    @patch("app.main.valid_google_url")
-    @patch("app.main.has_internet_connection")
     @pytest.mark.parametrize(
         "connection_status, url_validation, expected_result",
         [
@@ -23,6 +23,8 @@ class TestCanAccessGooglePage:
             "Not valid url"
         ]
     )
+    @mock.patch("app.main.has_internet_connection")
+    @mock.patch("app.main.valid_google_url")
     def test_can_access_google_page(
             self,
             mocked_valid_google_url: MagicMock,
@@ -37,6 +39,7 @@ class TestCanAccessGooglePage:
                 == expected_result)
 
         mocked_has_internet_connection.assert_called_once()
-
         if connection_status:
             mocked_valid_google_url.assert_called_once()
+        else:
+            mocked_valid_google_url.assert_not_called()
