@@ -1,5 +1,7 @@
 import pytest
+
 from unittest.mock import patch, MagicMock
+
 from app.main import can_access_google_page
 
 
@@ -33,3 +35,8 @@ class TestCanAccessGooglePage:
         mocked_has_internet_connection.return_value = connection_status
         assert (can_access_google_page("https://www.google.com")
                 == expected_result)
+
+        mocked_has_internet_connection.assert_called_once()
+
+        if connection_status:
+            mocked_valid_google_url.assert_called_once()
