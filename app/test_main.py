@@ -23,19 +23,26 @@ def mocked_connection() -> Any:
         pytest.param(True,
                      True,
                      "Accessible",
-                     id="when validation and connection are true, page should be accessible"),
+                     id="when validation and connection are true, "
+                        "page should be accessible"),
+
         pytest.param(True,
                      False,
                      "Not accessible",
-                     id="when validation is true and no connection, page should not be accessible"),
+                     id="when validation is true and no connection, "
+                        "page should not be accessible"),
+
         pytest.param(False,
                      True,
                      "Not accessible",
-                     id="when no validation and connection is true, page should not be accessible"),
+                     id="when no validation and connection is true, "
+                        "page should not be accessible"),
+
         pytest.param(False,
                      False,
                      "Not accessible",
-                     id="when no validation and no connection are true, page should not be accessible")
+                     id="when no validation and no connection "
+                        "are true, page should not be accessible")
     ]
 )
 def test_can_access_google_page(
