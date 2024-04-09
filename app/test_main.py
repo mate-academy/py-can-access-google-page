@@ -6,7 +6,7 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "internet_connection,valid_google_url,expected_result",
+    "valid_google_url,internet_connection,expected_result",
     [
         (True, True, "Accessible"),
         (True, False, "Not accessible"),
