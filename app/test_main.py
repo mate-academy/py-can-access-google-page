@@ -45,8 +45,10 @@ def test_access_google_page(
 ) -> None:
     mock_valid_google_url.return_value = valid_google_url_value
     mock_has_internet_connection.return_value = has_internet_connection_value
-    assert app.main.can_access_google_page("https://www.google.com")\
-           == expectation
+    assert (
+            app.main.can_access_google_page("https://www.google.com")
+            == expectation
+    )
 
 
 @mock.patch("app.main.valid_google_url")
