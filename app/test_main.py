@@ -1,16 +1,24 @@
+import pytest
 from unittest.mock import MagicMock
+
 from app.main import can_access_google_page
 
 
-def test_can_access_google_page(mocker: MagicMock) -> None:
-    mocker.patch("app.main.valid_google_url", return_value=True)
-    mocker.patch("app.main.has_internet_connection", return_value=True)
+@pytest.mark.parametrize(
+    "valid_google_url, has_internet_connection, expected_result",
+    [
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible")
+    ]
+)
+def test_can_access_google_page(mocker: MagicMock,
+                                valid_google_url: bool,
+                                has_internet_connection: bool,
+                                expected_result: str) -> None:
+    mocker.patch("app.main.valid_google_url",
+                 return_value=valid_google_url)
+    mocker.patch("app.main.has_internet_connection",
+                 return_value=has_internet_connection)
 
-    assert can_access_google_page("https://www.google.com") == "Accessible"
-
-    mocker.patch("app.main.has_internet_connection", return_value=False)
-    assert can_access_google_page("https://www.google.com") == "Not accessible"
-
-    mocker.patch("app.main.valid_google_url", return_value=False)
-    mocker.patch("app.main.has_internet_connection", return_value=True)
-    assert can_access_google_page("https://invalidurl.com") == "Not accessible"
+    assert can_access_google_page("https://www.google.com") == expected_result
