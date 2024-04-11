@@ -1,29 +1,42 @@
-import pytest
-from app.main import can_access_google_page
 from unittest import mock
+from unittest.mock import MagicMock
+
+from app.main import can_access_google_page
+
+import pytest
+
 
 @pytest.mark.parametrize(
-    "valid_url,has_connection,expected",
+    "url, expected_result, mocked_hour",
     [
-        pytest.param(True, True, "Accessible",
-                     id="valid url and has connection"),
-        pytest.param(True, False, "Not accessible",
-                     id="valid url and no connection"),
-        pytest.param(False, True, "Not accessible",
-                     id="invalid url and has connection"),
-        pytest.param(False, False, "Not accessible",
-                     id="invalid url and no connection"),
+        ("", "Not accessible", 5),
+        ("hsgdfjhg", "Not accessible", 2),
+        ("http://www.google.com", "Accessible", 18),
+        ("http://www.google.com", "Not accessible", 4),
+        ("https://www.gogle.com", "Not accessible", 23),
     ]
 )
-def test_can_access_google_page(
-        valid_url: bool,
-        has_connection: bool,
-        expected: str
+def test_can_access_google_page_get_expected_value(
+        url: str,
+        expected_result: str,
+        mocked_hour: int
 ) -> None:
-    with (
-        mock.patch("app.main.valid_google_url") as mocked_valid_url,
-        mock.patch("app.main.has_internet_connection") as mocked_has_connection
-    ):
-        mocked_valid_url.return_value = valid_url
-        mocked_has_connection.return_value = has_connection
-        assert can_access_google_page("") == expected
+    with mock.patch("app.main.datetime.datetime") as mocked_datetime:
+        mocked_now = mock.Mock()
+        mocked_now.hour = mocked_hour
+        mocked_datetime.now.return_value = mocked_now
+        assert can_access_google_page(url) == expected_result
+
+
+def test_has_internet_connection_and_can_access_google_page_was_called(
+) -> None:
+    with mock.patch(
+        "app.main.has_internet_connection"
+    ) as mocked_has_connection, mock.patch(
+        "app.main.valid_google_url"
+    ) as mocked_valid_url:
+
+        url = "https://www.google.com"
+        can_access_google_page(url)
+        mocked_has_connection.assert_called_once()
+        mocked_valid_url.assert_called_once()
