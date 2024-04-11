@@ -1,42 +1,28 @@
 from unittest import mock
-from unittest.mock import MagicMock
-
-from app.main import can_access_google_page
 
 import pytest
 
+from app.main import can_access_google_page
+
 
 @pytest.mark.parametrize(
-    "url, expected_result, mocked_hour",
-    [
-        ("", "Not accessible", 5),
-        ("hsgdfjhg", "Not accessible", 2),
-        ("http://www.google.com", "Accessible", 18),
-        ("http://www.google.com", "Not accessible", 4),
-        ("https://www.gogle.com", "Not accessible", 23),
-    ]
+    "is_response_ok, is_internet_connection, expected_result",
+    [(True, False, "Not accessible"),
+     (False, True, "Not accessible"),
+     (False, False, "Not accessible"),
+     (True, True, "Accessible")]
 )
-def test_can_access_google_page_get_expected_value(
-        url: str,
-        expected_result: str,
-        mocked_hour: int
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_can_access_google_page(
+        mock_has_valid_google_url: pytest.param,
+        mock_has_internet: pytest.param,
+        is_response_ok: bool,
+        is_internet_connection: bool,
+        expected_result: str
 ) -> None:
-    with mock.patch("app.main.datetime.datetime") as mocked_datetime:
-        mocked_now = mock.Mock()
-        mocked_now.hour = mocked_hour
-        mocked_datetime.now.return_value = mocked_now
-        assert can_access_google_page(url) == expected_result
+    mock_has_valid_google_url.return_value = is_response_ok
+    mock_has_internet.return_value = is_internet_connection
 
-
-def test_has_internet_connection_and_can_access_google_page_was_called(
-) -> None:
-    with mock.patch(
-        "app.main.has_internet_connection"
-    ) as mocked_has_connection, mock.patch(
-        "app.main.valid_google_url"
-    ) as mocked_valid_url:
-
-        url = "https://www.google.com"
-        can_access_google_page(url)
-        mocked_has_connection.assert_called_once()
-        mocked_valid_url.assert_called_once()
+    result = can_access_google_page("https://google.com")
+    assert result == expected_result
