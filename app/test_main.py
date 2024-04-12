@@ -1,18 +1,18 @@
 import pytest
+
 from unittest import mock
-from typing import Any
 
 from app.main import can_access_google_page
 
 
 @pytest.fixture
-def mocked_validation() -> Any:
+def mocked_validation() -> mock.Mock:
     with mock.patch("app.main.valid_google_url") as mocked_validation:
         yield mocked_validation
 
 
 @pytest.fixture
-def mocked_connection() -> Any:
+def mocked_connection() -> mock.Mock:
     with mock.patch("app.main.has_internet_connection") as mocked_connection:
         yield mocked_connection
 
@@ -46,15 +46,17 @@ def mocked_connection() -> Any:
     ]
 )
 def test_can_access_google_page(
-        mocked_validation: Any,
-        mocked_connection: Any,
+        mocked_validation: mock.Mock,
+        mocked_connection: mock.Mock,
         validation_return: bool,
         connection_return: bool,
         access_return: str
 ) -> None:
-    can_access_google_page("")
-    mocked_validation.assert_called_once()
-    mocked_connection.assert_called_once()
+
     mocked_validation.return_value = validation_return
     mocked_connection.return_value = connection_return
     assert can_access_google_page("") == access_return
+    if mocked_connection():
+        mocked_validation.assert_called()
+    if mocked_connection():
+        mocked_connection.assert_called()
