@@ -1,51 +1,39 @@
+import pytest
 from typing import Any
-import unittest.mock
-from pytest import fixture
+from unittest import mock
+
 
 import app.main
 
 
-@fixture()
-def mocked_valid_url() -> Any:
-    with unittest.mock.patch("app.main.valid_google_url") as filler1:
-        filler1.return_value = True
-        yield filler1
-
-
-@fixture()
-def mocked_has_connection() -> Any:
-    with unittest.mock.patch("app.main.has_internet_connection") as filler2:
-        filler2.return_value = True
-        yield filler2
-
-
-def test_functions_called_properly(
-        mocked_valid_url: Any,
-        mocked_has_connection: Any
+@pytest.mark.parametrize(
+    ("return_value_url", "return_value_connection", "url", "assert_response"),
+    [
+        pytest.param(
+            True, True, "google.com", "Accessible",
+            id="test should return Accessible when everything is correct"
+        ),
+        pytest.param(
+            False, True, "google..com", "Not accessible",
+            id="test should return Not accessible when url is wrong"
+        ),
+        pytest.param(
+            True, False, "google.com", "Not accessible",
+            id="test should return Not accessible when connection is invalid"
+        )
+    ]
+)
+def test_check_all_outcomes(
+        return_value_url: Any,
+        return_value_connection: Any,
+        url: Any,
+        assert_response: Any
 ) -> None:
-    app.main.can_access_google_page("google.com")
-    mocked_has_connection.assert_called_once()
-    mocked_valid_url.assert_called_once_with("google.com")
-
-
-def test_everything_valid(
-    mocked_valid_url: Any,
-    mocked_has_connection: Any
-) -> None:
-    assert app.main.can_access_google_page("google.com") == "Accessible"
-
-
-def test_only_valid_url(
-        mocked_valid_url: Any,
-        mocked_has_connection: Any
-) -> None:
-    mocked_has_connection.return_value = False
-    assert app.main.can_access_google_page("google.com") == "Not accessible"
-
-
-def test_only_valid_connection(
-        mocked_valid_url: Any,
-        mocked_has_connection: Any
-) -> None:
-    mocked_valid_url.return_value = False
-    assert app.main.can_access_google_page("google..com") == "Not accessible"
+    with mock.patch("app.main.valid_google_url") as mock_url, \
+            mock.patch("app.main.has_internet_connection") as mock_connection:
+        mock_url.return_value = return_value_url
+        mock_connection.return_value = return_value_connection
+        assert app.main.can_access_google_page(url) == assert_response
+        mock_connection.assert_called_once()
+        if mock_connection.return_value is True:
+            mock_url.assert_called_once_with(url)
