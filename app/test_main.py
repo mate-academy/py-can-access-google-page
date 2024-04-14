@@ -10,7 +10,14 @@ from app.main import can_access_google_page
     [
         (True, True, "Accessible", True),
         (False, True, "Not accessible", True),
-        (True, False, "Not accessible", False)
+        (True, False, "Not accessible", False),
+        (False, False, "Not accessible", False)
+    ],
+    ids=[
+        "test should access google page",
+        "test should not have valid url",
+        "test should not access internet",
+        "test should not access internet and have valid url"
     ]
 )
 @mock.patch("app.main.valid_google_url")
