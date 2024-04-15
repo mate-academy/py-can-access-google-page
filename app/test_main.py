@@ -1,8 +1,7 @@
 import pytest
+from unittest import mock
 
 import app.main
-
-from unittest import mock
 
 
 @pytest.fixture()
