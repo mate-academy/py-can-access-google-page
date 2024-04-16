@@ -4,7 +4,6 @@ from unittest import mock
 from .main import can_access_google_page
 
 
-
 @pytest.mark.parametrize(
     "fake_url,fake_connection,result",
     [
