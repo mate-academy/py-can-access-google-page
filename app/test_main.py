@@ -1,13 +1,6 @@
-import app.main
 from app.main import can_access_google_page
 from unittest import mock
 import pytest
-
-
-@pytest.fixture()
-def mocking_functions() -> None:
-    app.main.valid_google_url = mock.MagicMock()
-    app.main.has_internet_connection = mock.MagicMock()
 
 
 @pytest.mark.parametrize(
@@ -39,11 +32,11 @@ def mocking_functions() -> None:
         )
     ]
 )
-def test(mocking_functions: callable,
-         valid_url: bool,
+def test(valid_url: bool,
          connection: bool,
          result: str) -> None:
-    link = "some_link"
-    app.main.valid_google_url.return_value = valid_url
-    app.main.has_internet_connection.return_value = connection
-    assert can_access_google_page(link) == result
+    with (mock.patch("app.main.valid_google_url",
+                     return_value=valid_url),
+          mock.patch("app.main.has_internet_connection",
+                     return_value=connection)):
+        assert can_access_google_page("some_link") == result
