@@ -1,6 +1,6 @@
 import pytest
-
 from unittest import mock
+
 from app.main import can_access_google_page
 
 
@@ -32,4 +32,4 @@ def test_can_access_google_page(
 ) -> None:
     mocked_valid_url.return_value = valid_url
     mocked_has_connection.return_value = has_connection
-    assert can_access_google_page("") == expected
+    assert can_access_google_page("https://google.com/") == expected
