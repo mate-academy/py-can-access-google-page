@@ -8,10 +8,14 @@ from app.main import can_access_google_page
 @pytest.mark.parametrize(
     "url,connection,result",
     [
-        pytest.param(True, True, "Accessible", id="connection/url should be 'T'/'T'"),
-        pytest.param(True, False, "Not accessible", id="connection/url should be 'T'/'F'"),
-        pytest.param(False, True, "Not accessible", id="connection/url should be 'F'/'T'"),
-        pytest.param(False, False, "Not accessible", id="connection/url should be 'F'/'F'")
+        pytest.param(True, True, "Accessible",
+                     id="connection/url should be 'T'/'T'"),
+        pytest.param(True, False, "Not accessible",
+                     id="connection/url should be 'T'/'F'"),
+        pytest.param(False, True, "Not accessible",
+                     id="connection/url should be 'F'/'T'"),
+        pytest.param(False, False, "Not accessible",
+                     id="connection/url should be 'F'/'F'")
     ]
 )
 @mock.patch("app.main.valid_google_url")
