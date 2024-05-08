@@ -9,9 +9,9 @@ from app.main import can_access_google_page
     "url,connection,result",
     [
         (True, True, "Accessible"),
-        (True, False, "Not Accessible"),
-        (False, False, "Not Accessible"),
-        (False, True, "Not Accessible")
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible"),
+        (False, True, "Not accessible")
     ]
 )
 @mock.patch("app.main.valid_google_url")
