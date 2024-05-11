@@ -1,19 +1,16 @@
-import pytest
 from unittest import mock
+import pytest
+
 from app.main import can_access_google_page
 
 
-@pytest.mark.parametrize(
-    "mock_param_valid_google_url, mock_param_internet_connection, result",
-    [pytest.param(True, True, "Accessible",
-                  id="Test when URL and Connection is valid"),
-     pytest.param(True, False, "Not accessible",
-                  id="Test when URL is valid and Connection is invalid"),
-     pytest.param(False, True, "Not accessible",
-                  id="Test when URL is invalid and Connection is valid"),
-     pytest.param(False, False, "Not accessible",
-                  id="Test when URL is invalid and Connection is invalid")
-     ])
+@pytest.mark.parametrize("correct_url, has_connection, expected", [
+    (True, True, "Accessible"),
+    (True, False, "Not accessible"),
+    (False, True, "Not accessible"),
+    (False, False, "Not accessible")
+]
+)
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(mock_valid_google_url: mock.MagicMock,
