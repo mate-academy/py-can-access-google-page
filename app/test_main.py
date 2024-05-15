@@ -6,9 +6,14 @@ import pytest
 
 @pytest.mark.parametrize(
     "values,result", [
-        ([True, True], "Accessible"),
-        ([True, False], "Not accessible"),
-        ([False, True], "Not accessible"),
+        pytest.param([True, True], "Accessible",
+                     id="User don't have access with internet and valid url"),
+        pytest.param([True, False], "Not accessible",
+                     id="User has access without valid url"),
+        pytest.param([False, True], "Not accessible",
+                     id="User has access without internet"),
+        pytest.param([False, False], "Not accessible",
+                     id="User has access without internet and valid url"),
     ]
 )
 @mock.patch("app.main.valid_google_url")
