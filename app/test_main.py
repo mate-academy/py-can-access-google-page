@@ -20,9 +20,9 @@ def test_internet_connection() -> None:
 
 
 def test_cannot_access_if_only_valid_url() -> None:
-    with ((mock.patch("app.main.has_internet_connection",
+    with (mock.patch("app.main.has_internet_connection",
                       return_value=False),
-           mock.patch("app.main.valid_google_url", return_value=True))):
+           mock.patch("app.main.valid_google_url", return_value=True)):
         assert can_access_google_page(
             "http://www.google.com") == "Not accessible"
 
