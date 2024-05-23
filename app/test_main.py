@@ -1,7 +1,5 @@
 from unittest import mock
 
-import pytest
-
 from app.main import can_access_google_page
 
 
@@ -35,15 +33,22 @@ def test_with_returned_false_by_inner_function_2() -> None:
         assert can_access_google_page("") == "Not accessible"
 
 
-@pytest.mark.parametrize(
-    "url,expected",
-    [
-        ("bad_url", Exception),
-    ]
-)
-def test_exception_rising(
-        url: str,
-        expected: type(Exception)
-) -> None:
-    with pytest.raises(expected):
-        can_access_google_page(url)
+def test_with_returned_false_by_both_inner_functions() -> None:
+    with (
+        mock.patch("app.main.has_internet_connection") as mocked_internet,
+        mock.patch("app.main.valid_google_url") as mocked_url_validation
+    ):
+        mocked_internet.return_value = False
+        mocked_url_validation.return_value = False
+        assert can_access_google_page("") == "Not accessible"
+
+
+
+def test_with_returned_true_by_both_inner_functions() -> None:
+    with (
+        mock.patch("app.main.has_internet_connection") as mocked_internet,
+        mock.patch("app.main.valid_google_url") as mocked_url_validation
+    ):
+        mocked_internet.return_value = True
+        mocked_url_validation.return_value = True
+        assert can_access_google_page("") == "Accessible"
