@@ -43,7 +43,6 @@ def test_with_returned_false_by_both_inner_functions() -> None:
         assert can_access_google_page("") == "Not accessible"
 
 
-
 def test_with_returned_true_by_both_inner_functions() -> None:
     with (
         mock.patch("app.main.has_internet_connection") as mocked_internet,
