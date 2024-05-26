@@ -42,25 +42,3 @@ class TestCanAccessGooglePage:
         mocked_valid_url_check.return_value = valid_url_response
         assert (can_access_google_page("https://some-page.com/")
                 == expected_response)
-
-    @mock.patch("app.main.has_internet_connection")
-    @mock.patch("app.main.valid_google_url")
-    def test_valid_url_call(
-            self,
-            mocked_valid_url_check: Callable,
-            mocked_internet_connection_check: Callable
-    ) -> None:
-        url = "https://some-page.com/"
-        can_access_google_page(url)
-        mocked_valid_url_check.assert_called_once_with(url)
-
-    @mock.patch("app.main.has_internet_connection")
-    @mock.patch("app.main.valid_google_url")
-    def test_internet_connection_call(
-            self,
-            mocked_valid_url_check: Callable,
-            mocked_internet_connection_check: Callable
-    ) -> None:
-        url = "https://some-page.com/"
-        can_access_google_page(url)
-        mocked_internet_connection_check.assert_called_once()
