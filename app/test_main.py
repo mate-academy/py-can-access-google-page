@@ -62,4 +62,4 @@ def test_non_valid_url_and_no_connection(
     mocked_has_internet_connection.return_value = False
     assert (
         can_access_google_page("url") == "Not accessible"
-    ), "Should be 'Not accessible' with non valid url and non existing connection"
+    ), "Should be 'Not accessible' with non valid url and no connection"
