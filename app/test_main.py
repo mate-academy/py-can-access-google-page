@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch
+from unittest import mock
 from app.main import can_access_google_page
 
 
@@ -12,11 +12,14 @@ from app.main import can_access_google_page
         ("https://invalid-url.com", False, False, "Not accessible"),
     ]
 )
-def test_can_access_google_page(url: str,
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_can_access_google_page(mock_valid_url_function: object,
+                                mock_internet_connection: object,
+                                url: str,
                                 mock_valid_url: bool,
                                 mock_internet: bool,
                                 expected: str) -> None:
-    with (patch("app.main.valid_google_url", return_value=mock_valid_url),
-          patch("app.main.has_internet_connection",
-                return_value=mock_internet)):
-        assert can_access_google_page(url) == expected
+    mock_valid_url_function.return_value = mock_valid_url
+    mock_internet_connection.return_value = mock_internet
+    assert can_access_google_page(url) == expected
