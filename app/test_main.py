@@ -4,47 +4,42 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "url, expected_result, has_internet, valid_url",
+    "url, internet, valid_url, expected",
     [
-        pytest.param(
+        (
             "https://www.google.com",
-            "Accessible",
-            "True",
-            "True",
-            id="All good"
+            True,
+            True,
+            "Accessible"
         ),
-        pytest.param(
+        (
             "https://www.google.com",
-            "Not accessible",
-            "False",
-            "True",
-            id="No internet"
+            True,
+            False,
+            "Not accessible"
         ),
-        pytest.param(
+        (
             "https://www.google.com",
-            "Not accessible",
-            "True",
-            "False",
-            id="No url"
+            False,
+            True,
+            "Not accessible"
         ),
-        pytest.param(
+        (
             "https://www.google.com",
-            "Not accessible",
-            "False",
-            "False",
-            id="No url and no Internet"
+            False,
+            False,
+            "Not accessible"
         )
     ]
 )
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page(
-        mocked_internet_connection: callable,
-        mocked_valid_url: callable,
-        url: str,
-        expected_result: str,
-        has_internet: bool,
-        valid_url: bool) -> None:
-    mocked_internet_connection.return_value = has_internet
-    mocked_valid_url.return_value = valid_url
-    assert can_access_google_page(url) == expected_result
+def test_can_access_google_page(mock_valid_url_function: object,
+                                mock_internet_connection: object,
+                                url: str,
+                                internet: bool,
+                                valid_url: bool,
+                                expected: str) -> None:
+    mock_internet_connection.return_value = internet
+    mock_valid_url_function.return_value = valid_url
+    assert can_access_google_page(url) == expected
