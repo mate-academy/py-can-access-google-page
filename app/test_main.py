@@ -10,6 +10,13 @@ from app.main import can_access_google_page
         ("https://www.google.com", True, False, "Not accessible"),
         ("https://invalid-url.com", False, True, "Not accessible"),
         ("https://invalid-url.com", False, False, "Not accessible"),
+    ],
+    ids=[
+        "Function should return Accessible when all good",
+        "Function should return not accessible when has no internet",
+        "Function should return not accessible when url is invalid",
+        (f"Function should return not accessible"
+         f" when has no internet and url is invalid"),
     ]
 )
 @mock.patch("app.main.valid_google_url")
