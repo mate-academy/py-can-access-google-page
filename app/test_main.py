@@ -8,8 +8,8 @@ class TestCanAccessGooglePage(unittest.TestCase):
     @patch("app.main.has_internet_connection", return_value=True)
     def test_accessible_google_page(
             self,
-            mock_valid_url: bool,
-            mock_internet_connection: bool
+            mock_valid_url: str,
+            mock_internet_connection: str
     ) -> None:
 
         result = can_access_google_page("https://www.google.com")
@@ -19,8 +19,8 @@ class TestCanAccessGooglePage(unittest.TestCase):
     @patch("app.main.has_internet_connection", return_value=True)
     def test_invalid_url(
             self,
-            mock_valid_url: bool,
-            mock_internet_connection: bool
+            mock_valid_url: str,
+            mock_internet_connection: str
     ) -> None:
 
         result = can_access_google_page("https://invalid-url.com")
@@ -30,8 +30,8 @@ class TestCanAccessGooglePage(unittest.TestCase):
     @patch("app.main.has_internet_connection", return_value=False)
     def test_no_internet_connection(
             self,
-            mock_valid_url: bool,
-            mock_internet_connection: bool
+            mock_valid_url: str,
+            mock_internet_connection: str
     ) -> None:
 
         result = can_access_google_page("https://www.google.com")
