@@ -3,7 +3,7 @@
 - Read [the guideline](https://github.com/mate-academy/py-task-guideline/blob/main/README.md) before start
 
 Inside `app/test_main.py`, write a test for `can_access_google_page` function. This function takes
-`url` of the site, returns `"Accessible"` if `url` is valid to 
+`url` of the site, returns `""` if `url` is valid to 
 access the Google home page and 
 it has internet connection, else it returns `"Not accessible"`.
 
