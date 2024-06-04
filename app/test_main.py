@@ -1,43 +1,28 @@
-from app.main import can_access_google_page
 import pytest
 
+from app.main import can_access_google_page
+from unittest.mock import patch
 
-def test_can_access_google_page_available(
-        monkeypatch: pytest.MonkeyPatch
+
+@pytest.mark.parametrize(
+    "internet_connection, valid_url, expected_result",
+    [
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible"),
+    ]
+)
+def test_can_access_google_page(
+        internet_connection: bool,
+        valid_url: bool,
+        expected_result: str
 ) -> None:
 
-    monkeypatch.setattr("app.main.has_internet_connection", lambda: True)
-    monkeypatch.setattr("app.main.valid_google_url", lambda url: True)
-
-    result = can_access_google_page("http://www.google.com")
-    assert result == "Accessible"
-
-
-def test_can_access_google_page_not_accessible_due_to_internet_connection(
-    monkeypatch: pytest.MonkeyPatch
-) -> None:
-    monkeypatch.setattr("app.main.has_internet_connection", lambda: False)
-    monkeypatch.setattr("app.main.valid_google_url", lambda url: True)
-
-    result = can_access_google_page("http://www.google.com")
-    assert result == "Not accessible"
-
-
-def test_can_access_google_page_not_accessible_due_to_invalid_url(
-    monkeypatch: pytest.MonkeyPatch
-) -> None:
-    monkeypatch.setattr("app.main.has_internet_connection", lambda: True)
-    monkeypatch.setattr("app.main.valid_google_url", lambda url: False)
-
-    result = can_access_google_page("http://www.google.com")
-    assert result == "Not accessible"
-
-
-def test_can_access_google_page_not_accessible_due_to_both_conditions(
-    monkeypatch: pytest.MonkeyPatch
-) -> None:
-    monkeypatch.setattr("app.main.has_internet_connection", lambda: False)
-    monkeypatch.setattr("app.main.valid_google_url", lambda url: False)
-
-    result = can_access_google_page("http://www.google.com")
-    assert result == "Not accessible"
+    with patch(
+            "app.main.has_internet_connection",
+            return_value=internet_connection
+    ):
+        with patch("app.main.valid_google_url", return_value=valid_url):
+            result = can_access_google_page("http://www.google.com")
+            assert result == expected_result
