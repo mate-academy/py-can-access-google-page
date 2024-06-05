@@ -4,7 +4,7 @@ from unittest import mock
 
 
 @pytest.mark.parametrize(
-    "google_url, internet_connection,result",
+    "google_url,internet_connection,result",
     [
         (True, True, "Accessible"),
         (True, False, "Not accessible"),
