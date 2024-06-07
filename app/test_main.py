@@ -20,7 +20,7 @@ def test_can_access_google_page(
     valid_url: bool,
     connection_exists: bool,
     expected: str
-):
+) -> None:
     mock_has_internet_connection.return_value = connection_exists
     mock_valid_google_url.return_value = valid_url
     assert can_access_google_page("https://google.com") == expected
