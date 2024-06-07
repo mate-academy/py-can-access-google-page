@@ -21,4 +21,4 @@ def test_check_invalid_url(mock_valid_google_url: patch,
 @patch("app.main.valid_google_url", return_value=True)
 def test_check_no_connection(mock_valid_google_url: patch,
                              mock_has_internet_connection: patch) -> None:
-    assert can_acces_google_page("https://www.google.com") == "Not accessible"
+    assert can_access_google_page("https://www.google.com") == "Not accessible"
