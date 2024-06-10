@@ -14,13 +14,13 @@ from app.main import can_access_google_page
             "Not accessible"
         ),
         pytest.param(
-            "https://www.google.com",
+            "https://www.bing.com",
             True,
             False,
             "Not accessible"
         ),
         pytest.param(
-            "https://www.google.com",
+            "https://www.yahoo.com",
             True,
             True,
             "Accessible"
