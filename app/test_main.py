@@ -27,9 +27,9 @@ from app.main import can_access_google_page
             id="Test invalid url"
         ),
         pytest.param(
-            False,
             True,
-            "Not accessible",
+            True,
+            "Accessible",
             id="Test valid url and have internet"
         ),
     ]
