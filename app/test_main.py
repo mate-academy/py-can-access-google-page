@@ -12,26 +12,27 @@ from app.main import can_access_google_page
             False,
             False,
             "Not accessible",
-            id="Test should return `Not accessible` if url is"
+            id="Function should return `Not accessible` if url is"
                " not valid and no internet connection"
         ),
         pytest.param(
             True,
             False,
             "Not accessible",
-            id="Test should return `Not accessible` if no internet connection"
+            id="Function should return `Not accessible` if "
+               "no internet connection"
         ),
         pytest.param(
             False,
             True,
             "Not accessible",
-            id="Test should return `Not accessible` if url is not valid"
+            id="Function should return `Not accessible` if url is not valid"
         ),
         pytest.param(
             True,
             True,
             "Accessible",
-            id="Test should return `Accessible` if valid "
+            id="Function should return `Accessible` if valid "
                "url and have internet connection"
         ),
     ]
