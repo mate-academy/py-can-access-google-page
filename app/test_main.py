@@ -1,26 +1,9 @@
 from typing import Callable
-
-from app.main import can_access_google_page
 from unittest import mock
 
 import pytest
 
-
-@pytest.fixture
-def url() -> str:
-    return "https://google.com"
-
-
-@pytest.fixture
-def mock_internet_connection() -> mock.MagicMock:
-    with mock.patch("app.main.has_internet_connection") as mock_connection:
-        yield mock_connection
-
-
-@pytest.fixture
-def mock_valid_google_url() -> mock.MagicMock:
-    with mock.patch("app.main.valid_google_url") as mock_valid_url:
-        yield mock_valid_url
+from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
@@ -38,13 +21,15 @@ def mock_valid_google_url() -> mock.MagicMock:
         "can access with connection and valid url"
     ]
 )
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
 def test_should_access_google_page(
         mock_internet_connection: Callable,
         mock_valid_google_url: Callable,
         connection_return: bool,
         valid_url_return: bool,
-        expected_result: str,
-        url: str) -> None:
+        expected_result: str
+) -> None:
     mock_internet_connection.return_value = connection_return
     mock_valid_google_url.return_value = valid_url_return
-    assert can_access_google_page(url) == expected_result
+    assert can_access_google_page("https://google.com") == expected_result
