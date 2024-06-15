@@ -11,7 +11,8 @@ from app.main import can_access_google_page
         (True, True, None),
         (True, False, AssertionError),
         (False, True, AssertionError),
-        (True, False, AssertionError)
+        (False, False, AssertionError),
+
     ]
 )
 @mock.patch("app.main.valid_google_url")
