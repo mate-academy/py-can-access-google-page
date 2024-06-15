@@ -9,8 +9,9 @@ from app.main import can_access_google_page
     "has_net_connection, valid_url, error",
     [
         (True, True, None),
+        (True, False, AssertionError),
         (False, True, AssertionError),
-        (False, False, AssertionError)
+        (True, False, AssertionError)
     ]
 )
 @mock.patch("app.main.valid_google_url")
