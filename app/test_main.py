@@ -21,16 +21,14 @@ def test_can_access_google_page(mock_has_internet_connection: mock,
                                 has_net_connection: bool | int,
                                 valid_url: bool | int,
                                 error: Type[Exception]) -> None:
+    mock_has_internet_connection.return_value = has_net_connection
+    mock_valid_google_url.return_value = valid_url
     try:
-        mock_has_internet_connection.return_value = has_net_connection
-        mock_valid_google_url.return_value = valid_url
         can_access_google_page("https://www.google.com")
         mock_has_internet_connection.assert_called_once()
         mock_valid_google_url.assert_called_once()
     except Exception:
         with pytest.raises(error):
-            mock_has_internet_connection.return_value = has_net_connection
-            mock_valid_google_url.return_value = valid_url
             can_access_google_page("https://www.google.com")
             mock_has_internet_connection.assert_called_once()
             mock_valid_google_url.assert_called_once()
