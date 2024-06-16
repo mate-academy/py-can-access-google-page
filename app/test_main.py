@@ -1,4 +1,3 @@
-from typing import Type
 from unittest import mock
 import pytest
 
@@ -21,7 +20,7 @@ def test_can_access_google_page(mock_has_internet_connection: mock,
                                 mock_valid_google_url: mock,
                                 has_net_connection: bool | int,
                                 valid_url: bool | int,
-                                is_connect: bool) -> None:
+                                is_connect: str) -> None:
     mock_has_internet_connection.return_value = has_net_connection
     mock_valid_google_url.return_value = valid_url
     assert (can_access_google_page("https://www.google.com") == is_connect)
