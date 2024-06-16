@@ -6,12 +6,12 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "has_net_connection, valid_url, error",
+    "has_net_connection, valid_url, is_connect",
     [
-        (True, True, None),
-        (True, False, AssertionError),
-        (False, True, AssertionError),
-        (False, False, AssertionError),
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
 
     ]
 )
@@ -21,15 +21,7 @@ def test_can_access_google_page(mock_has_internet_connection: mock,
                                 mock_valid_google_url: mock,
                                 has_net_connection: bool | int,
                                 valid_url: bool | int,
-                                error: Type[Exception]) -> None:
+                                is_connect: bool) -> None:
     mock_has_internet_connection.return_value = has_net_connection
     mock_valid_google_url.return_value = valid_url
-    try:
-        can_access_google_page("https://www.google.com")
-        mock_has_internet_connection.assert_called_once()
-        mock_valid_google_url.assert_called_once()
-    except Exception:
-        with pytest.raises(error):
-            can_access_google_page("https://www.google.com")
-            mock_has_internet_connection.assert_called_once()
-            mock_valid_google_url.assert_called_once()
+    assert (can_access_google_page("https://www.google.com") == is_connect)
