@@ -34,3 +34,12 @@ class TestGooglePageAccess(unittest.TestCase):
         mocked_connection.return_value = True
         mocked_url.return_value = False
         assert can_access_google_page("http://google.com") == "Not accessible"
+
+    def test_cannot_access_when_no_connection_and_no_valid_url(
+            self,
+            mocked_url: MagicMock,
+            mocked_connection: MagicMock
+    ) -> None:
+        mocked_connection.return_value = False
+        mocked_url.return_value = False
+        assert can_access_google_page("http://google.com") == "Not accessible"
