@@ -8,12 +8,14 @@ from app.main import can_access_google_page
     [
         (True, True, "Accessible"),
         (False, True, "Not accessible"),
-        (True, False, "Not accessible")
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible"),
     ],
     ids=[
         "test_valid_url_and_connection",
         "test_not_valid_url",
-        "test_has_not_connection"
+        "test_has_not_connection",
+        "test_not_valid_url_and_has_not_connection"
     ]
 )
 @mock.patch("app.main.has_internet_connection")
