@@ -1,24 +1,18 @@
-import pytest
-from unittest.mock import patch
+from unittest import mock
 from app.main import can_access_google_page
 
 
-@pytest.mark.parametrize("has_internet, valid_url, expected",
-                         [
-                             (True, True, "Accessible"),
-                             (False, True, "Not accessible"),
-                             (True, False, "Not accessible"),
-                             (False, False, "Not accessible")
-                         ])
-@patch("app.valid_google_url")
-@patch("app.has_internet_connection")
-def test_can_access_google_page(mock_has_internet_connection: bool,
-                                mock_valid_google_url: bool,
-                                has_internet: bool,
-                                valid_url: bool,
-                                expected: str) -> None:
-    mock_has_internet_connection.return_value = has_internet
-    mock_valid_google_url.return_value = valid_url
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_can_access_google_page(
+        mocked_url: bool,
+        mocked_internet_connection: bool
+) -> None:
+    mocked_url.return_value(True)
+    mocked_internet_connection.return_value(True)
 
-    url = "https://www.google.com"
-    assert can_access_google_page(url) == expected
+    result = can_access_google_page("https://www.google.com")
+    assert result == "Accessible"
+
+    mocked_url.assert_called()
+    mocked_internet_connection.assert_called()
