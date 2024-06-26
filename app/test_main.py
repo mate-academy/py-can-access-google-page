@@ -1,38 +1,29 @@
+import pytest
 from unittest.mock import patch
 from app.main import can_access_google_page
 
 
-@patch("app.main.valid_google_url", return_value=True)
-@patch("app.main.has_internet_connection", return_value=True)
-def test_can_access_google_page_accessible(
-    mock_valid_url: patch, mock_internet_connection: patch
+@pytest.mark.parametrize(
+    "url, valid_url, internet_connection, expected",
+    [
+        ("https://www.google.com", True, True, "Accessible"),
+        ("https://www.google.com", True, False, "Not accessible"),
+        ("https://invalid.url", False, True, "Not accessible"),
+        ("https://invalid.url", False, False, "Not accessible")
+    ]
+)
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
+def test_can_access_google_page(
+    mock_internet_connection: patch,
+    mock_valid_url: patch,
+    url: str,
+    valid_url: bool,
+    internet_connection: bool,
+    expected: str
 ) -> None:
-    result = can_access_google_page("https://www.google.com")
-    assert result == "Accessible"
+    mock_valid_url.return_value = valid_url
+    mock_internet_connection.return_value = internet_connection
 
-
-@patch("app.main.valid_google_url", return_value=True)
-@patch("app.main.has_internet_connection", return_value=False)
-def test_can_access_google_page_not_accessible_no_internet(
-    mock_valid_url: patch, mock_internet_connection: patch
-) -> None:
-    result = can_access_google_page("https://www.google.com")
-    assert result == "Not accessible"
-
-
-@patch("app.main.valid_google_url", return_value=False)
-@patch("app.main.has_internet_connection", return_value=True)
-def test_can_access_google_page_not_accessible_invalid_url(
-    mock_valid_url: patch, mock_internet_connection: patch
-) -> None:
-    result = can_access_google_page("https://invalid.url")
-    assert result == "Not accessible"
-
-
-@patch("app.main.valid_google_url", return_value=False)
-@patch("app.main.has_internet_connection", return_value=False)
-def test_can_access_google_page_not_accessible_both_invalid(
-    mock_valid_url: patch, mock_internet_connection: patch
-) -> None:
-    result = can_access_google_page("https://invalid.url")
-    assert result == "Not accessible"
+    result = can_access_google_page(url)
+    assert result == expected
