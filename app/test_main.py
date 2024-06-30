@@ -18,7 +18,10 @@ def test_can_access_google_page(
         has_internet: bool,
         excepted: str
 ) -> None:
-    with mock.patch("app.main.valid_google_url", return_value=valid_url), \
-            mock.patch("app.main.has_internet_connection",
-                       return_value=has_internet):
+    with (
+        mock.patch(
+            "app.main.valid_google_url", return_value=valid_url),
+        mock.patch(
+            "app.main.has_internet_connection", return_value=has_internet)
+    ):
         assert can_access_google_page(url) == excepted
