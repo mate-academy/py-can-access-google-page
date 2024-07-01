@@ -1,5 +1,6 @@
 import pytest
 from unittest import mock
+
 from app.main import can_access_google_page
 
 
@@ -9,15 +10,19 @@ from app.main import can_access_google_page
         (True, True, "Accessible", "https://translate.google.com/"
                                    "?hl=ru&sl=en&tl=ru&op=translate"),
         (False, True, "Not accessible", ""),
-        (True, False, "Not accessible", "https://translate.google.com/?hl="
-                                        "ru&sl=en&tl=ru&op=translate")
+        (True, False, "Not accessible", "https://www.python.org/downloads/release/python-3123/")
     ]
 )
-def test_can_access_google_page(valid_url: bool, internet_connection: bool,
-                                expected: str, url: str) -> None:
-    with (
-        mock.patch("app.main.valid_google_url", return_value=valid_url),
-        mock.patch("app.main.has_internet_connection",
-                   return_value=internet_connection)
-    ):
-        assert can_access_google_page(url) == expected
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_can_access_google_page(
+        mock_valid_google_url: mock.Mock,
+        mock_has_internet_connection: mock.Mock,
+        valid_url: bool,
+        internet_connection: bool,
+        expected: str,
+        url: str) -> None:
+    mock_valid_google_url.return_value = valid_url
+    mock_has_internet_connection.return_value = internet_connection
+
+    assert can_access_google_page(url) == expected
