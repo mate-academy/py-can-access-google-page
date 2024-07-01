@@ -10,7 +10,8 @@ from app.main import can_access_google_page
         (True, True, "Accessible", "https://translate.google.com/"
                                    "?hl=ru&sl=en&tl=ru&op=translate"),
         (False, True, "Not accessible", ""),
-        (True, False, "Not accessible", "https://www.python.org/downloads/release/python-3123/")
+        (True, False, "Not accessible", "https://www.python.org/"
+                                        "downloads/release/python-3123/")
     ]
 )
 @mock.patch("app.main.valid_google_url")
