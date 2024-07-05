@@ -7,7 +7,7 @@ Inside `app/test_main.py`, write a test for `can_access_google_page` function. T
 access the Google home page and 
 it has internet connection, else it returns `"Not accessible"`.
 
-This function uses**:**
+This function uses:
 - `valid_google_url` function, that takes `url` and return `True` if
 `url` is in valid values.
 - `has_internet_connection` function, returns `True` if current time is
