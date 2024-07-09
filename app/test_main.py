@@ -11,7 +11,9 @@ from app.main import can_access_google_page
                                    "?hl=ru&sl=en&tl=ru&op=translate"),
         (False, True, "Not accessible", ""),
         (True, False, "Not accessible", "https://www.python.org/"
-                                        "downloads/release/python-3123/")
+                                        "downloads/release/python-3123/"),
+        (False, False, "Not accessible", "https://github.com/mate-academy/"
+                                         "py-can-access-google-page/pull/956"),
     ]
 )
 @mock.patch("app.main.valid_google_url")
