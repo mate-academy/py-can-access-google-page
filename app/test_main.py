@@ -13,7 +13,7 @@ from app.main import can_access_google_page
 def test_should_check_can_access_google_page(
         valid_ural: bool,
         has_internet: bool,
-        result: str):
+        result: str) -> None:
     with (
         mock.patch("app.main.valid_google_url") as mocked_url,
         mock.patch("app.main.has_internet_connection") as mocked_internet
