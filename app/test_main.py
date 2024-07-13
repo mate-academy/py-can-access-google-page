@@ -4,18 +4,6 @@ import pytest
 from app.main import can_access_google_page
 
 
-@pytest.fixture()
-def mock_valid_url() -> object:
-    with mock.patch("app.main.valid_google_url") as valid:
-        yield valid
-
-
-@pytest.fixture()
-def mock_connection() -> object:
-    with mock.patch("app.main.has_internet_connection") as connect:
-        yield connect
-
-
 @pytest.mark.parametrize(
     "value_connection, value_valid, result",
     [
@@ -26,6 +14,8 @@ def mock_connection() -> object:
     ], ids=["no connection & no valid", "only connection",
             "only valid", "connection & valid"]
 )
+@mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
 def test_valid_url_and_connection_exists(
         mock_valid_url: object, mock_connection: object,
         value_connection: bool, value_valid: bool, result: str) -> None:
