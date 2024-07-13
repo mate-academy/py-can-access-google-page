@@ -3,22 +3,61 @@ import pytest
 from unittest import mock
 
 
-@pytest.fixture()
-def mocked_valid_google_url() -> None:
-    with mock.patch("valid_google_url()") as google_url:
-        yield google_url
-
-
-@pytest.fixture()
-def mocked_has_internet_connection() -> None:
-    with mock.patch("has_internet_connection()") as internet_connection:
-        yield internet_connection
-
-
+@pytest.mark.parametrize(
+    "mocked_internet_return, mocked_valid_return, url, expected",
+    [
+        (
+            True, True,
+            (
+                "https://www.google.com/"
+                "webhp?hl=uk&sa=X&ved="
+                "0ahUKEwidt-"
+                "fAtJyHAxV4BdsEHaGQCtwQPAgI"
+            ),
+            "Accessible"
+        ),
+        (
+            True, False,
+            (
+                "https://www.google.com/"
+                "webhp?hl=uk&sa=X&ved="
+                "0ahUKEwidt-"
+                "fAtJyHAxV4BdsEHaGQCtwQPAgI"
+            ),
+            "Not accessible"
+        ),
+        (
+            False, True,
+            (
+                "https://www.google.com/"
+                "webhp?hl=uk&sa=X&ved="
+                "0ahUKEwidt-"
+                "fAtJyHAxV4BdsEHaGQCtwQPAgI"
+            ),
+            "Not accessible"
+        ),
+        (
+            False, False,
+            (
+                "https://www.google.com/"
+                "webhp?hl=uk&sa=X&ved="
+                "0ahUKEwidt-"
+                "fAtJyHAxV4BdsEHaGQCtwQPAgI"
+            ),
+            "Not accessible"
+        ),
+    ]
+)
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-    mocked_valid_google_url: None,
-    mocked_has_internet_connection: None
+    mocked_internet: any,
+    mocked_valid: any,
+    mocked_internet_return: bool,
+    mocked_valid_return: bool,
+    url: str,
+    expected: str
 ) -> None:
-    mocked_valid_google_url.assert_called_once()
-    mocked_has_internet_connection.assert_called_once()
-    assert can_access_google_page("https://www.google.com") == "Accessible"
+    mocked_internet.return_value = mocked_internet_return
+    mocked_valid.return_value = mocked_valid_return
+    assert can_access_google_page(url) == expected
