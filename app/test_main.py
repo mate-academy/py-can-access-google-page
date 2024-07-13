@@ -28,7 +28,7 @@ def mock_connection() -> object:
 )
 def test_valid_url_and_connection_exists(
         mock_valid_url: object, mock_connection: object,
-        value_connection: bool, value_valid: bool, result: bool) -> None:
+        value_connection: bool, value_valid: bool, result: str) -> None:
     mock_connection.return_value = value_connection
     mock_valid_url.return_value = value_valid
     assert can_access_google_page("url") == result
