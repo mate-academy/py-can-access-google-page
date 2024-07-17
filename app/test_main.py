@@ -44,5 +44,3 @@ class TestCanAccessGooglePage:
         mock_has_internet_connection.return_value = valid_url
         result = can_access_google_page("http://www.google.com")
         assert result == expected
-
-# write your code here
