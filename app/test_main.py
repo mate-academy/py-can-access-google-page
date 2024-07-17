@@ -27,4 +27,4 @@ def test_can_access_google_page(
         mock_valid_google_url.return_value = url_validity
         mock_has_connection.return_value = has_internet_connection
 
-    assert can_access_google_page(url) == expected_result
+        assert can_access_google_page(url) == expected_result
