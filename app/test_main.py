@@ -25,7 +25,7 @@ def test_should_call_both_func(
         mocked_has_internet_connection: Callable
 ) -> None:
     can_access_google_page("https://www.google.com")
-    mocked_valid_google_url.assert_called_once()
+    mocked_valid_google_url.assert_called_once_with("https://www.google.com")
     mocked_has_internet_connection.assert_called_once()
 
 
