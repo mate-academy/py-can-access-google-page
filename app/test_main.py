@@ -7,9 +7,9 @@ from app.main import can_access_google_page
 @pytest.mark.parametrize(
     "url, valid_url, has_connection, result",
     [
-        pytest.param("https://mate.academy/", True, True, "Accessible", id="First"),
-        pytest.param("https://google.com/", False, True, "Not accessible", id="Second"),
-        pytest.param("https://googleboom.com/", True, False, "Not accessible", id="Third")
+        ("https://mate.academy/", True, True, "Accessible"),
+        ("https://google.com/", False, True, "Not accessible"),
+        ("https://googleboom.com/", True, False, "Not accessible")
     ]
 )
 @patch("app.main.has_internet_connection")
