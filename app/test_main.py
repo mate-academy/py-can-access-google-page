@@ -47,6 +47,15 @@ def test_cannot_be_access_if_connection_is_false(
     assert can_access_google_page("some url") == "Not accessible"
 
 
+def test_cannot_be_access_if_all_functions_is_false(
+        mock_valid: MagicMock,
+        mock_connection: MagicMock
+) -> None:
+    mock_valid.return_value = False
+    mock_connection.return_value = False
+    assert can_access_google_page("some url") == "Not accessible"
+
+
 def test_can_be_access_if_connection_and_valid_is_true(
         mock_valid: MagicMock,
         mock_connection: MagicMock
