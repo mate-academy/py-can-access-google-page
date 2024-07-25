@@ -3,8 +3,11 @@ import requests
 
 
 def valid_google_url(url: str) -> bool:
-    response = requests.get(url)
-    return True if response.status_code == 200 else False
+    try:
+        response = requests.get(url)
+        return response.status_code == 200
+    except requests.ConnectionError:
+        return False
 
 
 def has_internet_connection() -> bool:
