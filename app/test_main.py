@@ -32,11 +32,13 @@ def test_can_access_google_page(
     internet_connection: bool,
     access_confirmation: str
 ) -> None:
-    with mock.patch("app.main.valid_google_url") as mocked_url_validator:
-        with mock.patch(
+    with (
+        mock.patch("app.main.valid_google_url") as mocked_url_validator,
+        mock.patch(
             "app.main.has_internet_connection"
-        ) as mocked_internet_connection:
-            mocked_url_validator.return_value = url_validator
-            mocked_internet_connection.return_value = internet_connection
+        ) as mocked_internet_connection
+    ):
+        mocked_url_validator.return_value = url_validator
+        mocked_internet_connection.return_value = internet_connection
 
-            assert can_access_google_page("test_url") == access_confirmation
+        assert can_access_google_page("") == access_confirmation
