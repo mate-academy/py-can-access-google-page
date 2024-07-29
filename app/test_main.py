@@ -1,11 +1,11 @@
+from __future__ import annotations
 import pytest
 from unittest import mock
 from app.main import can_access_google_page
-from typing import Any
 
 
 @pytest.mark.parametrize(
-    "valid_link", "has_internet_connection", "expected_result",
+    "valid_link, has_internet_connection, expected_result",
     [
         (True, True, "Accessible"),
         (True, False, "Not accessible"),
@@ -15,8 +15,8 @@ from typing import Any
 )
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page(mocked_url: mock,
-                                mocked_internet_connection: mock,
+def test_can_access_google_page(mocked_url: mock.Mock,
+                                mocked_internet_connection: mock.Mock,
                                 valid_link: bool,
                                 has_internet_connection: bool,
                                 expected_result: str) -> None:
