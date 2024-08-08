@@ -18,7 +18,10 @@ def mock_has_internet() -> Callable:
         yield internet_mock
 
 
-def test_if_can_access_google_page_works_correctly(mock_valid_google, mock_has_internet):
+def test_if_can_access_google_page_works_correctly(
+    mock_valid_google: mock.MagicMock,
+    mock_has_internet: mock.MagicMock
+) -> None:
     mock_valid_google.return_value = True
     mock_has_internet.return_value = True
     assert can_access_google_page("some_url") == "Accessible"
