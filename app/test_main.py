@@ -25,8 +25,8 @@ class TestCanAccessGooglePage:
             ),
         ]
     )
-    @patch('app.main.valid_google_url')
-    @patch('app.main.has_internet_connection')
+    @patch("app.main.valid_google_url")
+    @patch("app.main.has_internet_connection")
     def test_can_access_google_page(
             self,
             mock_has_internet_connection: Mock,
