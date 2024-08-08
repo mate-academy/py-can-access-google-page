@@ -1,9 +1,9 @@
-from typing import Any
+from pytest_mock import MockerFixture
 from app.main import can_access_google_page
 
 
 def test_can_access_google_page_accessible(
-        mocker: Any
+        mocker: MockerFixture
 ) -> None:
     mocker.patch("app.main.has_internet_connection", return_value=True)
     mocker.patch("app.main.valid_google_url", return_value=True)
@@ -13,7 +13,7 @@ def test_can_access_google_page_accessible(
 
 
 def test_can_access_google_page_not_accessible_no_internet(
-        mocker: Any
+        mocker: MockerFixture
 ) -> None:
     mocker.patch("app.main.has_internet_connection", return_value=False)
     mocker.patch("app.main.valid_google_url", return_value=True)
@@ -23,7 +23,7 @@ def test_can_access_google_page_not_accessible_no_internet(
 
 
 def test_can_access_google_page_not_accessible_invalid_url(
-        mocker: Any
+        mocker: MockerFixture
 ) -> None:
     mocker.patch("app.main.has_internet_connection", return_value=True)
     mocker.patch("app.main.valid_google_url", return_value=False)
