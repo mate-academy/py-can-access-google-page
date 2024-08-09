@@ -6,7 +6,7 @@ from app.main import can_access_google_page
 
 
 @pytest.fixture()
-def mock_access():
+def mock_access() -> tuple:
     with (
         mock.patch("app.main.valid_google_url") as mock_valid_google_url,
         mock.patch("app.main.has_internet_connection") as mock_connection
@@ -47,11 +47,11 @@ def mock_access():
     ]
 )
 def test_can_access_google_page(
-        mock_access,
-        valid_url,
-        has_internet,
-        result,
-        description
+        mock_access: tuple,
+        valid_url: bool,
+        has_internet: bool,
+        result: str,
+        description: str
 ) -> None:
     mock_valid_google_url, mock_internet_connection = mock_access
     mock_valid_google_url.return_value = valid_url
