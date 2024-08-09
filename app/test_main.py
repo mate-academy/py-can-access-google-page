@@ -16,7 +16,7 @@ def mock_functions() -> tuple:
         yield mocked_connection, mocked_valid_url
 
 
-def test_inner_functions_should_be_called(mock_functions) -> None:
+def test_inner_functions_should_be_called(mock_functions: tuple) -> None:
     mock_connection, mock_valid_url = mock_functions
 
     can_access_google_page(test_url)
