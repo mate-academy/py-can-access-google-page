@@ -6,8 +6,20 @@ import pytest
 from app.main import can_access_google_page
 
 
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
+@pytest.fixture(scope="module")
+def mocked_internet_connection():
+    with (mock.patch("app.main.has_internet_connection")
+          as mocked_internet_connection):
+        yield mocked_internet_connection
+
+
+@pytest.fixture(scope="module")
+def mocked_valid_google_url():
+    with (mock.patch("app.main.valid_google_url")
+          as mocked_valid_google_url):
+        yield mocked_valid_google_url
+
+
 @pytest.mark.parametrize(
     "internet_connection_value, valid_google_url_value, url, expected_return",
     [
@@ -24,6 +36,12 @@ from app.main import can_access_google_page
         pytest.param(
             True, False, "invalid@", "Not accessible",
             id="return 'not accessible' because of invalid google url"
+        ),
+
+        pytest.param(
+            False, False, "url", "Not accessible",
+            id="return 'not accessible' `cause internet"
+               " connection and google url invalid"
         ),
     ]
 )
