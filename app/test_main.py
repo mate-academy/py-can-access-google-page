@@ -39,19 +39,23 @@ def test_should_call_both_func(
         pytest.fail(f"You should call both check funcs. Error: {e}")
 
 
+@pytest.mark.parametrize(
+    "valid_url,connection,result", [
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
+    ])
 def test_should_return_correct_string(
+        valid_url: bool,
+        connection: bool,
+        result: str,
         mocked_valid_google_url: Callable,
         mocked_has_internet_connection: Callable
 ) -> None:
-    assert can_access_google_page(GOOGLE_URL) == "Accessible", (
-        "Should return correct string when both func are True"
-    )
-    mocked_valid_google_url.return_value = False
-    assert can_access_google_page(GOOGLE_URL) == "Not accessible", (
-        "Expected 'Not accessible' when one func is False"
-    )
-    mocked_valid_google_url.return_value = True
-    mocked_has_internet_connection.return_value = False
-    assert can_access_google_page(GOOGLE_URL) == "Not accessible", (
-        "Expected 'Not accessible' when one func is False"
+    mocked_valid_google_url.return_value = valid_url
+    mocked_has_internet_connection.return_value = connection
+    assert can_access_google_page(GOOGLE_URL) == result, (
+        f"Expected {result} when valid url is {valid_url} "
+        f"and internet connection is {connection}"
     )
