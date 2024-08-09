@@ -28,7 +28,10 @@ def mocked_has_internet_connection() -> mock.Mock:
                         "when internet_connection is False"),
         pytest.param(True, False, "Not accessible",
                      id="should return 'Not accessible' "
-                        "when url_validation is False")
+                        "when url_validation is False"),
+        pytest.param(False, False, "Not accessible",
+                     id="should return 'Not accessible' "
+                        "when both parameters are False")
     ]
 )
 def test_can_access_page_when_url_and_connection_are_true(
