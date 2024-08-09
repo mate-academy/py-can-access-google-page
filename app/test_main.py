@@ -5,6 +5,8 @@ import pytest
 
 from app.main import can_access_google_page
 
+GOOGLE_URL = "https://www.google.com/"
+
 
 @pytest.fixture
 def patch_inner_functions() -> Callable:
@@ -13,51 +15,36 @@ def patch_inner_functions() -> Callable:
         yield mocked_url, mocked_connection
 
 
-def test_accesible_with_valid_url_and_internet_connection(
-        patch_inner_functions: Callable
+@pytest.mark.parametrize(
+    "url_return_value, conn_return_value, expected_result",
+    [
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible"),
+    ],
+    ids=[
+        "valid_url_and_internet_connection",
+        "not_accessible_without_valid_url",
+        "not_accessible_without_connection",
+        "not_accessible_without_valid_url_and_connection"
+    ]
+)
+def test_should_return_correct_access(
+        patch_inner_functions: Callable,
+        url_return_value: bool,
+        conn_return_value: bool,
+        expected_result: str
 ) -> None:
     mock_url, mock_connection = patch_inner_functions
 
-    mock_url.return_value = True
-    mock_connection.return_value = True
+    mock_url.return_value = url_return_value
+    mock_connection.return_value = conn_return_value
 
-    assert can_access_google_page("https://www.google.com/") == "Accessible"
+    result = can_access_google_page(GOOGLE_URL)
 
-
-def test_not_accessible_without_valid_url(
-        patch_inner_functions: Callable
-) -> None:
-    mock_url, mock_connection = patch_inner_functions
-
-    mock_url.return_value = False
-    mock_connection.return_value = True
-
-    assert (
-        can_access_google_page("https://www.google.com/") == "Not accessible"
-    )
-
-
-def test_not_accessible_without_connection(
-        patch_inner_functions: Callable
-) -> None:
-    mock_url, mock_connection = patch_inner_functions
-
-    mock_url.return_value = True
-    mock_connection.return_value = False
-
-    assert (
-        can_access_google_page("https://www.google.com/") == "Not accessible"
-    )
-
-
-def test_not_accessible_without_valid_url_and_connection(
-        patch_inner_functions: Callable
-) -> None:
-    mock_url, mock_connection = patch_inner_functions
-
-    mock_url.return_value = False
-    mock_connection.return_value = False
-
-    assert (
-        can_access_google_page("https://www.google.com/") == "Not accessible"
+    assert result == expected_result, (
+        f"Failed with valid_google_url: {url_return_value}, "
+        f"has_internet_connection: {conn_return_value}. "
+        f"Expected: {expected_result}. Actual: {result}."
     )
