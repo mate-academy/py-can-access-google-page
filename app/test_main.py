@@ -5,40 +5,39 @@ from app.main import can_access_google_page
 
 
 @pytest.fixture()
-def mocked_valid_google_url() -> bool:
+def mocked_valid_google_url() -> mock.Mock:
     with mock.patch("app.main.valid_google_url") as mock_test_valid_google_url:
         yield mock_test_valid_google_url
 
 
 @pytest.fixture()
-def mocked_has_internet_connection() -> bool:
+def mocked_has_internet_connection() -> mock.Mock:
     with (mock.patch("app.main.has_internet_connection")
           as mock_has_internet_connection):
         yield mock_has_internet_connection
 
 
+@pytest.mark.parametrize(
+    "is_internet_connection,is_url_valid,expected_message",
+    [
+        pytest.param(True, True, "Accessible",
+                     id="should return 'Accessible' when both url_validation"
+                        " and internet_connection are True"),
+        pytest.param(False, True, "Not accessible",
+                     id="should return 'Not accessible' "
+                        "when internet_connection is False"),
+        pytest.param(True, False, "Not accessible",
+                     id="should return 'Not accessible' "
+                        "when url_validation is False")
+    ]
+)
 def test_can_access_page_when_url_and_connection_are_true(
-        mocked_valid_google_url: bool,
-        mocked_has_internet_connection: bool
+        mocked_valid_google_url: mock.Mock,
+        mocked_has_internet_connection: mock.Mock,
+        is_url_valid: bool,
+        is_internet_connection: bool,
+        expected_message: str
 ) -> None:
-    mocked_valid_google_url.return_value = True
-    mocked_has_internet_connection.return_value = True
-    assert can_access_google_page("url") == "Accessible"
-
-
-def test_cannot_access_page_when_google_url_is_false(
-        mocked_valid_google_url: bool,
-        mocked_has_internet_connection: bool
-) -> None:
-    mocked_valid_google_url.return_value = False
-    mocked_has_internet_connection.return_value = True
-    assert can_access_google_page("url") == "Not accessible"
-
-
-def test_cannot_access_page_when_connection_is_false(
-        mocked_valid_google_url: bool,
-        mocked_has_internet_connection: bool
-) -> None:
-    mocked_valid_google_url.return_value = True
-    mocked_has_internet_connection.return_value = False
-    assert can_access_google_page("url") == "Not accessible"
+    mocked_has_internet_connection.return_value = is_internet_connection
+    mocked_valid_google_url.return_value = is_url_valid
+    assert can_access_google_page("url") == expected_message
