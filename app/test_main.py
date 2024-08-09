@@ -36,7 +36,5 @@ def test_can_access_google_page(
     mocked_connect.return_value = has_connection
     mocked_url.return_value = valid_url
 
-    assert (
-        can_access_google_page("url") == value,
+    assert can_access_google_page("url") == value, \
         f"An access error occurred, expected {value}."
-    )
