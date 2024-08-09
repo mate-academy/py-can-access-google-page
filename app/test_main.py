@@ -5,6 +5,8 @@ from app.main import (
     can_access_google_page
 )
 
+some_url = "https://www.google.com"
+
 
 @fixture()
 def mocked_url() -> None:
@@ -25,6 +27,12 @@ def mocked_connection() -> None:
         (False, True, "Not accessible"),
         (True, False, "Not accessible"),
         (True, True, "Accessible")
+    ],
+    ids=[
+        "Not accessible when has no internet connection and valid google url",
+        "Not accessible when has no valid google url",
+        "Not accassible when has no internet connection",
+        "Accessible when has both internet connection and valid google url"
     ]
 )
 def test_check_if_can_access_google_page(
@@ -36,12 +44,12 @@ def test_check_if_can_access_google_page(
 ) -> None:
     mocked_url.return_value = google_response
     mocked_connection.return_value = connection_response
-    result = can_access_google_page("https://www.google.com")
+    result = can_access_google_page(some_url)
     assert result == expected_result
 
 
 def test_check_if_url_fuctions_is_called(mocked_url: mock) -> None:
-    can_access_google_page("https://www.google.com")
+    can_access_google_page(some_url)
     mocked_url.assert_called_once()
 
 
@@ -49,5 +57,5 @@ def test_check_if_connection_fuctions_is_called(
         mocked_connection: mock
 ) -> None:
 
-    can_access_google_page("https://www.google.com")
+    can_access_google_page(some_url)
     mocked_connection.assert_called_once()
