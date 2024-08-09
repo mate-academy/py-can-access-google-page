@@ -5,7 +5,7 @@ from app.main import can_access_google_page
 
 
 @pytest.fixture()
-def url() -> None:
+def url() -> str:
     return "https://www.google.com"
 
 
@@ -42,11 +42,13 @@ def test_should_call_valid_google_url(
     [
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
         (True, True, "Accessible")
     ],
     ids=[
         "Url is incorrect",
         "Hasn't internet connection",
+        "Url is incorrect and hasn't internet connection",
         "All the data is correct"
     ]
 )
