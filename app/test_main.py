@@ -18,22 +18,32 @@ def mock_has_internet() -> Callable:
         yield internet_mock
 
 
+@pytest.mark.parametrize(
+    "valid_google,has_internet,result_connection",
+    [
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible"),
+        (False, True, "Not accessible"),
+    ],
+    ids=[
+        "Accessible when "
+        "internet connection and google validation - True",
+        "Not accessible when "
+        "internet connection - True but google validation - False",
+        "Not accessible when "
+        "internet connection and google validation False",
+        "Not accessible when "
+        "internet connection False and google validation True"
+    ]
+)
 def test_if_can_access_google_page_works_correctly(
     mock_valid_google: mock.MagicMock,
-    mock_has_internet: mock.MagicMock
+    mock_has_internet: mock.MagicMock,
+    valid_google: bool,
+    has_internet: bool,
+    result_connection: str
 ) -> None:
-    mock_valid_google.return_value = True
-    mock_has_internet.return_value = True
-    assert can_access_google_page("some_url") == "Accessible"
-
-    mock_valid_google.return_value = False
-    mock_has_internet.return_value = True
-    assert can_access_google_page("some_url") == "Not accessible"
-
-    mock_valid_google.return_value = True
-    mock_has_internet.return_value = False
-    assert can_access_google_page("some_url") == "Not accessible"
-
-    mock_valid_google.return_value = False
-    mock_has_internet.return_value = False
-    assert can_access_google_page("some_url") == "Not accessible"
+    mock_valid_google.return_value = valid_google
+    mock_has_internet.return_value = has_internet
+    assert can_access_google_page("some_url") == result_connection
