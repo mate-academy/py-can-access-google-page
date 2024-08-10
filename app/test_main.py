@@ -7,10 +7,12 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "url",
+    "first_res, second_res, fin_result",
     [
-        "http://google.com",
-        "http://abra_cadabra"
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
     ]
 )
 @mock.patch("app.main.valid_google_url")
@@ -18,8 +20,11 @@ from app.main import can_access_google_page
 def test_two_func_was_called(
         mocked_has_connection: Mock,
         mocked_valid_url: Mock,
-        url: str
+        first_res: bool,
+        second_res: bool,
+        fin_result: str
 ) -> None:
-    can_access_google_page(url)
-    mocked_valid_url.assert_called_once_with(url)
-    mocked_has_connection.assert_called_once()
+    url = "http://google.com"
+    mocked_has_connection.return_value = first_res
+    mocked_valid_url.return_value = second_res
+    assert can_access_google_page(url) == fin_result
