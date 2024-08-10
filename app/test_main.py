@@ -29,10 +29,12 @@ def test_inner_functions_should_be_called(mock_functions: tuple) -> None:
     [
         (True, True, "Accessible"),
         (True, False, "Not accessible"),
-        (False, False, "Not accessible")
+        (False, False, "Not accessible"),
+        (False, True, "Not accessible"),
     ],
     ids=[
         "accessible",
+        "not accessible",
         "not accessible",
         "not accessible"
     ]
