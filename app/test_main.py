@@ -46,7 +46,6 @@ def mock_internet_connect() -> bool:
         )
     ]
 )
-
 def test_can_access_google_page(
         mock_valid_url: bool,
         mock_internet_connect: bool,
