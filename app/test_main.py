@@ -1,18 +1,16 @@
 import pytest
 from unittest.mock import patch, MagicMock
-import datetime
-import requests
 from app.main import can_access_google_page
 
 
 @pytest.fixture
-def mock_valid_google_url():
+def mock_valid_google_url() -> None:
     with patch("app.main.valid_google_url") as mock:
         yield mock
 
 
 @pytest.fixture
-def mock_has_internet_connection():
+def mock_has_internet_connection() -> None:
     with patch("app.main.has_internet_connection") as mock:
         yield mock
 
