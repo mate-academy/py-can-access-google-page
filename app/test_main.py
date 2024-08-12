@@ -4,7 +4,7 @@ from unittest import mock
 from app.main import can_access_google_page
 
 
-test_url = "url"
+test_url = "https://www.google.com/"
 
 
 @pytest.fixture
@@ -30,8 +30,7 @@ def mocked_connection_availability() -> callable:
             True,
             True,
             "Accessible",
-            id="succesful access if google url is valid\
-                 and internet connection is available"
+            id="accessible if url is valid and connection is available"
         ),
         pytest.param(
             True,
@@ -49,8 +48,7 @@ def mocked_connection_availability() -> callable:
             False,
             False,
             "Not accessible",
-            id="not accessible if url response is invalid\
-                 and internet connection is unavailable"
+            id="not accessible if url is invalid and no connection"
         )
     ]
 )
