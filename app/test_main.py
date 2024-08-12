@@ -4,13 +4,16 @@ from unittest.mock import patch
 from app.main import can_access_google_page
 
 
+url = "https://www.google.com"
+
+
 @pytest.mark.parametrize(
     "test_url,valid_google_url,has_internet_connection,expected",
     [
-        ("https://www.google.com", True, True, "Accessible"),
-        ("https://www.google.com", True, False, "Not accessible"),
-        ("https://www.google.com", False, True, "Not accessible"),
-        ("https://www.google.com", False, False, "Not accessible"),
+        (url, True, True, "Accessible"),
+        (url, True, False, "Not accessible"),
+        (url, False, True, "Not accessible"),
+        (url, False, False, "Not accessible"),
     ],
     ids=[
         "If we have valid google url and internet connection",
