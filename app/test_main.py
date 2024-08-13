@@ -31,4 +31,7 @@ def test_can_access_google_page(
             mock_has_internet_connection_return
         )
 
-        assert can_access_google_page(url) == expected_result
+        assert (
+            can_access_google_page(url) == expected_result
+        ), (f"Expected '{expected_result}' for URL '{url}', "
+            f"but got '{can_access_google_page(url)}'.")
