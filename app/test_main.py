@@ -1,21 +1,18 @@
 # write your code here
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 import pytest
 
 from app.main import can_access_google_page
 
 
-url = "https://www.google.com"
-
-
 @pytest.mark.parametrize(
-    "test_url,valid_google_url,has_internet_connection,expected",
+    "valid_google_url,has_internet_connection,expected",
     [
-        (url, True, True, "Accessible"),
-        (url, True, False, "Not accessible"),
-        (url, False, True, "Not accessible"),
-        (url, False, False, "Not accessible"),
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
     ],
     ids=[
         "If we have valid google url and internet connection",
@@ -26,10 +23,9 @@ url = "https://www.google.com"
 )
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_correct(
-        mock_valid_url: bool,
-        mock_has_internet: bool,
-        test_url: str,
+def test_can_access_google_page(
+        mock_valid_url: MagicMock,
+        mock_has_internet: MagicMock,
         valid_google_url: bool,
         has_internet_connection: bool,
         expected: str
@@ -37,5 +33,4 @@ def test_correct(
     mock_valid_url.return_value = valid_google_url
     mock_has_internet.return_value = has_internet_connection
 
-    result = can_access_google_page(test_url)
-    assert result == expected
+    assert can_access_google_page("https://www.google.com") == expected
