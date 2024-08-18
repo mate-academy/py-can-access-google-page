@@ -14,10 +14,10 @@ from app.main import can_access_google_page
         (False, False, "Not accessible"),
     ],
     ids=[
-        "If we have valid google url and internet connection",
-        "If we have valid google url but don't have internet connection",
-        "If we don't have valid google url but have internet connection",
-        "If we don't have valid google url and internet connection",
+        "Accessible If we have valid google url and internet connection",
+        "Not accessible If we have valid google url but don't have internet connection",
+        "Not accessible If we don't have valid google url but have internet connection",
+        "Not accessible If we don't have valid google url and internet connection",
     ]
 )
 @patch("app.main.valid_google_url")
@@ -31,5 +31,13 @@ def test_can_access_google_page(
 ) -> None:
     mock_valid_url.return_value = valid_google_url
     mock_has_internet.return_value = has_internet_connection
+    result = can_access_google_page("https://www.google.com")
 
-    assert can_access_google_page("https://www.google.com") == expected
+    mock_valid_url.assert_called()
+
+    if valid_google_url:
+        mock_has_internet.assert_called_once()
+    else:
+        mock_has_internet.assert_not_called()
+
+    assert result == expected
