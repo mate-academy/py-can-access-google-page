@@ -11,14 +11,17 @@ def test_valid_url_and_connection_exists(
 ) -> None:
 
     url = "https://google.com"
-
-    mocked_connection.return_value = True
-    mocked_validation.return_value = True
-    assert can_access_google_page(url) == "Accessible"
-
-    mocked_connection.return_value = False
-    mocked_validation.return_value = True
-    assert can_access_google_page(url) == "Not accessible"
+    check_options = [
+        (True, True, "Accessible", "is connection and the URL is valid"),
+        (False, True, "Not accessible", "no connection"),
+        (True, False, "Not accessible", "url is not valid"),
+        (False, False, "Not accessible", "no connection and url is not valid")
+    ]
+    for option in check_options:
+        connection, valid_url, expected_can_access, message = option
+        mocked_connection.return_value = connection
+        mocked_validation.return_value = valid_url
+        assert can_access_google_page(url) == expected_can_access, message
 
     mocked_connection.assert_called()
     mocked_validation.assert_called_with(url)
