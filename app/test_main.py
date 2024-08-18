@@ -15,9 +15,12 @@ from app.main import can_access_google_page
     ],
     ids=[
         "Accessible If we have valid google url and internet connection",
-        "Not accessible If we have valid google url but don't have internet connection",
-        "Not accessible If we don't have valid google url but have internet connection",
-        "Not accessible If we don't have valid google url and internet connection",
+        "Not accessible If we have valid google url but don't "
+        "have internet connection",
+        "Not accessible If we don't have valid google url but have "
+        "internet connection",
+        "Not accessible If we don't have valid google url and "
+        "internet connection",
     ]
 )
 @patch("app.main.valid_google_url")
