@@ -8,8 +8,8 @@ from app.main import can_access_google_page
     (False, True, "Not accessible"),
     (True, False, "Not accessible"),
 ])
-@patch('app.main.valid_google_url')
-@patch('app.main.has_internet_connection')
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
 def test_can_access_google_page(
     mock_has_internet_connection: MagicMock,
     mock_valid_google_url: MagicMock,
