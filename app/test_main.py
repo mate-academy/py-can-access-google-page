@@ -3,28 +3,45 @@ from typing import Any
 
 from app.main import can_access_google_page
 
-
-def test_can_access_google_page_accessible() -> None:
-    assert can_access_google_page(
-        "https://www.google.com.ua/?hl=ukar"
-    ) == "Accessible"
+import pytest
 
 
+@pytest.mark.parametrize(
+    "url,"
+    "expected_value,"
+    "mocked_return_value_valid_google_url,"
+    "mocked_return_value_connection",
+    [
+        (
+            "https://www.google.com.ua/?hl=ukar",
+            "Accessible",
+            True,
+            True
+        ),
+        (
+            "https://www.goosdofighoidjfggle.com.ua/?hl=uk",
+            "Not accessible",
+            False,
+            True
+        ),
+        (
+            "https://www.goosdofighoidkjhihjfggle.com.ua/?hl=uk",
+            "Not accessible",
+            True,
+            False
+        )
+    ]
+)
 @mock.patch("app.main.valid_google_url")
-def test_can_access_google_page_not_accessible(
-        mocked_valid_google_url: Any
-) -> None:
-    mocked_valid_google_url.return_value = False
-    assert can_access_google_page(
-        "https://www.goosdofighoidjfggle.com.ua/?hl=uk"
-    ) == "Not accessible"
-
-
 @mock.patch("app.main.has_internet_connection")
-def test_has_internet_connection_not_accessible(
-        mocked_has_internet_connection: Any
+def test_can_access_google_page(
+        mocked_valid_google_url: Any,
+        mocked_connection: Any,
+        url: str,
+        expected_value: str,
+        mocked_return_value_valid_google_url: bool,
+        mocked_return_value_connection: bool
 ) -> None:
-    mocked_has_internet_connection.return_value = False
-    assert can_access_google_page(
-        "https://www.goosdofighoidkjhihjfggle.com.ua/?hl=uk"
-    ) == "Not accessible"
+    mocked_valid_google_url.return_value = mocked_return_value_valid_google_url
+    mocked_connection.return_value = mocked_return_value_connection
+    assert can_access_google_page(url) == expected_value
