@@ -12,23 +12,29 @@ import pytest
     "mocked_return_value_valid_google_url,"
     "mocked_return_value_connection",
     [
-        (
+        pytest.param(
             "https://www.google.com.ua/?hl=ukar",
             "Accessible",
             True,
-            True
+            True,
+            id="test can access google page return Accessible"
         ),
-        (
+        pytest.param(
             "https://www.goosdofighoidjfggle.com.ua/?hl=uk",
             "Not accessible",
             False,
-            True
+            True,
+            id="test can access google page, "
+               "valid google url return Not accessible"
         ),
-        (
+        pytest.param(
             "https://www.goosdofighoidkjhihjfggle.com.ua/?hl=uk",
             "Not accessible",
             True,
-            False
+            False,
+            id="test can access google page, "
+               "has internet connection "
+               "return Not accessible"
         )
     ]
 )
