@@ -7,6 +7,7 @@ from app.main import can_access_google_page
     (True, True, "Accessible"),
     (False, True, "Not accessible"),
     (True, False, "Not accessible"),
+    (False, False, "Not accessible"),
 ])
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
