@@ -17,7 +17,8 @@ import pytest
             "Accessible",
             True,
             True,
-            id="test can access google page return Accessible"
+            id="test can access google page "
+               "return Accessible"
         ),
         pytest.param(
             "https://www.goosdofighoidjfggle.com.ua/?hl=uk",
@@ -25,7 +26,8 @@ import pytest
             False,
             True,
             id="test can access google page, "
-               "valid google url return Not accessible"
+               "valid google url "
+               "return Not accessible"
         ),
         pytest.param(
             "https://www.goosdofighoidkjhihjfggle.com.ua/?hl=uk",
@@ -34,6 +36,16 @@ import pytest
             False,
             id="test can access google page, "
                "has internet connection "
+               "return Not accessible"
+        ),
+        pytest.param(
+            "https://www.goosiuhboouhbdofighoidkjhihjfggle.com.ua/?hl=uk",
+            "Not accessible",
+            False,
+            False,
+            id="test can access google page, "
+               "has internet connection "
+               "and valid google url"
                "return Not accessible"
         )
     ]
