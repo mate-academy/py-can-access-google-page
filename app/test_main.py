@@ -21,11 +21,11 @@ def url() -> str:
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
 def test_url_and_conection(mock_valid_google_url: MagicMock,
-                                      mock_has_internet_connection: MagicMock,
-                                      has_internet: bool,
-                                      valid_url: bool,
-                                      expected: str,
-                                      url: str) -> None:
+                           mock_has_internet_connection: MagicMock,
+                           has_internet: bool,
+                           valid_url: bool,
+                           expected: str,
+                           url: str) -> None:
     mock_valid_google_url.return_value = has_internet
     mock_has_internet_connection.return_value = valid_url
     assert can_access_google_page(url) == expected
