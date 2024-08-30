@@ -31,3 +31,11 @@ def test_valid_url_and_no_conection(mock_valid_google_url: MagicMock,
                                     mock_has_internet_connection: MagicMock,
                                     url: str) -> None:
     assert can_access_google_page(url) == "Not accessible"
+
+
+@patch("app.main.has_internet_connection", return_value=False)
+@patch("app.main.valid_google_url", return_value=False)
+def test_invalid_url_and_no_conection(mock_valid_google_url: MagicMock,
+                                      mock_has_internet_connection: MagicMock,
+                                      url: str) -> None:
+    assert can_access_google_page(url) == "Not accessible"
