@@ -20,7 +20,7 @@ def url() -> str:
 )
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
-def test_invalid_url_and_no_conection(mock_valid_google_url: MagicMock,
+def test_url_and_conection(mock_valid_google_url: MagicMock,
                                       mock_has_internet_connection: MagicMock,
                                       has_internet: bool,
                                       valid_url: bool,
