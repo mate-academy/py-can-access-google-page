@@ -1,5 +1,7 @@
 from unittest import mock
+
 from typing import Any
+
 import pytest
 
 from app import main
