@@ -7,19 +7,6 @@ import pytest
 from app import main
 
 
-@pytest.fixture()
-def mocked_valid_google_url() -> None:
-    with (mock.patch("app.main.valid_google_url") as mock_valid_google_url):
-        yield mock_valid_google_url
-
-
-@pytest.fixture()
-def mocked_has_internet_connection() -> None:
-    with (mock.patch("app.main.has_internet_connection") as
-          mock_has_internet_connection):
-        yield mock_has_internet_connection
-
-
 @pytest.mark.parametrize(
     "valid_google_url, has_internet_connection, result",
     [
@@ -29,6 +16,8 @@ def mocked_has_internet_connection() -> None:
         (False, False, "Not accessible")
     ]
 )
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
         mocked_valid_google_url: Any,
         mocked_has_internet_connection: Any,
