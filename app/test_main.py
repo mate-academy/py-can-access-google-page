@@ -1,6 +1,7 @@
 import pytest
 
 from unittest.mock import patch, MagicMock
+
 from app.main import can_access_google_page
 
 
