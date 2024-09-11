@@ -1,5 +1,7 @@
+from unittest import mock
+from typing import Callable
+
 import pytest
-from unittest.mock import patch
 
 from app.main import can_access_google_page
 
@@ -13,13 +15,15 @@ from app.main import can_access_google_page
         (False, False, "Not accessible")
     ]
 )
+@mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
 def test_can_access_google_page(
+        mock_valid_google_url: Callable,
+        mock_has_internet_connection: Callable,
         connection: bool,
         url_valid: bool,
         expected_result: str
 ) -> None:
-    with (patch("app.main.has_internet_connection", return_value=connection)):
-        with patch("app.main.valid_google_url", return_value=url_valid):
-            assert can_access_google_page(
-                "https://mate.academy"
-            ) == expected_result
+    mock_has_internet_connection.return_value = connection
+    mock_valid_google_url.return_value = url_valid
+    assert can_access_google_page("https://mate.academy") == expected_result
