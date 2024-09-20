@@ -14,7 +14,8 @@ def test_accessible_page(mock_internet: bool, mock_valid_url: bool) -> None:
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_no_internet_connection(mock_internet: bool, mock_valid_url: bool) -> None:
+def test_no_internet_connection(mock_internet: bool,
+                                mock_valid_url: bool) -> None:
     mock_internet.return_value = False
     mock_valid_url.return_value = True
 
@@ -32,11 +33,12 @@ def test_invalid_url(mock_internet: bool, mock_valid_url: bool) -> None:
     assert result == "Not accessible"
 
 
-@patch('app.main.valid_google_url')
-@patch('app.main.has_internet_connection')
-def test_no_internet_and_invalid_url(mock_internet: bool, mock_valid_url: bool) -> None:
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
+def test_no_internet_and_invalid_url(mock_internet: bool,
+                                     mock_valid_url: bool) -> None:
     mock_internet.return_value = False
     mock_valid_url.return_value = False
 
-    result = can_access_google_page('https://invalid-url.com')
+    result = can_access_google_page("https://invalid-url.com")
     assert result == "Not accessible"
