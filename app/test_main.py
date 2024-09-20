@@ -9,10 +9,11 @@ import pytest
         (True, True, "Accessible"),
         (False, False, "Not accessible"),
         (True, False, "Not accessible"),
+        (False, True, "Not accessible")
     ]
 )
-def test_google_page(mock_valid_google_url: str,
-                     mock_has_internet_connection: str,
+def test_google_page(mock_valid_google_url: bool,
+                     mock_has_internet_connection: bool,
                      end_result: str) -> None:
     with mock.patch("app.main.valid_google_url",
                     return_value=mock_valid_google_url):
