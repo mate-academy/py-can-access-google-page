@@ -5,18 +5,8 @@ from unittest import mock
 from app.main import can_access_google_page
 
 
-@pytest.fixture()
-def mocked_valid_google_url() -> object:
-    with mock.patch("app.main.valid_google_url") as mocked:
-        yield mocked
-
-
-@pytest.fixture()
-def mocked_has_internet_connection() -> object:
-    with mock.patch("app.main.has_internet_connection") as mocked:
-        yield mocked
-
-
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
 @pytest.mark.parametrize(
     "is_valid,is_connected,result",
     [
