@@ -12,7 +12,7 @@ def test_internet_connection_called(
         m_has_internet_connection: object
 ) -> None:
     m_has_internet_connection.return_value = True
-    can_access_google_page("https://www.google.com/")
+    can_access_google_page(GOOGLE_URL)
     m_has_internet_connection.assert_called_once()
 
 
