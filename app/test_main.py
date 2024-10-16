@@ -8,7 +8,7 @@ def test_can_access_google_page():
         mock.patch("current_time") as mocked_current_time,
         mock.patch("response") as mocked_response
     ):
-        mocked_current_time = True
-        mocked_response.status_code = 200
+        mocked_current_time.return_value = True
+        mocked_response.status_code.return_value = 200
 
-        assert can_access_google_page == "Accessible"
+        assert can_access_google_page() == "Accessible"
