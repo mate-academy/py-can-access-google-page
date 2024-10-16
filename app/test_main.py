@@ -3,7 +3,7 @@ from app.main import can_access_google_page
 from unittest import mock
 
 
-def test_can_access_google_page():
+def test_can_access_google_page() -> None:
     with (
         mock.patch("current_time") as mocked_current_time,
         mock.patch("response") as mocked_response
