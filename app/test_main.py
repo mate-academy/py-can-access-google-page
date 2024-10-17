@@ -63,15 +63,15 @@ def test_can_access_google_page(
     assert can_access_google_page(url) == result
 
 
-def test_valid_google_url_called(
+def test_valid_google_url_called_once_with_arg(
         mocked_valid_url: mock.MagicMock
 ) -> None:
     can_access_google_page("https://www.google.com.ua")
-    mocked_valid_url.assert_called_once(), "Must be called once"
+    mocked_valid_url.assert_called_once_with("https://www.google.com.ua")
 
 
-def test_has_internet_connection_called(
+def test_has_internet_connection_called_once(
         mocked_has_internet_connection: mock.MagicMock
 ) -> None:
     can_access_google_page("https://www.google.com.ua")
-    mocked_has_internet_connection.assert_called_once(), "Must be called once"
+    mocked_has_internet_connection.assert_called_once()
