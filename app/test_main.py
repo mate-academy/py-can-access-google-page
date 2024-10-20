@@ -1,9 +1,10 @@
 from _pytest.monkeypatch import MonkeyPatch
+
 from app.main import can_access_google_page
 
 
 def test_can_access_google_page_accessible(monkeypatch: MonkeyPatch) -> None:
-    def mock_valid_google_url() -> bool:
+    def mock_valid_google_url(url: str) -> bool:
         return True
 
     def mock_has_internet_connection() -> bool:
@@ -20,7 +21,7 @@ def test_can_access_google_page_accessible(monkeypatch: MonkeyPatch) -> None:
 
 def test_can_access_google_page_not_accessible_due_to_invalid_url(
         monkeypatch: MonkeyPatch) -> None:
-    def mock_valid_google_url() -> bool:
+    def mock_valid_google_url(url: str) -> bool:
         return False
 
     def mock_has_internet_connection() -> bool:
@@ -39,7 +40,7 @@ def test_can_access_google_page_not_accessible_due_to_invalid_url(
 
 def test_can_access_google_page_not_accessible_due_to_loss_internet_connection(
         monkeypatch: MonkeyPatch) -> None:
-    def mock_valid_google_url() -> bool:
+    def mock_valid_google_url(url: str) -> bool:
         return True
 
     def mock_has_internet_connection() -> bool:
