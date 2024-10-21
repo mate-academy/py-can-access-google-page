@@ -23,6 +23,8 @@ def test_can_access_google_page(
 ) -> None:
     test = can_access_google_page("google.com")
     assert test == "Accessible"
+    mocked_valid_google_url.assert_called_once_with("google.com")
+    mocked_has_internet_connection.assert_called_once()
 
 
 def test_no_access_google_page_invalid_url(
@@ -32,6 +34,8 @@ def test_no_access_google_page_invalid_url(
     mocked_valid_google_url.return_value = False
     test = can_access_google_page("test123")
     assert test == "Not accessible"
+    mocked_valid_google_url.assert_called_once_with("test123")
+    mocked_has_internet_connection.assert_called_once()
 
 
 def test_no_access_google_page_no_internet(
@@ -41,3 +45,4 @@ def test_no_access_google_page_no_internet(
     mocked_has_internet_connection.return_value = False
     test = can_access_google_page("google.com")
     assert test == "Not accessible"
+    mocked_has_internet_connection.assert_called_once()
