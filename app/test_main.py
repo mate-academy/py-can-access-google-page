@@ -1,12 +1,14 @@
 from unittest import mock
 
+from typing import Any
+
 from app.main import (can_access_google_page)
 
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_valid_url_and_connection_exists(mocked_valid_google_url: bool,
-                                         mocked_has_internet_connection: bool
+def test_valid_url_and_connection_exists(mocked_valid_google_url: Any,
+                                         mocked_has_internet_connection: Any
                                          ) -> None:
     mocked_valid_google_url.return_value = True
     mocked_has_internet_connection.return_value = True
@@ -16,8 +18,8 @@ def test_valid_url_and_connection_exists(mocked_valid_google_url: bool,
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_invalid_url_and_connection_exists(mocked_valid_google_url: bool,
-                                           mocked_has_internet_connection: bool
+def test_invalid_url_and_connection_exists(mocked_valid_google_url: Any,
+                                           mocked_has_internet_connection: Any
                                            ) -> None:
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_value = True
@@ -27,8 +29,8 @@ def test_invalid_url_and_connection_exists(mocked_valid_google_url: bool,
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_valid_url_and_no_connection(mocked_valid_google_url: bool,
-                                     mocked_has_internet_connection: bool
+def test_valid_url_and_no_connection(mocked_valid_google_url: Any,
+                                     mocked_has_internet_connection: Any
                                      ) -> None:
     mocked_valid_google_url.return_value = True
     mocked_has_internet_connection.return_value = False
@@ -38,8 +40,8 @@ def test_valid_url_and_no_connection(mocked_valid_google_url: bool,
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_invalid_url_and_no_connection(mocked_valid_google_url: bool,
-                                       mocked_has_internet_connection: bool
+def test_invalid_url_and_no_connection(mocked_valid_google_url: Any,
+                                       mocked_has_internet_connection: Any
                                        ) -> None:
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_value = False
