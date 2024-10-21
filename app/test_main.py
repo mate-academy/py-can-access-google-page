@@ -2,9 +2,10 @@ from unittest.mock import patch
 from app.main import can_access_google_page
 
 
-def mock_functions(valid_url: bool, has_internet: bool):
+def mock_functions(valid_url: bool, has_internet: bool) -> None:
     patch("app.main.valid_google_url", return_value=valid_url).start()
-    patch("app.main.has_internet_connection", return_value=has_internet).start()
+    patch("app.main.has_internet_connection",
+          return_value=has_internet).start()
 
 
 def test_accessible_page() -> None:
