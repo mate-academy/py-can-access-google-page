@@ -18,7 +18,7 @@ def mocked_connection() -> None:
         yield mock_connection
 
 
-def test_should_access_if_has_internet_connection_and_valid_url(
+def test_should_access_with_internet_connection_and_valid_url(
         mocked_url: MagicMock,
         mocked_connection: MagicMock
 ) -> None:
@@ -27,7 +27,7 @@ def test_should_access_if_has_internet_connection_and_valid_url(
     assert can_access_google_page("test") == "Accessible"
 
 
-def test_should_no_access_if_not_internet_connection(
+def test_should_no_access_without_internet_connection(
         mocked_url: MagicMock,
         mocked_connection: MagicMock
 ) -> None:
@@ -36,7 +36,7 @@ def test_should_no_access_if_not_internet_connection(
     assert can_access_google_page("test") == "Not accessible"
 
 
-def test_should_no_access_if_not_valid_url(
+def test_should_no_access_with_not_valid_url(
         mocked_url: MagicMock,
         mocked_connection: MagicMock
 ) -> None:
