@@ -6,8 +6,8 @@ from app.main import can_access_google_page
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_access_google_page_with_true_false(
-        mock_valid_url: bool,
-        mock_connection: bool
+        mock_valid_url: mock.Mock,
+        mock_connection: mock.Mock
 ) -> None:
 
     mock_valid_url.return_value = True
@@ -19,8 +19,8 @@ def test_access_google_page_with_true_false(
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_access_google_page_with_false_true(
-        mock_valid_url: bool,
-        mock_connection: bool
+        mock_valid_url: mock.Mock,
+        mock_connection: mock.Mock
 ) -> None:
 
     mock_valid_url.return_value = False
