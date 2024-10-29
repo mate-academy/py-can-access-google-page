@@ -9,7 +9,7 @@ url = "https://google.com"
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_access_google_page(
+def test_can_access_google_page_with_mocked_different_dependencies(
         mocked_url: MagicMock,
         mocked_connection: MagicMock
 ) -> None:
@@ -21,7 +21,6 @@ def test_access_google_page(
     ]
     for variant in possible_variants:
         mocked_url.return_value, mocked_connection.return_value = variant
-        print(mocked_url.return_value, mocked_connection.return_value)
         if all([mocked_url.return_value, mocked_connection.return_value]):
             assert can_access_google_page(url) == "Accessible"
         else:
