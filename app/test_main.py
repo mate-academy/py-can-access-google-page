@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 from app.main import can_access_google_page
-from collections.abc import Callable
+from typing import Callable
 
 
 class TestCanAccessGooglePage(unittest.TestCase):
