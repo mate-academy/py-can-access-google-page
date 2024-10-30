@@ -8,6 +8,7 @@ from app.main import can_access_google_page
 
 url = "https://google.com"
 
+
 @pytest.mark.parametrize(
     "mocked_url_return_value,"
     "mocked_connection_return_value,"
@@ -17,29 +18,29 @@ url = "https://google.com"
             True,
             True,
             "Accessible",
-            id = "should return `Accessible` "
-                 "if both mocked values are `True`"
+            id="should return `Accessible` "
+               "if both mocked values are `True`"
         ),
         pytest.param(
             True,
             False,
             "Not accessible",
-            id = "should return `Not accessible` "
-                 "if connection mocked value is `False`"
+            id="should return `Not accessible` "
+               "if connection mocked value is `False`"
         ),
         pytest.param(
             False,
             True,
             "Not accessible",
-            id = "should return `Not accessible` "
-                 "if url mocked value is `False`"
+            id="should return `Not accessible` "
+               "if url mocked value is `False`"
         ),
         pytest.param(
             False,
             False,
             "Not accessible",
-            id = "should return `Not accessible` "
-                 "if both mocked values are `False`"
+            id="should return `Not accessible` "
+               "if both mocked values are `False`"
         )
     ]
 )
