@@ -6,7 +6,7 @@ import pytest
 from app.main import can_access_google_page
 
 
-url = "https://google.com"
+TEST_URL = "https://google.com"
 
 
 @pytest.mark.parametrize(
@@ -56,4 +56,4 @@ def test_can_access_google_page_with_mocked_different_dependencies(
     mocked_url.return_value = mocked_url_return_value
     mocked_connection.return_value = mocked_connection_return_value
 
-    assert can_access_google_page(url) == expected_result
+    assert can_access_google_page(TEST_URL) == expected_result
