@@ -1,8 +1,9 @@
+from unittest import mock
+from unittest.mock import MagicMock
+
 import pytest
 
 from app.main import can_access_google_page
-from unittest import mock
-from typing import Callable
 
 
 @pytest.mark.parametrize(
@@ -37,8 +38,8 @@ from typing import Callable
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
 def test_can_access_google_page(
-        mocked_valid_googl_url: Callable,
-        mocked_has_internet_connection: Callable,
+        mocked_valid_googl_url: MagicMock,
+        mocked_has_internet_connection: MagicMock,
         url: bool,
         connection: bool,
         expected: str
