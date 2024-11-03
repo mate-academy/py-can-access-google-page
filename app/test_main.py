@@ -18,6 +18,6 @@ def test_not_accessible_no_internet() -> None:
 
 def test_not_accessible_invalid_url() -> None:
     with (patch("app.main.has_internet_connection", return_value=True),
-          patch("app.main.valid_google_url", return_valur=True)):
+          patch("app.main.valid_google_url", return_value=False)):
         result = can_access_google_page("http://www.google.com")
         assert result == "Not accessible"
