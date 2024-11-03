@@ -6,13 +6,13 @@ from app.main import can_access_google_page
 
 
 @pytest.fixture
-def mocked_has_internet():
+def mocked_has_internet() -> mock.MagicMock:
     with mock.patch("app.main.has_internet_connection") as mock_test_internet:
         yield mock_test_internet
 
 
 @pytest.fixture
-def mocked_valid_url():
+def mocked_valid_url() -> mock.MagicMock:
     with mock.patch("app.main.valid_google_url") as mock_test_valid_url:
         yield mock_test_valid_url
 
@@ -27,12 +27,12 @@ def mocked_valid_url():
     ]
 )
 def test_valid_url_and_connection_exists(
-        mocked_has_internet,
-        mocked_valid_url,
-        internet_status,
-        url_status,
-        expected_result
-):
+        mocked_has_internet: mock.MagicMock,
+        mocked_valid_url: mock.MagicMock,
+        internet_status: bool,
+        url_status: bool,
+        expected_result: str
+) -> None:
     mocked_has_internet.return_value = internet_status
     mocked_valid_url.return_value = url_status
     assert can_access_google_page("https://www.google.com") == expected_result
