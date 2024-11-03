@@ -4,7 +4,7 @@ from app.main import can_access_google_page
 
 
 # Test function for can_access_google_page
-def test_can_access_google_page():
+def test_can_access_google_page() -> None:
     url = "https://www.google.com"
 
     # Case 1: Internet connection available and valid Google URL
