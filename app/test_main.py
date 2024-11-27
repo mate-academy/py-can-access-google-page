@@ -2,10 +2,12 @@ from unittest import mock
 from typing import Callable
 from app.main import can_access_google_page
 
+
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_accessible_url_with_valid_conditions(mocked_url: Callable,
-                                              mocked_internet_connection: Callable) -> None:
+def test_accessible_url_with_valid_conditions(
+        mocked_url: Callable,
+        mocked_internet_connection: Callable) -> None:
     assert can_access_google_page("https://mate.academy/learn/"
                                   "python-core/python-core-"
                                   "testing-in-details?"
