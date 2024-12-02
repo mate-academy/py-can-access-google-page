@@ -24,3 +24,10 @@ def test_should_return_true_for_can_access_google_page() -> None:
           mock.patch("app.main.has_internet_connection",
           return_value=False)):
         assert can_access_google_page("http://google.com") == "Not accessible"
+
+
+def test_should_return_true_for_can_access_google_page2() -> None:
+    with (mock.patch("app.main.valid_google_url", return_value=False),
+          mock.patch("app.main.has_internet_connection",
+          return_value=True)):
+        assert can_access_google_page("http://google.com") == "Not accessible"
