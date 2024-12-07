@@ -13,4 +13,3 @@ def test_can_access_google_page(mock_has_internet: mock.Mock,
     assert result == "Accessible"
     mock_has_internet.assert_called_once()
     mock_valid_google_url.assert_called_once_with("https://www.google.com")
-# write your code here
