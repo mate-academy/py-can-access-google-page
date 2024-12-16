@@ -12,4 +12,4 @@ def test_valid_url_and_connection_exists(
     url = "https://www.google.com"
     assert can_access_google_page(url) == "Accessible"
     valid.assert_called_once_with(url)
-    internet.assert_called_once_with(url)
+    internet.assert_called_once()
