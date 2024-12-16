@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 from app.main import can_access_google_page
 
+
 @pytest.mark.parametrize(
     "valid_url_result,internet_connection_result,expected",
     [
