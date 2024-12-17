@@ -4,6 +4,7 @@ from unittest import mock
 
 from app.main import can_access_google_page
 
+
 @pytest.mark.parametrize(
 		"valid_url, connection, expected",
 		[
@@ -15,10 +16,10 @@ from app.main import can_access_google_page
 )
 
 def test_can_access_google_page(
-								valid_url: bool,
-								connection: bool,
-								expected: str
-								):
+				valid_url: bool,
+				connection: bool,
+				expected: str
+				):
 	with (mock.patch("app.main.valid_google_url") as \
 		  mocked_valid_google_url, \
 		  mock.patch("app.main.has_internet_connection") as \
