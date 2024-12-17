@@ -1,6 +1,6 @@
 import datetime
-import requests
 
+import requests
 
 def valid_google_url(url: str) -> bool:
     response = requests.get(url)
@@ -17,3 +17,5 @@ def can_access_google_page(url: str) -> str:
         return "Accessible"
     else:
         return "Not accessible"
+
+#print(valid_google_url("https://www.gogle.com/"))
