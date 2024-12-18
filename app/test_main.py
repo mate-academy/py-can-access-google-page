@@ -10,7 +10,7 @@ from app.main import can_access_google_page
     [
         (True, True, "Accessible"),
         (True, False, "Not accessible"),
-        (False, True, "Not accessible")
+        (False, True, "Not accessible"),
     ],
 )
 @mock.patch("app.main.valid_google_url")
