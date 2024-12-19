@@ -1,37 +1,26 @@
+import pytest
 from unittest import mock
 from app.main import can_access_google_page
 
 
-@mock.patch("app.main.valid_google_url", return_value=False)
-@mock.patch("app.main.has_internet_connection", return_value=True)
-def test_cannot_access_if_only_connection(
+@pytest.mark.parametrize(
+    "mock_connection, mock_valid_url, expected",
+    [
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
+    ],
+)
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_can_access_google_page(
         mocked_connection: bool,
-        mocked_valid_url: bool
+        mocked_valid_url: bool,
+        mock_connection: bool,
+        mock_valid_url: bool,
+        expected: str
 ) -> None:
-    assert can_access_google_page("https://google.com") == "Not accessible"
-
-
-@mock.patch("app.main.valid_google_url", return_value=True)
-@mock.patch("app.main.has_internet_connection", return_value=False)
-def test_cannot_access_if_only_valid_url(
-        mocked_connection: bool,
-        mocked_valid_url: bool
-) -> None:
-    assert can_access_google_page("https://google.com") == "Not accessible"
-
-
-@mock.patch("app.main.valid_google_url", return_value=False)
-@mock.patch("app.main.has_internet_connection", return_value=False)
-def test_cannot_access_if_connection_and_url_invalid(
-        mocked_connection: bool,
-        mocked_valid_url: bool
-) -> None:
-    assert can_access_google_page("https://google.com") == "Not accessible"
-
-
-@mock.patch("app.main.valid_google_url", return_value=True)
-@mock.patch("app.main.has_internet_connection", return_value=True)
-def test_can_access_if_connection_and_valid_url(
-        mocked_connection: bool,
-        mocked_valid_url: bool) -> None:
-    assert can_access_google_page("https://google.com") == "Accessible"
+    mocked_connection.return_value = mock_connection
+    mocked_valid_url.return_value = mock_valid_url
+    assert can_access_google_page("https://google.com") == expected
