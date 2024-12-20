@@ -33,8 +33,8 @@ def test_can_access_google_page(mocked_internet: MagicMock,
 
     mocked_google.return_value = False
     mocked_internet.return_value = True
-    assert can_access_google_page("http://google.com") == "Not Accessible"
+    assert can_access_google_page("http://google.com") == "Not accessible"
 
     mocked_internet.return_value = True
     mocked_google.return_value = False
-    assert can_access_google_page("http://google.com") == "Not Accessible"
+    assert can_access_google_page("http://google.com") == "Not accessible"
