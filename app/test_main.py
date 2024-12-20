@@ -29,8 +29,8 @@ from app.main import can_access_google_page
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-    mock_internet_connection: bool,
     mock_valid_url: bool,
+    mock_internet_connection: bool,
     internet_status: bool,
     url_status: bool,
     expected_result: str
