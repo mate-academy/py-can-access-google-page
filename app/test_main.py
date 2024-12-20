@@ -4,8 +4,10 @@ from app.main import can_access_google_page
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_cannot_access_if_only_valid_url(mock_has_internet_connection: mock.MagicMock,
-                                         mock_valid_google_url: mock.MagicMock) -> None:
+def test_cannot_access_if_only_valid_url(
+        mock_has_internet_connection: mock.MagicMock,
+        mock_valid_google_url: mock.MagicMock
+) -> None:
     mock_valid_google_url.return_value = True
     mock_has_internet_connection.return_value = False
     assert can_access_google_page("http://google.com") == "Not accessible"
