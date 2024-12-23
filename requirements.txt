@@ -6,3 +6,5 @@ flake8-variables-names==0.0.5
 pep8-naming==0.13.2
 requests==2.27.1
 pytest-xdist==2.5.0
+
+pytest-mock~=3.14.0
