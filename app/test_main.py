@@ -9,7 +9,6 @@ def test_combined_conditions(
         mocked_valid_google_url: Any,
         mocked_has_internet_connection: Any
 ) -> None:
-    # Define test cases with combinations
     test_cases = [
         (False, False, False),
         (False, True, False),
@@ -24,7 +23,8 @@ def test_combined_conditions(
         result = can_access_google_page("https://google.com")
 
         assert result == expected_result, (
-            f"Failed for has_internet={has_internet} and is_valid_url={is_valid_url}"
+            f"Failed for has_internet={has_internet} "
+            f"and is_valid_url={is_valid_url}"
         )
 
     mocked_has_internet_connection.assert_called()
