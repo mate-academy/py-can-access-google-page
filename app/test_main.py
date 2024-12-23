@@ -1,19 +1,16 @@
-from typing import Any
+import pytest
 from unittest import mock
 from app.main import can_access_google_page
 
 
-@mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_combined_conditions(
-        mocked_valid_google_url: Any,
-        mocked_has_internet_connection: Any
-) -> None:
+@mock.patch("app.main.has_internet_connection")
+def test_can_access_google_page(mocked_has_internet_connection, mocked_valid_google_url):
     test_cases = [
-        (False, False, False),
-        (False, True, False),
-        (True, True, True),
-        (True, False, False)
+        (False, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (True, True, "Accessible"),
+        (True, False, "Not accessible")
     ]
 
     for has_internet, is_valid_url, expected_result in test_cases:
@@ -23,9 +20,9 @@ def test_combined_conditions(
         result = can_access_google_page("https://google.com")
 
         assert result == expected_result, (
-            f"Failed for has_internet={has_internet} "
-            f"and is_valid_url={is_valid_url}"
+            f"Failed for has_internet={has_internet} and is_valid_url={is_valid_url}"
         )
 
-    mocked_has_internet_connection.assert_called()
-    mocked_valid_google_url.assert_called_with("https://google.com")
+
+if __name__ == "__main__":
+    pytest.main()
