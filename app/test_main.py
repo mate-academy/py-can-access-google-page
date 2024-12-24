@@ -1,29 +1,26 @@
-from typing import Any
+import pytest
 from unittest import mock
 from app.main import can_access_google_page
 
 
+@pytest.mark.parametrize(
+    "mock_connection, mock_valid_url, expected",
+    [
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
+    ],
+)
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-    mocked_has_internet_connection: Any,
-    mocked_valid_google_url: Any
+        mocked_connection: mock.MagicMock,
+        mocked_valid_url: mock.MagicMock,
+        mock_connection: bool,
+        mock_valid_url: bool,
+        expected: str
 ) -> None:
-    # Define test cases
-    test_cases = [
-        (False, False, "Not accessible"),
-        (False, True, "Not accessible"),
-        (True, True, "Accessible"),
-        (True, False, "Not accessible")
-    ]
-
-    for has_internet, is_valid_url, expected_result in test_cases:
-        mocked_has_internet_connection.return_value = has_internet
-        mocked_valid_google_url.return_value = is_valid_url
-
-        result = can_access_google_page("https://google.com")
-
-        assert result == expected_result, (
-            f"Failed for has_internet={has_internet} "
-            f"and is_valid_url={is_valid_url}"
-        )
+    mocked_connection.return_value = mock_connection
+    mocked_valid_url.return_value = mock_valid_url
+    assert can_access_google_page("https://google.com") == expected
