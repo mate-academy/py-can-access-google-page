@@ -12,6 +12,8 @@ from app.main import can_access_google_page
                      id="Internet is not accessible"),
         pytest.param(True, False, "Not accessible",
                      id="URL is not valid"),
+        pytest.param(False, False, "Not accessible",
+                     id="Internet is not accessible and URL is not right"),
     ],
 )
 @mock.patch("app.main.valid_google_url")
@@ -23,13 +25,13 @@ def test_can_access_google_page(
     value_to_add: str,
     expected_value: str
 ) -> None:
-    # Налаштовуємо моки
+    # Setup mocks
     mock_internet.return_value = initial_value
     mock_valid_url.return_value = value_to_add
 
-    # Викликаємо тестовану функцію
+    # Call test function
     url = "https://www.google.com"
     result = can_access_google_page(url)
 
-    # Перевіряємо результат
+    # Check result
     assert result == expected_value
