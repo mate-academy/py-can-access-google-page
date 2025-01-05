@@ -17,10 +17,12 @@ def test_valid_google_url(mock_get: str) -> None:
 @mock.patch("app.main.datetime")
 def test_has_internet_connection(mock_datetime: str) -> None:
     # Імітуємо поточний час
-    mock_datetime.now.return_value = datetime.datetime(2024, 1, 5, 12, 0, 0)
+    mock_datetime.datetime.now.return_value = datetime.datetime(
+        2024, 1, 5, 12, 0, 0)
     assert has_internet_connection() is True
 
-    mock_datetime.now.return_value = datetime.datetime(2024, 1, 5, 1, 0, 0)
+    mock_datetime.datetime.now.return_value = datetime.datetime(
+        2024, 1, 5, 1, 0, 0)
     assert has_internet_connection() is False
 
 
