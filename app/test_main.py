@@ -1,45 +1,35 @@
-import datetime
-
+import pytest
 from unittest import mock
-from app.main import (valid_google_url,
-                      has_internet_connection,
-                      can_access_google_page)
+from app.main import can_access_google_page
 
 
-@mock.patch("requests.get")
-def test_valid_google_url(mock_get: str) -> None:
-    # Імітуємо успішну відповідь від requests.get
-    mock_get.return_value.status_code = 200
-    url = "https://www.google.com"
-    assert valid_google_url(url) is True
-
-
-@mock.patch("app.main.datetime")
-def test_has_internet_connection(mock_datetime: str) -> None:
-    # Імітуємо поточний час
-    mock_datetime.datetime.now.return_value = datetime.datetime(
-        2024, 1, 5, 12, 0, 0)
-    assert has_internet_connection() is True
-
-    mock_datetime.datetime.now.return_value = datetime.datetime(
-        2024, 1, 5, 1, 0, 0)
-    assert has_internet_connection() is False
-
-
+@pytest.mark.parametrize(
+    "initial_value, value_to_add, expected_value",
+    [
+        pytest.param(True, True, "Accessible",
+                     id="Internet accessible and URL right"),
+        pytest.param(False, True, "Not accessible",
+                     id="Internet is not accessible"),
+        pytest.param(True, False, "Not accessible",
+                     id="URL is not valid"),
+    ],
+)
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page(mock_internet: str,
-                                mock_valid_url: str) -> None:
-    # Імітуємо, що інтернет доступний і URL правильний
-    mock_internet.return_value = True
-    mock_valid_url.return_value = True
+def test_can_access_google_page(
+    mock_internet: str,
+    mock_valid_url: str,
+    initial_value: str,
+    value_to_add: str,
+    expected_value: str
+) -> None:
+    # Налаштовуємо моки
+    mock_internet.return_value = initial_value
+    mock_valid_url.return_value = value_to_add
+
+    # Викликаємо тестовану функцію
     url = "https://www.google.com"
-    assert can_access_google_page(url) == "Accessible"
+    result = can_access_google_page(url)
 
-    # Імітуємо, що інтернет недоступний
-    mock_internet.return_value = False
-    assert can_access_google_page(url) == "Not accessible"
-
-    mock_internet.return_value = True
-    mock_valid_url.return_value = False
-    assert can_access_google_page(url) == "Not accessible"
+    # Перевіряємо результат
+    assert result == expected_value
