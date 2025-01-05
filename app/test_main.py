@@ -23,4 +23,3 @@ def test_valid_url_and_connection_exists(
     mocked_valid_url.return_value = valid_url
     mocked_has_internet.return_value = internet
     assert can_access_google_page(url) == result
-
