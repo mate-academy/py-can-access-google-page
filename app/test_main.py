@@ -36,7 +36,6 @@ def test_can_access_google_page(mock_internet, mock_valid_url):
     mock_internet.return_value = False
     assert can_access_google_page(url) == "Not accessible"
 
-    # Імітуємо, що URL недійсний
     mock_internet.return_value = True
     mock_valid_url.return_value = False
     assert can_access_google_page(url) == "Not accessible"
