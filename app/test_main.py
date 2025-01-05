@@ -3,19 +3,17 @@ import requests
 
 from unittest import mock
 
-from app.main import valid_google_url, has_internet_connection, can_access_google_page
+from app.main import valid_google_url, has_internet_connection
 
 
 @mock.patch("requests.get")
 def test_valid_google_url(url: str) -> None:
-    #requests.get = mock.MagicMock()
     response = requests.get(url)
     assert response.status_code == 200
 
 
 @mock.patch("datetime.datetime.now")
 def test_has_internet_connection() -> None:
-    #datetime.datetime.now = mock.MagicMock()
     current_time = datetime.datetime.now()
     assert current_time.hour in range(6, 23)
 
