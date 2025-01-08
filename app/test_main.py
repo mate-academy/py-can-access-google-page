@@ -14,8 +14,8 @@ from app.main import can_access_google_page
 )
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_can_access_google_page(mock_internet_conn: bool,
-                                mock_valid_url_func: bool,
+def test_can_access_google_page(mock_valid_url_func: bool,
+                                mock_internet_conn: bool,
                                 mock_valid_url: bool, mock_internet: bool,
                                 expected: str) -> None:
     mock_valid_url_func.return_value = mock_valid_url
