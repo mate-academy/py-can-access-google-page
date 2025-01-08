@@ -18,10 +18,10 @@ from app.main import can_access_google_page
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-        is_valid_url: bool,
-        has_internet: bool,
         mock_has_internet: MagicMock,
         mock_valid_google_url: MagicMock,
+        is_valid_url: bool,
+        has_internet: bool,
         excepted_result: str) -> None:
     mock_valid_google_url.return_value = is_valid_url
     mock_has_internet.return_value = has_internet
