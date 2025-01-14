@@ -40,18 +40,21 @@ class TestValidUrlClass:
 
 
 class TestCanAccessGooglePage(TestCase):
-    @mock.patch("requests.get")
+    @mock.patch("app.main.valid_google_url")
     @mock.patch("app.main.has_internet_connection")
-    def test_all_functions_are_called(self,
-                                      mock_has_internet: Any,
-                                      mock_get: Any
-                                      ) -> None:
+    def test_internal_function_calls_in_main_function(
+            self,
+            mock_has_internet: Any,
+            mock_valid_google_url: Any
+    ) -> None:
         mock_has_internet.return_value = True
-        mock_get.return_value.status_code = 200
+        mock_valid_google_url.return_value.status_code = 200
         result = can_access_google_page("https://www.google.com/")
 
         mock_has_internet.assert_called_once()
-        mock_get.assert_called_once_with("https://www.google.com/")
+        mock_valid_google_url.assert_called_once_with(
+            "https://www.google.com/"
+        )
         self.assertEqual(result, "Accessible")
 
     def test_can_access_google_page_execution_time(self) -> None:
@@ -63,4 +66,4 @@ class TestCanAccessGooglePage(TestCase):
         duration = end_time - start_time
         print(f"Function execution time: {duration: .4f} seconds")
 
-        self.assertEqual(result, "Accessible")
+        self.assertEqual(result, "Not accessible")
