@@ -17,7 +17,7 @@ def mock_has_internet() -> mock.Mock:
         yield mocked_has_internet
 
 
-def test_should_be_positive_if_valid_url_and_has_internet(
+def test_valid_url_and_connection_exist(
         mock_valid_url: mock.Mock,
         mock_has_internet: mock.Mock
 ) -> None:
@@ -30,7 +30,7 @@ def test_should_be_positive_if_valid_url_and_has_internet(
     assert result == "Accessible"
 
 
-def test_should_be_negative_if_invalid_url_and_no_internet(
+def test_invalid_url_and_no_internet(
         mock_valid_url: mock.Mock,
         mock_has_internet: mock.Mock
 ) -> None:
@@ -43,7 +43,7 @@ def test_should_be_negative_if_invalid_url_and_no_internet(
     assert result == "Not accessible"
 
 
-def test_should_be_negative_if_url_is_invalid(
+def test_invalid_url_and_connection_exist(
         mock_valid_url: mock.Mock,
         mock_has_internet: mock.Mock
 ) -> None:
@@ -56,7 +56,7 @@ def test_should_be_negative_if_url_is_invalid(
     assert result == "Not accessible"
 
 
-def test_should_be_negative_if_no_internet(
+def test_valid_url_and_no_internet(
         mock_valid_url: mock.Mock,
         mock_has_internet: mock.Mock
 ) -> None:
