@@ -5,7 +5,7 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "param1", "param2", "expected", [
+    "param1, param2, expected", [
         (True, True, "Accessible"),
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
