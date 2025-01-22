@@ -18,8 +18,8 @@ def test_main_can_access_google_page(
         mock_valid_google_url: object,
         param1: bool,
         param2: bool,
-        expected: bool,
+        expected: str,
 ) -> None:
     mock_has_internet_connection.return_value = param1
     mock_valid_google_url.return_value = param2
-    assert (can_access_google_page("http//:googlecom") == expected)
+    assert (can_access_google_page("http://google.com") == expected)
