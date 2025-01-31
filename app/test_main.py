@@ -17,6 +17,10 @@ def test_can_access_google_page_when_url_valid_and_connection_exists(
         mock_internet: bool,
         expected: str
 ) -> str:
-    with mock.patch("app.main.valid_google_url", return_value=mock_valid_url), \
-         mock.patch("app.main.has_internet_connection", return_value=mock_internet):
+    with mock.patch(
+            "app.main.valid_google_url",
+            return_value=mock_valid_url), \
+         mock.patch(
+             "app.main.has_internet_connection",
+             return_value=mock_internet):
         assert can_access_google_page("https://www.google.com") == expected
