@@ -24,12 +24,13 @@ def mock_has_internet_connection() -> mock.Mock:
         (False, False, "Not accessible"),
     ]
 )
-def test_can_access_google_page(mock_valid_google_url: mock.Mock,
-                            mock_has_internet_connection: mock.Mock,
-                            mock_url: bool,
-                            mock_internet: bool,
-                            expected: str
-                            ) -> None:
+def test_can_access_google_page(
+        mock_valid_google_url: mock.Mock,
+        mock_has_internet_connection: mock.Mock,
+        mock_url: bool,
+        mock_internet: bool,
+        expected: str
+        ) -> None:
     mock_valid_google_url.return_value = mock_url
     mock_has_internet_connection.return_value = mock_internet
     result = can_access_google_page("https://www.google.com")
