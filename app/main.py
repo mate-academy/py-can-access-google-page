@@ -1,24 +1,19 @@
-import time
 import datetime
+import requests
 
 
-def valid_google_url(url):
-    valid_urls = [
-        "https://www.google.com"
-        "google.com",
-        "google.com.ua",
-    ]
-    time.sleep(5)
-    return True if url in valid_urls else False
+def valid_google_url(url: str) -> bool:
+    response = requests.get(url)
+    return True if response.status_code == 200 else False
 
 
-def has_internet_connection():
+def has_internet_connection() -> bool:
     current_time = datetime.datetime.now()
     return True if current_time.hour in range(6, 23) else False
 
 
-def can_access_google_page(url):
-    if valid_google_url(url) and has_internet_connection():
+def can_access_google_page(url: str) -> str:
+    if has_internet_connection() and valid_google_url(url):
         return "Accessible"
     else:
         return "Not accessible"
