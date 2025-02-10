@@ -1,68 +1,41 @@
+import pytest
 from unittest.mock import patch, Mock, MagicMock
 from .main import (can_access_google_page,
                    has_internet_connection,
                    valid_google_url)
 
 
-def test_valid_google_url() -> None:
+GOOGLE_URL: str = "https://www.google.com/"
+
+
+@pytest.mark.parametrize("status_code, expected", [(200, True), (404, False)])
+def test_valid_google_url(status_code: int, expected: bool) -> None:
     with patch("requests.get") as mock_get:
-        mock_response = Mock()
-        mock_response.status_code = 200
+        mock_response = Mock(status_code=status_code)
         mock_get.return_value = mock_response
-
-        assert valid_google_url("https://www.google.com/") is True
-
-
-def test_valid_google_url_failure() -> None:
-    with patch("requests.get") as mock_get:
-        mock_response = Mock()
-        mock_response.status_code = 404
-        mock_get.return_value = mock_response
-
-        assert valid_google_url("https://www.google.com/") is False
+        assert valid_google_url(GOOGLE_URL) is expected
 
 
-def test_has_internet_connection_daytime() -> None:
+@pytest.mark.parametrize("hour, expected", [(12, True), (2, False)])
+def test_has_internet_connection(hour: int, expected: bool) -> None:
     with patch("datetime.datetime") as mock_datetime:
-        mock_now = MagicMock()
-        mock_now.hour = 12
+        mock_now = MagicMock(hour=hour)
         mock_datetime.now.return_value = mock_now
-        assert has_internet_connection() is True
+        assert has_internet_connection() is expected
 
 
-def test_has_internet_connection_nighttime() -> None:
-    with patch("datetime.datetime") as mock_datetime:
-        mock_now = MagicMock()
-        mock_now.hour = 2
-        mock_datetime.now.return_value = mock_now
-        assert has_internet_connection() is False
-
-
-def test_can_access_google_page_accessible() -> None:
-    with (patch("app.main.has_internet_connection") as mock_has_internet,
-          patch("app.main.valid_google_url") as mock_valid_url):
-        mock_has_internet.return_value = True
-        mock_valid_url.return_value = True
-        assert can_access_google_page(
-            "https://www.google.com/"
-        ) == "Accessible"
-
-
-def test_can_access_google_page_not_accessible() -> None:
-    with (patch("app.main.has_internet_connection") as mock_has_internet,
-          patch("app.main.valid_google_url") as mock_valid_url):
-        mock_has_internet.return_value = False
-        mock_valid_url.return_value = True
-        assert can_access_google_page(
-            "https://www.google.com/"
-        ) == "Not accessible"
-
-
-def test_can_access_google_page_invalid_url() -> None:
-    with (patch("app.main.has_internet_connection") as mock_has_internet,
-          patch("app.main.valid_google_url") as mock_valid_url):
-        mock_has_internet.return_value = True
-        mock_valid_url.return_value = False
-        assert can_access_google_page(
-            "https://www.google.com/"
-        ) == "Not accessible"
+@pytest.mark.parametrize(
+    "has_connection, valid_url, expected",
+    [
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+    ],
+)
+def test_can_access_google_page(
+    has_connection: bool, valid_url: bool, expected: str
+) -> None:
+    with patch(
+            "app.main.has_internet_connection", return_value=has_connection
+    ), patch("app.main.valid_google_url", return_value=valid_url):
+        assert can_access_google_page(GOOGLE_URL) == expected
