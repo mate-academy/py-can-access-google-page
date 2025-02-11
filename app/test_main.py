@@ -5,8 +5,8 @@ from app.main import can_access_google_page
 
 class TestCanAccessGooglePage(unittest.TestCase):
 
-    @patch("main.valid_google_url")
-    @patch("main.has_internet_connection")
+    @patch("app.main.valid_google_url")
+    @patch("app.main.has_internet_connection")
     def test_accessible(
         self,
         mock_has_internet: unittest.mock.Mock,
@@ -18,8 +18,8 @@ class TestCanAccessGooglePage(unittest.TestCase):
             can_access_google_page("https://www.google.com"), "Accessible"
         )
 
-    @patch("main.valid_google_url")
-    @patch("main.has_internet_connection")
+    @patch("app.main.valid_google_url")
+    @patch("app.main.has_internet_connection")
     def test_no_internet(
         self,
         mock_has_internet: unittest.mock.Mock,
@@ -31,8 +31,8 @@ class TestCanAccessGooglePage(unittest.TestCase):
             can_access_google_page("https://www.google.com"), "Not accessible"
         )
 
-    @patch("main.valid_google_url")
-    @patch("main.has_internet_connection")
+    @patch("app.main.valid_google_url")
+    @patch("app.main.has_internet_connection")
     def test_invalid_url(
         self,
         mock_has_internet: unittest.mock.Mock,
@@ -44,8 +44,8 @@ class TestCanAccessGooglePage(unittest.TestCase):
             can_access_google_page("https://invalid-url.com"), "Not accessible"
         )
 
-    @patch("main.valid_google_url")
-    @patch("main.has_internet_connection")
+    @patch("app.main.valid_google_url")
+    @patch("app.main.has_internet_connection")
     def test_no_internet_and_invalid_url(
         self,
         mock_has_internet: unittest.mock.Mock,
