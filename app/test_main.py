@@ -4,15 +4,15 @@ from app.main import can_access_google_page
 
 
 @pytest.fixture
-def mock_has_con(result: bool) -> bool:
+def mock_has_con():
     with mock.patch("app.main.has_internet_connection") as mock_has_con:
-        return result
+        yield mock_has_con
 
 
 @pytest.fixture
-def mock_valid_url(result: bool) -> bool:
+def mock_valid_url():
     with mock.patch("app.main.valid_google_url") as mock_valid_url:
-        return result
+        yield mock_valid_url
 
 
 @pytest.mark.parametrize(
