@@ -23,7 +23,7 @@ def test_can_access(
     has_connection: bool,
     expected_result: str
 ) -> None:
-    mock_valid_google_url.return_value = mock_valid_google_url
-    mock_has_connection.return_value = mock_has_connection
+    mock_valid_google_url.return_value = is_valid_url
+    mock_has_connection.return_value = has_connection
     assert can_access_google_page(
         "https://www.google.com.ua/") == expected_result
