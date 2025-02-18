@@ -1,6 +1,6 @@
-from unittest import mock
-
 import pytest
+from unittest import mock
+from typing import Union
 
 from app.main import can_access_google_page
 
@@ -17,8 +17,8 @@ from app.main import can_access_google_page
     ]
 )
 def test_can_access_google_page(
-        mock_has_internet: bool,
-        mock_valid_url: bool,
+        mock_has_internet: Union,
+        mock_valid_url: Union,
         internet_connection: bool,
         valid_url: bool,
         expected_result: str
