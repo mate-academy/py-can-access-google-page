@@ -1,13 +1,28 @@
+import unittest
+from unittest.mock import patch
+from app.main import can_access_google_page
 
-def test_can_access_google_page(monkeypatch: any) -> None:
-    def mock_valid_google_url(url: str) -> bool:
-        return True
+class TestCanAccessGooglePage(unittest.TestCase):
 
-    def mock_has_internet_connection() -> bool:
-        return True
+    @patch('app.main.valid_google_url')
+    @patch('app.main.has_internet_connection')
+    def test_can_access_google_page(self, mock_has_internet_connection, mock_valid_google_url):
+        # Test when both valid_google_url and has_internet_connection return True
+        mock_valid_google_url.return_value = True
+        mock_has_internet_connection.return_value = True
+        self.assertEqual(can_access_google_page('http://www.google.com'), 'Accessible')
 
-    monkeypatch.setattr("app.main.valid_google_url", mock_valid_google_url)
-    monkeypatch.setattr(
-        "app.main.has_internet_connection",
-        mock_has_internet_connection
-    )
+        # Test when only valid_google_url returns True
+        mock_valid_google_url.return_value = True
+        mock_has_internet_connection.return_value = False
+        self.assertEqual(can_access_google_page('http://www.google.com'), 'Not accessible')
+
+        # Test when only has_internet_connection returns True
+        mock_valid_google_url.return_value = False
+        mock_has_internet_connection.return_value = True
+        self.assertEqual(can_access_google_page('http://www.google.com'), 'Not accessible')
+
+        # Test when both valid_google_url and has_internet_connection return False
+        mock_valid_google_url.return_value = False
+        mock_has_internet_connection.return_value = False
+        self.assertEqual(can_access_google_page('http://www.google.com'), 'Not accessible')
