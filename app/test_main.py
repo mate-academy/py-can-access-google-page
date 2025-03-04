@@ -5,9 +5,11 @@ from app.main import can_access_google_page
 
 
 @fixture
-def mocked_dependencies():
-    with (patch("app.main.valid_google_url") as valid_google_url,
-          patch("app.main.has_internet_connection") as has_internet_connection):
+def mocked_dependencies() -> None:
+    with (patch("app.main.valid_google_url")
+          as valid_google_url,
+          patch("app.main.has_internet_connection")
+          as has_internet_connection):
         yield valid_google_url, has_internet_connection
 
 
@@ -27,7 +29,12 @@ def mocked_dependencies():
     ]
 
 )
-def test_can_access_google_page(mocked_dependencies, has_connection, valid_url, result):
+def test_can_access_google_page(
+        mocked_dependencies: tuple,
+        has_connection: bool,
+        valid_url: bool,
+        result: str
+) -> None:
     valid_google_url, has_internet_connection = mocked_dependencies
 
     valid_google_url.return_value = valid_url
