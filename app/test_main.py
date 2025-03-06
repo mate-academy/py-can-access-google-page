@@ -1,46 +1,32 @@
-from pytest_mock import MockerFixture
+from unittest.mock import patch, MagicMock
 from app.main import can_access_google_page
 
 
-def test_can_access_google_page_accessible(mocker: MockerFixture) -> None:
-    # Mock both functions to return True
-    mocker.patch("app.main.valid_google_url", return_value=True)
-    mocker.patch("app.main.has_internet_connection", return_value=True)
-
-    # Test with a valid URL
-    result = can_access_google_page("https://www.google.com")
-    assert result == "Accessible"
-
-
-def test_can_access_google_page_not_accessible_invalid_url(
-    mocker: MockerFixture,
+# Test cases for can_access_google_page function
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
+def test_can_access_google_page(
+        mock_has_internet_connection: MagicMock,
+        mock_valid_google_url: MagicMock
 ) -> None:
-    mocker.patch("app.main.valid_google_url", return_value=False)
-    mocker.patch("app.main.has_internet_connection", return_value=True)
+    # Test case 1: Both internet connection and URL are valid
+    mock_has_internet_connection.return_value = True
+    mock_valid_google_url.return_value = True
+    assert can_access_google_page("https://www.google.com") == "Accessible"
 
-    # Test with an invalid URL
-    result = can_access_google_page("https://www.invalidurl.com")
-    assert result == "Not accessible"
+    # Test case 2: Internet connection is valid, but URL is invalid
+    mock_has_internet_connection.return_value = True
+    mock_valid_google_url.return_value = False
+    assert can_access_google_page("https:"
+                                  "//www.invalidurl.com") == "Not accessible"
 
+    # Test case 3: Internet connection is invalid, but URL is valid
+    mock_has_internet_connection.return_value = False
+    mock_valid_google_url.return_value = True
+    assert can_access_google_page("https://www.google.com") == "Not accessible"
 
-def test_can_access_google_page_not_accessible_no_internet(
-    mocker: MockerFixture,
-) -> None:
-    mocker.patch("app.main.valid_google_url", return_value=True)
-    mocker.patch("app.main.has_internet_connection", return_value=False)
-
-    # Test with a valid URL but no internet connection
-    result = can_access_google_page("https://www.google.com")
-    assert result == "Not accessible"
-
-
-def test_can_access_google_page_not_accessible_invalid_url_and_no_internet(
-    mocker: MockerFixture,
-) -> None:
-    # Mock both functions to return False
-    mocker.patch("app.main.valid_google_url", return_value=False)
-    mocker.patch("app.main.has_internet_connection", return_value=False)
-
-    # Test with an invalid URL and no internet connection
-    result = can_access_google_page("https://www.invalidurl.com")
-    assert result == "Not accessible"
+    # Test case 4: Both internet connection and URL are invalid
+    mock_has_internet_connection.return_value = False
+    mock_valid_google_url.return_value = False
+    assert can_access_google_page("https://www."
+                                  "invalidurl.com") == "Not accessible"
