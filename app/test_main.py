@@ -13,8 +13,6 @@ def test_can_access_google_page(has_internet_connection: str,
     test_url = "http://www.google.com"
     result = can_access_google_page(test_url)
     assert result == "Accessible"
-
-
-
-
-
+    valid_google_url.assert_called_once()
+    valid_google_url.assert_called_once_with(test_url)
+    has_internet_connection.assert_called_once()
