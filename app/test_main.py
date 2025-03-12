@@ -23,7 +23,7 @@ def test_can_access_to_google_page_no_internet(
     mock_has_internet.return_value = False
     mock_valid_google_url.return_value = True
     result = can_access_google_page("http://www.google.com")
-    assert result == "Not Accessible"
+    assert result == "Not accessible"
 
 
 @patch("app.main.valid_google_url")
@@ -35,7 +35,7 @@ def test_can_access_to_google_page_invalid_url(
     mock_has_internet.return_value = True
     mock_valid_google_url.return_value = False
     result = can_access_google_page("http://www.google.com")
-    assert result == "Not Accessible"
+    assert result == "Not accessible"
 
 
 @patch("app.main.valid_google_url")
@@ -47,4 +47,4 @@ def test_can_access_to_google_page_invalid_url_no_connection(
     mock_has_internet.return_value = False
     mock_valid_google_url.return_value = False
     result = can_access_google_page("http://www.google.com")
-    assert result == "Not Accessible"
+    assert result == "Not accessible"
