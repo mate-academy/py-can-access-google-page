@@ -4,7 +4,7 @@ from app.main import can_access_google_page
 
 @mock.patch('app.main.valid_google_url')
 @mock.patch('app.main.has_internet_connection')
-def test_can_access_google_page(mock_internet: bool, mock_valid_url: bool) \
+def test_valid_url_and_connection_exists(mock_internet: bool, mock_valid_url: bool) \
         -> None:
     mock_internet.return_value = True
     mock_valid_url.return_value = True
