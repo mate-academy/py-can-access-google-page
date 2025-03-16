@@ -1,9 +1,15 @@
 # write your code here
+import datetime
 import responses
 import pytest
 from unittest.mock import patch
-from app.main import can_access_google_page
+from app.main import can_access_google_page, you_have_to_give_me_mocked_datetime
 
+
+@patch("app.main.datetime.date")
+def test_mocked_datetime(mocked_date):
+    mocked_date.today.return_value = datetime.date(2025, 3, 17)
+    assert you_have_to_give_me_mocked_datetime() == datetime.date(2025, 3, 17)
 
 # ----------------------------------------------------------------------
 
