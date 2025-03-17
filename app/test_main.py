@@ -1,35 +1,29 @@
-import unittest
-from unittest.mock import patch, Mock
-import random
-import datetime
+import pytest
+from unittest.mock import patch
 from app.main import can_access_google_page
 
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
+def test_can_access_google_page(mock_has_internet_connection: any, mock_valid_google_url: any) -> None:
 
-class TestUrlAccess(unittest.TestCase):
-    @patch("requests.get")
-    @patch("datetime.datetime.now")
-    @patch("app.main.valid_google_url", "app.main.has_internet_connection")
-    def test_valid_url_and_connection_time(self, mock_internet: any,
-                                           mock_url: any,
-                                           mock_get: any,
-                                           mock_time: any) -> None:
-
-        mock_time.now.return_value = datetime.datetime(
-            2024, 1, 1,
-            random.randint(6, 23)
-        )
-
-        mock_response = Mock()
-        mock_response.status_code = 200
-        mock_get.return_value = mock_response
-
-        mock_url.return_value = True
-        mock_internet.return_value = True
-
-        result = can_access_google_page()
-
-        assert result == "Accessible"
+    mock_has_internet_connection.return_value = True
+    mock_valid_google_url.return_value = True
 
 
-if __name__ == "__main__":
-    unittest.main()
+    result = can_access_google_page("https://www.google.com")
+
+    assert result == "Accessible"
+
+    mock_has_internet_connection.return_value = True
+    mock_valid_google_url.return_value = False
+
+    result = can_access_google_page("https://www.google.com")
+
+    assert result == "Not accessible"
+
+    mock_has_internet_connection.return_value = False
+    mock_valid_google_url.return_value = False
+
+    result = can_access_google_page("https://www.google.com")
+
+    assert result == "Not accessible"
