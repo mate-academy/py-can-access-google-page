@@ -19,16 +19,16 @@ class TestUrlAccess(unittest.TestCase):
             random.randint(6, 23)
         )
 
-        mock_url.return_value = True
-        mock_internet.return_value = True
-
         mock_response = Mock()
         mock_response.status_code = 200
         mock_get.return_value = mock_response
 
-        result = can_access_google_page(mock_url(), mock_internet())
+        mock_url.return_value = True
+        mock_internet.return_value = True
 
-        self.assertTrue(result)
+        result = can_access_google_page()
+
+        assert result == "Accessible"
 
 
 if __name__ == "__main__":
