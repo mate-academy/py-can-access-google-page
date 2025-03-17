@@ -18,7 +18,7 @@ from app.main import can_access_google_page
 def test_can_access_google_page(
         internet_status: bool,
         url_status: bool,
-        extended: bool
+        extended: str
 ) -> None:
     with patch(
             "app.main.has_internet_connection",
