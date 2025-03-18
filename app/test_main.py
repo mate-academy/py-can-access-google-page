@@ -12,7 +12,7 @@ from app.main import can_access_google_page
         (False, False, "Not accessible")
     ]
 )
-def test_can_access_google_page(
+def test_can_access_google_page_with_different_parameters(
         connection: bool, valid: bool, expected: str) -> None:
     with mock.patch("app.main.has_internet_connection") as mocked_connection:
         with mock.patch("app.main.valid_google_url") as mocked_valid:
