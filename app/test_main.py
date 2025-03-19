@@ -9,7 +9,7 @@ def test_can_access_google_page(monkeypatch: MonkeyPatch) -> None:
     assert can_access_google_page("http://www.google.com") == "Accessible"
 
 
-def test_cannot_access_google_page_because_first_argument_is_false(
+def test_can_not_access_google_page_when_url_is_invalid(
         monkeypatch: MonkeyPatch) -> None:
     monkeypatch.setattr("app.main.valid_google_url", lambda _: False)
     monkeypatch.setattr("app.main.has_internet_connection", lambda: True)
@@ -17,7 +17,7 @@ def test_cannot_access_google_page_because_first_argument_is_false(
     assert can_access_google_page("http://www.google.com") == "Not accessible"
 
 
-def test_cannot_access_google_page_because_second_argument_is_false(
+def test_can_not_access_google_page_when_no_internet_connection(
         monkeypatch: MonkeyPatch) -> None:
     monkeypatch.setattr("app.main.valid_google_url", lambda _: True)
     monkeypatch.setattr("app.main.has_internet_connection", lambda: False)
@@ -25,7 +25,7 @@ def test_cannot_access_google_page_because_second_argument_is_false(
     assert can_access_google_page("http://www.google.com") == "Not accessible"
 
 
-def test_cannot_access_google_page_because_both_arguments_is_false(
+def test_can_not_access_google_page_when_url_is_invalid_and_no_internet_connection(
         monkeypatch: MonkeyPatch) -> None:
     monkeypatch.setattr("app.main.valid_google_url", lambda _: False)
     monkeypatch.setattr("app.main.has_internet_connection", lambda: False)
