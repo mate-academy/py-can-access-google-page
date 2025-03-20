@@ -22,5 +22,5 @@ def test_valid_url_and_connection_exists(
          patch(
              "app.main.has_internet_connection",
              return_value=has_connection
-         ):
+    ):
         assert can_access_google_page(url) == expected
