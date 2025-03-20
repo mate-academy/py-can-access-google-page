@@ -4,7 +4,7 @@ from app.main import can_access_google_page
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page_uses_suport_functions_correct(
+def test_can_access_google_page_is_using_interval_functions(
         moked_internet: mock.MagicMock,
         moked_valid: mock.MagicMock) -> None:
 
@@ -15,7 +15,7 @@ def test_can_access_google_page_uses_suport_functions_correct(
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page_without_internet(
+def test_can_access_google_page_without_internet_conection(
         moked_internet: mock.MagicMock,
         moked_valid: mock.MagicMock) -> None:
     moked_internet.return_value = False
@@ -24,7 +24,7 @@ def test_can_access_google_page_without_internet(
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page_invalid_url(
+def test_can_access_google_page_with_invalid_url(
         moked_internet: mock.MagicMock,
         moked_valid: mock.MagicMock) -> None:
     moked_valid.return_value = False
@@ -33,7 +33,7 @@ def test_can_access_google_page_invalid_url(
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page_basic_case(
+def test_can_access_google_page_when_network_is_available(
         moked_internet: mock.MagicMock,
         moked_valid: mock.MagicMock) -> None:
     moked_valid.return_value = True
