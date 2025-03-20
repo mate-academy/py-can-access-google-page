@@ -12,7 +12,12 @@ from unittest.mock import patch
         ("invalid_url", False, False, "Not accessible"),
     ]
 )
-def test_can_access_google_page(url: str, valid_url: bool, has_connection: bool, expected: str):
+def test_can_access_google_page(
+        url: str,
+        valid_url: bool,
+        has_connection: bool,
+        expected: str
+) -> None:
     with patch("app.main.valid_google_url", return_value=valid_url), \
          patch("app.main.has_internet_connection", return_value=has_connection):
         assert can_access_google_page(url) == expected
