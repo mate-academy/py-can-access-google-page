@@ -40,7 +40,7 @@ def mock_dependencies(
         (False, False, "Not accessible"),
     ],
 )
-def test_can_access_google_page(
+def test_valid_url_and_connection_exists(
     mock_dependencies: Callable[[bool, bool], None],
     internet_connection: bool,
     valid_url: bool,
