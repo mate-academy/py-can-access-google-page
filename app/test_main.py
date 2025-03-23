@@ -12,3 +12,5 @@ def test_valid_url_and_connection_exists(
     can_access_google_page(mocked_valid_google_url)
     mocked_valid_google_url.assert_called_once()
     mocked_has_internet_connection.assert_called_once()
+    assert mocked_valid_google_url
+    assert mocked_has_internet_connection
