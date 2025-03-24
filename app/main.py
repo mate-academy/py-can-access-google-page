@@ -13,6 +13,10 @@ def has_internet_connection() -> bool:
 
 
 def can_access_google_page(url: str) -> str:
+    """
+
+    :rtype: object
+    """
     if has_internet_connection() and valid_google_url(url):
         return "Accessible"
     else:
