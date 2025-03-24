@@ -8,7 +8,7 @@ from app.main import can_access_google_page
 
 class TestCanAccessGooglePage:
     @pytest.mark.parametrize(
-        "mocked_url, mocked_connection, expected",
+        "valid_url, internet_connection, expected",
         [
             (True, True, "Accessible"),
             (False, True, "Not accessible"),
@@ -22,15 +22,15 @@ class TestCanAccessGooglePage:
     )
     @mock.patch("app.main.valid_google_url")
     @mock.patch("app.main.has_internet_connection")
-    def test_can_access_google_page(
+    def test_can_access_google_page_with_valid_url_and_connection(
             self,
             mock_valid_url: MagicMock,
             mock_internet_connection: MagicMock,
-            mocked_url: str,
-            mocked_connection: str,
+            valid_url: str,
+            internet_connection: str,
             expected: str
     ) -> None:
-        mock_valid_url.return_value = mocked_url
-        mock_internet_connection.return_value = mocked_connection
+        mock_valid_url.return_value = valid_url
+        mock_internet_connection.return_value = internet_connection
 
         assert can_access_google_page("https://www.google.com") == expected
