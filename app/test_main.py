@@ -12,7 +12,7 @@ from app.main import can_access_google_page
         (False, False, "Not accessible"),
     ]
 )
-def test_can_access_google_page(mock_valid_url: bool,
+def test_valid_url_and_connection_exists(mock_valid_url: bool,
                                 mock_internet: bool,
                                 expected: str) -> None:
     with patch("app.main.valid_google_url", return_value=mock_valid_url), \
