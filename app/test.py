@@ -10,7 +10,8 @@ from app.main import can_access_google_page
         pytest.param(True, True, "Accessible", id="valid data"),
         pytest.param(False, True, "Not accessible", id="no internet"),
         pytest.param(True, False, "Not accessible", id="wrong url")
-    ])
+    ]
+)
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access(mock_has_internet: Callable,
