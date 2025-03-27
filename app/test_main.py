@@ -13,8 +13,8 @@ from app.main import can_access_google_page
     ]
 )
 def test_valid_url_and_connection_exists(mock_valid_url: bool,
-                                mock_internet: bool,
-                                expected: str) -> None:
+                                         mock_internet: bool,
+                                         expected: str) -> None:
     with patch("app.main.valid_google_url", return_value=mock_valid_url), \
          patch("app.main.has_internet_connection", return_value=mock_internet):
         assert can_access_google_page("https://www.google.com") == expected
