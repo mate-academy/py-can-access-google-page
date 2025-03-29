@@ -2,7 +2,8 @@ import datetime
 
 
 def valid_google_url(url: str) -> bool:
-    pass
+    # Базова реалізація: перевіряє, чи містить URL "google.com"
+    return "google.com" in url.lower()
 
 
 def has_internet_connection() -> bool:
