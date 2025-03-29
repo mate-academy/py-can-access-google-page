@@ -1,10 +1,8 @@
 import datetime
-import requests
 
 
 def valid_google_url(url: str) -> bool:
-    response = requests.get(url)
-    return True if response.status_code == 200 else False
+    pass
 
 
 def has_internet_connection() -> bool:
