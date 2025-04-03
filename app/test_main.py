@@ -2,6 +2,7 @@ from app.main import can_access_google_page
 from _pytest.monkeypatch import MonkeyPatch
 import pytest
 
+
 @pytest.mark.parametrize(
     "internet, google, result",
     [
