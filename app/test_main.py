@@ -1,6 +1,7 @@
 from unittest import mock
 from app.main import can_access_google_page
 import pytest
+from typing import Any
 
 
 @pytest.mark.parametrize(
@@ -15,8 +16,8 @@ import pytest
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
 def test_can_access_google_page_with_various_conditions(
-        mock_valid_url,
-        mock_internet_connection,
+        mock_valid_url: Any,
+        mock_internet_connection: Any,
         valid_url: bool,
         connection: bool,
         result: str,
