@@ -4,7 +4,7 @@ from app.main import can_access_google_page
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_accessible_when_valid_and_connected(
+def ttest_can_access_google_page_when_url_is_valid_and_internet_is_connected(
     mock_internet: MagicMock, mock_valid_url: MagicMock
 ) -> None:
     mock_valid_url.return_value = True
@@ -14,7 +14,7 @@ def test_accessible_when_valid_and_connected(
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_not_accessible_when_only_url_is_valid(
+def test_cannot_access_google_page_when_only_url_is_valid(
     mock_internet: MagicMock, mock_valid_url: MagicMock
 ) -> None:
     mock_valid_url.return_value = True
@@ -24,7 +24,7 @@ def test_not_accessible_when_only_url_is_valid(
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_not_accessible_when_only_internet(
+def test_cannot_access_google_page_when_only_internet_is_available(
     mock_internet: MagicMock, mock_valid_url: MagicMock
 ) -> None:
     mock_valid_url.return_value = False
@@ -34,7 +34,7 @@ def test_not_accessible_when_only_internet(
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_not_accessible_when_both_false(
+def test_cannot_access_google_page_when_both_url_and_internet_are_invalid(
     mock_internet: MagicMock, mock_valid_url: MagicMock
 ) -> None:
     mock_valid_url.return_value = False
