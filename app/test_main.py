@@ -4,7 +4,7 @@ from unittest import mock
 
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def tests_can_access(mock_valid_url: bool, mock_internet: bool) -> None:
+def test_valid_url_and_connection_exists(mock_valid_url: bool, mock_internet: bool) -> None:
     mock_internet.return_value = True
     mock_valid_url.return_value = True
 
