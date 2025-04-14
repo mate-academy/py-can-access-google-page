@@ -30,7 +30,7 @@ def test_has_not_valid_google_url(
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page(
+def test_valid_url_and_connection_exists(
         mock_inet: mock, mock_url: mock, url: str) -> None:
     mock_inet.return_value = True
     mock_url.return_value = True
