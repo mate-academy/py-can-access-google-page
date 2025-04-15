@@ -23,6 +23,6 @@ def test_can_access_google_page_should_return_true(
 
         url = "https://www.google.pl/?hl=pl"
         assert can_access_google_page(url) == result
-
-        mock_valid_google_url.assert_called_once_with(url)
+        if has_internet:
+            mock_valid_google_url.assert_called_once_with(url)
         mock_has_internet_connection.assert_called_once()
