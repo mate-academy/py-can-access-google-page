@@ -15,7 +15,8 @@ def test_can_access_google_page_should_return_true(
     result: str
 ) -> None:
     with mock.patch("app.main.valid_google_url") as mock_valid_google_url, \
-         mock.patch("app.main.has_internet_connection") as mock_has_internet_connection:
+         mock.patch("app.main.has_internet_connection") as\
+         mock_has_internet_connection:
 
         mock_valid_google_url.return_value = valid_google
         mock_has_internet_connection.return_value = has_internet
