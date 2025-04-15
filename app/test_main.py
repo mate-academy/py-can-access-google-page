@@ -2,6 +2,7 @@ import pytest
 from unittest import mock
 from app.main import can_access_google_page
 
+
 @pytest.mark.parametrize("valid_google, has_internet, result", [
     (True, True, "Accessible"),
     (True, False, "Not accessible"),
