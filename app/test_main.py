@@ -11,6 +11,8 @@ class TestThirdFunction(TestCase):
             mock_valid_google_url: MagicMock,
             mock_has_internet_connection: MagicMock
     ) -> None:
+        mock_valid_google_url.return_value = True
+        mock_has_internet_connection.return_value = True
         assert can_access_google_page("Hello") == "Accessible"
         mock_valid_google_url.assert_called_once()
         mock_has_internet_connection.assert_called_once()
