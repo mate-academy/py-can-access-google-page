@@ -6,13 +6,13 @@ from app.main import can_access_google_page
 
 
 @pytest.fixture()
-def valid_url() -> None:
+def valid_url() -> mock.MagicMock:
     with mock.patch("app.main.valid_google_url") as mocked_valid_url:
         yield mocked_valid_url
 
 
 @pytest.fixture()
-def internet_connection_exists() -> None:
+def internet_connection_exists() -> mock.MagicMock:
     with mock.patch("app.main.has_internet_connection")\
             as mocked_internet_connection:
         yield mocked_internet_connection
