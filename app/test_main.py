@@ -21,6 +21,8 @@ def internet_connection_exists() -> mock.MagicMock:
 def test_valid_url_and_connection_exists(
         valid_url: mock.MagicMock,
         internet_connection_exists: mock.MagicMock) -> None:
+    valid_url.return_value = True
+    internet_connection_exists.return_value = True
     can_access_google_page("https://www.google.com/")
     valid_url.assert_called_once()
     internet_connection_exists.assert_called_once()
