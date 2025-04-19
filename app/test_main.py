@@ -1,5 +1,3 @@
-from urllib.error import URLError
-
 import pytest
 
 from unittest import mock
