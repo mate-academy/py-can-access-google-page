@@ -12,7 +12,9 @@ import pytest
         (False, False, "Not accessible")
     ]
 )
-def test_access_google_page(valid_url, connection, expected):
+def test_access_google_page(valid_url: bool,
+                            connection: bool,
+                            expected: str) -> None:
     with (patch("app.main.valid_google_url", return_value=valid_url),
           patch("app.main.has_internet_connection", return_value=connection)):
         result = can_access_google_page("https://www.google.com")
