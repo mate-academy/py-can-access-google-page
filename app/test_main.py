@@ -1,1 +1,12 @@
-# write your code here
+from app.main import can_access_google_page
+
+from unittest import mock
+
+
+@mock.patch("main.valid_google_url", return_value=True)
+@mock.patch("main.has_internet_connection", return_value=True)
+def test_can_access_google_page_success(mock_internet, mock_url):
+    result = can_access_google_page("https://google.com")
+    assert result == "Accessible"
+    mock_internet.assert_called_once()
+    mock_url.assert_called_once_with("https://google.com")
