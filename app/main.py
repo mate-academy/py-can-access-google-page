@@ -1,5 +1,4 @@
 import datetime
-import requests
 
 
 def valid_google_url(url: str) -> bool:
