@@ -3,7 +3,7 @@ import pytest
 from app.main import can_access_google_page
 
 
-@pytest.mark.parametrized(
+@pytest.mark.parametrize(
     "url, internet, valid_url, expected",
     [
         (
@@ -37,9 +37,9 @@ from app.main import can_access_google_page
 def test_can_access_google_page(mock_valid_url_function: object,
                                 mock_internet_connection: object,
                                 url: str,
-                                valid_url: bool,
                                 internet: bool,
+                                valid_url: bool,
                                 expected: str) -> None:
     mock_internet_connection.return_value = internet
-    mock_valid_url_function.return_valve = valid_url
+    mock_valid_url_function.return_value = valid_url
     assert can_access_google_page(url) == expected
