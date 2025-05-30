@@ -3,8 +3,8 @@ from unittest import mock
 from app.main import can_access_google_page
 
 
-@pytest.mark.parametrize("has_internet_connection, valid_google_url,"
-                         " expected", [
+@pytest.mark.parametrize("has_internet_connection, "
+                         "valid_google_url, expected", [
     (True, True, "Accessible"),
     (True, False, "Not accessible"),
     (False, True, "Not accessible"),
