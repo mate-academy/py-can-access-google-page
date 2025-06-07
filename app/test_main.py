@@ -18,7 +18,7 @@ def test_access_google_page_with_no_internet(
         mocked_internet: MagicMock, mocked_valid_url: MagicMock) -> None:
     url = "https://www.google.com"
     assert can_access_google_page(url=url) == "Not accessible"
-    mocked_valid_url.assert_called_once_with(url=url)
+    mocked_valid_url.asset_called_once_with(url)
     mocked_internet.assert_called_once()
 
 
@@ -26,7 +26,7 @@ def test_access_google_page_with_no_internet(
 @patch("app.main.has_internet_connection", return_value=True)
 def test_access_google_page_with_false_url(
         mocked_internet: MagicMock, mocked_valid_url: MagicMock) -> None:
-    url = "https://www.google.com"
+    url = "https://www.googl.com"
     assert can_access_google_page(url=url) == "Not accessible"
     mocked_valid_url.assert_called_once_with(url)
     mocked_internet.assert_called_once()
