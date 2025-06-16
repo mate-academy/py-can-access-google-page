@@ -1,4 +1,4 @@
-'import pytest
+import pytest
 from unittest.mock import MagicMock
 from unittest import mock
 from app.main import can_access_google_page
@@ -25,5 +25,3 @@ def test_access_google_page(
     mock_has_internet_connection.return_value = is_internet
     mock_valid_google_url.return_value = is_valid
     assert can_access_google_page("https://www.google.com") == expected
-
-'
