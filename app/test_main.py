@@ -20,17 +20,17 @@ from app.main import can_access_google_page
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
 def test_can_access_google_page(
-        mock_valid: MagicMock,
-        mock_internet: MagicMock,
+        mock_valid_url: MagicMock,
+        mock_has_internet: MagicMock,
         url: str,
         mocked_valid_return: bool,
         mocked_internet_return: bool,
         expected: str
 ) -> None:
-    mock_valid.return_value = mocked_valid_return
-    mock_internet.return_value = mocked_internet_return
+    mock_valid_url.return_value = mocked_valid_return
+    mock_has_internet.return_value = mocked_internet_return
     result = can_access_google_page(url)
     assert result == expected
 
-    mock_internet.assert_called_once()
-    mock_valid.assert_called_once_with(url)
+    mock_has_internet.assert_called_once()
+    mock_valid_url.assert_called_once_with(url)
