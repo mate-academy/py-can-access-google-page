@@ -26,3 +26,4 @@ def test_can_access_google_page(
     ):
         result = can_access_google_page("https://www.wikipedia.org")
         assert result == expected
+        
