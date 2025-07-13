@@ -10,3 +10,5 @@ def test_can_access_google_page() -> None:
         can_access_google_page("https://www.youtube.com/")
         mock_internet_connection.assert_called_once()
         mock_valid_url.assert_called_once_with("https://www.youtube.com/")
+
+    assert can_access_google_page("https://www.youtube.com/") == "Accessible"
