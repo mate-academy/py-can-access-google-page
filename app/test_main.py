@@ -25,7 +25,7 @@ def test_should_call_valid_google_url_and_has_internet_connection(
         ("https://www.google.com", True, True, "Accessible"),
         ("https://www.google.com", True, False, "Not accessible"),
         ("https://www.googl.com", False, True, "Not accessible"),
-        ("https://www.googl.com", False, False, "Not accessible"),
+        ("https://www.gogle.com", False, False, "Not accessible"),
     ]
 )
 def test_should_return_correct_result(
