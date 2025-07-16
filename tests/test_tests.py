@@ -1,54 +1,63 @@
 import pytest
-
+from unittest.mock import patch
 from app import main
 
 
-def test_cannot_access_if_connection_or_valid_url_is_true(monkeypatch):
-    def can_access_if_connection_or_valid_url(url):
-        from app.main import has_internet_connection, valid_google_url
+@patch('app.main.valid_google_url')
+@patch('app.main.has_internet_connection')
+def test_cannot_access_if_connection_or_valid_url_is_true(mock_internet, mock_valid_url):
+    mock_valid_url.return_value = True
+    mock_internet.return_value = False
+    assert main.can_access_google_page('https://google.com') == 'Not accessible'
 
-        if has_internet_connection() or valid_google_url(url):
-            return "Accessible"
-        else:
-            return "Not accessible"
-
-    monkeypatch.setattr(
-        main, "can_access_google_page", can_access_if_connection_or_valid_url
-    )
-
-    test_result = pytest.main(["app/test_main.py"])
-    assert test_result.value == 1, (
-        "You cannot access page if only one of 'connection' or " "'valid url' is True."
-    )
+    mock_valid_url.return_value = False
+    mock_internet.return_value = True
+    assert main.can_access_google_page('https://google.com') == 'Not accessible'
 
 
-def test_cannot_access_if_only_connection(monkeypatch):
-    def can_access_if_connection(url):
-        from app.main import has_internet_connection, valid_google_url
-
-        if has_internet_connection():
-            return "Accessible"
-        else:
-            return "Not accessible"
-
-    monkeypatch.setattr(main, "can_access_google_page", can_access_if_connection)
-
-    test_result = pytest.main(["app/test_main.py"])
-    assert (
-        test_result.value == 1
-    ), "You cannot access page if only 'connection' is True."
+@patch('app.main.valid_google_url')
+@patch('app.main.has_internet_connection')
+def test_cannot_access_if_only_connection(mock_internet, mock_valid_url):
+    mock_valid_url.return_value = False
+    mock_internet.return_value = True
+    assert main.can_access_google_page('https://google.com') == 'Not accessible'
 
 
-def test_cannot_access_if_only_valid_url(monkeypatch):
-    def can_access_if_connection(url):
-        from app.main import has_internet_connection, valid_google_url
+@patch('app.main.valid_google_url')
+@patch('app.main.has_internet_connection')
+def test_cannot_access_if_only_valid_url(mock_internet, mock_valid_url):
+    mock_valid_url.return_value = True
+    mock_internet.return_value = False
+    assert main.can_access_google_page('https://google.com') == 'Not accessible'
 
-        if valid_google_url(url):
-            return "Accessible"
-        else:
-            return "Not accessible"
 
-    monkeypatch.setattr(main, "can_access_google_page", can_access_if_connection)
+@patch('app.main.valid_google_url')
+@patch('app.main.has_internet_connection')
+def test_accessible(mock_internet, mock_valid_url):
+    mock_valid_url.return_value = True
+    mock_internet.return_value = True
+    assert main.can_access_google_page('https://www.google.com') == 'Accessible'
 
-    test_result = pytest.main(["app/test_main.py"])
-    assert test_result.value == 1, "You cannot access page if only 'valid url' is True."
+
+@patch('app.main.valid_google_url')
+@patch('app.main.has_internet_connection')
+def test_invalid_url(mock_internet, mock_valid_url):
+    mock_valid_url.return_value = False
+    mock_internet.return_value = True
+    assert main.can_access_google_page('https://invalid.url') == 'Not accessible'
+
+
+@patch('app.main.valid_google_url')
+@patch('app.main.has_internet_connection')
+def test_no_internet(mock_internet, mock_valid_url):
+    mock_valid_url.return_value = True
+    mock_internet.return_value = False
+    assert main.can_access_google_page('https://www.google.com') == 'Not accessible'
+
+
+@patch('app.main.valid_google_url')
+@patch('app.main.has_internet_connection')
+def test_both_invalid(mock_internet, mock_valid_url):
+    mock_valid_url.return_value = False
+    mock_internet.return_value = False
+    assert main.can_access_google_page('https://invalid.url') == 'Not accessible'
