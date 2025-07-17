@@ -1,63 +1,52 @@
+from unittest.mock import patch, MagicMock
 import pytest
-from unittest.mock import patch
-from app import main
+
+from app.main import can_access_google_page
 
 
-@patch('app.main.valid_google_url')
-@patch('app.main.has_internet_connection')
-def test_cannot_access_if_connection_or_valid_url_is_true(mock_internet, mock_valid_url):
+@pytest.fixture
+def mock_valid_url() -> MagicMock:
+    with patch("app.main.valid_google_url") as mock_valid:
+        yield mock_valid
+
+
+@pytest.fixture
+def mock_has_internet_connection() -> MagicMock:
+    with patch("app.main.has_internet_connection") as mock_internet_connection:
+        yield mock_internet_connection
+
+
+def test_accessible_when_valid_url_and_internet(
+    mock_valid_url: MagicMock, mock_has_internet_connection: MagicMock
+) -> None:
     mock_valid_url.return_value = True
-    mock_internet.return_value = False
-    assert main.can_access_google_page('https://google.com') == 'Not accessible'
+    mock_has_internet_connection.return_value = True
 
-    mock_valid_url.return_value = False
-    mock_internet.return_value = True
-    assert main.can_access_google_page('https://google.com') == 'Not accessible'
+    assert can_access_google_page("https://google.com") == "Accessible"
 
 
-@patch('app.main.valid_google_url')
-@patch('app.main.has_internet_connection')
-def test_cannot_access_if_only_connection(mock_internet, mock_valid_url):
-    mock_valid_url.return_value = False
-    mock_internet.return_value = True
-    assert main.can_access_google_page('https://google.com') == 'Not accessible'
-
-
-@patch('app.main.valid_google_url')
-@patch('app.main.has_internet_connection')
-def test_cannot_access_if_only_valid_url(mock_internet, mock_valid_url):
+def test_not_accessible_when_valid_url_no_internet(
+    mock_valid_url: MagicMock, mock_has_internet_connection: MagicMock
+) -> None:
     mock_valid_url.return_value = True
-    mock_internet.return_value = False
-    assert main.can_access_google_page('https://google.com') == 'Not accessible'
+    mock_has_internet_connection.return_value = False
+
+    assert can_access_google_page("https://google.com") == "Not accessible"
 
 
-@patch('app.main.valid_google_url')
-@patch('app.main.has_internet_connection')
-def test_accessible(mock_internet, mock_valid_url):
-    mock_valid_url.return_value = True
-    mock_internet.return_value = True
-    assert main.can_access_google_page('https://www.google.com') == 'Accessible'
-
-
-@patch('app.main.valid_google_url')
-@patch('app.main.has_internet_connection')
-def test_invalid_url(mock_internet, mock_valid_url):
+def test_not_accessible_when_invalid_url_and_internet(
+    mock_valid_url: MagicMock, mock_has_internet_connection: MagicMock
+) -> None:
     mock_valid_url.return_value = False
-    mock_internet.return_value = True
-    assert main.can_access_google_page('https://invalid.url') == 'Not accessible'
+    mock_has_internet_connection.return_value = True
+
+    assert can_access_google_page("https://google.com") == "Not accessible"
 
 
-@patch('app.main.valid_google_url')
-@patch('app.main.has_internet_connection')
-def test_no_internet(mock_internet, mock_valid_url):
-    mock_valid_url.return_value = True
-    mock_internet.return_value = False
-    assert main.can_access_google_page('https://www.google.com') == 'Not accessible'
-
-
-@patch('app.main.valid_google_url')
-@patch('app.main.has_internet_connection')
-def test_both_invalid(mock_internet, mock_valid_url):
+def test_not_accessible_when_invalid_url_and_no_internet(
+    mock_valid_url: MagicMock, mock_has_internet_connection: MagicMock
+) -> None:
     mock_valid_url.return_value = False
-    mock_internet.return_value = False
-    assert main.can_access_google_page('https://invalid.url') == 'Not accessible'
+    mock_has_internet_connection.return_value = False
+
+    assert can_access_google_page("https://google.com") == "Not accessible"
