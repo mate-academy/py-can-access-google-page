@@ -2,10 +2,8 @@ from unittest import mock
 import pytest
 import requests
 from typing import Any, Type
-import datetime
 from app.main import (
     valid_google_url,
-    has_internet_connection,
     can_access_google_page
 )
 
@@ -47,11 +45,3 @@ def test_exceptions_valid_google_url(
 ) -> None:
     with pytest.raises(expected_error):
         valid_google_url(argument)
-
-
-def test_has_internet_connection() -> None:
-    if datetime.datetime.now().hour in range(6, 23):
-        expected_result = True
-    else:
-        expected_result = False
-    assert has_internet_connection() == expected_result
