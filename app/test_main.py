@@ -3,7 +3,7 @@ from unittest import mock
 
 
 @mock.patch("app.main.requests.get")
-def test_valid_google_url(mock_get: object) -> bool:
+def test_valid_google_url(mock_get: object):
     mock_response = mock.Mock()
     mock_response.status_code = 200
     mock_get.return_value = mock_response
@@ -11,7 +11,7 @@ def test_valid_google_url(mock_get: object) -> bool:
 
 
 @mock.patch("app.main.datetime.datetime")
-def test_has_internet_connection(mock_datetime: object) -> bool:
+def test_has_internet_connection(mock_datetime: object):
     fake_now = mock.Mock()
     fake_now.hour = 7
     mock_datetime.now.return_value = fake_now
@@ -22,8 +22,8 @@ def test_has_internet_connection(mock_datetime: object) -> bool:
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
         mocked_connection: object,
-        mocked_url: object
-) -> bool:
+        mocked_url: object):
+
     mocked_connection.return_value = True
     mocked_url.return_value = True
     assert main.can_access_google_page("google") == "Accessible"
