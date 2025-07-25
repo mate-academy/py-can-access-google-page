@@ -1,4 +1,5 @@
 from unittest.mock import patch
+from app.main import can_access_google_page
 
 
 def test_accessible_when_url_valid_and_internet_available() -> None:
