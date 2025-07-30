@@ -15,11 +15,11 @@ from app.main import can_access_google_page
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page_param(
-        mocked_internet,
-        mocked_valid_url,
-        valid_url,
-        has_internet,
-        expected
+        mocked_internet: mock.MagicMock,
+        mocked_valid_url: mock.MagicMock,
+        valid_url: bool,
+        has_internet: bool,
+        expected: str
 ) -> None:
     mocked_valid_url.return_value = valid_url
     mocked_internet.return_value = has_internet
