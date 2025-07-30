@@ -21,8 +21,7 @@ def test_can_access_if_url_invalid(monkeypatch: pytest.MonkeyPatch) -> None:
     assert can_access_google_page("google.com") == "Not accessible"
 
 
-def test_can_access_if_connection_invalid(monkeypatch: pytest.MonkeyPatch)\
-        -> None:
+def test_if_connection_invalid(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr("app.main.valid_google_url", lambda url: True)
     monkeypatch.setattr("app.main.has_internet_connection", lambda: False)
     assert can_access_google_page("google.com") == "Not accessible"
