@@ -13,7 +13,11 @@ from app.main import can_access_google_page
 
     ]
 )
-def test_can_access_google_page(is_valid_url, has_connection, expected):
+def test_can_access_google_page(
+        is_valid_url: bool,
+        has_connection: bool,
+        expected: str
+) -> None:
     with patch("app.main.valid_google_url",
                return_value=is_valid_url), \
          patch("app.main.has_internet_connection",
