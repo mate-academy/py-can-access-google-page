@@ -3,16 +3,6 @@ from app.main import can_access_google_page
 from unittest import mock
 
 
-# class TestResponse:
-#     def __init__(self, code: int) -> None:
-#         self.status_code = code
-#
-#
-# class TestDatetime:
-#     def __init__(self, hour: int) -> None:
-#         self.hour = hour
-
-
 @pytest.mark.parametrize(
     "is_valid_url,is_connection,result",
     [
@@ -24,7 +14,7 @@ from unittest import mock
         (False, False, "Not accessible"),
     ]
 )
-def test_can_access(
+def test_can_access_google_page(
         is_valid_url: int,
         is_connection: int,
         result: str
