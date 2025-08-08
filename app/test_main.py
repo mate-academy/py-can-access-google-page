@@ -22,5 +22,6 @@ def test_invalid_url(mock_internet: bool, mock_valid_url: bool) -> None:
 
 @patch("app.main.valid_google_url", return_value=False)
 @patch("app.main.has_internet_connection", return_value=False)
-def test_invalid_url_no_internet(mock_internet: bool, mock_valid_url: bool) -> None:
+def test_invalid_url_no_internet(mock_internet: bool,
+                                 mock_valid_url: bool) -> None:
     assert can_access_google_page("https://wikipedia.org") == "Not accessible"
