@@ -1,1 +1,35 @@
-# write your code here
+import pytest
+import datetime
+from unittest import mock
+
+
+@pytest.mark.parametrize(
+    "url_page,status_code,fake_datetime,expected",
+    [
+        ("https://www.google.com", 200,
+         datetime.datetime(2222, 2, 2, 5, 59, 59), "Not accessible"),
+        ("https://www.google.com", 200,
+         datetime.datetime(2222, 2, 2, 6, 00, 00), "Accessible"),
+        ("https://www.googlecom", 404,
+         datetime.datetime(2222, 2, 2, 6, 00, 00), "Not accessible"),
+        ("https://www.googlecom", 404,
+         datetime.datetime(2222, 2, 2, 22, 59, 59), "Not accessible"),
+        ("https://www.google.com", 200,
+         datetime.datetime(2222, 2, 2, 22, 59, 59), "Accessible"),
+        ("https://www.googlecom", 404,
+         datetime.datetime(2222, 2, 2, 23, 00, 00), "Not accessible"),
+        ("https://www.google.com", 200,
+         datetime.datetime(2222, 2, 2, 23, 00, 00), "Not accessible")
+    ]
+)
+def test_can_access_google_page(url_page,
+                                status_code,
+                                fake_datetime,
+                                expected):
+    with mock.patch("app.main.requests") as mock_requests:
+        mock_requests.get.return_value.status_code = status_code
+        with mock.patch("app.main.datetime") as mock_datetime:
+            mock_datetime.datetime.now.return_value = fake_datetime
+            assert can_access_google_page(url_page) == expected
+from app.main import can_access_google_page
+import datetime
