@@ -1,3 +1,4 @@
+from app.main import can_access_google_page
 import pytest
 import datetime
 from unittest import mock
@@ -22,14 +23,12 @@ from unittest import mock
          datetime.datetime(2222, 2, 2, 23, 00, 00), "Not accessible")
     ]
 )
-def test_can_access_google_page(url_page,
-                                status_code,
-                                fake_datetime,
-                                expected):
+def test_can_access_google_page(url_page: str,
+                                status_code: int,
+                                fake_datetime: datetime.datetime,
+                                expected: str) -> None:
     with mock.patch("app.main.requests") as mock_requests:
         mock_requests.get.return_value.status_code = status_code
         with mock.patch("app.main.datetime") as mock_datetime:
             mock_datetime.datetime.now.return_value = fake_datetime
             assert can_access_google_page(url_page) == expected
-from app.main import can_access_google_page
-import datetime
