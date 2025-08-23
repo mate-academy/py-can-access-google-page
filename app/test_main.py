@@ -13,10 +13,10 @@ from unittest import mock
     ],
 )
 def test_valid_url_and_internet_connection(
-        url,
-        val_url,
-        internet,
-        expected
+        url: str,
+        val_url: bool,
+        internet: bool,
+        expected: str
 ) -> None:
     with mock.patch("app.main.valid_google_url", return_value=val_url), \
         mock.patch("app.main.has_internet_connection",
