@@ -44,11 +44,11 @@ def test_cannot_access_when_invalid_url() -> None:
         internet_mock.assert_called_once_with()
 
 
-# def test_cannot_access_when_no_connection_and_invalid_url() -> None:
-#     url = "https://invalid-url.com"
-#     with mock.patch(
-#         "app.main.has_internet_connection", return_value=False
-#     ) as internet_mock:
-#         result = can_access_google_page(url)
-#         assert result == "Not accessible"
-#         internet_mock.assert_called_once_with()
+def test_cannot_access_when_no_connection_and_invalid_url() -> None:
+    url = "https://invalid-url.com"
+    with mock.patch(
+        "app.main.has_internet_connection", return_value=False
+    ) as internet_mock:
+        result = can_access_google_page(url)
+        assert result == "Not accessible"
+        internet_mock.assert_called_once_with()
