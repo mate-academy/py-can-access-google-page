@@ -27,3 +27,10 @@ def test_can_access_google_page_connecting_all_is_True(mocked_connection, mocked
     mocked_connection.return_value = True
     assert can_access_google_page(
         "https://github.com/Olexii-Babii/py-can-access-google-page") == "Accessible"
+
+
+@mock.patch("app.main.valid_google_url", return_value=False)
+@mock.patch("app.main.has_internet_connection", return_valur=False)
+def test_can_access_google_page_connecting_all_is_False(mocked_connection, mocked_url):
+    assert can_access_google_page(
+        "https://github.com/Olexii-Babii/py-can-access-google-page") == "Not accessible"
