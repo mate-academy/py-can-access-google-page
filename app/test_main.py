@@ -49,7 +49,7 @@ def test_cannot_access_when_no_connection_and_invalid_url() -> None:
     with (
         mock.patch(
             "app.main.valid_google_url", return_value=False
-        ) as valid_url_mock,
+        ),
         mock.patch(
             "app.main.has_internet_connection", return_value=False
         ) as internet_mock
