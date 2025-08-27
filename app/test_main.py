@@ -1,14 +1,24 @@
-from typing import Any
-from unittest import mock
+import pytest
+from unittest.mock import patch
 from app.main import can_access_google_page
 
 
-@mock.patch("app.main.valid_google_url")
-@mock.patch("app.main.has_internet_connection")
-def test_can_access_google_page(has_internet_connection: Any,
-                                valid_google_url: Any) -> None:
+@pytest.mark.parametrize(
+    "valid_google_url, has_internet_connection, result",
+    [
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
+    ]
+)
+def test_can_access_google_page(valid_google_url: bool,
+                                has_internet_connection: bool,
+                                result: str) -> None:
 
-    url = "https://google.com/"
-    assert can_access_google_page(url) == "Accessible"
-    has_internet_connection.assert_called_once()
-    valid_google_url.assert_called_once_with(url)
+    with (patch("app.main.valid_google_url",
+               return_value=valid_google_url),
+          patch("app.main.has_internet_connection",
+                return_value=has_internet_connection)):
+
+        assert can_access_google_page("https://google.com/") == result
