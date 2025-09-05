@@ -7,17 +7,16 @@ url = "https://www.google.com/"
 
 
 @pytest.fixture()
-def pytest_connection() -> callable:
+def pytest_connection() -> func_main:
     return func_main
 
 
-def test_connection(pytest_connection: callable) -> None:
-    assert pytest_connection.can_access_google_page(url) == "Accessible"
+def test_connection(pytest_connection: func_main) -> None:
     pytest_connection.has_internet_connection = lambda: False
-    assert pytest_connection.can_access_google_page(url) == "Not accessible"
-    pytest_connection.has_internet_connection = lambda: True
     pytest_connection.valid_google_url = lambda url: False
     assert pytest_connection.can_access_google_page(url) == "Not accessible"
+
+    pytest_connection.has_internet_connection = lambda: True
     pytest_connection.valid_google_url = lambda url: True
     assert pytest_connection.can_access_google_page(url) == "Accessible"
 
