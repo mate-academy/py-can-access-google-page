@@ -26,7 +26,7 @@ def test_not_accessible_no_internet() -> None:
                    return_value=True) as mock_valid:
             result = can_access_google_page("http://google.com")
             assert result == "Not accessible"
-            mock_valid.assert_called_once_with("http://google.com")
+            mock_valid.assert_not_called()
 
 
 def test_not_accessible_both_false() -> None:
@@ -35,4 +35,4 @@ def test_not_accessible_both_false() -> None:
                    return_value=False) as mock_valid:
             result = can_access_google_page("http://google.com")
             assert result == "Not accessible"
-            mock_valid.assert_called_once_with("http://google.com")
+            mock_valid.assert_not_called()
