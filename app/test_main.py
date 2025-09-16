@@ -39,6 +39,7 @@ class TestCanAccessGooglePage:
         mock_internet.return_value = False
         result = can_access_google_page("https://www.google.com")
         assert result == "Not accessible"
+        mock_internet.assert_called()
 
     @patch("main.has_internet_connection")
     @patch("main.valid_google_url")
@@ -49,6 +50,8 @@ class TestCanAccessGooglePage:
         mock_internet.return_value = True
         result = can_access_google_page("https://www.example.com")
         assert result == "Not accessible"
+        mock_internet.assert_called()
+        mock_valid_url.assert_called()
 
     @patch("main.has_internet_connection")
     @patch("main.valid_google_url")
@@ -59,6 +62,7 @@ class TestCanAccessGooglePage:
         mock_internet.return_value = False
         result = can_access_google_page("https://www.example.com")
         assert result == "Not accessible"
+        mock_internet.assert_called()
 
     @patch("main.has_internet_connection")
     @patch("main.valid_google_url")
@@ -69,6 +73,8 @@ class TestCanAccessGooglePage:
         mock_internet.return_value = True
         result = can_access_google_page("")
         assert result == "Not accessible"
+        mock_internet.assert_called()
+        mock_valid_url.assert_called()
 
     @patch("main.has_internet_connection")
     @patch("main.valid_google_url")
@@ -79,6 +85,8 @@ class TestCanAccessGooglePage:
         mock_internet.return_value = True
         result = can_access_google_page(None)
         assert result == "Not accessible"
+        mock_internet.assert_called()
+        mock_valid_url.assert_called()
 
     @pytest.mark.parametrize("url", [
         "https://google.com",
@@ -117,7 +125,17 @@ class TestCanAccessGooglePage:
 
     @patch("main.has_internet_connection")
     @patch("main.valid_google_url")
-    def test_requires_both_conditions_true(
+    def test_only_connection_not_enough(
+        self, mock_valid_url: Any, mock_internet: Any
+    ) -> None:
+        mock_valid_url.return_value = False
+        mock_internet.return_value = True
+        result = can_access_google_page("https://example.com")
+        assert result == "Not accessible"
+
+    @patch("main.has_internet_connection")
+    @patch("main.valid_google_url")
+    def test_only_valid_url_not_enough(
         self, mock_valid_url: Any, mock_internet: Any
     ) -> None:
         mock_valid_url.return_value = True
@@ -125,50 +143,15 @@ class TestCanAccessGooglePage:
         result = can_access_google_page("https://www.google.com")
         assert result == "Not accessible"
 
-        mock_valid_url.return_value = False
-        mock_internet.return_value = True
-        result = can_access_google_page("https://example.com")
-        assert result == "Not accessible"
-
+    @patch("main.has_internet_connection")
+    @patch("main.valid_google_url")
+    def test_both_conditions_needed(
+        self, mock_valid_url: Any, mock_internet: Any
+    ) -> None:
         mock_valid_url.return_value = True
         mock_internet.return_value = True
         result = can_access_google_page("https://www.google.com")
         assert result == "Accessible"
-
-    @patch("main.has_internet_connection")
-    @patch("main.valid_google_url")
-    def test_not_or_logic(
-        self, mock_valid_url: Any, mock_internet: Any
-    ) -> None:
-        mock_valid_url.return_value = False
-        mock_internet.return_value = True
-        result = can_access_google_page("https://example.com")
-        assert result == "Not accessible"
-
-        mock_valid_url.return_value = True
-        mock_internet.return_value = False
-        result = can_access_google_page("https://www.google.com")
-        assert result == "Not accessible"
-
-    @patch("main.has_internet_connection")
-    @patch("main.valid_google_url")
-    def test_not_only_url_check(
-        self, mock_valid_url: Any, mock_internet: Any
-    ) -> None:
-        mock_valid_url.return_value = True
-        mock_internet.return_value = False
-        result = can_access_google_page("https://www.google.com")
-        assert result == "Not accessible"
-
-    @patch("main.has_internet_connection")
-    @patch("main.valid_google_url")
-    def test_not_only_connection_check(
-        self, mock_valid_url: Any, mock_internet: Any
-    ) -> None:
-        mock_valid_url.return_value = False
-        mock_internet.return_value = True
-        result = can_access_google_page("https://example.com")
-        assert result == "Not accessible"
 
 
 if __name__ == "__main__":
