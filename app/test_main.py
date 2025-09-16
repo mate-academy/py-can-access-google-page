@@ -2,7 +2,6 @@ import pytest
 from unittest.mock import patch
 import sys
 import os
-from typing import Any
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)
