@@ -3,8 +3,6 @@ import pytest
 from app.main import can_access_google_page
 
 
-@patch("app.main.valid_google_url")
-@patch("app.main.has_internet_connection")
 @pytest.mark.parametrize(
     "url, mock_valid, mock_internet, expected",
     [
@@ -14,6 +12,8 @@ from app.main import can_access_google_page
         ("http://fake.com", False, False, "Not accessible"),
     ]
 )
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
 def test_valid_url_and_connection_exists_returns_accessible(
     mocked_has_internet: MagicMock,
     mocked_valid: MagicMock,
