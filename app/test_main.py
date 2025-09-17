@@ -80,7 +80,7 @@ def test_or_logic_prevention() -> None:
          patch("main.has_internet_connection", return_value=False):
         result = can_access_google_page("https://www.google.com")
         assert result == "Not accessible"
-    
+
     with patch("main.valid_google_url", return_value=False), \
          patch("main.has_internet_connection", return_value=True):
         result = can_access_google_page("https://example.com")
