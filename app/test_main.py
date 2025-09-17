@@ -17,74 +17,82 @@ except ImportError:
             return "Mock implementation"
 
 
-def test_valid_url_with_internet_connection() -> None:
+def test_accessible_with_both_conditions() -> None:
     with patch("main.valid_google_url", return_value=True), \
          patch("main.has_internet_connection", return_value=True):
         result = can_access_google_page("https://www.google.com")
         assert result == "Accessible"
 
 
-def test_valid_url_without_internet_connection() -> None:
+def test_not_accessible_without_internet() -> None:
     with patch("main.valid_google_url", return_value=True), \
          patch("main.has_internet_connection", return_value=False):
         result = can_access_google_page("https://www.google.com")
         assert result == "Not accessible"
 
 
-def test_invalid_url_with_internet_connection() -> None:
+def test_not_accessible_with_invalid_url() -> None:
     with patch("main.valid_google_url", return_value=False), \
          patch("main.has_internet_connection", return_value=True):
         result = can_access_google_page("https://www.example.com")
         assert result == "Not accessible"
 
 
-def test_invalid_url_without_internet_connection() -> None:
+def test_not_accessible_without_both() -> None:
     with patch("main.valid_google_url", return_value=False), \
          patch("main.has_internet_connection", return_value=False):
         result = can_access_google_page("https://www.example.com")
         assert result == "Not accessible"
 
 
-def test_empty_url() -> None:
+def test_empty_url_not_accessible() -> None:
     with patch("main.valid_google_url", return_value=False), \
          patch("main.has_internet_connection", return_value=True):
         result = can_access_google_page("")
         assert result == "Not accessible"
 
 
-def test_none_url() -> None:
+def test_none_url_not_accessible() -> None:
     with patch("main.valid_google_url", return_value=False), \
          patch("main.has_internet_connection", return_value=True):
         result = can_access_google_page(None)
         assert result == "Not accessible"
 
 
-def test_connection_only_fails() -> None:
+def test_only_internet_should_fail() -> None:
+    with patch("main.valid_google_url", return_value=False), \
+         patch("main.has_internet_connection", return_value=True):
+        result = can_access_google_page("https://example.com")
+        assert result != "Accessible"
+        assert result == "Not accessible"
+
+
+def test_only_valid_url_should_fail() -> None:
+    with patch("main.valid_google_url", return_value=True), \
+         patch("main.has_internet_connection", return_value=False):
+        result = can_access_google_page("https://www.google.com")
+        assert result != "Accessible"
+        assert result == "Not accessible"
+
+
+def test_or_logic_prevention() -> None:
+    with patch("main.valid_google_url", return_value=True), \
+         patch("main.has_internet_connection", return_value=False):
+        result = can_access_google_page("https://www.google.com")
+        assert result == "Not accessible"
+    
     with patch("main.valid_google_url", return_value=False), \
          patch("main.has_internet_connection", return_value=True):
         result = can_access_google_page("https://example.com")
         assert result == "Not accessible"
 
 
-def test_valid_url_only_fails() -> None:
-    with patch("main.valid_google_url", return_value=True), \
-         patch("main.has_internet_connection", return_value=False):
-        result = can_access_google_page("https://www.google.com")
-        assert result == "Not accessible"
-
-
-def test_or_logic_fails_case_1() -> None:
-    with patch("main.valid_google_url", return_value=True), \
-         patch("main.has_internet_connection", return_value=False):
-        result = can_access_google_page("https://www.google.com")
-        assert result == "Not accessible"
-
-
-def test_or_logic_fails_case_2() -> None:
-    with patch("main.valid_google_url", return_value=False), \
-         patch("main.has_internet_connection", return_value=True):
-        result = can_access_google_page("https://example.com")
-        assert result == "Not accessible"
+def test_must_check_both_functions() -> None:
+    with patch("main.valid_google_url", return_value=True) as mock_url, \
+         patch("main.has_internet_connection", return_value=True) as mock_conn:
+        can_access_google_page("https://www.google.com")
+        mock_url.assert_called()
+        mock_conn.assert_called()
 
 
 if __name__ == "__main__":
