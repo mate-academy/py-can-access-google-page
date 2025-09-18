@@ -1,6 +1,6 @@
 from unittest import mock
 import pytest
-from app.main import can_access_google_page
+import importlib
 
 
 @pytest.mark.parametrize(
@@ -22,5 +22,7 @@ def test_valid_url_and_connection_exists(
         result: str) -> None:
     mock_valid_url.return_value = is_valid_url
     mock_has_internet.return_value = has_internet
+
+    can_access_google_page = importlib.import_module("app.main").can_access_google_page
 
     assert can_access_google_page("https://www.google.com/") == result
