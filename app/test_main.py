@@ -11,13 +11,14 @@ from app.main import can_access_google_page
                              (True, False, "Not accessible"),
                              (False, True, "Not accessible"),
                          ])
-@patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
-def test_can_access_google_page(mock_has_internet_connection: Mock,
-                                mock_valid_google_url: Mock,
-                                has_internet_connection: bool,
-                                valid_google_url: str,
-                                expected: bool) -> None:
+@patch("app.main.has_internet_connection")
+def test_valid_url_and_connection_exists_returns_accessible(
+        mock_valid_google_url: Mock,
+        mock_has_internet_connection: Mock,
+        valid_google_url: str,
+        has_internet_connection: bool,
+        expected: bool) -> None:
     mock_has_internet_connection.return_value = has_internet_connection
     mock_valid_google_url.return_value = valid_google_url
     assert can_access_google_page("url") == expected
