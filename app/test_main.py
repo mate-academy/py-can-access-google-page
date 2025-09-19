@@ -24,5 +24,5 @@ def test_valid_url_and_connection_exists_returns(valid_url_return: str,
         result = can_access_google_page("url")
 
         assert result == expected
-        mock_valid_google_url.assert_called_once_with("url"g)
+        mock_valid_google_url.assert_called_once_with("url")
         mock_has_internet_connection.assert_called_once()
