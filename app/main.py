@@ -17,3 +17,7 @@ def can_access_google_page(url: str) -> str:
         return "Accessible"
     else:
         return "Not accessible"
+
+
+if __name__ == "__main__":
+    print(can_access_google_page("https://www.google.com"))

@@ -24,7 +24,7 @@ def test_cannot_access_if_connection_or_valid_url_is_true(monkeypatch):
 
 def test_cannot_access_if_only_connection(monkeypatch):
     def can_access_if_connection(url):
-        from app.main import has_internet_connection, valid_google_url
+        from app.main import has_internet_connection
 
         if has_internet_connection():
             return "Accessible"
@@ -41,7 +41,7 @@ def test_cannot_access_if_only_connection(monkeypatch):
 
 def test_cannot_access_if_only_valid_url(monkeypatch):
     def can_access_if_connection(url):
-        from app.main import has_internet_connection, valid_google_url
+        from app.main import valid_google_url, has_internet_connection
 
         if valid_google_url(url):
             return "Accessible"
