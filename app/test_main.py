@@ -1,5 +1,5 @@
 from app.main import can_access_google_page
-import requests
+
 
 def test_valid_url_and_connection_returns_accessible(mocker: any) -> None:
     mocker.patch("app.main.valid_google_url", return_value=True)
