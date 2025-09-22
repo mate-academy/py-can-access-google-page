@@ -14,9 +14,9 @@ from app.main import can_access_google_page
         (False, False, "Not accessible"),
     ]
 )
-@mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_valid_google_url(
+@mock.patch("app.main.valid_google_url")
+def test_can_access_google_page(
         mock_has_internet_connection : MagicMock,
         mock_valid_google_url : MagicMock,
         is_valid_google_url : bool,
