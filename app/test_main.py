@@ -17,14 +17,17 @@ def test_can_access_google_page_str() -> None:
                      id="(False, True)->Not accessible"),
         pytest.param(True, True, "Accessible",
                      id="(True, True)->Accessible"),
+        pytest.param(False, False, "Not accessible",
+                     id="(False, False)->Not accessible"),
     ]
 )
 def test_can_access_google_page_with_various_combinations(internet: bool,
                                                           url: bool,
                                                           expected: Any
                                                           ) -> None:
-    with (mock.patch("app.main.has_internet_connection",
-                     return_value=internet)):
-        with mock.patch("app.main.valid_google_url", return_value=url):
+    with mock.patch(
+            "app.main.has_internet_connection", return_value=internet):
+        with mock.patch(
+                "app.main.valid_google_url", return_value=url):
             assert can_access_google_page("https://www.google.com/"
                                           ) == expected
