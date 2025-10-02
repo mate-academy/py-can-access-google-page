@@ -12,7 +12,7 @@ def test_can_access_google_page_all_false():
     with patch("app.main.valid_google_url", return_value=False), \
          patch("app.main.has_internet_connection", return_value=False):
         result = can_access_google_page("https://www.google.com")
-        assert result == "Accessible"
+        assert result == "Not accessible"
 
 
 def test_can_access_google_page_not_accessible_invalid_url():
