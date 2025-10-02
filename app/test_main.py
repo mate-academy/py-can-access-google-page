@@ -11,9 +11,15 @@ from app.main import can_access_google_page
         (False, True, "Not accessible"),
         (False, False, "Not accessible"),
     ],
+    ids=[
+        "valid_url_and_connection_exists",
+        "invalid_url_but_connection_exists",
+        "valid_url_but_no_connection",
+        "invalid_url_and_no_connection",
+    ]
 )
 def test_can_access_google_page(internet_status: bool,
-                                url_status: bool, expected: str) -> list:
+                                url_status: bool, expected: str) -> None:
     with patch("app.main.has_internet_connection",
                return_value=internet_status), \
          patch("app.main.valid_google_url", return_value=url_status):
