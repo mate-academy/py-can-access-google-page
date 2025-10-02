@@ -11,8 +11,11 @@ class TestCanAccessGooglePage(unittest.TestCase):
         mock_valid: MagicMock,
         mock_internet: MagicMock,
     ) -> None:
-        result = can_access_google_page("https://www.google.com")
+        url = "https://www.google.com"
+        result = can_access_google_page(url)
         self.assertEqual(result, "Accessible")
+        mock_valid.assert_called_once_with(url)
+        mock_internet.assert_called_once_with()
 
     @patch("app.main.has_internet_connection", return_value=False)
     @patch("app.main.valid_google_url", return_value=True)
@@ -21,8 +24,11 @@ class TestCanAccessGooglePage(unittest.TestCase):
         mock_valid: MagicMock,
         mock_internet: MagicMock,
     ) -> None:
-        result = can_access_google_page("https://www.google.com")
+        url = "https://www.google.com"
+        result = can_access_google_page(url)
         self.assertEqual(result, "Not accessible")
+        mock_valid.assert_called_once_with(url)
+        mock_internet.assert_called_once_with()
 
     @patch("app.main.has_internet_connection", return_value=True)
     @patch("app.main.valid_google_url", return_value=False)
@@ -31,8 +37,11 @@ class TestCanAccessGooglePage(unittest.TestCase):
         mock_valid: MagicMock,
         mock_internet: MagicMock,
     ) -> None:
-        result = can_access_google_page("https://fake-url.com")
+        url = "https://fake-url.com"
+        result = can_access_google_page(url)
         self.assertEqual(result, "Not accessible")
+        mock_valid.assert_called_once_with(url)
+        mock_internet.assert_called_once_with()
 
     @patch("app.main.has_internet_connection", return_value=False)
     @patch("app.main.valid_google_url", return_value=False)
@@ -41,9 +50,8 @@ class TestCanAccessGooglePage(unittest.TestCase):
         mock_valid: MagicMock,
         mock_internet: MagicMock,
     ) -> None:
-        result = can_access_google_page("https://fake-url.com")
+        url = "https://fake-url.com"
+        result = can_access_google_page(url)
         self.assertEqual(result, "Not accessible")
-
-
-if __name__ == "__main__":
-    unittest.main()
+        mock_valid.assert_called_once_with(url)
+        mock_internet.assert_called_once_with()
