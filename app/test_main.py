@@ -15,8 +15,9 @@ class TestCanAccessGooglePage(unittest.TestCase):
     ) -> None:
         mock_url.return_value = True
         mock_internet.return_value = True
-        assert (can_access_google_page("https://www.google.com")
-                == "Accessible")
+        result = can_access_google_page("https://www.google.com")
+        self.assertEqual(result, "Accessible")
+        mock_url.assert_called_once_with("https://www.google.com")
 
     def test_access_google_page_with_invalid_url(
             self,
@@ -25,8 +26,9 @@ class TestCanAccessGooglePage(unittest.TestCase):
     ) -> None:
         mock_url.return_value = False
         mock_internet.return_value = True
-        assert (can_access_google_page("https://www.google.com")
-                == "Not accessible")
+        result = can_access_google_page("https://www.google.com")
+        self.assertEqual(result, "Not accessible")
+        mock_url.assert_called_once_with("https://www.google.com")
 
     def test_access_google_page_without_internet_connection(
             self,
@@ -35,8 +37,9 @@ class TestCanAccessGooglePage(unittest.TestCase):
     ) -> None:
         mock_url.return_value = True
         mock_internet.return_value = False
-        assert (can_access_google_page("https://www.google.com")
-                == "Not accessible")
+        result = can_access_google_page("https://www.google.com")
+        self.assertEqual(result, "Not accessible")
+        mock_url.assert_called_once_with("https://www.google.com")
 
     def test_access_without_valid_url_and_internet_connection(
             self,
@@ -45,5 +48,6 @@ class TestCanAccessGooglePage(unittest.TestCase):
     ) -> None:
         mock_url.return_value = False
         mock_internet.return_value = False
-        assert (can_access_google_page("https://www.google.com")
-                == "Not accessible")
+        result = can_access_google_page("https://www.google.com")
+        self.assertEqual(result, "Not accessible")
+        mock_url.assert_called_once_with("https://www.google.com")
