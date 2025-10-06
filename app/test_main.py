@@ -53,6 +53,7 @@ def test_main_func_not_access_both_false(
     mocked_has_internet_connection.return_value = False
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
+
 def test_main_func_not_access_first_false(
         mocked_valid_google_url: Mock,
         mocked_has_internet_connection: Mock
@@ -60,6 +61,7 @@ def test_main_func_not_access_first_false(
     mocked_valid_google_url.return_value = False
     mocked_has_internet_connection.return_value = True
     assert can_access_google_page("https://www.google.com") == "Not accessible"
+
 
 def test_main_func_not_access_second_false(
         mocked_valid_google_url: Mock,
