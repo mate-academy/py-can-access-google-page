@@ -17,7 +17,7 @@ def test_url_true_internet_true(
     assert result == "Accessible"
 
     mocked_internet.assert_called_once()
-    mocked_url.assert_called_once()
+    mocked_url.assert_called_once_with("https://www.google.com")
 
 
 @mock.patch("app.main.valid_google_url")
@@ -33,7 +33,7 @@ def test_url_false_internet_true(mocked_internet: MagicMock,
     assert results == "Not accessible"
 
     mocked_internet.assert_called_once()
-    mocked_url.assert_called_once()
+    mocked_url.assert_called_once_with("https://www.google.com")
 
 
 @mock.patch("app.main.valid_google_url")
@@ -42,7 +42,6 @@ def test_url_true_internet_false(mocked_internet: MagicMock,
                                  mocked_url: MagicMock
                                  ) -> None:
     mocked_internet.return_value = False
-    mocked_url.return_value = True
 
     results = can_access_google_page("https://www.google.com")
 
@@ -58,7 +57,6 @@ def test_url_false_internet_false(mocked_internet: MagicMock,
                                   mocked_url: MagicMock
                                   ) -> None:
     mocked_internet.return_value = False
-    mocked_url.return_value = False
 
     results = can_access_google_page("https://www.google.com")
 
