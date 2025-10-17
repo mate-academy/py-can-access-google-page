@@ -38,4 +38,3 @@ def test_not_accessible_when_both_false(monkeypatch):
 
     result = can_access_google_page("https://www.google.com")
     assert result == "Not accessible"
-
