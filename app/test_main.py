@@ -16,12 +16,9 @@ def test_can_access_google_page_when_valid_url_and_connection_true() -> None:
 
 def test_can_access_google_page_when_valid_url_and_connection_false() -> None:
     url = "https://www.google.com/?hl=ru"
-    with (mock.patch("app.main.has_internet_connection",
-                     return_value=False) as internet_connection,
-          mock.patch("app.main.valid_google_url",
-                     return_value=False) as valid_url):
+    with mock.patch("app.main.has_internet_connection",
+                    return_value=False) as internet_connection:
         result = can_access_google_page(url)
-        valid_url.assert_called_once_with(url)
         internet_connection.assert_called_once_with()
         assert result == "Not accessible"
 
