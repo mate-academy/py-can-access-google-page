@@ -37,7 +37,10 @@ def test_accessible(mocked_function1: Any, mocked_function2: Any) -> None:
     assert result == "Accessible"
 
 
-def test_both_correct(mocked_function1: Any, mocked_function2: Any) -> None:
+def test_invalid_url_and_no_connection_returns_not_accessible(
+        mocked_function1: Any,
+        mocked_function2: Any
+) -> None:
     mocked_function1.return_value = False
     mocked_function2.return_value = False
     result = can_access_google_page("bad link")
