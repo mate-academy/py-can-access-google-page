@@ -29,6 +29,7 @@ def test_internet_only(mocked_function1: Any, mocked_function2: Any) -> None:
     result = can_access_google_page("bad link")
     assert result == "Not accessible"
 
+
 def test_accessible(mocked_function1: Any, mocked_function2: Any) -> None:
     mocked_function1.return_value = True
     mocked_function2.return_value = True
