@@ -13,7 +13,7 @@ from app.main import can_access_google_page
         ("https://google.com", False, False, "Not accessible"),
     ]
 )
-@patch("app.main.valid_google_page")
+@patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
 def test_can_access_google_page(
         mock_has_internet_connection: MagicMock,
