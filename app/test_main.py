@@ -17,13 +17,13 @@ from app.main import can_access_google_page
 @patch("app.main.has_internet_connection")
 def test_can_access_google_page(
         mock_has_internet_connection: MagicMock,
-        mock_valid_google_page: MagicMock,
+        mock_valid_google_url: MagicMock,
         url: str,
         valid_url_return: bool,
         internet_return: bool,
         expected_result: str
 ) -> None:
     mock_has_internet_connection.return_value = internet_return
-    mock_valid_google_page.return_value = valid_url_return
+    mock_valid_google_url.return_value = valid_url_return
     result = can_access_google_page(url)
     assert result == expected_result
