@@ -5,7 +5,7 @@ from app.main import can_access_google_page
 
 @mock.patch("app.main.valid_google_url", return_value=True)
 @mock.patch("app.main.has_internet_connection", return_value=True)
-def test_can_access_google_page_with_true_true(
+def test_returns_accessible_when_url_is_valid_and_connection_exists(
         mock_connection: mock.MagicMock,
         mock_valid: mock.MagicMock
 ) -> None:
@@ -14,7 +14,7 @@ def test_can_access_google_page_with_true_true(
 
 @mock.patch("app.main.valid_google_url", return_value=False)
 @mock.patch("app.main.has_internet_connection", return_value=True)
-def test_can_access_google_page_with_false_true(
+def test_returns_accessible_when_url_is_not_valid_and_connection_exists(
         mock_connection: mock.MagicMock,
         mock_valid: mock.MagicMock
 ) -> None:
@@ -23,7 +23,7 @@ def test_can_access_google_page_with_false_true(
 
 @mock.patch("app.main.valid_google_url", return_value=True)
 @mock.patch("app.main.has_internet_connection", return_value=False)
-def test_can_access_google_page_with_true_false(
+def test_returns_accessible_when_url_is_valid_and_connection_not_exists(
         mock_connection: mock.MagicMock,
         mock_valid: mock.MagicMock
 ) -> None:
