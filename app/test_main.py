@@ -5,13 +5,14 @@ from unittest import mock
 
 
 @pytest.mark.parametrize(
-"valid_url, has_internet, expected",
-[(True, True, "Accessible"),
- (False, True, "Not accessible"),
- (True, False, "Not accessible"),
- (False, False, "Not accessible"),
- ])
-
+    "valid_url, has_internet, expected",
+    [
+        (True, True, "Accessible"),
+        (False, True, "Not accessible"),
+        (True, False, "Not accessible"),
+        (False, False, "Not accessible"),
+    ]
+)
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
