@@ -9,7 +9,7 @@ from app.main import can_access_google_page
     (True, False, "Not accessible"),
     (False, True, "Not accessible")
 ])
-def  test_can_access_google_page(
+def test_can_access_google_page(
         monkeypatch: MonkeyPatch,
         valid_url: bool,
         has_internet: bool,
