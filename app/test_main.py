@@ -44,10 +44,28 @@ def test_func_return_true_if_both_are_true(
     assert can_access_google_page("test") == "Accessible"
 
 
-def test_func_return_false_if_one_is_false(
+def test_func_return_false_if_no_connection(
         mocked_connection: MagicMock,
         mocked_url: MagicMock
 ) -> None:
     mocked_url.return_value = True
+    mocked_connection.return_value = False
+    assert can_access_google_page("test") == "Not accessible"
+
+
+def test_func_return_false_if_invalid_url(
+        mocked_connection: MagicMock,
+        mocked_url: MagicMock
+) -> None:
+    mocked_url.return_value = False
+    mocked_connection.return_value = True
+    assert can_access_google_page("test") == "Not accessible"
+
+
+def test_func_return_false_if_invalid_url_and_no_connection(
+        mocked_connection: MagicMock,
+        mocked_url: MagicMock
+) -> None:
+    mocked_url.return_value = False
     mocked_connection.return_value = False
     assert can_access_google_page("test") == "Not accessible"
