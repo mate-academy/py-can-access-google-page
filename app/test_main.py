@@ -21,7 +21,8 @@ def mocked_connection() -> Generator[MagicMock | AsyncMock, Any, None]:
 
 
 def test_url_was_called(
-        mocked_url: MagicMock
+        mocked_url: MagicMock,
+        mocked_connection: MagicMock
 ) -> None:
     can_access_google_page("test")
     mocked_url.assert_called_with("test")
@@ -35,7 +36,7 @@ def test_connection_was_called(
     mocked_connection.assert_called()
 
 
-def test_func_return_true_if_both_are_true(
+def test_can_access_google_page_when_url_is_valid_and_connection_exists(
         mocked_connection: MagicMock,
         mocked_url: MagicMock
 ) -> None:
