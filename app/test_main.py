@@ -4,7 +4,7 @@ from app.main import can_access_google_page
 
 @patch("app.main.valid_google_url", return_value=True)
 @patch("app.main.has_internet_connection", return_value=True)
-def test_both_outputs_are_true(
+def test_can_access_google_page_when_url_is_valid_and_connection_exists(
         mock_internet: MagicMock,
         mock_url: MagicMock
 ) -> None:
@@ -34,7 +34,7 @@ def test_valid_internet_but_invalid_url(
 
 @patch("app.main.valid_google_url", return_value=False)
 @patch("app.main.has_internet_connection", return_value=False)
-def test_both_outputs_are_false(
+def test_cannot_access_google_page_when_url_is_invalid_and_no_connection(
         mock_internet: MagicMock,
         mock_url: MagicMock
 ) -> None:
