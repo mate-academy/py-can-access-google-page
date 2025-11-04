@@ -69,9 +69,10 @@ class TestHasInternetConnection(TestCase):
 
 class TestCanAccessGooglePage(TestCase):
     def test_when_is_internet_connect_and_valid_url(self) -> None:
-        with mock.patch("app.main.has_internet_connection") as mock_valid_url:
+        with mock.patch("app.main.has_internet_connection") as\
+                mock_internet_connect:
             with mock.patch("app.main.valid_google_url") as \
-                    mock_internet_connect:
+                    mock_valid_url:
                 mock_internet_connect.return_value = True
                 mock_valid_url.return_value = True
                 assert can_access_google_page("") == "Accessible"
