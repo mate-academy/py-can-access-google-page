@@ -2,14 +2,17 @@ from unittest.mock import patch
 from app.main import can_access_google_page
 
 
-def test_accessible_only_if_both_true() -> None:
-    """Page is accessible only if both conditions are True."""
+def test_accessible_with_valid_url_and_connection() -> None:
+    """Accessible when both URL is valid and internet connection exists."""
     with (
         patch("app.main.valid_google_url", return_value=True),
         patch("app.main.has_internet_connection", return_value=True),
     ):
         assert can_access_google_page("https://www.google.com") == "Accessible"
 
+
+def test_not_accessible_without_connection() -> None:
+    """Not accessible when URL is valid but no internet connection."""
     with (
         patch("app.main.valid_google_url", return_value=True),
         patch("app.main.has_internet_connection", return_value=False),
@@ -19,6 +22,9 @@ def test_accessible_only_if_both_true() -> None:
             == "Not accessible"
         )
 
+
+def test_not_accessible_with_invalid_url() -> None:
+    """Not accessible when internet exists but URL is invalid."""
     with (
         patch("app.main.valid_google_url", return_value=False),
         patch("app.main.has_internet_connection", return_value=True),
@@ -28,6 +34,9 @@ def test_accessible_only_if_both_true() -> None:
             == "Not accessible"
         )
 
+
+def test_not_accessible_with_invalid_url_and_no_connection() -> None:
+    """Not accessible when both URL is invalid and no internet connection."""
     with (
         patch("app.main.valid_google_url", return_value=False),
         patch("app.main.has_internet_connection", return_value=False),
@@ -35,25 +44,4 @@ def test_accessible_only_if_both_true() -> None:
         assert (
             can_access_google_page("https://www.google.com")
             == "Not accessible"
-        )
-
-
-def test_not_accessible_if_only_one_condition_true() -> None:
-    """Ensure function is NOT accessible if only one condition is True."""
-    with (
-        patch("app.main.valid_google_url", return_value=True),
-        patch("app.main.has_internet_connection", return_value=False),
-    ):
-        result = can_access_google_page("https://www.google.com")
-        assert result == "Not accessible", (
-            "Should not be accessible if only URL is valid."
-        )
-
-    with (
-        patch("app.main.valid_google_url", return_value=False),
-        patch("app.main.has_internet_connection", return_value=True),
-    ):
-        result = can_access_google_page("https://www.google.com")
-        assert result == "Not accessible", (
-            "Should not be accessible if only internet works."
         )
