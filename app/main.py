@@ -15,7 +15,10 @@ def has_internet_connection() -> bool:
 
 
 def can_access_google_page(url: str) -> str:
-    """Return 'Accessible' if both conditions are True, else 'Not accessible'."""
+    """
+    Return 'Accessible' if both internet connection and URL are valid,
+    else 'Not accessible'.
+    """
     if has_internet_connection() and valid_google_url(url):
         return "Accessible"
     return "Not accessible"

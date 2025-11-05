@@ -1,10 +1,9 @@
-import pytest
 from unittest.mock import patch
 from app.main import can_access_google_page
 
 
-def test_accessible_only_if_both_true():
-    """Check page is accessible only if both URL is valid and internet exists."""
+def test_accessible_only_if_both_true() -> None:
+    """Page is accessible only if both conditions are True."""
     with (
         patch("app.main.valid_google_url", return_value=True),
         patch("app.main.has_internet_connection", return_value=True),
@@ -39,7 +38,7 @@ def test_accessible_only_if_both_true():
         )
 
 
-def test_not_accessible_if_only_one_condition_true():
+def test_not_accessible_if_only_one_condition_true() -> None:
     """Ensure function is NOT accessible if only one condition is True."""
     with (
         patch("app.main.valid_google_url", return_value=True),
