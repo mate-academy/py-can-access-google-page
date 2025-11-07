@@ -1,15 +1,28 @@
 from unittest import mock
 
+import pytest
+
 from app.main import can_access_google_page
 
 
-@mock.patch("requests.get")
-def test_valid_google_url_called(mock_get: mock.MagicMock) -> None:
-    can_access_google_page("https://google.com")
-    mock_get.assert_called_with("https://google.com")
-
-
-@mock.patch("app.main.datetime")
-def test_has_internet_connection_called(mock_datetime: mock.MagicMock) -> None:
-    can_access_google_page("https://google.com")
-    mock_datetime.datetime.now.assert_called()
+@pytest.mark.parametrize(
+    "valid_url,has_connection,status",
+    [
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
+    ]
+)
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
+def test_can_access_google_page(
+        mock_connection: mock.MagicMock,
+        mock_valid_url: mock.MagicMock,
+        has_connection: bool,
+        valid_url: bool,
+        status: str
+) -> None:
+    mock_connection.return_value = has_connection
+    mock_valid_url.return_value = valid_url
+    assert can_access_google_page("url") == status
