@@ -43,3 +43,12 @@ def test_connected_and_invalid_url(
     mock_connection.return_value = True
     mock_url_validation.return_value = False
     assert can_access_google_page("url") == "Not accessible"
+
+
+def test_invalid_url_and_no_connection(
+        mock_connection: mock.MagicMock | mock.AsyncMock,
+        mock_url_validation: mock.MagicMock | mock.AsyncMock
+) -> None:
+    mock_connection.return_value = False
+    mock_url_validation.return_value = False
+    assert can_access_google_page("url") == "Not accessible"
