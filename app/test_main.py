@@ -11,7 +11,7 @@ from app.main import can_access_google_page
         ("https://yandex.ru", False, False, "Not accessible"),
     ],
 )
-def test_can_access_google_page(
+def test_can_access_google_page_scenarios(
     monkeypatch: pytest.MonkeyPatch,
     url: str,
     valid_url_return: bool,
