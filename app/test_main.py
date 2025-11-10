@@ -16,29 +16,24 @@ def mocked_get_connection() -> mock:
         yield mocked_connection_check
 
 
-def test_valid_url_and_connection_exists(mocked_get_url: mock,
-                                         mocked_get_connection: mock) -> None:
-    mocked_get_url.return_value = True
-    mocked_get_connection.return_value = True
-    assert can_access_google_page("google.com") == "Accessible"
-
-
-def test_url_valid_but_connection_does_not_exists(
-        mocked_get_url: mock, mocked_get_connection: mock) -> None:
-    mocked_get_url.return_value = True
-    mocked_get_connection.return_value = False
-    assert can_access_google_page("google.com") == "Not accessible"
-
-
-def test_url_not_valid_but_connection_exists(
-        mocked_get_url: mock, mocked_get_connection: mock) -> None:
-    mocked_get_url.return_value = False
-    mocked_get_connection.return_value = True
-    assert can_access_google_page("google.com") == "Not accessible"
-
-
-def test_both_url_and_connection_return_false(
-        mocked_get_url: mock, mocked_get_connection: mock) -> None:
-    mocked_get_url.return_value = False
-    mocked_get_connection.return_value = False
-    assert can_access_google_page("google.com") == "Not accessible"
+@pytest.mark.parametrize(
+    "mocked_url, mocked_connection, result",
+    [
+        pytest.param(True, True, "Accessible",
+                     id="test valid url and connection exists"),
+        pytest.param(True, False, "Not accessible",
+                     id="url valid but connection does not exists"),
+        pytest.param(False, True, "Not accessible",
+                     id="url not valid but connection exists"),
+        pytest.param(False, False, "Not accessible",
+                     id="both url and connection return false"),
+    ]
+)
+def test_can_access_google_page(mocked_get_url: mock,
+                                mocked_get_connection: mock,
+                                mocked_url: bool,
+                                mocked_connection: bool,
+                                result: str) -> None:
+    mocked_get_url.return_value = mocked_url
+    mocked_get_connection.return_value = mocked_connection
+    assert can_access_google_page("google.com") == result
