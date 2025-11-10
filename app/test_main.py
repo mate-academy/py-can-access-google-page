@@ -2,8 +2,8 @@ from unittest.mock import patch, MagicMock
 from app.main import can_access_google_page
 
 
-@patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
 def test_can_access_google_page_accessible(
         mock_valid_google_url: MagicMock,
         mock_has_internet_connection: MagicMock
@@ -14,8 +14,8 @@ def test_can_access_google_page_accessible(
     assert result == "Accessible"
 
 
-@patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
 def test_can_access_google_page_not_accessible_first(
         mock_valid_google_url: MagicMock,
         mock_has_internet_connection: MagicMock
@@ -26,8 +26,8 @@ def test_can_access_google_page_not_accessible_first(
     assert result == "Not accessible"
 
 
-@patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
 def test_can_access_google_page_not_accessible_second(
         mock_valid_google_url: MagicMock,
         mock_has_internet_connection: MagicMock
@@ -38,8 +38,8 @@ def test_can_access_google_page_not_accessible_second(
     assert result == "Not accessible"
 
 
-@patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
 def test_can_access_google_page_not_accessible_third(
         mock_valid_google_url: MagicMock,
         mock_has_internet_connection: MagicMock
