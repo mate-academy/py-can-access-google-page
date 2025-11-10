@@ -19,10 +19,14 @@ def mocked_get_connection() -> mock:
 @pytest.mark.parametrize(
     "mocked_url, mocked_connection, result",
     [
-        (True, True, "Accessible"),
-        (True, False, "Not accessible"),
-        (False, True, "Not accessible"),
-        (False, False, "Not accessible"),
+        pytest.param(True, True, "Accessible",
+                     id="test valid url and connection exists"),
+        pytest.param(True, False, "Not accessible",
+                     id="url valid but connection does not exists"),
+        pytest.param(False, True, "Not accessible",
+                     id="url not valid but connection exists"),
+        pytest.param(False, False, "Not accessible",
+                     id="both url and connection return false"),
     ]
 )
 def test_can_access_google_page(mocked_get_url: mock,
