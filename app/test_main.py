@@ -19,7 +19,6 @@ def test_can_access_google_page_when_url_valid_and_connection_exists_page(
 
 @mock.patch("app.main.has_internet_connection", return_value=False)
 @mock.patch("app.main.valid_google_url", return_value=True)
-
 def test_can_not_access_google_page_no_internet(
         mock_valid: bool,
         mock_internet: bool,
