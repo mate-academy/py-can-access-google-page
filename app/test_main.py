@@ -9,7 +9,7 @@ test_url = "https://google.com"
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_when_both_true(
+def test_can_access_google_page_when_connection_and_url_are_valid(
         mock_has_internet_connection: MagicMock,
         mock_valid_google_url: MagicMock
 ) -> None:
@@ -21,7 +21,7 @@ def test_when_both_true(
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_when_valid_url_false(
+def test_not_accessible_when_url_is_invalid(
         mock_has_internet_connection: MagicMock,
         mock_valid_google_url: MagicMock
 ) -> None:
@@ -33,7 +33,7 @@ def test_when_valid_url_false(
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_when_connection_false(
+def test_not_accessible_when_no_internet_connection(
         mock_has_internet_connection: MagicMock,
         mock_valid_google_url: MagicMock
 ) -> None:
@@ -47,7 +47,7 @@ def test_when_connection_false(
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_when_both_false(
+def test_not_accessible_when_no_connection_and_invalid_url(
         mock_has_internet_connection: MagicMock,
         mock_valid_google_url: MagicMock
 ) -> None:
