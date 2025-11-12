@@ -41,6 +41,9 @@ def test_when_connection_false(
     mock_has_internet_connection.return_value = False
     assert can_access_google_page(test_url) == "Not accessible"
 
+    mock_valid_google_url.assert_not_called()
+    mock_has_internet_connection.assert_called_once()
+
 
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
@@ -51,3 +54,6 @@ def test_when_both_false(
     mock_valid_google_url.return_value = False
     mock_has_internet_connection.return_value = False
     assert can_access_google_page(test_url) == "Not accessible"
+
+    mock_valid_google_url.assert_not_called()
+    mock_has_internet_connection.assert_called_once()
