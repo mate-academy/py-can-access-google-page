@@ -11,13 +11,19 @@ from app.main import can_access_google_page
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
         (False, False, "Not accessible")
+    ],
+    ids=[
+        "Has connection and correct url",
+        "Has connection but incorrect url",
+        "Dont has connection and correct url",
+        "DOnt has connection and incorrect url"
     ]
 )
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-    mock_valid_url: str,
-    mock_has_internet: str,
+    mock_valid_url: mock.MagicMock,
+    mock_has_internet: mock.MagicMock,
     internet: bool,
     url_valid: bool,
     expected: str
