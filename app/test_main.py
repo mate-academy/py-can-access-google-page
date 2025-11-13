@@ -1,7 +1,8 @@
 from unittest.mock import patch
 from app.main import can_access_google_page
 
-def test_can_access_google_page_accessible():
+
+def test_can_access_google_page_accessible() -> None:
     with patch("app.main.valid_google_url") as mock_valid_url, \
          patch("app.main.has_internet_connection") as mock_internet:
         mock_valid_url.return_value = True
@@ -10,7 +11,8 @@ def test_can_access_google_page_accessible():
         result = can_access_google_page("https://www.google.com")
         assert result == "Accessible"
 
-def test_can_access_google_page_not_accessible_invalid_url():
+
+def test_can_access_google_page_not_accessible_invalid_url() -> None:
     with patch("app.main.valid_google_url") as mock_valid_url, \
          patch("app.main.has_internet_connection") as mock_internet:
         mock_valid_url.return_value = False
@@ -19,7 +21,8 @@ def test_can_access_google_page_not_accessible_invalid_url():
         result = can_access_google_page("https://invalid-url.com")
         assert result == "Not accessible"
 
-def test_can_access_google_page_not_accessible_no_internet():
+
+def test_can_access_google_page_not_accessible_no_internet() -> None:
     with patch("app.main.valid_google_url") as mock_valid_url, \
          patch("app.main.has_internet_connection") as mock_internet:
         mock_valid_url.return_value = True
@@ -28,7 +31,8 @@ def test_can_access_google_page_not_accessible_no_internet():
         result = can_access_google_page("https://www.google.com")
         assert result == "Not accessible"
 
-def test_can_access_google_page_not_accessible_both_false():
+
+def test_can_access_google_page_not_accessible_both_false() -> None:
     with patch("app.main.valid_google_url") as mock_valid_url, \
          patch("app.main.has_internet_connection") as mock_internet:
         mock_valid_url.return_value = False
