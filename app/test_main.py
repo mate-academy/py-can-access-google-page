@@ -14,17 +14,17 @@ from app.main import can_access_google_page
         (False, False, "Not accessible"),
     ]
 )
-@mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
 def test_can_access_google_page(
-        mock_conn: Mock,
         mock_valid: Mock,
+        mock_conn: Mock,
         internet: bool,
         url_valid: bool,
         expected: str
 ) -> None:
-    mock_conn.return_value = internet
     mock_valid.return_value = url_valid
+    mock_conn.return_value = internet
 
     result = can_access_google_page("https://example.com/")
 
