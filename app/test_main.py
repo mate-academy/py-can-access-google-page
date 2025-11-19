@@ -18,12 +18,7 @@ def test_output_from_valid_url_and_network(
         expected_return: str
 ) -> None:
 
-    with patch(
-        "app.main.valid_google_url",
-               return_value=validation
-    ):
-        with patch(
-        "app.main.has_internet_connection",
-                return_value=internet):
+    with patch("app.main.valid_google_url", return_value=validation):
+        with patch("app.main.has_internet_connection", return_value=internet):
             result = can_access_google_page("https://google.com")
     assert result == expected_return
