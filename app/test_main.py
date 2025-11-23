@@ -13,10 +13,11 @@ from app import main
         (False, False, "Not accessible"),
     )
 )
-def test_can_access_google_page(valid_value: bool,
-                                internet_value: bool,
-                                expected_result: str,
-                                monkeypatch: MonkeyPatch) -> None:
+def test_can_access_google_page_handles_all_scenarios(
+        valid_value: bool,
+        internet_value: bool,
+        expected_result: str,
+        monkeypatch: MonkeyPatch) -> None:
     def fake_valid(url: str) -> bool:
         return valid_value
 
