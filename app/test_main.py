@@ -5,7 +5,7 @@ from app.main import can_access_google_page
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_can_access_google_page_accessible(
+def test_can_access_google_page_with_valid_url_and_connection(
     mock_internet: Mock, mock_valid_url: Mock
 ) -> None:
     mock_internet.return_value = True
@@ -18,7 +18,7 @@ def test_can_access_google_page_accessible(
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_can_access_google_page_invalid_url(
+def test_can_access_google_page_with_valid_url_and_connection(
     mock_internet: Mock, mock_valid_url: Mock
 ) -> None:
     mock_internet.return_value = True
@@ -31,7 +31,7 @@ def test_can_access_google_page_invalid_url(
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_can_access_google_page_no_internet(
+def test_can_access_google_page_with_valid_url_and_no_connection(
     mock_internet: Mock, mock_valid_url: Mock
 ) -> None:
     mock_internet.return_value = False
@@ -44,7 +44,7 @@ def test_can_access_google_page_no_internet(
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_can_access_google_page_not_accessible(
+def test_can_access_google_page_with_invalid_url_and_no_connection(
     mock_internet: Mock, mock_valid_url: Mock
 ) -> None:
     mock_internet.return_value = False
