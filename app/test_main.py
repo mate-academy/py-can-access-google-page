@@ -34,7 +34,7 @@ def test_can_access_google_page_invalid_url(mock_function: tuple) -> None:
     assert result == "Not accessible"
 
 
-def test_can_access_google_page_when_url_valid_and_connection_not_exist(
+def test_can_access_google_page_when_url_invalid_and_connection_not_exist(
         mock_function: tuple
 ) -> None:
     mock_url, mock_internet = mock_function
