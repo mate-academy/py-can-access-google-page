@@ -10,7 +10,9 @@ def mock_function() -> None:
             yield mock_url, mock_internet
 
 
-def test_can_access_google_page_when_url_valid_and_connection_exists(mock_function: tuple) -> None:
+def test_can_access_google_page_when_url_valid_and_connection_exists(
+        mock_function: tuple
+) -> None:
     mock_url, mock_internet = mock_function
     mock_url.return_value = True
     mock_internet.return_value = True
@@ -32,7 +34,9 @@ def test_can_access_google_page_invalid_url(mock_function: tuple) -> None:
     assert result == "Not accessible"
 
 
-def test_can_access_google_page_when_url_valid_and_connection_not_exist(mock_function: tuple) -> None:
+def test_can_access_google_page_when_url_valid_and_connection_not_exist(
+        mock_function: tuple
+) -> None:
     mock_url, mock_internet = mock_function
     mock_url.return_value = False
     mock_internet.return_value = False
