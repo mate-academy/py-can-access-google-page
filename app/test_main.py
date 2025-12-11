@@ -42,6 +42,7 @@ def test_can_access_google_page_with_valid_url_and_no_connection(
     assert actual_result == "Not accessible"
 
 
+
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
 def test_can_access_google_page_with_invalid_url_and_no_connection(
