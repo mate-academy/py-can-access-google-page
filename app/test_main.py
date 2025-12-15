@@ -32,7 +32,8 @@ def test_can_access_google_page(
         valid_google_url_return: bool,
         has_internet_connection_return: bool,
         result: str,
-        url: str) -> None:
+        url: str
+) -> None:
     mocked_valid_google_url2.return_value = valid_google_url_return
     mocked_has_internet_connection2.return_value = (
         has_internet_connection_return)
