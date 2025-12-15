@@ -30,5 +30,6 @@ def test_can_access_google_page(mocked_valid_google_url2: MagicMock,
                                 has_internet_connection_return: bool,
                                 result: str, url: str) -> None:
     mocked_valid_google_url2.return_value = valid_google_url_return
-    mocked_has_internet_connection2.return_value = has_internet_connection_return
+    mocked_has_internet_connection2.return_value = (
+        has_internet_connection_return)
     assert can_access_google_page(url) == result
