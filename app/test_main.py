@@ -1,7 +1,9 @@
-from app.main import can_access_google_page
-from unittest.mock import MagicMock
 from unittest import mock
+from unittest.mock import MagicMock
+
 import pytest
+
+from app.main import can_access_google_page
 
 
 @pytest.fixture()
@@ -28,7 +30,8 @@ def test_can_access_google_page(mocked_valid_google_url2: MagicMock,
                                 mocked_has_internet_connection2: MagicMock,
                                 valid_google_url_return: bool,
                                 has_internet_connection_return: bool,
-                                result: str, url: str) -> None:
+                                result: str,
+                                url: str) -> None:
     mocked_valid_google_url2.return_value = valid_google_url_return
     mocked_has_internet_connection2.return_value = (
         has_internet_connection_return)
