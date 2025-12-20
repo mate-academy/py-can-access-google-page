@@ -9,6 +9,8 @@ def test_url_have_connection() -> None:
         mock_connection.return_value = True
         result = can_access_google_page(url="https://www.google.com")
         assert result == "Accessible"
+        mock_connection.called_once()
+        mocked_valid.called_once()
 
 
 def test_url_have_no_connection() -> None:
@@ -18,3 +20,5 @@ def test_url_have_no_connection() -> None:
         mock_connection.return_value = False
         result = can_access_google_page(url="googgle.com")
         assert result == "Not accessible"
+        mock_connection.called_once()
+        mocked_valid.called_once()
