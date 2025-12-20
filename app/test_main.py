@@ -13,7 +13,6 @@ def test_url_have_connection() -> None:
         assert result == "Accessible"
 
 
-
 def test_url_have_no_connection() -> None:
     with mock.patch("app.main.valid_google_url") as mocked_valid, \
             mock.patch("app.main.has_internet_connection") as mock_connection:
