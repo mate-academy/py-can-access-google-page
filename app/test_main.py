@@ -4,15 +4,18 @@ from typing import Any
 
 from app.main import can_access_google_page
 
+
 @pytest.fixture()
-def mocked_connection():
+def mocked_connection() -> Any:
     with mock.patch("app.main.has_internet_connection") as mock_connection:
         yield mock_connection
 
+
 @pytest.fixture()
-def mocked_validity():
+def mocked_validity() -> Any:
     with mock.patch("app.main.valid_google_url") as mock_validity:
         yield mock_validity
+
 
 @pytest.mark.parametrize(
     "url_check, time_check, expected",
