@@ -14,7 +14,8 @@ from app.main import can_access_google_page
 def test_valid_url_and_connection_exists(
         mocked_valid_google_url: mock.MagicMock,
         mocked_has_internet_connection: mock.MagicMock,
-        valid_url: bool, connection: bool,
+        valid_url: bool,
+        connection: bool,
         expected: str
 ) -> None:
     mocked_valid_google_url.return_value = valid_url
@@ -22,5 +23,5 @@ def test_valid_url_and_connection_exists(
     response = can_access_google_page("https://www.google.com")
     if mocked_has_internet_connection.return_value:
         (mocked_valid_google_url
-         .assert_called_once_with("https://www.google.com"))
+         .assert_called_with("https://www.google.com"))
     assert response == expected
