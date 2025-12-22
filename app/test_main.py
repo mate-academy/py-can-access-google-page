@@ -18,7 +18,7 @@ def mocked_validity() -> Any:
 
 
 @pytest.mark.parametrize(
-    "url_check, time_check, expected",
+    "is_url_valid, connection_exists, expected",
     [
         (True, True, "Accessible"),
         (True, False, "Not accessible"),
@@ -31,13 +31,13 @@ def mocked_validity() -> Any:
 def test_access_verified_with_good_connectivity(
     mocked_connection: Any,
     mocked_validity: Any,
-    url_check: bool,
-    time_check: bool,
+    is_url_valid: bool,
+    connection_exists: bool,
     expected: str
 ) -> None:
     url = "test"
-    mocked_connection.return_value = url_check
-    mocked_validity.return_value = time_check
+    mocked_connection.return_value = is_url_valid
+    mocked_validity.return_value = connection_exists
 
     assert (
         can_access_google_page(url) == expected
@@ -47,7 +47,7 @@ def test_access_verified_with_good_connectivity(
 
 
 @pytest.mark.parametrize(
-    "url_check, time_check, expected",
+    "is_url_valid, connection_exists, expected",
     [
         (False, True, "Not accessible"),
     ],
@@ -58,16 +58,16 @@ def test_access_verified_with_good_connectivity(
 def test_access_verified_without_connectivity(
     mocked_connection: Any,
     mocked_validity: Any,
-    url_check: bool,
-    time_check: bool,
+    is_url_valid: bool,
+    connection_exists: bool,
     expected: str
 ) -> None:
     url = "test"
-    mocked_connection.return_value = url_check
-    mocked_validity.return_value = time_check
+    mocked_connection.return_value = is_url_valid
+    mocked_validity.return_value = connection_exists
 
     assert (
         can_access_google_page(url) == expected
     ), f"Function should return: {expected}"
     mocked_connection.assert_called_once()
-    # when no connection, python won't go for valid_google_url check
+    mocked_validity.assert_not_called()
