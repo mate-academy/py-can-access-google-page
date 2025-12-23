@@ -22,7 +22,7 @@ def test_can_access_google_page_when_valid_url(
         mocked_url: Any,
         mocked_internet: Any
 ) -> None:
-    mocked_url.return_value = True
+    mocked_internet.return_value = True
     mocked_url.return_value = True
 
     result = can_access_google_page("https://www.google.com/")
@@ -30,6 +30,17 @@ def test_can_access_google_page_when_valid_url(
     mocked_url.assert_called_with("https://www.google.com/")
     mocked_internet.assert_called_once()
     assert result == "Accessible"
+
+
+def test_can_access_google_page_when_no_internet(
+        mocked_internet: Any
+) -> None:
+    mocked_internet.return_value = False
+
+    result = can_access_google_page("https://www.google.com/")
+
+    mocked_internet.assert_called_once()
+    assert result == "Not accessible"
 
 
 def test_can_access_google_page_when_fake_url(
