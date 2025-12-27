@@ -2,7 +2,6 @@ import pytest
 from unittest.mock import patch
 from app.main import can_access_google_page
 
-
 @pytest.mark.parametrize(
     "url_valid, connection_active, expected",
     [
@@ -12,9 +11,13 @@ from app.main import can_access_google_page
         (False, False, "Not accessible"),
     ],
 )
-def test_can_access_google_page(url_valid, connection_active, expected):
+def test_can_access_google_page(
+    url_valid: bool,
+    connection_active: bool,
+    expected: str
+) -> None:
     with patch("app.main.valid_google_url") as mock_url, \
-            patch("app.main.has_internet_connection") as mock_conn:
+         patch("app.main.has_internet_connection") as mock_conn:
         mock_url.return_value = url_valid
         mock_conn.return_value = connection_active
 
