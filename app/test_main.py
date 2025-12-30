@@ -1,7 +1,17 @@
+import pytest
 from unittest import mock
 from app.main import can_access_google_page
 
 
+@pytest.mark.parametrize(
+    "connected, valid_url, expected",
+    [
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
+    ]
+)
 def test_can_access_google_page_handles_all_conditions(
     connected: bool,
     valid_url: bool,
