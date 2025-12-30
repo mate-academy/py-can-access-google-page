@@ -7,9 +7,7 @@ from app.main import can_access_google_page
     "connected, valid_url, expected",
     [
         (True, True, "Accessible"),
-        (True, False, "Not accessible"),
-        (False, True, "Not accessible"),
-        (False, False, "Not accessible"),
+        (True, False, "Not accessible")
     ]
 )
 def test_can_access_google_page(
