@@ -18,7 +18,7 @@ def mocked_has_internet_connection() -> mock.MagicMock:
         yield mock_has_internet_connection
 
 
-def test_can_access_google_page(
+def test_can_access_page_when_url_is_valid_and_connection_exists(
     mocked_valid_google_url: mock.MagicMock,
     mocked_has_internet_connection: mock.MagicMock,
 ) -> None:
@@ -27,7 +27,7 @@ def test_can_access_google_page(
     assert can_access_google_page("https://www.google.com") == "Accessible"
 
 
-def test_cannot_access_google_page(
+def test_cannot_access_page_when_url_is_invalid_and_no_connection(
     mocked_valid_google_url: mock.MagicMock,
     mocked_has_internet_connection: mock.MagicMock,
 ) -> None:
@@ -36,7 +36,7 @@ def test_cannot_access_google_page(
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
 
-def test_cannot_access_google_page_if_only_valid_url(
+def test_cannot_access_google_page_if_only_internet_connection(
     mocked_valid_google_url: mock.MagicMock,
     mocked_has_internet_connection: mock.MagicMock,
 ) -> None:
@@ -45,7 +45,7 @@ def test_cannot_access_google_page_if_only_valid_url(
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
 
-def test_cannot_access_google_page_if_only_internet_connection(
+def test_cannot_access_google_page_if_only_valid_url(
     mocked_valid_google_url: mock.MagicMock,
     mocked_has_internet_connection: mock.MagicMock,
 ) -> None:
