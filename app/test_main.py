@@ -6,7 +6,7 @@ from app.main import can_access_google_page
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_can_access_google_page_both_function_are_true(
+def test_access_with_walid_url_and_connection(
         mock_has_internet_connection: MagicMock,
         mock_valid_google_url: MagicMock
 ) -> None:
@@ -17,7 +17,7 @@ def test_can_access_google_page_both_function_are_true(
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_can_access_google_page_internet_connection_are_false(
+def test_access_page_without_internet_connection(
         mock_has_internet_connection: MagicMock,
         mock_valid_google_url: MagicMock
 ) -> None:
@@ -28,7 +28,7 @@ def test_can_access_google_page_internet_connection_are_false(
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_can_access_google_page_google_url_are_false(
+def test_access_with_invalid_url(
         mock_has_internet_connection: MagicMock,
         mock_valid_google_url: MagicMock
 ) -> None:
