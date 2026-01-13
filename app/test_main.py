@@ -29,13 +29,22 @@ def invalid_url() -> bool:
         yield
 
 
-def test_accessible(internet_true: bool, valid_url: bool) -> None:
+def test_can_access_page_when_valid_url_and_has_internet(
+        internet_true: bool,
+        valid_url: bool
+) -> None:
     assert can_access_google_page("https://google.com") == "Accessible"
 
 
-def test_invalid_url(internet_true: bool, invalid_url: bool) -> None:
+def test_invalid_url_and_has_internet(
+        internet_true: bool,
+        invalid_url: bool
+) -> None:
     assert can_access_google_page("https://google.com") == "Not accessible"
 
 
-def test_no_internet(internet_false: bool, valid_url: bool) -> None:
+def test_no_internet_and_valid_url(
+        internet_false: bool,
+        valid_url: bool
+) -> None:
     assert can_access_google_page("https://google.com") == "Not accessible"
