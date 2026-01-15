@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 from app.main import can_access_google_page
 import pytest
@@ -6,15 +6,16 @@ from typing import Any
 
 
 @pytest.fixture
-def mock_valid_google_url() -> MagicMock:
+def mock_valid_google_url() -> Any:
     with patch("app.main.valid_google_url") as mock:
         yield mock
 
 
 @pytest.fixture
-def mock_has_internet_connection() -> MagicMock:
+def mock_has_internet_connection() -> Any:
     with patch("app.main.has_internet_connection") as mock:
         yield mock
+
 
 def test_expected_access_google_page(
         mock_valid_google_url: Any,
