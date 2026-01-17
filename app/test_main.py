@@ -2,7 +2,7 @@ import pytest
 import app.main as module
 
 
-def test_url(
+def test_not_accessible_if_no_internet_connection(
         monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.setattr(module, "valid_google_url", lambda url: True)
@@ -24,7 +24,7 @@ def test_valid_url_and_connection_exists(
     assert result == "Accessible"
 
 
-def test_valid_url_but_no_connection(
+def test_not_accessible_if_url_is_invalid(
         monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.setattr(module, "valid_google_url", lambda url: False)
