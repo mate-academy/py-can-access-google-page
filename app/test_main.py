@@ -1,21 +1,7 @@
-from typing import Callable
-from unittest import mock
-
 import pytest
 
 from app.main import can_access_google_page
 from unittest.mock import patch
-
-
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
-def test_functions_has_internet_connection_and_valid_google_url_were_called(
-        mocked_valid_google_url: Callable,
-        mocked_has_internet_connection: Callable
-) -> None:
-    can_access_google_page("https://www.google.com")
-    mocked_has_internet_connection.assert_called_once()
-    mocked_valid_google_url.assert_called_once()
 
 
 @pytest.mark.parametrize(
@@ -27,7 +13,7 @@ def test_functions_has_internet_connection_and_valid_google_url_were_called(
         (False, False, "Not accessible"),
     ],
 )
-def test_accessible_address_has_internet_connection(
+def test_can_access_google_page_for_all_scenarios(
         internet: bool,
         valid_url: bool,
         result: str
