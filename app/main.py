@@ -17,3 +17,7 @@ def can_access_google_page(url: str) -> str:
         return "Accessible"
     else:
         return "Not accessible"
+
+
+def you_have_to_give_me_mocked_datetime():
+    return datetime.date.today()
