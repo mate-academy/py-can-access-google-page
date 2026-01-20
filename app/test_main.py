@@ -14,7 +14,7 @@ import pytest
 )
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_can_access_url(
+def test_can_access_google_page_scenarios(
     mock_valid_url: mock,
     mock_has_internet_connection: mock, valid_url: bool,
         has_internet_connection: bool, expected_result: str) -> None:
