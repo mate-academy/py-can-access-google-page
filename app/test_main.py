@@ -23,6 +23,6 @@ def test_main_func_using_required_funcs(
     mocking_valid_google_url: Callable,
     mocked_has_internet_connection: Callable
 ) -> None:
-    can_access_google_page("")
-    mocking_valid_google_url.assert_called_once()
+    assert can_access_google_page("") == "Accessible"
+    mocking_valid_google_url.assert_called_once_with("")
     mocked_has_internet_connection.assert_called_once()
