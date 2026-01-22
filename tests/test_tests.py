@@ -1,54 +1,52 @@
+from unittest.mock import patch, MagicMock
 import pytest
 
-from app import main
+from app.main import can_access_google_page
 
 
-def test_cannot_access_if_connection_or_valid_url_is_true(monkeypatch):
-    def can_access_if_connection_or_valid_url(url):
-        from app.main import has_internet_connection, valid_google_url
-
-        if has_internet_connection() or valid_google_url(url):
-            return "Accessible"
-        else:
-            return "Not accessible"
-
-    monkeypatch.setattr(
-        main, "can_access_google_page", can_access_if_connection_or_valid_url
-    )
-
-    test_result = pytest.main(["app/test_main.py"])
-    assert test_result.value == 1, (
-        "You cannot access page if only one of 'connection' or " "'valid url' is True."
-    )
+@pytest.fixture
+def mock_valid_url() -> MagicMock:
+    with patch("app.main.valid_google_url") as mock_valid:
+        yield mock_valid
 
 
-def test_cannot_access_if_only_connection(monkeypatch):
-    def can_access_if_connection(url):
-        from app.main import has_internet_connection, valid_google_url
-
-        if has_internet_connection():
-            return "Accessible"
-        else:
-            return "Not accessible"
-
-    monkeypatch.setattr(main, "can_access_google_page", can_access_if_connection)
-
-    test_result = pytest.main(["app/test_main.py"])
-    assert (
-        test_result.value == 1
-    ), "You cannot access page if only 'connection' is True."
+@pytest.fixture
+def mock_has_internet_connection() -> MagicMock:
+    with patch("app.main.has_internet_connection") as mock_internet_connection:
+        yield mock_internet_connection
 
 
-def test_cannot_access_if_only_valid_url(monkeypatch):
-    def can_access_if_connection(url):
-        from app.main import has_internet_connection, valid_google_url
+def test_accessible_when_valid_url_and_internet(
+    mock_valid_url: MagicMock, mock_has_internet_connection: MagicMock
+) -> None:
+    mock_valid_url.return_value = True
+    mock_has_internet_connection.return_value = True
 
-        if valid_google_url(url):
-            return "Accessible"
-        else:
-            return "Not accessible"
+    assert can_access_google_page("https://google.com") == "Accessible"
 
-    monkeypatch.setattr(main, "can_access_google_page", can_access_if_connection)
 
-    test_result = pytest.main(["app/test_main.py"])
-    assert test_result.value == 1, "You cannot access page if only 'valid url' is True."
+def test_not_accessible_when_valid_url_no_internet(
+    mock_valid_url: MagicMock, mock_has_internet_connection: MagicMock
+) -> None:
+    mock_valid_url.return_value = True
+    mock_has_internet_connection.return_value = False
+
+    assert can_access_google_page("https://google.com") == "Not accessible"
+
+
+def test_not_accessible_when_invalid_url_and_internet(
+    mock_valid_url: MagicMock, mock_has_internet_connection: MagicMock
+) -> None:
+    mock_valid_url.return_value = False
+    mock_has_internet_connection.return_value = True
+
+    assert can_access_google_page("https://google.com") == "Not accessible"
+
+
+def test_not_accessible_when_invalid_url_and_no_internet(
+    mock_valid_url: MagicMock, mock_has_internet_connection: MagicMock
+) -> None:
+    mock_valid_url.return_value = False
+    mock_has_internet_connection.return_value = False
+
+    assert can_access_google_page("https://google.com") == "Not accessible"
