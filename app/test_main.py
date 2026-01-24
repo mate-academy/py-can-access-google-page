@@ -12,7 +12,7 @@ from app.main import can_access_google_page
         (False, False, "Not accessible"),
     ],
 )
-def test_can_access_google_page(
+def test_can_access_google_page_scenarios(
     monkeypatch,
     is_valid_url: bool,
     has_internet: bool,
