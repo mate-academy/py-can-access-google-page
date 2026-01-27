@@ -14,9 +14,9 @@ from app.main import can_access_google_page
         (False, False, "Not accessible"),
     ],
 )
-def test_can_access_google_page(
-    mock_valid_url: mock.MagicMock,
+def test_can_access_google_page_scenarios(
     mock_internet: mock.MagicMock,
+    mock_valid_url: mock.MagicMock,
     internet: bool,
     valid_url: bool,
     expected: str
