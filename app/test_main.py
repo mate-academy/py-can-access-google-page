@@ -13,10 +13,10 @@ from app.main import can_access_google_page
     ]
 )
 def test_can_access_google_page(
-        valid_url_result, 
-        internet_result, 
+        valid_url_result,
+        internet_result,
         expected_message
-):
+) -> None:
     with patch("app.main.valid_google_url") as mocked_url, \
          patch("app.main.has_internet_connection") as mocked_internet:
         mocked_url.return_value = valid_url_result
