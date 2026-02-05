@@ -1,9 +1,3 @@
-import pytest
-from unittest.mock import patch
-
-from app.main import can_access_google_page
-
-
 @pytest.mark.parametrize(
     "internet, valid_url, expected",
     [
@@ -13,7 +7,7 @@ from app.main import can_access_google_page
         (False, False, "Not accessible"),
     ],
 )
-def test_can_access_google_page(
+def test_can_access_google_page_scenarios(
     internet: bool,
     valid_url: bool,
     expected: str,
