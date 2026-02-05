@@ -13,10 +13,18 @@ from app.main import can_access_google_page
         (False, False, "Not accessible"),
     ],
 )
-def test_can_access_google_page(internet: bool, valid_url: bool, expected: str) -> None:
+def test_can_access_google_page(
+    internet: bool,
+    valid_url: bool,
+    expected: str,
+) -> None:
     url = "https://www.google.com"
 
-    with patch("app.main.has_internet_connection", return_value=internet), \
-         patch("app.main.valid_google_url", return_value=valid_url):
+    with patch(
+        "app.main.has_internet_connection",
+        return_value=internet,
+    ), patch(
+        "app.main.valid_google_url",
+        return_value=valid_url,
+    ):
         assert can_access_google_page(url) == expected
-
