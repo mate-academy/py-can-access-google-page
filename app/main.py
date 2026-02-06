@@ -13,6 +13,8 @@ def has_internet_connection() -> bool:
 
 
 def can_access_google_page(url: str) -> str:
+    if not isinstance(url, str):
+        raise TypeError('url must be a string')
     if has_internet_connection() and valid_google_url(url):
         return "Accessible"
     else:
