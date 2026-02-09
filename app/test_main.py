@@ -12,7 +12,8 @@ def test_can_access_google_page_accessible(
     mock_internet.return_value = True
     mock_valid_url.return_value = True
 
-    assert main.can_access_google_page("https://google.com")
+    assert (main.can_access_google_page
+            ("https://google.com") == "Accessible")
 
 
 @mock.patch("app.main.valid_google_url")
