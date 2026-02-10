@@ -10,10 +10,11 @@ from app.main import can_access_google_page
                          [
                              (True, False, "Not accessible"),
                              (False, True, "Not accessible"),
-                             (True, True, "Accessible")
+                             (True, True, "Accessible"),
+                             (False, False, "Not accessible"),
                          ])
-def test_can_access_google_page(mocked_valid_google_url: mock.MagicMock,
-                                mocked_has_internet_connection: mock.MagicMock,
+def test_can_access_google_page(mocked_has_internet_connection: mock.MagicMock,
+                                mocked_valid_google_url: mock.MagicMock,
                                 valid_url: bool,
                                 internet_connection: bool,
                                 expected_result: str) -> None:
