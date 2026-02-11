@@ -1,4 +1,5 @@
 import datetime
+
 import requests
 
 
@@ -7,7 +8,7 @@ def valid_google_url(url: str) -> bool:
     return True if response.status_code == 200 else False
 
 
-def has_internet_connection() -> bool:
+def has_internet_connection(*args, **kwargs) -> bool:
     current_time = datetime.datetime.now()
     return True if current_time.hour in range(6, 23) else False
 
