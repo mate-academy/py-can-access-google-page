@@ -1,3 +1,4 @@
+from typing import Any
 import pytest
 from app.main import can_access_google_page
 
@@ -11,9 +12,18 @@ from app.main import can_access_google_page
         (False, False, "Not accessible"),
     ]
 )
-def test_can_access_google_page(monkeypatch, url_valid, connection_valid, expected):
-    monkeypatch.setattr("app.main.valid_google_url", lambda url
-    : url_valid)
-    monkeypatch.setattr("app.main.has_internet_connection", lambda: connection_valid)
+def test_can_access_google_page(
+    monkeypatch: Any,
+    url_valid: bool,
+    connection_valid: bool,
+    expected: str
+) -> None:
+    monkeypatch.setattr(
+        "app.main.valid_google_url",
+        lambda url: url_valid
+    )
+    monkeypatch.setattr(
+        "app.main.has_internet_connection",
+        lambda: connection_valid
+    )
     assert can_access_google_page("https://google.com") == expected
-    
