@@ -2,7 +2,7 @@ from app import main
 from unittest.mock import patch
 
 
-def test_can_access_google_page_with_valid_url_and_connection() -> None:
+def test_accessible_on_valid_url_and_connection() -> None:
     with patch(
         "app.main.has_internet_connection",
         return_value=True
@@ -15,7 +15,7 @@ def test_can_access_google_page_with_valid_url_and_connection() -> None:
         ) == "Accessible"
 
 
-def test_can_access_google_page_if_time_and_url_incorrect() -> None:
+def test_not_accessible_on_invalid_url_and_no_connection() -> None:
     with patch(
         "app.main.has_internet_connection",
         return_value=False
@@ -28,7 +28,7 @@ def test_can_access_google_page_if_time_and_url_incorrect() -> None:
         ) == "Not accessible"
 
 
-def test_can_access_google_page_if_time_incorrect() -> None:
+def test_not_accessible_with_no_connection() -> None:
     with patch(
         "app.main.has_internet_connection",
         return_value=False
@@ -41,7 +41,7 @@ def test_can_access_google_page_if_time_incorrect() -> None:
         ) == "Not accessible"
 
 
-def test_can_access_google_page_if_url_incorrect() -> None:
+def test_not_accessible_with_invalid_url() -> None:
     with patch(
         "app.main.has_internet_connection",
         return_value=True
