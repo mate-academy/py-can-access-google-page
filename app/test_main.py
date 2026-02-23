@@ -13,7 +13,11 @@ from unittest.mock import patch
         (False, False, "Not accessible"),
     ],
 )
-def test_can_access_google_page(internet_ok, url_ok, expected):
+def test_can_access_google_page(
+        internet_ok: bool,
+        url_ok: bool,
+        expected: str
+) -> None:
     with patch("app.main.has_internet_connection") as mocked_internet, \
             patch("app.main.valid_google_url") as mocked_url:
         mocked_internet.return_value = internet_ok
