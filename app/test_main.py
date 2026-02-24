@@ -13,7 +13,7 @@ from app.main import can_access_google_page
         ("https://example.com", False, False, "Not accessible"),
     ],
 )
-def test_can_access_google_page(
+def test_can_access_google_page_scenarios(
     url: str,
     is_valid: bool,
     has_internet: bool,
