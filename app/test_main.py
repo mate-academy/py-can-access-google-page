@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import patch
 
 from app.main import can_access_google_page
-
+#
 
 @pytest.mark.parametrize(
     "url, is_valid, has_internet, expected",
