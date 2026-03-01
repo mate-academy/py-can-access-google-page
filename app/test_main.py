@@ -12,7 +12,7 @@ from app.main import can_access_google_page
         ("bad_url_address", False, False, "Not accessible")
     ]
 )
-def test_can_access_google_page_accessible(
+def test_can_access_google_page(
         url: str,
         url_valid: bool,
         internet_connect: bool,
