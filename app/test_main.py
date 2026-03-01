@@ -5,8 +5,8 @@ from unittest.mock import MagicMock
 from app.main import can_access_google_page
 
 
-@mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
 class TestCanAccessGooglePage(unittest.TestCase):
     def test_has_internet_and_valid_url(self,
                                         valid_google_url: MagicMock,
