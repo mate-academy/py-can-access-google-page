@@ -11,7 +11,7 @@ from app import main
         ("https://google.com", False, False, "Not accessible"),
     ],
 )
-def test_can_access_google_page(
+def test_can_access_google_page_scenarios(
     monkeypatch: pytest.MonkeyPatch,
     url: str,
     is_valid_url: bool,
