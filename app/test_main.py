@@ -13,11 +13,11 @@ from app.main import can_access_google_page
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
 def test_google_access(
-        mock_valid_google_url,
-        mock_has_internet_connection,
-        url,
-        connection,
-        expected_results
+        mock_valid_google_url: mock.MagicMock,
+        mock_has_internet_connection: mock.MagicMock,
+        url: bool,
+        connection: bool,
+        expected_results: str
 ) -> None:
     mock_valid_google_url.return_value = url
     mock_has_internet_connection.return_value = connection
