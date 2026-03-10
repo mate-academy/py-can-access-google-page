@@ -12,7 +12,7 @@ from app.main import can_access_google_page
 ])
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
-def test_google_access(
+def test_can_access_google_page(
         mock_valid_google_url: mock.MagicMock,
         mock_has_internet_connection: mock.MagicMock,
         url: bool,
