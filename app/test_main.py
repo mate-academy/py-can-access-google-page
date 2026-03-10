@@ -4,7 +4,7 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "valid,conn,expected",
+    "is_valid,has_connection,expected",
     [
         (True, True, "Accessible"),
         (True, False, "Not accessible"),
@@ -17,10 +17,10 @@ from app.main import can_access_google_page
 def test_can_access_google_page_scenarios(
         mock_valid: MagicMock,
         mock_inet: MagicMock,
-        valid: bool,
-        conn: bool,
+        is_valid: bool,
+        has_connection: bool,
         expected: str
 ) -> None:
-    mock_valid.return_value = valid
-    mock_inet.return_value = conn
+    mock_valid.return_value = is_valid
+    mock_inet.return_value = has_connection
     assert can_access_google_page("https://mate.academy/home") == expected
