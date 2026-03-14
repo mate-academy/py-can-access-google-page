@@ -1,6 +1,6 @@
 # Can access Google page
 
-- Read [the guideline](https://github.com/mate-academy/py-task-guideline/blob/main/README.md) before start
+- Read [the guideline](git commit -am 'Solution') before start
 
 Inside `app/test_main.py`, write a test for `can_access_google_page` function. This function takes
 `url` of the site, returns `"Accessible"` if `url` is valid to 
