@@ -2,7 +2,7 @@ import pytest
 from app.main import can_access_google_page
 
 
-def test_can_access_google_page(mocker) -> None:
+def test_should_be_accessible_when_url_is_valid_and_connection_exists(mocker) -> None:
     mocker.patch("app.main.valid_google_url", return_value=True)
     mocker.patch("app.main.has_internet_connection", return_value=True)
 
