@@ -15,14 +15,14 @@ from app.main import can_access_google_page
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-    mock_internet: Mock,
+    mock_connection: Mock,
     mock_url: Mock,
     url_valid: bool,
     internet: bool,
     expected: str,
 ) -> None:
     mock_url.return_value = url_valid
-    mock_internet.return_value = internet
+    mock_connection.return_value = internet
 
     result = can_access_google_page("https://google.com")
     assert result == expected
