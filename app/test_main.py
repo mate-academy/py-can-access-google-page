@@ -9,7 +9,7 @@ from app import main
         ("https://www.google.com", "Accessible"),
     ],
 )
-def test_can_access_google_page(url, expected):
+def test_can_access_google_page(url: str, expected: str) -> None:
     with (
         mock.patch("app.main.valid_google_url") as mock_valid_url,
         mock.patch("app.main.has_internet_connection") as mock_internet_connection,
