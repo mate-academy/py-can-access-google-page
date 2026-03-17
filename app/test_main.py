@@ -6,7 +6,8 @@ import pytest
 @pytest.mark.parametrize("valid_url, has_connection, expected_result", [
     (True, False, "Not accessible"),
     (False, True, "Not accessible"),
-    (False, False, "Not accessible")
+    (False, False, "Not accessible"),
+    (True, True, "Accessible")
 ])
 @mock.patch("app.main.has_internet_connection")
 @mock.patch("app.main.valid_google_url")
