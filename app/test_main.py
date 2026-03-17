@@ -12,7 +12,7 @@ from app import main
         ("http://www.goole.com", False, False, "Not accessible"),
     ],
 )
-def test_can_access_google_page(
+def test_can_access_google_page_scenarios(
     url: str,
     internet: bool,
     valid_url: bool,
