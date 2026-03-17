@@ -30,7 +30,6 @@ def test_can_access_google_page_scenarios(
         assert result == expected
         mock_internet_connection.assert_called_once()
 
-        # важно из-за short-circuit
         if internet:
             mock_valid_url.assert_called_once_with(url)
         else:
