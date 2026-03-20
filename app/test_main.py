@@ -44,3 +44,4 @@ def test_not_accessible_when_invalid_url_and_no_internet(
     mock_valid_url.return_value = False
     mock_internet.return_value = False
     assert can_access_google_page("https://www.google.com") == "Not accessible"
+#
