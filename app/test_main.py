@@ -2,7 +2,7 @@ from unittest.mock import patch
 from app.main import can_access_google_page
 
 
-def test_accessible() -> None:
+def test_can_access_google_page_when_all_conditions_true() -> None:
     with patch("app.main.has_internet_connection", return_value=True), \
          patch("app.main.valid_google_url", return_value=True):
 
@@ -10,7 +10,7 @@ def test_accessible() -> None:
         assert result == "Accessible"
 
 
-def test_no_internet() -> None:
+def test_can_access_google_page_when_no_internet() -> None:
     with patch("app.main.has_internet_connection", return_value=False), \
          patch("app.main.valid_google_url", return_value=True):
 
@@ -18,7 +18,7 @@ def test_no_internet() -> None:
         assert result == "Not accessible"
 
 
-def test_invalid_url() -> None:
+def test_can_access_google_page_when_url_invalid() -> None:
     with patch("app.main.has_internet_connection", return_value=True), \
          patch("app.main.valid_google_url", return_value=False):
 
