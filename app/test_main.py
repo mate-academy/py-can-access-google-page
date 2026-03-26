@@ -4,7 +4,7 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "has_connection, is_valid_url, expected_result",
+    "is_valid_url, has_connection, expected_result",
     [
         pytest.param(True, True, "Accessible", id="full_access"),
         pytest.param(False, True, "Not accessible", id="no_internet"),
