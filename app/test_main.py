@@ -10,7 +10,7 @@ def test_can_access_page_when_url_is_valid_and_connection_exists() -> None:
         assert can_access_google_page("google.com") == "Accessible"
 
 
-def test_can_not_access_page_when_url_is_invalid_and_connection_exists() -> None:
+def test_if_url_is_invalid_and_connection_exists() -> None:
     with (
         patch("app.main.valid_google_url", return_value=False),
         patch("app.main.has_internet_connection", return_value=True),
@@ -18,7 +18,7 @@ def test_can_not_access_page_when_url_is_invalid_and_connection_exists() -> None
         assert can_access_google_page("google.com") == "Not accessible"
 
 
-def test_can_not_access_page_when_url_is_valid_and_connection_missing() -> None:
+def test_if_url_is_valid_and_connection_missing() -> None:
     with (
         patch("app.main.valid_google_url", return_value=True),
         patch("app.main.has_internet_connection", return_value=False),
@@ -26,7 +26,7 @@ def test_can_not_access_page_when_url_is_valid_and_connection_missing() -> None:
         assert can_access_google_page("google.com") == "Not accessible"
 
 
-def test_can_not_access_page_when_url_is_invalid_and_connection_missing() -> None:
+def test_if_url_is_invalid_and_connection_missing() -> None:
     with (
         patch("app.main.valid_google_url", return_value=False),
         patch("app.main.has_internet_connection", return_value=False),
