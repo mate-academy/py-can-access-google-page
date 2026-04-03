@@ -12,7 +12,8 @@ def test_access_when_url_and_connection_are_valid() -> None:
 
         mock_internet.return_value = True
         mock_valid_url.return_value = True
-        assert can_access_google_page("https://www.google.com") == "Accessible"
+        url = "https://www.google.com"
+        assert can_access_google_page(url) == "Accessible"
 
 
 def test_no_access_when_url_is_invalid() -> None:
@@ -25,9 +26,8 @@ def test_no_access_when_url_is_invalid() -> None:
 
         mock_internet.return_value = True
         mock_valid_url.return_value = False
-        assert (
-            can_access_google_page("https://www.google.com") == "Not accessible"
-        )
+        url = "https://www.google.com"
+        assert can_access_google_page(url) == "Not accessible"
 
 
 def test_no_access_when_connection_is_missing() -> None:
@@ -40,6 +40,5 @@ def test_no_access_when_connection_is_missing() -> None:
 
         mock_internet.return_value = False
         mock_valid_url.return_value = True
-        assert (
-            can_access_google_page("https://www.google.com") == "Not accessible"
-        )
+        url = "https://www.google.com"
+        assert can_access_google_page(url) == "Not accessible"
