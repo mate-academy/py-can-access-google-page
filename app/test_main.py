@@ -2,8 +2,8 @@ from unittest.mock import patch
 from app.main import can_access_google_page
 
 
-@patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
 def test_returns_accessible_with_valid_url_and_connection(
         mocked_internet_connection: None,
         mocked_valid_url: str) -> None:
@@ -13,8 +13,8 @@ def test_returns_accessible_with_valid_url_and_connection(
     assert can_access_google_page("https://www.google.com") == "Accessible"
 
 
-@patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
 def test_invalid_url(mocked_internet_connection: None,
                      mocked_valid_url: str) -> None:
     mocked_internet_connection.return_value = True
@@ -23,8 +23,8 @@ def test_invalid_url(mocked_internet_connection: None,
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
 
-@patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
 def test_invalid_time(mocked_internet_connection: None,
                       mocked_valid_url: str) -> None:
     mocked_internet_connection.return_value = False
@@ -33,8 +33,8 @@ def test_invalid_time(mocked_internet_connection: None,
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
 
-@patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
 def test_invalid_time_and_url(mocked_internet_connection: None,
                               mocked_valid_url: str) -> None:
     mocked_internet_connection.return_value = False
