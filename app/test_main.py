@@ -5,8 +5,8 @@ from app.main import can_access_google_page
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
 def test_returns_accessible_with_valid_url_and_connection(
-                 mocked_internet_connection: None,
-                 mocked_valid_url: str) -> None:
+        mocked_internet_connection: None,
+        mocked_valid_url: str) -> None:
     mocked_internet_connection.return_value = True
     mocked_valid_url.return_value = True
 
