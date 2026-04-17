@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from app.main import can_access_google_page
 
 
@@ -15,12 +15,12 @@ from app.main import can_access_google_page
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
 def test_can_access_google_page(
-    mock_valid_url, 
-    mock_has_internet, 
-    url_valid, 
-    internet_conn, 
-    expected_result
-):
+    mock_valid_url: MagicMock,
+    mock_has_internet: MagicMock,
+    url_valid: bool,
+    internet_conn: bool,
+    expected_result: str
+) -> None:
     mock_valid_url.return_value = url_valid
     mock_has_internet.return_value = internet_conn
 
