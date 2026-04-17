@@ -6,10 +6,10 @@ from app.main import can_access_google_page
 @pytest.mark.parametrize(
     "url_valid, internet_conn, expected_result",
     [
-        (True, True, "Accessible"),      # Oba warunki spełnione
-        (True, False, "Not accessible"),     # Brak internetu
-        (False, True, "Not accessible"),     # Błędny URL
-        (False, False, "Not accessible"),    # Nic nie działa
+        (True, True, "Accessible"),
+        (True, False, "Not accessible"),
+        (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
     ]
 )
 @patch("app.main.has_internet_connection")
