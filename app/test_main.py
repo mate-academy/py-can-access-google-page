@@ -1,23 +1,26 @@
-from unittest import mock
 from app.main import can_access_google_page
+from pytest import MonkeyPatch
 
 
-@mock.patch("app.main.has_internet_connection")
-@mock.patch("app.main.valid_google_url")
-def test_can_access_google_page(mock_valid_url: str,
-                                mock_has_connection: str) -> None:
-    mock_has_connection.return_value = True
-    mock_valid_url.return_value = True
+def test_accessible(monkeypatch: MonkeyPatch) -> None:
+    monkeypatch.setattr("app.main.has_internet_connection", lambda: True)
+    monkeypatch.setattr("app.main.valid_google_url", lambda url: True)
     assert can_access_google_page("https://google.com") == "Accessible"
 
-    mock_has_connection.return_value = False
-    mock_valid_url.return_value = True
+
+def test_not_accessible_no_internet(monkeypatch: MonkeyPatch) -> None:
+    monkeypatch.setattr("app.main.has_internet_connection", lambda: False)
+    monkeypatch.setattr("app.main.valid_google_url", lambda url: True)
     assert can_access_google_page("https://google.com") == "Not accessible"
 
-    mock_has_connection.return_value = True
-    mock_valid_url.return_value = False
-    assert can_access_google_page("https://bad-url.com") == "Not accessible"
 
-    mock_has_connection.return_value = False
-    mock_valid_url.return_value = False
-    assert can_access_google_page("https://any-url.com") == "Not accessible"
+def test_not_accessible_invalid_url(monkeypatch: MonkeyPatch) -> None:
+    monkeypatch.setattr("app.main.has_internet_connection", lambda: True)
+    monkeypatch.setattr("app.main.valid_google_url", lambda url: False)
+    assert can_access_google_page("https://invalid.com") == "Not accessible"
+
+
+def test_not_accessible_both_fail(monkeypatch: MonkeyPatch) -> None:
+    monkeypatch.setattr("app.main.has_internet_connection", lambda: False)
+    monkeypatch.setattr("app.main.valid_google_url", lambda url: False)
+    assert can_access_google_page("https://invalid.com") == "Not accessible"
