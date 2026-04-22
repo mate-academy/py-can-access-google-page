@@ -1,5 +1,5 @@
 import pytest
-import main
+from app import main
 
 
 def test_valid_google_url_with_internet_connection(
