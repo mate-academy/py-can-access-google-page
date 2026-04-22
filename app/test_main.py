@@ -36,5 +36,16 @@ def test_can_access_google_page_not_accessible_invalid_url(
     mock_valid_url.return_value = False
     mock_has_internet.return_value = True
 
-    result = can_access_google_page("https://invalid-url.com")
-    assert result == "Not accessible"
+    assert can_access_google_page("https://invalid.com") == "Not accessible"
+
+
+@mock.patch("app.main.has_internet_connection")
+@mock.patch("app.main.valid_google_url")
+def test_can_access_google_page_not_accessible_both_false(
+    mock_valid_url: Any,
+    mock_has_internet: Any
+) -> None:
+    mock_valid_url.return_value = False
+    mock_has_internet.return_value = False
+
+    assert can_access_google_page("https://invalid.com") == "Not accessible"
