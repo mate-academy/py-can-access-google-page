@@ -2,7 +2,7 @@ from unittest import mock
 
 import pytest
 
-from app.main import can_access_google_page
+import app.main as main
 
 
 @pytest.mark.parametrize(
@@ -11,6 +11,7 @@ from app.main import can_access_google_page
         (True, True, "Accessible"),
         (True, False, "Not accessible"),
         (False, True, "Not accessible"),
+        (False, False, "Not accessible"),
     ]
 )
 def test_can_access_google_page(
@@ -25,4 +26,4 @@ def test_can_access_google_page(
         mock_internet.return_value = internet_connection
         mock_valid_url.return_value = valid_url
         url = "https://www.google.com"
-        assert can_access_google_page(url) == expected_result
+        assert main.can_access_google_page(url) == expected_result
