@@ -2,30 +2,37 @@ from unittest.mock import patch
 from app.main import can_access_google_page
 
 
-# O patch deve apontar para onde as funções são CHAMADAS (no arquivo main)
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
-def test_can_access_google_page(
-        mock_valid_url: bool,
-        mock_has_internet: bool
+def test_accessible_when_url_is_valid_and_internet_exists(
+    mock_valid_url: bool,
+    mock_has_internet: bool
 ) -> None:
-    # Cenário 1: Tudo OK -> Deve retornar "Accessible"
     mock_valid_url.return_value = True
     mock_has_internet.return_value = True
 
-    result = can_access_google_page("https://google.com")
-    assert result == "Accessible"
+    assert can_access_google_page("https://google.com") == "Accessible"
 
-    # Cenário 2: URL inválida -> Deve retornar "Not accessible"
+
+@patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
+def test_not_accessible_when_url_is_invalid(
+    mock_valid_url: bool,
+    mock_has_internet: bool
+) -> None:
     mock_valid_url.return_value = False
     mock_has_internet.return_value = True
 
-    result = can_access_google_page("https://invalid.com")
-    assert result == "Not accessible"
+    assert can_access_google_page("https://invalid.com") == "Not accessible"
 
-    # Cenário 3: Sem internet -> Deve retornar "Not accessible"
+
+@patch("app.main.has_internet_connection")
+@patch("app.main.valid_google_url")
+def test_not_accessible_when_no_internet_connection(
+    mock_valid_url: bool,
+    mock_has_internet: bool
+) -> None:
     mock_valid_url.return_value = True
     mock_has_internet.return_value = False
 
-    result = can_access_google_page("https://google.com")
-    assert result == "Not accessible"
+    assert can_access_google_page("https://google.com") == "Not accessible"
