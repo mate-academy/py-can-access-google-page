@@ -2,7 +2,7 @@ from unittest.mock import patch
 import app.main as main
 
 
-def test_accessible() -> None:
+def test_valid_url_and_connection_exists() -> None:
     with patch("app.main.has_internet_connection", return_value=True):
         with patch("app.main.valid_google_url", return_value=True):
             assert main.can_access_google_page(
