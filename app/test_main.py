@@ -18,7 +18,7 @@ def test_can_access_google_page(
 
 @unittest.mock.patch("app.main.valid_google_url")
 @unittest.mock.patch("app.main.has_internet_connection")
-def test_valid_google_url(
+def test_not_accessible_when_no_internet_connection(
     mock_internet: Callable,
     mock_url: Callable
 ) -> None:
@@ -31,7 +31,7 @@ def test_valid_google_url(
 
 @unittest.mock.patch("app.main.valid_google_url")
 @unittest.mock.patch("app.main.has_internet_connection")
-def test_has_internet_connection(
+def test_not_accessible_when_invalid_url(
     mock_internet: Callable,
     mock_url: Callable
 ) -> None:
