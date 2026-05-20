@@ -24,5 +24,5 @@ def test_with_mock_parametrize_can_access_goog(
         mock_internet.return_value = internet_conn
         mock_googl_url.return_value = google_url
 
-    result = can_access_google_page("https://google.com")
-    assert result == mock_result
+        result = can_access_google_page("https://google.com")
+        assert result == mock_result
