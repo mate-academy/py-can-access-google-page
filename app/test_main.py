@@ -1,6 +1,8 @@
 import datetime
-import pytest
 from unittest import mock
+
+import pytest
+
 from app import main
 
 
@@ -36,11 +38,11 @@ from app import main
 )
 def test_can_access_google_page(
         current_time: datetime.datetime,
-        valid_google_url,
-        expected
+        valid_google_url: bool,
+        expected: str
 ):
-    with mock.patch("app.main.has_internet_connection") as mocked_datatime:
-        mocked_datatime.now.return_value = current_time
+    with mock.patch("app.main.datetime.datetime") as mocked_datetime:
+        mocked_datetime.now.return_value = current_time
 
         with mock.patch(
                 "app.main.valid_google_url",
