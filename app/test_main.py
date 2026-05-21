@@ -1,26 +1,47 @@
+import datetime
 import pytest
 from unittest import mock
 from app import main
 
 
 @pytest.mark.parametrize(
-    "has_internet_connection, valid_google_url, expected",
+    "current_time, valid_google_url, expected",
     [
-        (True, True, "Accessible"),
-        (True, False, "Not accessible"),
-        (False, True, "Not accessible"),
-        (False, False, "Not accessible"),
+        (
+            datetime.datetime(2024, 1, 1, 5, 59, 59),
+            True,
+            "Not accessible",
+        ),
+        (
+            datetime.datetime(2024, 1, 1, 6, 0, 0),
+            True,
+            "Accessible"
+        ),
+        (
+            datetime.datetime(2024, 1, 1, 22, 59, 59),
+            True,
+            "Accessible"
+        ),
+        (
+            datetime.datetime(2024, 1, 1, 23, 0, 0),
+            True,
+            "Not accessible"
+        ),
+        (
+            datetime.datetime(2024, 1, 1, 12, 0, 0),
+            False,
+            "Not accessible"
+        )
     ]
 )
 def test_can_access_google_page(
-        has_internet_connection,
+        current_time: datetime.datetime,
         valid_google_url,
         expected
 ):
-    with mock.patch(
-            "app.main.has_internet_connection",
-            return_value=has_internet_connection
-    ):
+    with mock.patch("app.main.has_internet_connection") as mocked_datatime:
+        mocked_datatime.now.return_value = current_time
+
         with mock.patch(
                 "app.main.valid_google_url",
                 return_value=valid_google_url
