@@ -13,7 +13,7 @@ def test_can_access_google_page_both_true() -> None:
         assert result == "Accessible"
 
 
-def test_can_access_google_page_no_internet() -> None:
+def test_cannot_access_if_only_valid_url() -> None:
     with (mock.patch("main.has_internet_connection", return_value=False)
           as mock_internet,
           mock.patch("main.valid_google_url", return_value=True)):
@@ -23,7 +23,7 @@ def test_can_access_google_page_no_internet() -> None:
         assert result == "Not accessible"
 
 
-def test_can_access_google_page_invalid_url() -> None:
+def test_cannot_access_if_only_connection() -> None:
     with (mock.patch("main.has_internet_connection", return_value=True)
           as mock_internet,
           mock.patch("main.valid_google_url", return_value=False) as mock_url):
