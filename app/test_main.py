@@ -1,5 +1,5 @@
 from unittest import mock
-from main import can_access_google_page
+from app.main import can_access_google_page
 
 
 def test_can_access_google_page_both_true() -> None:
