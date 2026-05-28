@@ -1,1 +1,44 @@
-# write your code here
+from unittest import mock
+from app.main import can_access_google_page
+
+
+def test_can_access_google_page_both_true() -> None:
+    with (mock.patch("main.has_internet_connection", return_value=True)
+          as mock_internet,
+          mock.patch("main.valid_google_url", return_value=True) as mock_url):
+        result = can_access_google_page("https://www.google.com")
+
+        mock_url.assert_called_once_with("https://www.google.com")
+        mock_internet.assert_called_once()
+        assert result == "Accessible"
+
+
+def test_cannot_access_if_only_valid_url() -> None:
+    with (mock.patch("main.has_internet_connection", return_value=False)
+          as mock_internet,
+          mock.patch("main.valid_google_url", return_value=True)):
+        result = can_access_google_page("https://www.google.com")
+
+        mock_internet.assert_called_once()
+        assert result == "Not accessible"
+
+
+def test_cannot_access_if_only_connection() -> None:
+    with (mock.patch("main.has_internet_connection", return_value=True)
+          as mock_internet,
+          mock.patch("main.valid_google_url", return_value=False) as mock_url):
+        result = can_access_google_page("https://www.google.com")
+
+        mock_url.assert_called_once_with("https://www.google.com")
+        mock_internet.assert_called_once()
+        assert result == "Not accessible"
+
+
+def test_can_access_google_page_both_false() -> None:
+    with (mock.patch("main.has_internet_connection", return_value=False)
+          as mock_internet,
+          mock.patch("main.valid_google_url", return_value=False)):
+        result = can_access_google_page("https://www.google.com")
+
+        mock_internet.assert_called_once()
+        assert result == "Not accessible"
