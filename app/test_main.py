@@ -22,7 +22,7 @@ def test_no_internet_connection(mock_connection: MagicMock,
     mock_connection.return_value = False
     mock_valid_url.return_value = True
 
-    result = can_access_google_page(url="https://www.google.com")
+    result = can_access_google_page(url="https://www.invalid.com")
 
     assert result == "Not accessible"
 
