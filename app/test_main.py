@@ -1,4 +1,6 @@
+from typing import Generator, Any
 from unittest import mock
+from unittest.mock import MagicMock, AsyncMock
 
 import pytest
 
@@ -6,43 +8,59 @@ from app.main import can_access_google_page
 
 
 @pytest.fixture
-def mock_valid_google_url():
-    with mock.patch('app.main.valid_google_url') as mock_valid_google_url:
+def mock_valid_google_url() -> Generator[MagicMock | AsyncMock, Any, None]:
+    with mock.patch("app.main.valid_google_url") as mock_valid_google_url:
         yield mock_valid_google_url
 
 
 @pytest.fixture
-def mock_has_internet_connection():
-    with mock.patch('app.main.has_internet_connection') as mock_has_internet_connection:
+def mock_has_internet_connection() \
+        -> Generator[MagicMock | AsyncMock, Any, None]:
+    with (mock.patch("app.main.has_internet_connection") as
+          mock_has_internet_connection):
         yield mock_has_internet_connection
 
 
-def test_valid_url_and_connection_exists(mock_has_internet_connection, mock_valid_google_url):
+def test_valid_url_and_connection_exists(
+        mock_has_internet_connection: MagicMock,
+        mock_valid_google_url: MagicMock
+) -> None:
     mock_valid_google_url.return_value = True
     mock_has_internet_connection.return_value = True
     assert can_access_google_page("https://www.google.com") == "Accessible"
 
 
-def test_invalid_url_and_no_connection(mock_has_internet_connection, mock_valid_google_url):
+def test_invalid_url_and_no_connection(
+        mock_has_internet_connection: MagicMock,
+        mock_valid_google_url: MagicMock
+) -> None:
     mock_valid_google_url.return_value = False
     mock_has_internet_connection.return_value = False
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
 
-def test_invalid_url_and_connection_exists(mock_has_internet_connection, mock_valid_google_url):
+def test_invalid_url_and_connection_exists(
+        mock_has_internet_connection: MagicMock,
+        mock_valid_google_url: MagicMock
+) -> None:
     mock_valid_google_url.return_value = False
     mock_has_internet_connection.return_value = True
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
 
-def test_valid_url_and_no_connection(mock_has_internet_connection, mock_valid_google_url):
+def test_valid_url_and_no_connection(
+        mock_has_internet_connection: MagicMock,
+        mock_valid_google_url: MagicMock
+) -> None:
     mock_valid_google_url.return_value = True
     mock_has_internet_connection.return_value = False
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
 
-
-def test_functions_was_called(mock_has_internet_connection, mock_valid_google_url):
+def test_functions_was_called(
+        mock_has_internet_connection: MagicMock,
+        mock_valid_google_url: MagicMock
+) -> None:
     mock_valid_google_url.return_value = True
     mock_has_internet_connection.return_value = True
     can_access_google_page("https://www.google.com")
