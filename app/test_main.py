@@ -11,7 +11,7 @@ import app.main
     [
         pytest.param(
             True, True, "Accessible",
-            id="test valid page url and has internet connection"
+            id="test valid url and has internet connection"
         ),
         pytest.param(
             True, False, "Not accessible",
@@ -23,11 +23,11 @@ import app.main
         ),
         pytest.param(
             False, False, "Not accessible",
-            id="test invalid page url and no internet connection"
+            id="test invalid url and no internet connection"
         )
     ]
 )
-def test_can_access_google_page(
+def test_can_check_accessibility_correctly(
     mocked_valid_url: mock.MagicMock,
     mocked_has_internet: mock.MagicMock,
     valid_url: bool,
