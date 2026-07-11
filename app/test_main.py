@@ -5,12 +5,17 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "url, valid_url_return, internet_return, get_side_effect, response_status, expected",
+    "url, valid_url_return, "
+    "internet_return, "
+    "get_side_effect, "
+    "response_status, "
+    "expected",
     [
         ("https://google.com", True, True, None, 200, "Accessible"),
         ("https://invalid-url.com", False, True, None, None, "Not accessible"),
         ("https://google.com", True, False, None, None, "Not accessible"),
-        ("https://google.com", True, True, requests.RequestException, None, "Not accessible"),
+        ("https://google.com", True, True,
+         requests.RequestException, None, "Not accessible"),
     ]
 )
 @mock.patch("app.main.requests.get")
