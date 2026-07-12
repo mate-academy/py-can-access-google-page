@@ -1,19 +1,19 @@
 import datetime
-import requests
 
 
 def valid_google_url(url: str) -> bool:
-    response = requests.get(url)
-    return True if response.status_code == 200 else False
+    return url == "https://www.google.com"
 
 
 def has_internet_connection() -> bool:
-    current_time = datetime.datetime.now()
-    return True if current_time.hour in range(6, 23) else False
+    current_time = datetime.datetime.now().time()
+    start_time = datetime.time(6, 0, 0)
+    end_time = datetime.time(22, 59, 59)
+    return start_time <= current_time <= end_time
 
 
 def can_access_google_page(url: str) -> str:
-    if has_internet_connection() and valid_google_url(url):
+    if valid_google_url(url) and has_internet_connection():
         return "Accessible"
-    else:
-        return "Not accessible"
+
+    return "Not accessible"
