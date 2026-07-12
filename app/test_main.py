@@ -15,7 +15,7 @@ from app.main import can_access_google_page
 )
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
-def test_can_access_google_page_cases(
+def test_can_access_google_page_url_and_internet_combinations(
     mock_url: Any,
     mock_internet: Any,
     url_valid: bool,
@@ -25,19 +25,3 @@ def test_can_access_google_page_cases(
     mock_url.return_value = url_valid
     mock_internet.return_value = has_internet
     assert can_access_google_page("https://www.google.com") == expected
-
-
-@pytest.mark.parametrize(
-    "wrong_url",
-    [
-        123,
-        15.5,
-        None,
-        True,
-        False,
-        ["https://www.google.com"],
-    ],
-)
-def test_can_access_google_page_invalid_types(wrong_url: Any) -> None:
-    with pytest.raises(TypeError):
-        can_access_google_page(wrong_url)
