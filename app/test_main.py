@@ -40,7 +40,7 @@ def test_not_valid_url_and_connection_exists(
     assert can_access_google_page(url) == "Not accessible"
 
 
-def test__valid_url_and_connection_not_exists(
+def test_valid_url_and_connection_not_exists(
         mock_validation: MagicMock,
         mock_connection: MagicMock,
 ) -> None:
