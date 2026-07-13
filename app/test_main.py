@@ -22,7 +22,7 @@ def mock_connection() -> Generator[MagicMock | AsyncMock, Any, None]:
         yield mock_connection
 
 
-def test_returns_if_validation_passed_and_connected(
+def test_valid_url_and_connection_exists(
         mock_validation: MagicMock,
         mock_connection: MagicMock,
 ) -> None:
@@ -31,7 +31,7 @@ def test_returns_if_validation_passed_and_connected(
     assert can_access_google_page(url) == "Accessible"
 
 
-def test_returns_if_validation_not_passed(
+def test_not_valid_url_and_connection_exists(
         mock_validation: MagicMock,
         mock_connection: MagicMock,
 ) -> None:
@@ -40,7 +40,7 @@ def test_returns_if_validation_not_passed(
     assert can_access_google_page(url) == "Not accessible"
 
 
-def test_returns_if_not_connected(
+def test__valid_url_and_connection_not_exists(
         mock_validation: MagicMock,
         mock_connection: MagicMock,
 ) -> None:
