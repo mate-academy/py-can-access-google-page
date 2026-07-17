@@ -14,7 +14,7 @@ def test_valid_url_and_connection_exists_returns_accessible() -> None:
         assert result == "Accessible"
 
 
-def test_invalid_url_returns_not_accessibl() -> None:
+def test_invalid_url_returns_not_accessible() -> None:
     with mock.patch("app.main.valid_google_url") as mock_valid, \
          mock.patch("app.main.has_internet_connection") as mock_internet:
         mock_valid.return_value = False
