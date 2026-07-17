@@ -5,7 +5,7 @@ from app.main import (
 )
 
 
-def test_can_access_google_page_accessible() -> None:
+def test_valid_url_and_connection_exists_returns_accessible() -> None:
     with mock.patch("app.main.valid_google_url") as mock_valid, \
          mock.patch("app.main.has_internet_connection") as mock_internet:
         mock_valid.return_value = True
@@ -13,6 +13,8 @@ def test_can_access_google_page_accessible() -> None:
         result = can_access_google_page("http://google.com")
         assert result == "Accessible"
 
+
+def test_invalid_url_returns_not_accessibl() -> None:
     with mock.patch("app.main.valid_google_url") as mock_valid, \
          mock.patch("app.main.has_internet_connection") as mock_internet:
         mock_valid.return_value = False
@@ -20,6 +22,8 @@ def test_can_access_google_page_accessible() -> None:
         result = can_access_google_page("http://google.com")
         assert result == "Not accessible"
 
+
+def test_no_connection_returns_not_accessible() -> None:
     with mock.patch("app.main.valid_google_url") as mock_valid, \
          mock.patch("app.main.has_internet_connection") as mock_internet:
         mock_valid.return_value = True
