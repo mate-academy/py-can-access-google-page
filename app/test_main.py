@@ -3,9 +3,14 @@ from unittest.mock import MagicMock, patch
 from app.main import can_access_google_page
 
 
+from unittest.mock import MagicMock, patch
+
+from app.main import can_access_google_page
+
+
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_can_access_google_page(
+def test_accessible(
     mock_has_internet: MagicMock,
     mock_valid_url: MagicMock,
 ) -> None:
@@ -17,7 +22,7 @@ def test_can_access_google_page(
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_no_internet(
+def test_not_accessible_when_no_internet(
     mock_has_internet: MagicMock,
     mock_valid_url: MagicMock,
 ) -> None:
@@ -29,7 +34,7 @@ def test_no_internet(
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_invalid_url(
+def test_not_accessible_when_invalid_url(
     mock_has_internet: MagicMock,
     mock_valid_url: MagicMock,
 ) -> None:
@@ -41,7 +46,7 @@ def test_invalid_url(
 
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
-def test_invalid_url_and_no_internet(
+def test_not_accessible_when_no_internet_and_invalid_url(
     mock_has_internet: MagicMock,
     mock_valid_url: MagicMock,
 ) -> None:
