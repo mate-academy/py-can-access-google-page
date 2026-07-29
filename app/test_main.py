@@ -2,6 +2,8 @@ from unittest.mock import MagicMock, patch
 
 from app.main import can_access_google_page
 
+
+
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
 def test_accessible(
@@ -46,6 +48,5 @@ def test_not_accessible_when_no_internet_and_invalid_url(
 ) -> None:
     mock_has_internet.return_value = False
     mock_valid_url.return_value = False
-
 
     assert can_access_google_page("https://www.google.com") == "Not accessible"
