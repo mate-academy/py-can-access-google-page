@@ -3,7 +3,6 @@ from unittest.mock import MagicMock, patch
 from app.main import can_access_google_page
 
 
-
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
 def test_accessible(
