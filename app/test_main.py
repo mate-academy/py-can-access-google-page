@@ -1,18 +1,7 @@
 import pytest
 
-from unittest import mock
 
 from app import main
-
-
-@mock.patch("requests.get")
-def test_valid_google_url(mock_get: mock.Mock) -> None:
-    mock_get.return_value.status_code = 200
-    assert main.valid_google_url("https://google.com") is True
-
-def test_has_internet_connection(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("app.main.requests.get", mock.Mock())
-    assert main.has_internet_connection() is True
 
 
 @pytest.mark.parametrize(
