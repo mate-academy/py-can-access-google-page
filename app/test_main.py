@@ -3,6 +3,8 @@ from unittest.mock import patch
 from app.main import can_access_google_page
 
 
+url = "www.google.com"
+
 @pytest.mark.parametrize(
     "is_valid_url, has_connect, expected",
     [
@@ -17,12 +19,8 @@ def test_can_access_google_page(
         has_connect: bool,
         expected: str
 ) -> None:
-    with patch(
-            "app.main.valid_google_url",
-            return_value=is_valid_url
-    ),\
-        patch(
-            "app.main.has_internet_connection",
-            return_value=has_connect
-        ):
-        assert can_access_google_page("www.google.com") == expected
+    with patch("app.main.valid_google_url",
+               return_value=is_valid_url), \
+        patch("app.main.has_internet_connection",
+              return_value=has_connect):
+        assert can_access_google_page(url) == expected
