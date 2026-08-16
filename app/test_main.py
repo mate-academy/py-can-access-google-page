@@ -5,6 +5,7 @@ from app.main import can_access_google_page
 
 url = "www.google.com"
 
+
 @pytest.mark.parametrize(
     "is_valid_url, has_connect, expected",
     [
