@@ -15,7 +15,7 @@ from app.main import can_access_google_page
 )
 @mock.patch("app.main.valid_google_url")
 @mock.patch("app.main.has_internet_connection")
-def test_access_to_google_page(
+def test_valid_url_and_connection_exists(
         mock_valid_url: MagicMock,
         mock_internet_connection: MagicMock,
         internet_connection: bool,
