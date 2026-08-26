@@ -25,4 +25,4 @@ def test_valid_url_and_connection_exists(
     mock_valid_url.return_value = valid_url
     mock_internet_connection.return_value = internet_connection
 
-    assert can_access_google_page(valid_url) == result
+    assert can_access_google_page("https://google.com") == result
