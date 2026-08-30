@@ -32,6 +32,7 @@ def test_can_access_google_page_when_no_internet() -> None:
         mock.patch("app.main.valid_google_url") as mocked_valid,
         mock.patch("app.main.has_internet_connection") as mocked_has_connection
     ):
+        mocked_valid.return_value = True
         mocked_has_connection.return_value = False
         assert can_access_google_page(
             "https://www.google.com/"
