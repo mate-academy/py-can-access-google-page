@@ -12,6 +12,12 @@ from app.main import can_access_google_page
         (False, True, "Not accessible"),
         (False, False, "Not accessible"),
     ],
+    ids=[
+        "has_internet_valid_url",
+        "has_internet_invalid_url",
+        "no_internet_valid_url",
+        "no_internet_invalid_url"
+    ]
 )
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
