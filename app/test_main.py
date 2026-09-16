@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from app import main
 
@@ -6,8 +6,8 @@ from app import main
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
 def test_can_access_google_page_accessible(
-    mock_has_internet_connection, mock_valid_google_url
-):
+    mock_has_internet_connection: MagicMock, mock_valid_google_url: MagicMock
+) -> None:
     mock_has_internet_connection.return_value = True
     mock_valid_google_url.return_value = True
 
@@ -19,8 +19,8 @@ def test_can_access_google_page_accessible(
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
 def test_can_access_google_page_no_internet(
-    mock_has_internet_connection, mock_valid_google_url
-):
+    mock_has_internet_connection: MagicMock, mock_valid_google_url: MagicMock
+) -> None:
     mock_has_internet_connection.return_value = False
     mock_valid_google_url.return_value = True
 
@@ -32,8 +32,8 @@ def test_can_access_google_page_no_internet(
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
 def test_can_access_google_page_invalid_url(
-    mock_has_internet_connection, mock_valid_google_url
-):
+    mock_has_internet_connection: MagicMock, mock_valid_google_url: MagicMock
+) -> None:
     mock_has_internet_connection.return_value = True
     mock_valid_google_url.return_value = False
 
@@ -45,8 +45,8 @@ def test_can_access_google_page_invalid_url(
 @patch("app.main.valid_google_url")
 @patch("app.main.has_internet_connection")
 def test_can_access_google_page_invalid_url_and_no_internet(
-    mock_has_internet_connection, mock_valid_google_url
-):
+    mock_has_internet_connection: MagicMock, mock_valid_google_url: MagicMock
+) -> None:
     mock_has_internet_connection.return_value = False
     mock_valid_google_url.return_value = False
 
