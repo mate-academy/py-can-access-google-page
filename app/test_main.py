@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 import pytest
 
 from app.main import can_access_google_page
@@ -16,22 +16,21 @@ from app.main import can_access_google_page
 @patch("app.main.has_internet_connection")
 @patch("app.main.valid_google_url")
 def test_can_access_google_page(
-    mock_valid_google_url,
-    mock_has_internet_connection,
-    valid_url,
-    internet_conn,
-    expected,
-):
+    mock_valid_google_url: MagicMock,
+    mock_has_internet_connection: MagicMock,
+    valid_url: bool,
+    internet_conn: bool,
+    expected: str,
+) -> None :
     mock_valid_google_url.return_value = valid_url
     mock_has_internet_connection.return_value = internet_conn
 
     result = can_access_google_page("https://www.google.com")
-    
+
     assert result == expected
-    
-    # Перевіряємо виклики з урахуванням логіки Python (короткого замикання)
+
     mock_has_internet_connection.assert_called_once()
-    
+
     if internet_conn:
         mock_valid_google_url.assert_called_once_with("https://www.google.com")
     else:
