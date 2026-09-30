@@ -1,1 +1,35 @@
-# write your code here
+from app.main import can_access_google_page
+from unittest.mock import patch, Mock
+
+
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
+def test_accessible_when_url_valid_and_connection_exists(
+    mock_internet: Mock,
+    mock_valid: Mock
+) -> None:
+    mock_valid.return_value = True
+    mock_internet.return_value = True
+    assert can_access_google_page("https://www.google.com") == "Accessible"
+
+
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
+def test_not_accessible_when_url_invalid(
+    mock_internet: Mock,
+    mock_valid: Mock
+) -> None:
+    mock_valid.return_value = False
+    mock_internet.return_value = True
+    assert can_access_google_page("https://www.gogle.com") == "Not accessible"
+
+
+@patch("app.main.valid_google_url")
+@patch("app.main.has_internet_connection")
+def test_not_accessible_when_no_internet(
+    mock_internet: Mock,
+    mock_valid: Mock
+) -> None:
+    mock_valid.return_value = True
+    mock_internet.return_value = False
+    assert can_access_google_page("https://www.google.com") == "Not accessible"
