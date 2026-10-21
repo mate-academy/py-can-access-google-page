@@ -37,18 +37,22 @@ def test_can_access_google_page(
 @patch("app.main.has_internet_connection", return_value=True)
 @patch("app.main.valid_google_url", return_value=False)
 def test_strict_failure_only_internet(
-    mock_valid_url: MagicMock, mock_internet: MagicMock
+    mock_valid_url: MagicMock,
+    mock_internet: MagicMock
 ) -> None:
-    # Si solo hay internet pero la URL es inválida, debe fallar obligatoriamente
+    # Solo hay internet pero la URL es inválida;
+    # debe retornar "Not accessible".
     assert can_access_google_page("invalid-url") == "Not accessible"
 
 
 @patch("app.main.has_internet_connection", return_value=False)
 @patch("app.main.valid_google_url", return_value=True)
 def test_strict_failure_only_valid_url(
-    mock_valid_url: MagicMock, mock_internet: MagicMock
+    mock_valid_url: MagicMock,
+    mock_internet: MagicMock
 ) -> None:
-    # Si la URL es válida pero no hay internet, debe fallar obligatoriamente
+    # La URL es válida pero no hay internet;
+    # debe retornar "Not accessible".
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
 
