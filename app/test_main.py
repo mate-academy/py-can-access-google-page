@@ -40,8 +40,6 @@ def test_strict_failure_only_internet(
     mock_valid_url: MagicMock,
     mock_internet: MagicMock
 ) -> None:
-    # Solo hay internet pero la URL es inválida;
-    # debe retornar "Not accessible".
     assert can_access_google_page("invalid-url") == "Not accessible"
 
 
@@ -51,8 +49,6 @@ def test_strict_failure_only_valid_url(
     mock_valid_url: MagicMock,
     mock_internet: MagicMock
 ) -> None:
-    # La URL es válida pero no hay internet;
-    # debe retornar "Not accessible".
     assert can_access_google_page("https://www.google.com") == "Not accessible"
 
 
