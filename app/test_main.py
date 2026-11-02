@@ -21,7 +21,6 @@ def test_can_access_google_page(
     internet_active: bool,
     expected: str,
 ) -> None:
-    # Configura os retornos simulados para cada cenário
     mock_valid_google_url.return_value = valid_url
     mock_has_internet_connection.return_value = internet_active
 
