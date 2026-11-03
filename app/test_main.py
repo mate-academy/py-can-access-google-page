@@ -57,19 +57,26 @@ def test_can_access_google_page(
 @pytest.mark.parametrize(
     ("hour", "minute", "second", "expected"),
     [
-        (6, 0, 0, True),
-        (22, 59, 59, True),
-        (5, 59, 59, False),
-        (23, 0, 0, False),
+        (6, 0, 0, "Accessible"),
+        (22, 59, 59, "Accessible"),
+        (5, 59, 59, "Not accessible"),
+        (23, 0, 0, "Not accessible"),
     ],
 )
-def test_has_internet_connection(
-    mock_current_time: Callable,
+def test_can_access_google_page_with_time(
+    monkeypatch: MonkeyPatch,
+    mock_current_time: Callable[[int, int, int], None],
     hour: int,
     minute: int,
     second: int,
-    expected: bool,
+    expected: str,
 ) -> None:
     mock_current_time(hour, minute, second)
 
-    assert main.has_internet_connection() is expected
+    monkeypatch.setattr(
+        main,
+        "valid_google_url",
+        lambda url: True,
+    )
+
+    assert main.can_access_google_page("https://google.com") == expected
