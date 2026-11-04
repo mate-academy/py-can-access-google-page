@@ -45,5 +45,5 @@ def test_internet_connection_time_boundaries(
     current_time: datetime,
     expected_connection: bool,
 ) -> None:
-    mock_datetime.now.return_value = current_time
+    mock_datetime.datetime.now.return_value = current_time
     assert has_internet_connection() == expected_connection
