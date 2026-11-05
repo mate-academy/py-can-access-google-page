@@ -1,7 +1,7 @@
 import pytest
 
 
-import main
+from app import main
 
 
 @pytest.mark.parametrize(
