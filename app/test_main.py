@@ -2,7 +2,9 @@ import pytest
 import app.main as main
 
 
-def test_accessible(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_valid_url_and_connection_exists(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     monkeypatch.setattr(
         main,
         "has_internet_connection",
