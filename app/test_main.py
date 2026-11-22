@@ -6,34 +6,36 @@ from app.main import can_access_google_page
 
 
 @pytest.mark.parametrize(
-    "url, mocked_status_code, mocked_hour, expected_result", [
-        pytest.param("https://www.google.com",
-                     200,
-                     12,
+    "valid_google_url_result, "
+    "has_internet_connection_result, "
+    "expected_result", [
+        pytest.param(True,
+                     True,
                      "Accessible",
-                     id="Access Google page at midday."),
-        pytest.param("https://www.google.com",
-                     200,
-                     23,
+                     id="Valid url and internet connection."),
+        pytest.param(False,
+                     True,
                      "Not accessible",
-                     id="Access Google page at midnight."),
-        pytest.param("https://www.googlecom",
-                     400,
-                     12,
+                     id="Invalid url and internet connection."),
+        pytest.param(True,
+                     False,
                      "Not accessible",
-                     id="Wrong url."),
+                     id="Valid url without internet connection."),
+        pytest.param(False,
+                     False,
+                     "Not accessible",
+                     id="Invalid url without internet connection.")
     ]
 )
-@mock.patch("datetime.datetime")
-@mock.patch("requests.get")
+@mock.patch("app.main.valid_google_url")
+@mock.patch("app.main.has_internet_connection")
 def test_can_access_google_page(
-        mocked_get: mock.Mock,
-        mocked_datetime: mock.Mock,
-        url: str,
-        mocked_status_code: int,
-        mocked_hour: int,
-        expected_result: str,
+        mocked_internet_check: mock.Mock,
+        mocked_url_check: mock.Mock,
+        valid_google_url_result: bool,
+        has_internet_connection_result: bool,
+        expected_result: str
 ) -> None:
-    mocked_get.return_value.status_code = mocked_status_code
-    mocked_datetime.now.return_value.hour = mocked_hour
-    assert can_access_google_page(url) == expected_result
+    mocked_internet_check.return_value = valid_google_url_result
+    mocked_url_check.return_value = has_internet_connection_result
+    assert can_access_google_page("") == expected_result
